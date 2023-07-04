@@ -109,7 +109,7 @@ void Game::InitObject()
 
     //gameObject->GetComponent<SpriteRenderer>();
 
-
+    //sadfsadfs
 
     //gameObject = nullptr;
     //GameObject::Destroy(gameObject);
