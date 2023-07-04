@@ -58,3 +58,62 @@ float Functions::GetDistance(D3DXVECTOR3 point1, D3DXVECTOR3 point2)
     D3DXVECTOR3 diff = point2 - point1;
     return D3DXVec3Length(&diff);
 }
+
+D3DXVECTOR3 Functions::SLerp(const D3DXVECTOR3* origin, const D3DXVECTOR3* destination, float t) {
+    D3DXVECTOR3 startVec = *origin;
+    D3DXVECTOR3 endVec = *destination;
+
+    D3DXVec3Normalize(&startVec, &startVec);
+    D3DXVec3Normalize(&endVec, &endVec);
+
+    float dot = D3DXVec3Dot(&startVec, &endVec);
+
+    if (dot == 1.0f) {
+        return startVec + t * (endVec - startVec);
+    }
+
+    float theta = acosf(dot);
+    float sinTheta = sinf(theta);
+
+    float ratio1 = sinf((1.0f - t) * theta) / sinTheta;
+    float ratio2 = sinf(t * theta) / sinTheta;
+
+    D3DXVECTOR3 axis;
+    D3DXVec3Cross(&axis, &startVec, &endVec);
+    D3DXVec3Normalize(&axis, &axis);
+
+    D3DXQUATERNION quat;
+    quat.x = axis.x * ratio1 + endVec.x * ratio2;
+    quat.y = axis.y * ratio1 + endVec.y * ratio2;
+    quat.z = axis.z * ratio1 + endVec.z * ratio2;
+    quat.w = startVec.x * ratio1 + startVec.y * ratio2 + startVec.z * ratio2;
+
+    D3DXMATRIX rotMat;
+    D3DXQuaternionNormalize(&quat, &quat);
+    D3DXQuaternionToAxisAngle(&quat, &axis, &theta);
+    D3DXQuaternionRotationMatrix(&quat, D3DXMatrixRotationAxis(&rotMat, &axis, theta));
+
+    D3DXVECTOR3 result;
+    D3DXVECTOR3 rvec(0.0f, 0.0f, 1.0f);
+    D3DXVec3TransformCoord(&result, &rvec, &rotMat);
+
+    return result;
+}
+
+D3DXVECTOR3 Functions::D3DXQuaternionToRotation(D3DXQUATERNION quat) {
+    float fqw = quat.w * quat.w;
+    float fqx = quat.x * quat.x;
+    float fqy = quat.y * quat.y;
+    float fqz = quat.z * quat.z;
+
+    float yaw = atan2f(2.0f * (quat.x * quat.z + quat.w * quat.y), (-fqx - fqy + fqx + fqw));
+    float pitch = asinf(2.0f * (quat.w * quat.x + quat.y * quat.y));
+    float roll = atan2f(2.0f * (quat.x * quat.y + quat.w * quat.z), (-fqx + fqy - fqx + fqw));
+
+    float x = D3DXToDegree(pitch);
+    float y = D3DXToDegree(yaw);
+    float z = D3DXToDegree(roll);
+
+    D3DXVECTOR3 vec = D3DXVECTOR3(x, y, z);
+    return vec;
+}

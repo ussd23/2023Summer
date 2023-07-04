@@ -31,6 +31,9 @@ float Lerp(float, float, float);
 bool Inner(RECT, D3DXVECTOR2);
 D3DXVECTOR2 WorldToScreen(Transform*);
 float GetDistance(D3DXVECTOR3, D3DXVECTOR3);
+
+D3DXVECTOR3 SLerp(const D3DXVECTOR3*, const D3DXVECTOR3*, float);
+D3DXVECTOR3 D3DXQuaternionToRotation(D3DXQUATERNION);
 }
 
 #define AddObjectToScene(object, parent, transform) g_Objects.push_back(object);\
