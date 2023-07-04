@@ -29,13 +29,11 @@ void CameraMove::Update()
         Transform* transform = GetComponentFromObject(comp->gameObject, Transform);
         if (transform == nullptr) return;
 
-        camera->vLookatPt.x = Functions::Lerp(camera->vLookatPt.x, transform->position.x, Time::deltaTime * LerpT);
-        camera->vLookatPt.z = Functions::Lerp(camera->vLookatPt.z, transform->position.z, Time::deltaTime * LerpT);
+        camera->vLookatPt = Functions::Lerp(camera->vLookatPt, transform->position, Time::deltaTime * LerpT);
     }
     else
     {
-        camera->vLookatPt.x = Functions::Lerp(camera->vLookatPt.x, 0, Time::deltaTime * LerpT);
-        camera->vLookatPt.z = Functions::Lerp(camera->vLookatPt.z, 0, Time::deltaTime * LerpT);
+        camera->vLookatPt = Functions::Lerp(camera->vLookatPt, D3DXVECTOR3(0, 1, 0), Time::deltaTime * LerpT);
     }
 
     if (GetInputBuffer(g_key, VK_ESCAPE))

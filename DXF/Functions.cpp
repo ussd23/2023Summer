@@ -2,12 +2,6 @@
 #include "Transform.h"
 #include "Global.h"
 
-template <typename T>
-T Functions::Lerp(T startValue, T endValue, float t)
-{
-    return startValue + t * (endValue - startValue);
-}
-
 //float Functions::Lerp(float startValue, float endValue, float t)
 //{
 //    return startValue + t * (endValue - startValue);

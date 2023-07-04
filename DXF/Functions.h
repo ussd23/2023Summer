@@ -38,6 +38,11 @@ D3DXVECTOR3 SLerp(const D3DXVECTOR3*, const D3DXVECTOR3*, float);
 D3DXVECTOR3 D3DXQuaternionToRotation(D3DXQUATERNION);
 }
 
+template <typename T> T Functions::Lerp(T startValue, T endValue, float t)
+{
+    return startValue + t * (endValue - startValue);
+}
+
 #define AddObjectToScene(object, parent, transform) g_Objects.push_back(object);\
         parent->AddChild(transform);
 #define AddComponentToObject(object, component) object->AddComponent(component)
