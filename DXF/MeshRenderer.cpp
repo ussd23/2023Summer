@@ -1,0 +1,55 @@
+#include "ComponentHeader.h"
+
+MeshRenderer::MeshRenderer(GameObject* _gameObject, string _modelname)
+{
+    gameObject = _gameObject;
+    modelname = _modelname;
+}
+
+void MeshRenderer::Start()
+{
+    transform = GetComponentFromObject(gameObject, Transform);
+
+    meshinfo = MeshManager::GetInstance()->GetMesh(modelname);
+}
+
+void MeshRenderer::Render()
+{
+    if (transform == nullptr) return;
+    if (meshinfo == nullptr) return;
+
+    D3DXVECTOR3 pos = transform->GetWorldPosition();
+    D3DXVECTOR3 rot = transform->GetWorldRotation();
+    D3DXVECTOR3 scale = transform->GetWorldScale();
+
+    D3DXMATRIXA16 matWorldPosition;
+    D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
+
+    D3DXMATRIXA16 matWorldRotationX;
+    D3DXMatrixRotationX(&matWorldRotationX, D3DXToRadian(rot.x));
+
+    D3DXMATRIXA16 matWorldRotationY;
+    D3DXMatrixRotationY(&matWorldRotationY, D3DXToRadian(rot.y));
+
+    D3DXMATRIXA16 matWorldRotationZ;
+    D3DXMatrixRotationZ(&matWorldRotationZ, D3DXToRadian(rot.z));
+
+    D3DXMATRIXA16 matWorldScale;
+    D3DXMatrixScaling(&matWorldScale, scale.x, scale.y, scale.z);
+
+    D3DXMATRIXA16 matWorldSet;
+    D3DXMatrixIdentity(&matWorldSet);
+    matWorldSet = matWorldScale * matWorldRotationX * matWorldRotationY * matWorldRotationZ * matWorldPosition;
+    g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
+
+    for (DWORD i = 0; i < meshinfo->dwNumMaterials; i++)
+    {
+        // mat
+        g_pd3dDevice->SetMaterial(&meshinfo->pMeshMaterials[i]);
+        g_pd3dDevice->SetTexture(0, meshinfo->pMeshTextures[i]);
+        // g_pd3dDevice->SetVertexShader()
+
+        if (meshinfo->pMesh == NULL) return;
+        meshinfo->pMesh->DrawSubset(i);
+    }
+}
