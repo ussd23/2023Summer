@@ -27,7 +27,9 @@ class Transform;
 
 namespace Functions
 {;
-float Lerp(float, float, float);
+template <typename T> T Lerp(T, T, float);
+//float Lerp(float, float, float);
+
 bool Inner(RECT, D3DXVECTOR2);
 D3DXVECTOR2 WorldToScreen(Transform*);
 float GetDistance(D3DXVECTOR3, D3DXVECTOR3);
