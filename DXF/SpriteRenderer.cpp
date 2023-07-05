@@ -3,12 +3,16 @@
 SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename) :
     SpriteRenderer(_gameObject, _texturename, D3DXVECTOR2(1, 1), D3DXVECTOR2(0, 0)) {}
 
-SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename, D3DXVECTOR2 _rectsize, D3DXVECTOR2 _rectindex)
+SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename, D3DXVECTOR2 _rectsize, D3DXVECTOR2 _rectindex) :
+    SpriteRenderer(_gameObject, _texturename, 0xffffffff, _rectsize, _rectindex) {}
+
+SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename, DWORD _color, D3DXVECTOR2 _rectsize, D3DXVECTOR2 _rectindex)
 {
     gameObject = _gameObject;
     texturename = _texturename;
     rectsize = _rectsize;
     rectindex = _rectindex;
+    color = _color;
 }
 
 void SpriteRenderer::Start()
@@ -60,6 +64,6 @@ void SpriteRenderer::Render()
     matScreenSet = matScreenScale * matScreenRotationX * matScreenRotationY * matScreenRotationZ * matScreenPosition;
 	g_pSprite->SetTransform(&matScreenSet);
     g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-    g_pSprite->Draw(pTexture, &rect, NULL, NULL, 0xffffffff);
+    g_pSprite->Draw(pTexture, &rect, NULL, NULL, color);
     g_pSprite->End();
 }

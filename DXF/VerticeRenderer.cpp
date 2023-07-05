@@ -4,10 +4,15 @@ VerticeRenderer::VerticeRenderer(GameObject* _gameObject, vector<CUSTOMVERTEX> _
     : VerticeRenderer(_gameObject, "", _vertices, _type, _startvertex, _count) {}
 
 VerticeRenderer::VerticeRenderer(GameObject* _gameObject, string _texturename, vector<CUSTOMVERTEX> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
+    : VerticeRenderer(_gameObject, _texturename, D3DXVECTOR2(1, 1), D3DXVECTOR2(0, 0), _vertices, _type, _startvertex, _count) {}
+
+VerticeRenderer::VerticeRenderer(GameObject* _gameObject, string _texturename, D3DXVECTOR2 _rectsize, D3DXVECTOR2 _rectindex, vector<CUSTOMVERTEX> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
 {
     texturename = _texturename;
     gameObject = _gameObject;
     vertices = _vertices;
+    rectsize = _rectsize;
+    rectindex = _rectindex;
     type = _type;
     startvertex = _startvertex;
     count = _count;
@@ -33,12 +38,17 @@ void VerticeRenderer::Render()
         return;
     }
 
+    D3DXVECTOR2 temp = D3DXVECTOR2(1 / rectsize.x, 1 / rectsize.y);
+
     CUSTOMVERTEX* pVertices;
     if (FAILED(g_pVB->Lock(0, 0, (void**)&pVertices, 0)))
         return;
     for (DWORD i = 0; i < vertices.size(); ++i)
     {
-        pVertices[i] = vertices[i];
+        CUSTOMVERTEX vertex = vertices[i];
+        vertex.tu = rectindex.x * temp.x + (vertex.tu * temp.x);
+        vertex.tv = rectindex.y * temp.y + (vertex.tv * temp.y);
+        pVertices[i] = vertex;
     }
     g_pVB->Unlock();
 

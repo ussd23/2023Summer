@@ -10,7 +10,7 @@
 //		- indexMin: 최소 인덱스 번호 (0보다 작을 수 없음)
 //		- indexMax: 최대 인덱스 번호 (Renderer의 rectsize.y - 1보다 클 수 없음)
 //		- refreshTime: 인덱스를 바꿀 시간 차이
-//		- isDown: 변경할 인덱스의 방향 (false: x축 / true: y축)
+//		- isVertical: 변경할 인덱스의 방향 (false: x축 / true: y축)
 //-----------------------------------------------------------------------------
 
 #pragma once
@@ -24,17 +24,18 @@ class VerticeRenderer;
 class Animator : public Component
 {
 protected:
-	SpriteRenderer*		sprite;
-	VerticeRenderer*	vertice;
+	SpriteRenderer*		sprite = nullptr;
+	VerticeRenderer*	vertice = nullptr;
 	FLOAT				passedTime = 0.f;
 
 public:
 	int					indexMin;
 	int					indexMax;
 	float				refreshTime;
-	bool				isDown;
+	bool				isVertical;
 
 public:
+	Animator(float);
 	Animator(int, float);
 	Animator(int, int, float);
 	Animator(int, int, float, bool);

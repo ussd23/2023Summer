@@ -30,12 +30,14 @@ void Game::InitObject()
     transform = new Transform(gameObject, D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR3(1.f, 1.f, 1.f));
     AddComponentToObject(gameObject, transform);
     vector<CUSTOMVERTEX> vec;
-    vec.push_back({ -30.0f, 0.0f, -20.0f, 0x5383d8ff, /*0.0f, 1.0f*/ });
-    vec.push_back({ -30.0f, 0.0f,  20.0f, 0x5383d8ff, /*0.0f, 0.0f*/ });
-    vec.push_back({  30.0f, 0.0f, -20.0f, 0x538378ff, /*1.0f, 1.0f*/ });
-    vec.push_back({  30.0f, 0.0f,  20.0f, 0x538378ff, /*1.0f, 0.0f*/ });
-    VerticeRenderer* vertice = new VerticeRenderer(gameObject, /*"earthmap1k.jpg",*/ vec, D3DPRIMITIVETYPE::D3DPT_TRIANGLESTRIP, 0, 2);
+    vec.push_back({ -30.0f, 0.0f, -20.0f, 0x5383d8ff, 0.0f, 1.0f });
+    vec.push_back({ -30.0f, 0.0f,  20.0f, 0x5383d8ff, 0.0f, 0.0f });
+    vec.push_back({  30.0f, 0.0f, -20.0f, 0x538378ff, 1.0f, 1.0f });
+    vec.push_back({  30.0f, 0.0f,  20.0f, 0x538378ff, 1.0f, 0.0f });
+    VerticeRenderer* vertice = new VerticeRenderer(gameObject, "earthmap1k.jpg", D3DXVECTOR2(3, 3), D3DXVECTOR2(2, 0), vec, D3DPRIMITIVETYPE::D3DPT_TRIANGLESTRIP, 0, 2);
     AddComponentToObject(gameObject, vertice);
+    Animator* animator = new Animator(0, MAXINT, 1.f, true);
+    AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
     // Sun (Player)
@@ -106,7 +108,7 @@ void Game::InitObject()
     AddComponentToObject(gameObject, rect);
     SpriteRenderer* spr = new SpriteRenderer(gameObject, "earthmap1k.jpg", D3DXVECTOR2(4,4), D3DXVECTOR2(0,0));
     AddComponentToObject(gameObject, spr);
-    Animator* animator = new Animator(0, 3, 1);
+    animator = new Animator(0.5f);
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 
