@@ -25,4 +25,3 @@
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 #include "Camera.h"
-#include "Scripts.h"

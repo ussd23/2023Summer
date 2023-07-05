@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 
 #pragma once
+#include "Variables.h"
 #include "CameraMove.h"
 #include "PlayerMove.h"
 #include "ObjectMove.h"

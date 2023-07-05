@@ -13,15 +13,17 @@ MeshInfo* MeshManager::GetMesh(string _filepath)
 
     LPD3DXBUFFER pD3DXMtrlBuffer;
 
-    if (FAILED(D3DXLoadMeshFromX(_filepath.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
+    string path = "resources\\" + _filepath;
+    if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
     {
-        string path = "resources\\" + _filepath;
+        path = "..\\resources\\" + _filepath;
         if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
         {
-            path = "..\\resources\\", _filepath;
+            path = "..\\..\\resources\\", _filepath;
             if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
             {
                 MessageBox(NULL, "Could not find mesh file", "Mesh Load Failed", MB_OK);
+                return nullptr;
             }
         }
     }

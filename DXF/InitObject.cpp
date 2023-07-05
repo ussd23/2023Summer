@@ -1,4 +1,5 @@
 #include "ComponentHeader.h"
+#include "Scripts.h"
 
 void Game::InitObject()
 {
