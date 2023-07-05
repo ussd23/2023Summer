@@ -90,6 +90,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>3. Object</Filter>
     </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="Raycast.h">
       <Filter>1. Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>4. Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

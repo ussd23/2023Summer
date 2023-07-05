@@ -42,12 +42,14 @@ LPDIRECT3DDEVICE9				g_pd3dDevice = NULL;
 D3DMATERIAL9					g_defaultMaterial;
 IDirect3DBaseTexture9*			g_defaultTexture;
 LPDIRECT3DVERTEXBUFFER9			g_pVB = NULL;
+LPD3DXSPRITE					g_pSprite = NULL;
 #else
 extern LPDIRECT3D9				g_pD3D;
 extern LPDIRECT3DDEVICE9		g_pd3dDevice;
 extern D3DMATERIAL9				g_defaultMaterial;
 extern IDirect3DBaseTexture9*	g_defaultTexture;
 extern LPDIRECT3DVERTEXBUFFER9	g_pVB;
+extern LPD3DXSPRITE				g_pSprite;
 #endif
 
 LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

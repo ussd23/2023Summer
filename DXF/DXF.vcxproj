@@ -150,6 +150,7 @@
     <ClCompile Include="RectTransform.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="RectTransform.h" />
     <ClInclude Include="ComponentHeader.h" />
     <ClInclude Include="SphereCollider.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StandardLibrary.h" />
     <ClInclude Include="TextRenderer.h" />

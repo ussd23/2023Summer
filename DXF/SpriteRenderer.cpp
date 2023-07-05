@@ -1,9 +1,14 @@
 #include "ComponentHeader.h"
 
-SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename)
+SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename) :
+    SpriteRenderer(_gameObject, _texturename, D3DXVECTOR2(1, 1), D3DXVECTOR2(0, 0)) {}
+
+SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename, D3DXVECTOR2 _rectsize, D3DXVECTOR2 _rectindex)
 {
     gameObject = _gameObject;
     texturename = _texturename;
+    rectsize = _rectsize;
+    rectindex = _rectindex;
 }
 
 void SpriteRenderer::Start()
@@ -14,20 +19,22 @@ void SpriteRenderer::Start()
 
     pTexture = TextureManager::GetInstance()->GetTexture(texturename);
 
-    D3DXCreateSprite(g_pd3dDevice, &pSprite);
+    if (pTexture == NULL) return;
+
+    D3DSURFACE_DESC desc;
+    pTexture->GetLevelDesc(0, &desc);
+    SetRect(&texturesize, 0, 0, desc.Width, desc.Height);
 }
 
 void SpriteRenderer::Render()
 {
 	if (recttransform == nullptr) return;
     if (pTexture == NULL) return;
+
+    D3DXVECTOR2 temp = D3DXVECTOR2(texturesize.right / rectsize.x, texturesize.bottom / rectsize.y);
+    RECT rect;
+    SetRect(&rect, rectindex.x * temp.x, rectindex.y * temp.y, (rectindex.x + 1) * temp.x, (rectindex.y + 1) * temp.y);
     
-    D3DSURFACE_DESC desc;
-    pTexture->GetLevelDesc(0, &desc);
-
-	RECT rect;
-	SetRect(&rect, 0, 0, desc.Width, desc.Height);
-
     D3DXVECTOR2 pos = recttransform->GetScreenPosition();
     D3DXVECTOR3 rot = recttransform->GetScreenRotation();
     D3DXVECTOR2 scale = recttransform->GetScreenScale();
@@ -46,13 +53,13 @@ void SpriteRenderer::Render()
     D3DXMatrixRotationZ(&matScreenRotationZ, D3DXToRadian(rot.z));
 
     D3DXMATRIX matScreenScale;
-    D3DXMatrixScaling(&matScreenScale, (size.x / desc.Width) * scale.x, (size.y / desc.Height) * scale.y, 0);
+    D3DXMatrixScaling(&matScreenScale, (size.x / temp.x) * scale.x, (size.y / temp.y) * scale.y, 0);
 
     D3DXMATRIXA16 matScreenSet;
     D3DXMatrixIdentity(&matScreenSet);
     matScreenSet = matScreenScale * matScreenRotationX * matScreenRotationY * matScreenRotationZ * matScreenPosition;
-	pSprite->SetTransform(&matScreenSet);
-	pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-	pSprite->Draw(pTexture, &rect, NULL, NULL, 0xffffffff);
-	pSprite->End();
+	g_pSprite->SetTransform(&matScreenSet);
+    g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+    g_pSprite->Draw(pTexture, &rect, NULL, NULL, 0xffffffff);
+    g_pSprite->End();
 }

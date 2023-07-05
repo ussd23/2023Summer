@@ -28,6 +28,8 @@ HRESULT InitD3D(HWND hWnd)
     g_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
     g_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+    D3DXCreateSprite(g_pd3dDevice, &g_pSprite);
+
     g_RootObject = new GameObject("RootObject");
     g_RootTransform = new Transform(nullptr, D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR3(1.f, 1.f, 1.f));
     AddComponentToObject(g_RootObject, g_RootTransform);

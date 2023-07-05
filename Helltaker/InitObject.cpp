@@ -104,8 +104,10 @@ void Game::InitObject()
     gameObject = new GameObject("Sprite");
     rect = new RectTransform(gameObject, D3DXVECTOR2(100, SCREENSIZEY - 50), D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR2(1.f, 1.f), D3DXVECTOR2(200, 100));
     AddComponentToObject(gameObject, rect);
-    SpriteRenderer* spr = new SpriteRenderer(gameObject, "earthmap1k.jpg");
+    SpriteRenderer* spr = new SpriteRenderer(gameObject, "earthmap1k.jpg", D3DXVECTOR2(4,4), D3DXVECTOR2(0,0));
     AddComponentToObject(gameObject, spr);
+    Animator* animator = new Animator(0, 3, 1);
+    AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 
     //gameObject->GetComponent<SpriteRenderer>();

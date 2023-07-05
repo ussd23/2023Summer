@@ -1,4 +1,3 @@
-#include "ComponentHeader.h"
 #include "Scripts.h"
 
 PlayerMove* PlayerMove::player = nullptr;

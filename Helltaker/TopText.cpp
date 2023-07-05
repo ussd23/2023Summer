@@ -1,4 +1,3 @@
-#include "ComponentHeader.h"
 #include "Scripts.h"
 
 void TopText::Start()

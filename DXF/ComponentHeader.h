@@ -20,6 +20,7 @@
 #include "VerticeRenderer.h"
 #include "TextRenderer.h"
 #include "SpriteRenderer.h"
+#include "Animator.h"
 #include "MouseFunction.h"
 #include "Collider.h"
 #include "BoxCollider.h"
