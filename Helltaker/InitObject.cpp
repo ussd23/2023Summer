@@ -19,7 +19,7 @@ void Game::InitObject()
     gameObject = new GameObject("MainCamera");
     Transform* transform = new Transform(gameObject, D3DXVECTOR3(0, 40, -40), D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR3(1.f, 1.f, 1.f));
     AddComponentToObject(gameObject, transform);
-    Camera* camera = new Camera(gameObject, D3DXVECTOR3(0, 0, 0));
+    Camera* camera = new Camera(gameObject, D3DXVECTOR3(0, 1, 0));
     AddComponentToObject(gameObject, camera);
     CameraMove* cmove = new CameraMove();
     AddComponentToObject(gameObject, cmove);
