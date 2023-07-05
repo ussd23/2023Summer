@@ -33,12 +33,6 @@
     <ClCompile Include="MsgProc.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectMove.cpp">
-      <Filter>3. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMove.cpp">
-      <Filter>3. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Render.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
@@ -54,14 +48,8 @@
     <ClCompile Include="RectTransform.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
-    <ClCompile Include="TopText.cpp">
-      <Filter>3. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>4. Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraMove.cpp">
-      <Filter>3. Scripts</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>4. Components</Filter>
@@ -75,15 +63,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
-<<<<<<< Updated upstream
-    <ClCompile Include="GameObject.cpp">
-      <Filter>0. Core\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="InitObject.cpp">
-      <Filter>1. Importants</Filter>
-    </ClCompile>
-=======
->>>>>>> Stashed changes
     <ClCompile Include="BoxCollider.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
@@ -108,6 +87,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>3. Object</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>3. Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -115,12 +97,6 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>4. Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectMove.h">
-      <Filter>3. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMove.h">
-      <Filter>3. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="VerticeRenderer.h">
       <Filter>4. Components</Filter>
@@ -131,9 +107,6 @@
     <ClInclude Include="RectTransform.h">
       <Filter>4. Components</Filter>
     </ClInclude>
-    <ClInclude Include="TopText.h">
-      <Filter>3. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>4. Components</Filter>
     </ClInclude>
@@ -142,9 +115,6 @@
     </ClInclude>
     <ClInclude Include="CustomVertex.h">
       <Filter>0. Core\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraMove.h">
-      <Filter>3. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
       <Filter>4. Components</Filter>
@@ -161,21 +131,6 @@
     <ClInclude Include="Component.h">
       <Filter>0. Core\Header</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
-    <ClInclude Include="Functions.h">
-      <Filter>0. Core\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Raycast.h">
-      <Filter>0. Core\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>0. Core\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts.h">
-      <Filter>1. Importants</Filter>
-    </ClInclude>
-=======
->>>>>>> Stashed changes
     <ClInclude Include="Global.h">
       <Filter>0. Core\Header</Filter>
     </ClInclude>
@@ -184,9 +139,6 @@
     </ClInclude>
     <ClInclude Include="StandardLibrary.h">
       <Filter>0. Core\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Variables.h">
-      <Filter>1. Importants</Filter>
     </ClInclude>
     <ClInclude Include="BoxCollider.h">
       <Filter>4. Components</Filter>
@@ -211,6 +163,15 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>3. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>3. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions.h">
+      <Filter>1. Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Raycast.h">
+      <Filter>1. Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

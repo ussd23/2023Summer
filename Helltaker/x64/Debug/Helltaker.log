@@ -1,1 +1,13 @@
-﻿  Helltaker.vcxproj -> D:\GitHub\2023Summer\x64\Debug\Helltaker.exe
+﻿  CameraMove.cpp
+D:\GitHub\2023Summer\Helltaker\CameraMove.cpp(15,31): warning C4305: '*=': 'double'에서 'float'(으)로 잘립니다.
+D:\GitHub\2023Summer\Helltaker\CameraMove.cpp(21,31): warning C4305: '/=': 'double'에서 'float'(으)로 잘립니다.
+  InitObject.cpp
+  ObjectMove.cpp
+D:\GitHub\2023Summer\Helltaker\ObjectMove.cpp(8,68): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\GitHub\2023Summer\Helltaker\ObjectMove.cpp(8,38): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  PlayerMove.cpp
+  TopText.cpp
+  winmain.cpp
+D:\GitHub\2023Summer\Helltaker\winmain.cpp(9,15): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  Helltaker.vcxproj -> D:\GitHub\2023Summer\x64\Debug\Helltaker.exe

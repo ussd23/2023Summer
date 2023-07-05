@@ -20,7 +20,6 @@
 #include "StandardLibrary.h"
 #include "DXHeader.h"
 #include "Raycast.h"
-#include "Variables.h"
 
 class GameObject;
 class Transform;
