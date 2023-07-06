@@ -44,17 +44,16 @@ protected:
     vector<Transform*>  childs;
 
 public:
-    D3DXVECTOR3         position;
-    D3DXVECTOR3         rotation;
-    D3DXVECTOR3         scale;
+    Vector3         position;
+    Vector3         rotation;
+    Vector3         scale;
 
 public:
-    Transform(GameObject*, D3DXVECTOR3, D3DXVECTOR3, D3DXVECTOR3);
-    ~Transform();
+    Transform(GameObject*, Vector3, Vector3, Vector3);
 
-    D3DXVECTOR3 GetWorldPosition();
-    D3DXVECTOR3 GetWorldRotation();
-    D3DXVECTOR3 GetWorldScale();
+    Vector3 GetWorldPosition();
+    Vector3 GetWorldRotation();
+    Vector3 GetWorldScale();
 
     int GetChildCount();
     Transform* GetChild(int);

@@ -11,6 +11,21 @@
 
 vector<GameObject*> GameObject::safedestroy;
 
+bool GameObject::TransformCheck(const string& _key)
+{
+	if (typeid(Transform).name() == _key || typeid(RectTransform).name() == _key)
+	{
+		Transform* transform = GetComponentFromObject(this, Transform);
+		RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+		if (transform != nullptr || recttransform != nullptr)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 GameObject::GameObject(string _name)
 {
 	name = _name;
@@ -19,11 +34,13 @@ GameObject::GameObject(string _name)
 GameObject::~GameObject()
 {
 	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
 	if (transform != nullptr)
 	{
-		for (int i = 0; i < transform->GetChildCount(); ++i)
+		while (transform->GetChildCount() > 0)
 		{
-			delete transform->GetChild(i)->gameObject;
+			Erase(transform->GetChild(0)->gameObject);
 		}
 		if (transform->GetParent() != nullptr)
 		{
@@ -31,12 +48,11 @@ GameObject::~GameObject()
 		}
 	}
 
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
-	if (recttransform != nullptr)
+	else if (recttransform != nullptr)
 	{
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		while (recttransform->GetChildCount() > 0)
 		{
-			delete recttransform->GetChild(i)->gameObject;
+			Erase(recttransform->GetChild(0)->gameObject);
 		}
 		if (recttransform->GetParent() != nullptr)
 		{
@@ -46,16 +62,7 @@ GameObject::~GameObject()
 
 	for (int i = 0; i < components.size(); ++i)
 	{
-		delete components[i];
-	}
-
-	for (int i = 0; i < g_Objects.size(); ++i)
-	{
-		if (g_Objects[i] == this)
-		{
-			g_Objects.erase(g_Objects.begin() + i);
-			break;
-		}
+		components[i] = nullptr;
 	}
 
 	for (int i = 0; i < safedestroy.size(); ++i)
@@ -67,7 +74,8 @@ GameObject::~GameObject()
 		}
 	}
 
-	if (this == g_RootObject) g_RootObject = nullptr;
+	if (g_RootObject == this) g_RootObject = nullptr;
+	else if (g_RootRectObject == this) g_RootRectObject = nullptr;
 }
 
 bool GameObject::isStarted()
@@ -101,6 +109,8 @@ void GameObject::Update()
 	}
 
 	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
 	if (transform != nullptr)
 	{
 		for (int i = 0; i < transform->GetChildCount(); ++i)
@@ -108,8 +118,8 @@ void GameObject::Update()
 			transform->GetChild(i)->gameObject->Update();
 		}
 	}
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
-	if (recttransform != nullptr)
+
+	else if (recttransform != nullptr)
 	{
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
@@ -122,26 +132,29 @@ void GameObject::Render()
 {
 	if (!active) return;
 
-	MeshRenderer* mesh = GetComponentFromObject(this, MeshRenderer);
-	if (mesh != nullptr) mesh->Render();
-	VerticeRenderer* vertice = GetComponentFromObject(this, VerticeRenderer);
-	if (vertice != nullptr) vertice->Render();
-	TextRenderer* text = GetComponentFromObject(this, TextRenderer);
-	if (text != nullptr) text->Render();
-	SpriteRenderer* sprite = GetComponentFromObject(this, SpriteRenderer);
-	if (sprite != nullptr) sprite->Render();
-
 	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
 	if (transform != nullptr)
 	{
+		MeshRenderer* mesh = GetComponentFromObject(this, MeshRenderer);
+		if (mesh != nullptr) mesh->Render();
+		VerticeRenderer* vertice = GetComponentFromObject(this, VerticeRenderer);
+		if (vertice != nullptr) vertice->Render();
+
 		for (int i = 0; i < transform->GetChildCount(); ++i)
 		{
 			transform->GetChild(i)->gameObject->Render();
 		}
 	}
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
-	if (recttransform != nullptr)
+
+	else if (recttransform != nullptr)
 	{
+		TextRenderer* text = GetComponentFromObject(this, TextRenderer);
+		if (text != nullptr) text->Render();
+		SpriteRenderer* sprite = GetComponentFromObject(this, SpriteRenderer);
+		if (sprite != nullptr) sprite->Render();
+
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
 			recttransform->GetChild(i)->gameObject->Render();
@@ -171,6 +184,7 @@ void GameObject::SetActive(bool _active)
 	}
 
 	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
 	if (transform != nullptr)
 	{
 		for (int i = 0; i < transform->GetChildCount(); ++i)
@@ -178,8 +192,7 @@ void GameObject::SetActive(bool _active)
 			transform->GetChild(i)->gameObject->SetActive(active);
 		}
 	}
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
-	if (recttransform != nullptr)
+	else if (recttransform != nullptr)
 	{
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
@@ -193,7 +206,7 @@ void GameObject::ObjectInit(Component* comp)
 	comp->gameObject = this;
 }
 
-Component* GameObject::GetComponent(string _key)
+Component* GameObject::GetComponent(const string& _key)
 {
 	string key = "class " + _key;
 
@@ -215,16 +228,35 @@ void GameObject::SafeDestroy()
 {
 	if (safedestroy.size() == 0) return;
 
-	for (int i = 0; i < safedestroy.size(); ++i)
+	while (safedestroy.size() > 0)
 	{
-		if (safedestroy[i] != nullptr)
+		if (safedestroy[0] == nullptr) return;
+
+		Erase(safedestroy[0]);
+		safedestroy.erase(safedestroy.begin());
+	}
+
+	for (int i = 0; i < g_Objects.size(); ++i)
+	{
+		if (g_Objects[i]() == nullptr)
 		{
-			delete safedestroy[i];
-			safedestroy[i] = nullptr;
+			g_Objects.erase(g_Objects.begin() + i--);
 		}
 	}
 
 	safedestroy.clear();
+}
+
+void GameObject::Erase(GameObject* _gameObject)
+{
+	for (int i = 0; i < g_Objects.size(); ++i)
+	{
+		if (g_Objects[i] == _gameObject)
+		{
+			g_Objects[i] = nullptr;
+			break;
+		}
+	}
 }
 
 bool GameObject::Exists(GameObject* _gameObject)

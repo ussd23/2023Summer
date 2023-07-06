@@ -33,7 +33,7 @@ void CameraMove::Update()
     }
     else
     {
-        camera->vLookatPt = Functions::Lerp(camera->vLookatPt, D3DXVECTOR3(0, 1, 0), Time::deltaTime * LerpT);
+        camera->vLookatPt = Functions::Lerp(camera->vLookatPt, Vector3(0, 1, 0), Time::deltaTime * LerpT);
     }
 
     if (GetInputBuffer(g_key, VK_ESCAPE))

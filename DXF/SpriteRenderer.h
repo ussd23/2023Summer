@@ -33,13 +33,13 @@ protected:
 
 public:
 	DWORD					color;
-	D3DXVECTOR2				rectsize;
-	D3DXVECTOR2				rectindex;
+	Vector2				rectsize;
+	Vector2				rectindex;
 
 public:
 	SpriteRenderer(GameObject*, string);
-	SpriteRenderer(GameObject*, string, D3DXVECTOR2, D3DXVECTOR2);
-	SpriteRenderer(GameObject*, string, DWORD, D3DXVECTOR2, D3DXVECTOR2);
+	SpriteRenderer(GameObject*, string, Vector2, Vector2);
+	SpriteRenderer(GameObject*, string, DWORD, Vector2, Vector2);
 	void Render();
 
 	void Start() override;

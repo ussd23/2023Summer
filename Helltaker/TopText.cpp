@@ -16,8 +16,8 @@ void TopText::Update()
     PlayerMove* playermove = GetComponentFromObject(PlayerMove::player->gameObject, PlayerMove);
     if (playermove == nullptr) return;
 
-    D3DXVECTOR3 wpos = transform->GetWorldPosition();
-    D3DXVECTOR2 spos = Functions::WorldToScreen(transform);
+    Vector3 wpos = transform->GetWorldPosition();
+    Vector2 spos = Functions::WorldToScreen(transform);
 
     stringstream temp;
     temp << fixed << setprecision(2) << "[FPS: " << Time::framePerSec << " / AvgFPS: " << Time::avgFrame << "]\n"\

@@ -1,7 +1,7 @@
 #include "MeshManager.h"
 #include "TextureManager.h"
 
-MeshInfo* MeshManager::GetMesh(string _filepath)
+MeshInfo* MeshManager::GetMesh(const string& _filepath)
 {
     map<string, MeshInfo*>::iterator iter = meshinfosmap.find(_filepath);
     if (iter != meshinfosmap.end())

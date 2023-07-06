@@ -21,7 +21,7 @@ class ObjectMove : public Component
 {
 protected:
 	Transform*		transform;
-	D3DXVECTOR3		movementvec;
+	Vector3		movementvec;
 	float			movespeed;
 	float			length = 0;
 

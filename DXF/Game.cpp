@@ -51,3 +51,9 @@ void Game::Start()
         if (g_Objects[i]->isActive() && !g_Objects[i]->isStarted()) g_Objects[i]->Start();
     }
 }
+
+void Game::Update()
+{
+    if (g_RootObject != nullptr) g_RootObject->Update();
+    if (g_RootRectObject != nullptr) g_RootRectObject->Update();
+}

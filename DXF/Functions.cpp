@@ -7,42 +7,42 @@
 //    return startValue + t * (endValue - startValue);
 //}
 
-bool Functions::Inner(RECT _rect, D3DXVECTOR2 _pos)
+bool Functions::Inner(const RECT& _rect, const Vector2& _pos)
 {
     if (_rect.left <= _pos.x && _rect.right >= _pos.x &&
         _rect.top <= _pos.y && _rect.bottom >= _pos.y) return true;
     else return false;
 }
 
-D3DXVECTOR2 Functions::WorldToScreen(Transform* _transform)
+Vector2 Functions::WorldToScreen(Transform* _transform)
 {
-    D3DXVECTOR3 worldPosition = D3DXVECTOR3(0, 0, 0);
-    D3DXMATRIXA16 matWorldSet;
-    D3DXMATRIX viewMatrix;
-    D3DXMATRIX projectionMatrix;
-    D3DXVECTOR3 projectedPosition;
+    Vector3 worldPosition = Vector3(0, 0, 0);
+    Matrix16 matWorldSet;
+    Matrix viewMatrix;
+    Matrix projectionMatrix;
+    Vector3 projectedPosition;
     D3DVIEWPORT9 viewport;
     g_pd3dDevice->GetViewport(&viewport);
     g_pd3dDevice->GetTransform(D3DTS_PROJECTION, &projectionMatrix);
     g_pd3dDevice->GetTransform(D3DTS_VIEW, &viewMatrix);
 
-    D3DXVECTOR3 pos = _transform->GetWorldPosition();
-    D3DXVECTOR3 rot = _transform->GetWorldRotation();
-    D3DXVECTOR3 scale = _transform->GetWorldScale();
+    Vector3 pos = _transform->GetWorldPosition();
+    Vector3 rot = _transform->GetWorldRotation();
+    Vector3 scale = _transform->GetWorldScale();
 
-    D3DXMATRIXA16 matWorldPosition;
+    Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
 
-    D3DXMATRIXA16 matWorldRotationX;
+    Matrix16 matWorldRotationX;
     D3DXMatrixRotationX(&matWorldRotationX, D3DXToRadian(rot.x));
 
-    D3DXMATRIXA16 matWorldRotationY;
+    Matrix16 matWorldRotationY;
     D3DXMatrixRotationY(&matWorldRotationY, D3DXToRadian(rot.y));
 
-    D3DXMATRIXA16 matWorldRotationZ;
+    Matrix16 matWorldRotationZ;
     D3DXMatrixRotationZ(&matWorldRotationZ, D3DXToRadian(rot.z));
 
-    D3DXMATRIXA16 matWorldScale;
+    Matrix16 matWorldScale;
     D3DXMatrixScaling(&matWorldScale, scale.x, scale.y, scale.z);
 
     D3DXMatrixIdentity(&matWorldSet);
@@ -50,18 +50,18 @@ D3DXVECTOR2 Functions::WorldToScreen(Transform* _transform)
 
     D3DXVec3Project(&projectedPosition, &worldPosition, &viewport, &projectionMatrix, &viewMatrix, &matWorldSet);
 
-    return D3DXVECTOR2(projectedPosition.x, projectedPosition.y);
+    return Vector2(projectedPosition.x, projectedPosition.y);
 }
 
-float Functions::GetDistance(D3DXVECTOR3 point1, D3DXVECTOR3 point2)
+float Functions::GetDistance(const Vector3& point1, const Vector3& point2)
 {
-    D3DXVECTOR3 diff = point2 - point1;
+    Vector3 diff = point2 - point1;
     return D3DXVec3Length(&diff);
 }
 
-D3DXVECTOR3 Functions::SLerp(const D3DXVECTOR3* origin, const D3DXVECTOR3* destination, float t) {
-    D3DXVECTOR3 startVec = *origin;
-    D3DXVECTOR3 endVec = *destination;
+Vector3 Functions::SLerp(const Vector3* origin, const Vector3* destination, float t) {
+    Vector3 startVec = *origin;
+    Vector3 endVec = *destination;
 
     D3DXVec3Normalize(&startVec, &startVec);
     D3DXVec3Normalize(&endVec, &endVec);
@@ -78,29 +78,29 @@ D3DXVECTOR3 Functions::SLerp(const D3DXVECTOR3* origin, const D3DXVECTOR3* desti
     float ratio1 = sinf((1.0f - t) * theta) / sinTheta;
     float ratio2 = sinf(t * theta) / sinTheta;
 
-    D3DXVECTOR3 axis;
+    Vector3 axis;
     D3DXVec3Cross(&axis, &startVec, &endVec);
     D3DXVec3Normalize(&axis, &axis);
 
-    D3DXQUATERNION quat;
+    Quaternion quat;
     quat.x = axis.x * ratio1 + endVec.x * ratio2;
     quat.y = axis.y * ratio1 + endVec.y * ratio2;
     quat.z = axis.z * ratio1 + endVec.z * ratio2;
     quat.w = startVec.x * ratio1 + startVec.y * ratio2 + startVec.z * ratio2;
 
-    D3DXMATRIX rotMat;
+    Matrix rotMat;
     D3DXQuaternionNormalize(&quat, &quat);
     D3DXQuaternionToAxisAngle(&quat, &axis, &theta);
     D3DXQuaternionRotationMatrix(&quat, D3DXMatrixRotationAxis(&rotMat, &axis, theta));
 
-    D3DXVECTOR3 result;
-    D3DXVECTOR3 rvec(0.0f, 0.0f, 1.0f);
+    Vector3 result;
+    Vector3 rvec(0.0f, 0.0f, 1.0f);
     D3DXVec3TransformCoord(&result, &rvec, &rotMat);
 
     return result;
 }
 
-D3DXVECTOR3 Functions::D3DXQuaternionToRotation(D3DXQUATERNION quat) {
+Vector3 Functions::D3DXQuaternionToRotation(Quaternion quat) {
     float fqw = quat.w * quat.w;
     float fqx = quat.x * quat.x;
     float fqy = quat.y * quat.y;
@@ -114,6 +114,6 @@ D3DXVECTOR3 Functions::D3DXQuaternionToRotation(D3DXQUATERNION quat) {
     float y = D3DXToDegree(yaw);
     float z = D3DXToDegree(roll);
 
-    D3DXVECTOR3 vec = D3DXVECTOR3(x, y, z);
+    Vector3 vec = Vector3(x, y, z);
     return vec;
 }

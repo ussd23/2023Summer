@@ -17,7 +17,7 @@ void PlayerMove::Update()
 {
     if (transform == nullptr) return;
 
-    D3DXVECTOR3 temp = D3DXVECTOR3(0, 0, 0);
+    Vector3 temp = Vector3(0, 0, 0);
     float length;
 
     if (GetInputBuffer(g_keyhold, 'A')) temp.x -= 1;

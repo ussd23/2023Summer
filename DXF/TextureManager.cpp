@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-LPDIRECT3DTEXTURE9 TextureManager::GetTexture(string _filepath)
+LPDIRECT3DTEXTURE9 TextureManager::GetTexture(const string& _filepath)
 {
     map<string, LPDIRECT3DTEXTURE9>::iterator iter = texturesmap.find(_filepath);
     if (iter != texturesmap.end())

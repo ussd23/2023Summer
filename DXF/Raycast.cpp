@@ -5,14 +5,14 @@
 #include "Transform.h"
 #include "Camera.h"
 
-Raycast Raycast::ScreenToWorld(D3DXVECTOR2 _pos)
+Raycast Raycast::ScreenToWorld(const Vector2& _pos)
 {
 	// 뷰포트
 	D3DVIEWPORT9 viewport;
 	g_pd3dDevice->GetViewport(&viewport);
 
 	// 투영행렬
-	D3DXMATRIXA16 matProjection;
+	Matrix16 matProjection;
 	g_pd3dDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 
 	Raycast r;
@@ -25,7 +25,7 @@ Raycast Raycast::ScreenToWorld(D3DXVECTOR2 _pos)
 	r.vDirection.z = 1.0f;
 
 	// 뷰스페이스가 적용되기 전의 좌표가 필요하므로 뷰의 역행렬을 구함
-	D3DXMATRIXA16 matView, matInvView;
+	Matrix16 matView, matInvView;
 	g_pd3dDevice->GetTransform(D3DTS_VIEW, &matView);
 	D3DXMatrixInverse(&matInvView, 0, &matView);
 
@@ -42,15 +42,15 @@ bool Raycast::IsPicked(BoxCollider* _collider)
 	Raycast r = (*this);
 
 	Transform* transform = GetComponentFromObject(_collider->gameObject, Transform);
-	D3DXVECTOR3 pos = transform->GetWorldPosition();
-	D3DXVECTOR3 scale = transform->GetWorldScale();
-	D3DXVECTOR3 size = _collider->size;
+	Vector3 pos = transform->GetWorldPosition();
+	Vector3 scale = transform->GetWorldScale();
+	Vector3 size = _collider->size;
 	size.x *= scale.x / 2;
 	size.y *= scale.y / 2;
 	size.z *= scale.z / 2;
 
 	// 월드의 역행렬
-	D3DXMATRIXA16 matInvWorld;
+	Matrix16 matInvWorld;
 	D3DXMatrixIdentity(&matInvWorld);
 	matInvWorld._41 = -pos.x;
 	matInvWorld._42 = -pos.y;
@@ -60,18 +60,18 @@ bool Raycast::IsPicked(BoxCollider* _collider)
 	D3DXVec3TransformCoord(&r.vStartPt, &r.vStartPt, &matInvWorld);
 	D3DXVec3TransformNormal(&r.vDirection, &r.vDirection, &matInvWorld);
 
-	D3DXVECTOR3 vertex[8] = {
-		D3DXVECTOR3(pos.x - size.x, pos.y + size.y, pos.z + size.z),
-		D3DXVECTOR3(pos.x + size.x, pos.y + size.y, pos.z + size.z),
-		D3DXVECTOR3(pos.x + size.x, pos.y - size.y, pos.z + size.z),
-		D3DXVECTOR3(pos.x - size.x, pos.y - size.y, pos.z + size.z),
-		D3DXVECTOR3(pos.x - size.x, pos.y + size.y, pos.z - size.z),
-		D3DXVECTOR3(pos.x + size.x, pos.y + size.y, pos.z - size.z),
-		D3DXVECTOR3(pos.x + size.x, pos.y - size.y, pos.z - size.z),
-		D3DXVECTOR3(pos.x - size.x, pos.y - size.y, pos.z - size.z)
+	Vector3 vertex[8] = {
+		Vector3(pos.x - size.x, pos.y + size.y, pos.z + size.z),
+		Vector3(pos.x + size.x, pos.y + size.y, pos.z + size.z),
+		Vector3(pos.x + size.x, pos.y - size.y, pos.z + size.z),
+		Vector3(pos.x - size.x, pos.y - size.y, pos.z + size.z),
+		Vector3(pos.x - size.x, pos.y + size.y, pos.z - size.z),
+		Vector3(pos.x + size.x, pos.y + size.y, pos.z - size.z),
+		Vector3(pos.x + size.x, pos.y - size.y, pos.z - size.z),
+		Vector3(pos.x - size.x, pos.y - size.y, pos.z - size.z)
 	};
 
-	D3DXVECTOR3 casted;
+	Vector3 casted;
 	if (IntersectTri(vertex[0], vertex[1], vertex[2], casted) ||
 		IntersectTri(vertex[2], vertex[3], vertex[0], casted) ||
 		IntersectTri(vertex[5], vertex[4], vertex[7], casted) ||
@@ -96,12 +96,12 @@ bool Raycast::IsPicked(SphereCollider* _collider)
 	Raycast r = (*this);
 
 	Transform* transform = GetComponentFromObject(_collider->gameObject, Transform);
-	D3DXVECTOR3 pos = transform->GetWorldPosition();
-	D3DXVECTOR3 scale = transform->GetWorldScale();
+	Vector3 pos = transform->GetWorldPosition();
+	Vector3 scale = transform->GetWorldScale();
 	float rate = (scale.x + scale.y + scale.z) / 3.f;
 
 	// 월드의 역행렬
-	D3DXMATRIXA16 matInvWorld;
+	Matrix16 matInvWorld;
 	D3DXMatrixIdentity(&matInvWorld);
 	matInvWorld._41 = -pos.x;
 	matInvWorld._42 = -pos.y;
@@ -122,7 +122,7 @@ bool Raycast::IsPicked(SphereCollider* _collider)
 	return qv * qv - vv * (qq - rr) >= 0;
 }
 
-bool Raycast::IntersectTri(D3DXVECTOR3& v0, D3DXVECTOR3& v1, D3DXVECTOR3& v2, D3DXVECTOR3& vposition)
+bool Raycast::IntersectTri(const Vector3& v0, const Vector3& v1, const Vector3& v2, Vector3& vposition)
 {
 	// verteice 3개를 잇는 면이 충돌하는 지 판정(?)
 	float u, v, t;

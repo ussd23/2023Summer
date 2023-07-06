@@ -16,11 +16,11 @@ HRESULT SetupCamera()
         return E_FAIL;
     }
 
-    D3DXMATRIXA16 matView;
+    Matrix16 matView;
     D3DXMatrixLookAtLH(&matView, &camera->vEyePt, &camera->vLookatPt, &camera->vUpVec);
     g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
 
-    D3DXMATRIXA16 matProj;
+    Matrix16 matProj;
     D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4 - (camera->fovRate / (D3DX_PI * 5)), SCREENSIZEX / (float)SCREENSIZEY, 1.0f, 100.0f);
     g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 
@@ -41,11 +41,10 @@ HRESULT Render()
         if (FAILED(SetupCamera())) return E_FAIL;
 
         if (g_RootObject != nullptr) g_RootObject->Render();
+        if (g_RootRectObject != nullptr) g_RootRectObject->Render();
 
         g_pd3dDevice->EndScene();
     }
-
-
 
     g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
 

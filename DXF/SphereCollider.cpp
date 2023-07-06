@@ -11,9 +11,9 @@ void SphereCollider::Update()
 	{
 		if (g_Objects[i] == gameObject) continue;
 
-		Transform* objtransform = GetComponentFromObject(g_Objects[i], Transform);
-		BoxCollider* bcollider = GetComponentFromObject(g_Objects[i], BoxCollider);
-		SphereCollider* scollider = GetComponentFromObject(g_Objects[i], SphereCollider);
+		Transform* objtransform = GetComponentFromObject(g_Objects[i](), Transform);
+		BoxCollider* bcollider = GetComponentFromObject(g_Objects[i](), BoxCollider);
+		SphereCollider* scollider = GetComponentFromObject(g_Objects[i](), SphereCollider);
 
 		if (objtransform == nullptr) continue;
 		if (bcollider != nullptr)

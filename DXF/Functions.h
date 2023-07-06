@@ -30,12 +30,12 @@ namespace Functions
 template <typename T> T Lerp(T, T, float);
 //float Lerp(float, float, float);
 
-bool Inner(RECT, D3DXVECTOR2);
-D3DXVECTOR2 WorldToScreen(Transform*);
-float GetDistance(D3DXVECTOR3, D3DXVECTOR3);
+bool Inner(const RECT&, const Vector2&);
+Vector2 WorldToScreen(Transform*);
+float GetDistance(const Vector3&, const Vector3&);
 
-D3DXVECTOR3 SLerp(const D3DXVECTOR3*, const D3DXVECTOR3*, float);
-D3DXVECTOR3 D3DXQuaternionToRotation(D3DXQUATERNION);
+Vector3 SLerp(const Vector3*, const Vector3*, float);
+Vector3 D3DXQuaternionToRotation(Quaternion);
 }
 
 template <typename T> T Functions::Lerp(T startValue, T endValue, float t)

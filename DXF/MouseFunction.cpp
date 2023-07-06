@@ -12,8 +12,8 @@ void MouseFunction::Update()
 {
 	if (transform != nullptr)
 	{
-		D3DXVECTOR3 pos = transform->GetWorldPosition();
-		D3DXVECTOR3 scale = transform->GetWorldScale();
+		Vector3 pos = transform->GetWorldPosition();
+		Vector3 scale = transform->GetWorldScale();
 
 		bool result = false;
 
@@ -77,9 +77,9 @@ void MouseFunction::Update()
 
 	if (recttransform != nullptr)
 	{
-		D3DXVECTOR2 pos = recttransform->GetScreenPosition();
-		D3DXVECTOR2 scale = recttransform->GetScreenScale();
-		D3DXVECTOR2 size = recttransform->size;
+		Vector2 pos = recttransform->GetScreenPosition();
+		Vector2 scale = recttransform->GetScreenScale();
+		Vector2 size = recttransform->size;
 
 		RECT rect;
 		SetRect(&rect, pos.x - (size.x * scale.x / 2), pos.y - (size.y * scale.y / 2),

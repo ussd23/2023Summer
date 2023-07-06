@@ -48,7 +48,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
             Game::Start();
 
             // Update
-            if (g_RootObject != nullptr) g_RootObject->Update();
+            Game::Update();
 
             // Render
             if (FAILED(Render())) break;

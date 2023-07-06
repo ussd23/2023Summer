@@ -40,7 +40,7 @@ protected:
 	map<string, MeshInfo*>	meshinfosmap;
 
 public:
-	MeshInfo* GetMesh(string);
+	MeshInfo* GetMesh(const string&);
 	void Cleanup();
 };
 

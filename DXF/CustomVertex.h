@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
-// File: CustomVertex
+// File: Vertex
 //
-// Desc: VerticeRender에서 사용하는 CUSTOMVERTEX 구조체
+// Desc: VerticeRender에서 사용하는 Custom Vertex 구조체
 //-----------------------------------------------------------------------------
 
 #pragma once
 #include "DXHeader.h"
 
-struct CUSTOMVERTEX
+struct Vertex
 {
     FLOAT x, y, z;
     DWORD color;

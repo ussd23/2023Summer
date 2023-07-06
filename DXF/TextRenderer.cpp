@@ -28,8 +28,8 @@ void TextRenderer::Render()
     if (recttransform == nullptr) return;
     if (font == NULL) return;
 
-    D3DXVECTOR2 pos = recttransform->GetScreenPosition();
-    D3DXVECTOR2 size = recttransform->size;
+    Vector2 pos = recttransform->GetScreenPosition();
+    Vector2 size = recttransform->size;
 
     RECT rect;
     SetRect(&rect, pos.x - size.x / 2, pos.y - size.y / 2, pos.x + size.x / 2, pos.y + size.y / 2);

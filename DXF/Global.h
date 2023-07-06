@@ -5,8 +5,9 @@
 //
 //		[Variables]
 //		- g_Objects: 오브젝트 목록 (생성 순서대로 push_back)
-//		- g_RootObject: 최상위 Parent 오브젝트
+//		- g_RootObject: Transform 소유 최상위 Parent 오브젝트
 //		- g_RootTransform: g_RootObject의 Transform 컴포넌트
+//		- g_RootObject: RectTransform 소유 최상위 Parent 오브젝트
 //		- g_RootRectTransform: g_RootObject의 RectTransform 컴포넌트
 //
 //		- g_mouse: 마우스의 입력 버퍼
@@ -29,15 +30,18 @@ class RectTransform;
 #define SCREENSIZEY 900
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
+
 #ifdef WINMAIN
-vector<GameObject*>				g_Objects;
+vector<SPTR<GameObject>>		g_Objects;
 GameObject*						g_RootObject;
 Transform*						g_RootTransform;
+GameObject*						g_RootRectObject;
 RectTransform*					g_RootRectTransform;
 #else
-extern vector<GameObject*>		g_Objects;
+extern vector<SPTR<GameObject>>	g_Objects;
 extern GameObject*				g_RootObject;
 extern Transform*				g_RootTransform;
+extern GameObject*				g_RootRectObject;
 extern RectTransform*			g_RootRectTransform;
 #endif
 
@@ -59,13 +63,13 @@ enum MouseInput
 
 #ifdef WINMAIN
 map<MouseInput, bool>			g_mouse;
-D3DXVECTOR2						g_mousepos;
+Vector2							g_mousepos;
 Raycast							g_mouseraycast;
 map<WPARAM, bool>				g_key;
 map<WPARAM, bool>				g_keyhold;
 #else
 extern map<MouseInput, bool>	g_mouse;
-extern D3DXVECTOR2				g_mousepos;
+extern Vector2					g_mousepos;
 extern Raycast					g_mouseraycast;
 extern map<WPARAM, bool>		g_key;
 extern map<WPARAM, bool>		g_keyhold;

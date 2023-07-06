@@ -33,19 +33,19 @@ protected:
 	Transform*				transform;
 	string					texturename;
 	LPDIRECT3DTEXTURE9		pTexture = NULL;
-	vector<CUSTOMVERTEX>	vertices;
+	vector<Vertex>			vertices;
 	D3DPRIMITIVETYPE		type;
 	UINT					startvertex;
 	UINT					count;
 
 public:
-	D3DXVECTOR2				rectsize;
-	D3DXVECTOR2				rectindex;
+	Vector2					rectsize;
+	Vector2					rectindex;
 
 public:
-	VerticeRenderer(GameObject*, vector<CUSTOMVERTEX>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(GameObject*, string, vector<CUSTOMVERTEX>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(GameObject*, string, D3DXVECTOR2, D3DXVECTOR2, vector<CUSTOMVERTEX>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(GameObject*, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(GameObject*, string, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(GameObject*, string, Vector2, Vector2, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
 	void Render();
 
 	void Start() override;

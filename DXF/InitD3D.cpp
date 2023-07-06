@@ -31,12 +31,15 @@ HRESULT InitD3D(HWND hWnd)
     D3DXCreateSprite(g_pd3dDevice, &g_pSprite);
 
     g_RootObject = new GameObject("RootObject");
-    g_RootTransform = new Transform(nullptr, D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR3(1.f, 1.f, 1.f));
+    g_RootTransform = new Transform(nullptr, Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
     AddComponentToObject(g_RootObject, g_RootTransform);
-    g_RootRectTransform = new RectTransform(nullptr, D3DXVECTOR2(0.f, 0.f), D3DXVECTOR3(0.f, 0.f, 0.f), D3DXVECTOR2(1.f, 1.f), D3DXVECTOR2(0.f, 0.f));
-    AddComponentToObject(g_RootObject, g_RootRectTransform);
+
+    g_RootRectObject = new GameObject("RootRectObject");
+    g_RootRectTransform = new RectTransform(nullptr, Vector2(0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(0.f, 0.f));
+    AddComponentToObject(g_RootRectObject, g_RootRectTransform);
 
     g_Objects.push_back(g_RootObject);
+    g_Objects.push_back(g_RootRectObject);
 
     return S_OK;
 }

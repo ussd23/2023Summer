@@ -26,13 +26,13 @@ class SphereCollider;
 class Raycast
 {
 protected:
-	D3DXVECTOR3			vStartPt = D3DXVECTOR3(0.f, 0.f, 0.f);
-	D3DXVECTOR3			vDirection = D3DXVECTOR3(0.f, 0.f, 0.f);
+	Vector3			vStartPt = Vector3(0.f, 0.f, 0.f);
+	Vector3			vDirection = Vector3(0.f, 0.f, 0.f);
 
 public:
-	static Raycast ScreenToWorld(D3DXVECTOR2);
+	static Raycast ScreenToWorld(const Vector2&);
 	bool IsPicked(BoxCollider*);
 	bool IsPicked(SphereCollider*);
-	bool IntersectTri(D3DXVECTOR3&, D3DXVECTOR3&, D3DXVECTOR3&, D3DXVECTOR3&);
+	bool IntersectTri(const Vector3&, const Vector3&, const Vector3&, Vector3&);
 };
 

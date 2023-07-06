@@ -4,7 +4,7 @@ void ObjectMove::Start()
 {
     transform = GetComponentFromObject(gameObject, Transform);
 
-    movementvec = D3DXVECTOR3(rand() - (RAND_MAX / 2), 0.f, rand() - (RAND_MAX / 2));
+    movementvec = Vector3(rand() - (RAND_MAX / 2), 0.f, rand() - (RAND_MAX / 2));
     movespeed = rand() / RAND_MAX * 10.f + 5.f;
     length = sqrt((fabs(movementvec.x) * fabs(movementvec.x) + fabs(movementvec.z) * fabs(movementvec.z)));
 }

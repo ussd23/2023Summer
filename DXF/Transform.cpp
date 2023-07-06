@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-Transform::Transform(GameObject* _gameObject, D3DXVECTOR3 _pos, D3DXVECTOR3 _rot, D3DXVECTOR3 _scale)
+Transform::Transform(GameObject* _gameObject, Vector3 _pos, Vector3 _rot, Vector3 _scale)
 {
 	gameObject = _gameObject;
 	position = _pos;
@@ -9,27 +9,19 @@ Transform::Transform(GameObject* _gameObject, D3DXVECTOR3 _pos, D3DXVECTOR3 _rot
 	parent = g_RootTransform;
 }
 
-Transform::~Transform()
-{
-	for (int i = 0; i < childs.size(); ++i)
-	{
-		GameObject::Destroy(childs[i]->gameObject);
-	}
-}
-
-D3DXVECTOR3 Transform::GetWorldPosition()
+Vector3 Transform::GetWorldPosition()
 {
 	if (parent != nullptr)
 	{
-		D3DXVECTOR3 pscale = parent->GetWorldScale();
-		D3DXVECTOR3 pos(pscale.x * position.x, pscale.y * position.y, pscale.z * position.z);
+		Vector3 pscale = parent->GetWorldScale();
+		Vector3 pos(pscale.x * position.x, pscale.y * position.y, pscale.z * position.z);
 
 		return pos + parent->GetWorldPosition();
 	}
 	return position;
 }
 
-D3DXVECTOR3 Transform::GetWorldRotation()
+Vector3 Transform::GetWorldRotation()
 {
 	if (parent != nullptr)
 	{
@@ -38,12 +30,12 @@ D3DXVECTOR3 Transform::GetWorldRotation()
 	return rotation;
 }
 
-D3DXVECTOR3 Transform::GetWorldScale()
+Vector3 Transform::GetWorldScale()
 {
 	if (parent != nullptr)
 	{
-		D3DXVECTOR3 pscale = parent->GetWorldScale();
-		return D3DXVECTOR3(scale.x * pscale.x, scale.y * pscale.y, scale.z * pscale.z);
+		Vector3 pscale = parent->GetWorldScale();
+		return Vector3(scale.x * pscale.x, scale.y * pscale.y, scale.z * pscale.z);
 	}
 	return scale;
 }
@@ -81,7 +73,7 @@ void Transform::RemoveChild(Transform* _child)
 	{
 		if (childs[i] == _child)
 		{
-			_child->parent = g_RootTransform;
+			_child->parent = nullptr;
 			childs.erase(childs.begin() + i);
 			break;
 		}
