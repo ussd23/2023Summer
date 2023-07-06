@@ -60,4 +60,6 @@ public:
 	virtual void OnEnabled() {};
 	virtual void OnDisabled() {};
 	virtual void OnDestroy() {};
+
+	void operator = (void* _ptr) { if (_ptr == nullptr) delete this; }
 };

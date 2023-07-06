@@ -81,6 +81,8 @@ public:
 	static void Destroy(GameObject*);
 	static void SafeDestroy();
 	static bool Exists(GameObject*);
+
+	void operator = (void*);
 };
 
 template <class T> void GameObject::AddComponent(T* _comp)

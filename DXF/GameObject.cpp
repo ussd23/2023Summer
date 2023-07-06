@@ -267,3 +267,11 @@ bool GameObject::Exists(GameObject* _gameObject)
 	}
 	return false;
 }
+
+void GameObject::operator = (void* _ptr)
+{
+	if (_ptr == nullptr)
+	{
+		GameObject::Destroy(this);
+	}
+}
