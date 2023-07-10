@@ -68,6 +68,8 @@ public:
 
 	template <class T> void AddComponent(T* _comp);
 	Component* GetComponent(const string&);
+	template <class T> T* GetComponent();
+	void RemoveComponent(Component*);
 
 	bool isStarted();
 	bool isActive();
@@ -110,4 +112,17 @@ template <class T> void GameObject::AddComponent(T* _comp)
 		components.push_back(comp);
 		componentsmap.insert(make_pair(key, comp));
 	}
+}
+
+template <class T> T* GameObject::GetComponent()
+{
+	string key = typeid(T).name();
+
+	map<string, Component*>::iterator iter = componentsmap.find(key);
+	if (iter != componentsmap.end())
+	{
+		return nullptr;
+	}
+
+	return componentsmap[key];
 }

@@ -60,9 +60,10 @@ GameObject::~GameObject()
 		}
 	}
 
-	for (int i = 0; i < components.size(); ++i)
+	while (components.size() > 0)
 	{
-		components[i] = nullptr;
+		components[0] = nullptr;
+		components.erase(components.begin());
 	}
 
 	for (int i = 0; i < safedestroy.size(); ++i)
@@ -219,6 +220,28 @@ Component* GameObject::GetComponent(const string& _key)
 	return nullptr;
 }
 
+void GameObject::RemoveComponent(Component* _ptr)
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		if (components[i] == _ptr)
+		{
+			components[i] = nullptr;
+			components.erase(components.begin() + i);
+
+			for (pair<string, Component*> pair : componentsmap)
+			{
+				if (pair.second == _ptr)
+				{
+					componentsmap.erase(pair.first);
+					break;
+				}
+			}
+			break;
+		}
+	}
+}
+
 void GameObject::Destroy(GameObject* _gameObject)
 {
 	safedestroy.push_back(_gameObject);
@@ -270,8 +293,5 @@ bool GameObject::Exists(GameObject* _gameObject)
 
 void GameObject::operator = (void* _ptr)
 {
-	if (_ptr == nullptr)
-	{
-		GameObject::Destroy(this);
-	}
+	if (_ptr == nullptr) GameObject::Destroy(this);
 }
