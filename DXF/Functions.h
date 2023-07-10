@@ -28,6 +28,7 @@ class Transform;
 namespace Functions
 {;
 template <typename T> T Lerp(T, T, float);
+//float Lerp(float, float, float);
 
 bool Inner(const RECT&, const Vector2&);
 Vector2 WorldToScreen(Transform*);

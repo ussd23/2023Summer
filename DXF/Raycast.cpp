@@ -124,7 +124,7 @@ bool Raycast::IsPicked(SphereCollider* _collider)
 
 bool Raycast::IntersectTri(const Vector3& v0, const Vector3& v1, const Vector3& v2, Vector3& vposition)
 {
-	// verteice 3개를 잇는 면이 충돌하는 지 판정
+	// verteice 3개를 잇는 면이 충돌하는 지 판정(?)
 	float u, v, t;
 	bool b = D3DXIntersectTri(&v0, &v1, &v2, &vStartPt, &vDirection, &u, &v, &t);
 	vposition = vStartPt + (t * vDirection);

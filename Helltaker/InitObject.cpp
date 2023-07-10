@@ -112,4 +112,11 @@ void Game::InitObject()
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 
+    //gameObject->GetComponent<SpriteRenderer>();
+
+    //gameObject = nullptr;
+    //GameObject::Destroy(gameObject);
+    //gameObject = nullptr;
+
+    //delete gameObject;
 }

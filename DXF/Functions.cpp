@@ -2,6 +2,11 @@
 #include "Transform.h"
 #include "Global.h"
 
+//float Functions::Lerp(float startValue, float endValue, float t)
+//{
+//    return startValue + t * (endValue - startValue);
+//}
+
 bool Functions::Inner(const RECT& _rect, const Vector2& _pos)
 {
     if (_rect.left <= _pos.x && _rect.right >= _pos.x &&
@@ -54,8 +59,7 @@ float Functions::GetDistance(const Vector3& point1, const Vector3& point2)
     return D3DXVec3Length(&diff);
 }
 
-Vector3 Functions::SLerp(const Vector3* origin, const Vector3* destination, float t)
-{
+Vector3 Functions::SLerp(const Vector3* origin, const Vector3* destination, float t) {
     Vector3 startVec = *origin;
     Vector3 endVec = *destination;
 
@@ -96,8 +100,7 @@ Vector3 Functions::SLerp(const Vector3* origin, const Vector3* destination, floa
     return result;
 }
 
-Vector3 Functions::D3DXQuaternionToRotation(Quaternion quat)
-{
+Vector3 Functions::D3DXQuaternionToRotation(Quaternion quat) {
     float fqw = quat.w * quat.w;
     float fqx = quat.x * quat.x;
     float fqy = quat.y * quat.y;
