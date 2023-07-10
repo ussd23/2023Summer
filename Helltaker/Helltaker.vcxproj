@@ -140,7 +140,6 @@
     <ClCompile Include="InitObject.cpp" />
     <ClCompile Include="ObjectMove.cpp" />
     <ClCompile Include="PlayerMove.cpp" />
-    <ClCompile Include="ScriptRegister.cpp" />
     <ClCompile Include="TopText.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>

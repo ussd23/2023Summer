@@ -93,9 +93,6 @@
     <ClCompile Include="Animator.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentManager.cpp">
-      <Filter>2. Managers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -181,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>4. Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentManager.h">
-      <Filter>2. Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
