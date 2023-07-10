@@ -45,13 +45,13 @@ protected:
     vector<RectTransform*>  childs;
 
 public:
-    Vector2             position;
-    Vector3             rotation;
-    Vector2             scale;
-    Vector2             size;
+    Vector2                 position;
+    Vector3                 rotation;
+    Vector2                 scale;
+    Vector2                 size;
 
 public:
-    RectTransform(GameObject*, Vector2, Vector3, Vector2, Vector2);
+    RectTransform(Vector2, Vector3, Vector2, Vector2);
 
     Vector2 GetScreenPosition();
     Vector3 GetScreenRotation();

@@ -1,15 +1,14 @@
 #include "ComponentHeader.h"
 
-VerticeRenderer::VerticeRenderer(GameObject* _gameObject, vector<Vertex> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
-    : VerticeRenderer(_gameObject, "", _vertices, _type, _startvertex, _count) {}
+VerticeRenderer::VerticeRenderer(vector<Vertex> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
+    : VerticeRenderer("", _vertices, _type, _startvertex, _count) {}
 
-VerticeRenderer::VerticeRenderer(GameObject* _gameObject, string _texturename, vector<Vertex> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
-    : VerticeRenderer(_gameObject, _texturename, Vector2(1, 1), Vector2(0, 0), _vertices, _type, _startvertex, _count) {}
+VerticeRenderer::VerticeRenderer(string _texturename, vector<Vertex> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
+    : VerticeRenderer(_texturename, Vector2(1, 1), Vector2(0, 0), _vertices, _type, _startvertex, _count) {}
 
-VerticeRenderer::VerticeRenderer(GameObject* _gameObject, string _texturename, Vector2 _rectsize, Vector2 _rectindex, vector<Vertex> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
+VerticeRenderer::VerticeRenderer(string _texturename, Vector2 _rectsize, Vector2 _rectindex, vector<Vertex> _vertices, D3DPRIMITIVETYPE _type, UINT _startvertex, UINT _count)
 {
     texturename = _texturename;
-    gameObject = _gameObject;
     vertices = _vertices;
     rectsize = _rectsize;
     rectindex = _rectindex;

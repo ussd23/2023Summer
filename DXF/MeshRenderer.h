@@ -28,7 +28,7 @@ protected:
 	string				modelname;
 
 public:
-	MeshRenderer(GameObject*, string);
+	MeshRenderer(string);
 	void Render();
 
 	void Start() override;

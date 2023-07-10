@@ -1,8 +1,7 @@
 #include "ComponentHeader.h"
 
-Transform::Transform(GameObject* _gameObject, Vector3 _pos, Vector3 _rot, Vector3 _scale)
+Transform::Transform(Vector3 _pos, Vector3 _rot, Vector3 _scale)
 {
-	gameObject = _gameObject;
 	position = _pos;
 	rotation = _rot;
 	scale = _scale;

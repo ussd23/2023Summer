@@ -43,9 +43,9 @@ public:
 	Vector2					rectindex;
 
 public:
-	VerticeRenderer(GameObject*, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(GameObject*, string, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(GameObject*, string, Vector2, Vector2, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(string, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(string, Vector2, Vector2, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
 	void Render();
 
 	void Start() override;

@@ -51,11 +51,11 @@ class GameObject
 protected:
 	bool							started = false;
 	bool							active = true;
-	string							name;
 	map<string, Component*>			componentsmap;
 	static vector<GameObject*>		safedestroy;
 
 public:
+	string							name;
 	vector<SPTR<Component>>			components;
 
 private:

@@ -11,6 +11,7 @@
 #include "Raycast.h"
 #include "Time.h"
 #include "Global.h"
+#include "SceneManager.h"
 #include "MeshManager.h"
 #include "TextureManager.h"
 #include "FontManager.h"
