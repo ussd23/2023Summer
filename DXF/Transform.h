@@ -44,9 +44,9 @@ protected:
     vector<Transform*>  childs;
 
 public:
-    Vector3         position;
-    Vector3         rotation;
-    Vector3         scale;
+    Vector3             position;
+    Vector3             rotation;
+    Vector3             scale;
 
 public:
     Transform(GameObject*, Vector3, Vector3, Vector3);

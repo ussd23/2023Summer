@@ -14,6 +14,7 @@
 #include "MeshManager.h"
 #include "TextureManager.h"
 #include "FontManager.h"
+#include "ComponentManager.h"
 #include "Transform.h"
 #include "RectTransform.h"
 #include "MeshRenderer.h"

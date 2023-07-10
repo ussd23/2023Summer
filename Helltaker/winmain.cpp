@@ -3,6 +3,8 @@
 #include "Global.h"
 #include "GameObject.h"
 
+void ScriptRegister();
+
 INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
     UNREFERENCED_PARAMETER(hInst);
@@ -24,6 +26,9 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
     {
         g_pd3dDevice->GetMaterial(&g_defaultMaterial);
         g_pd3dDevice->GetTexture(0, &g_defaultTexture);
+
+        Game::ComponentRegister();
+        ScriptRegister();
 
         ShowWindow(hWnd, SW_SHOWDEFAULT);
         UpdateWindow(hWnd);

@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Functions.h"
 #include "GameObject.h"
+#include "ComponentHeader.h"
 
 namespace Time
 {;
@@ -56,4 +57,19 @@ void Game::Update()
 {
     if (g_RootObject != nullptr) g_RootObject->Update();
     if (g_RootRectObject != nullptr) g_RootRectObject->Update();
+}
+
+void Game::ComponentRegister()
+{
+    ComponentManager::RegisterComponent<Animator>("Animator");
+    ComponentManager::RegisterComponent<BoxCollider>("BoxCollider");
+    ComponentManager::RegisterComponent<Camera>("Camera");
+    ComponentManager::RegisterComponent<MeshRenderer>("MeshRenderer");
+    ComponentManager::RegisterComponent<MouseFunction>("MouseFunction");
+    ComponentManager::RegisterComponent<RectTransform>("RectTransform");
+    ComponentManager::RegisterComponent<SphereCollider>("SphereCollider");
+    ComponentManager::RegisterComponent<SpriteRenderer>("SpriteRenderer");
+    ComponentManager::RegisterComponent<TextRenderer>("TextRenderer");
+    ComponentManager::RegisterComponent<Transform>("Transform");
+    ComponentManager::RegisterComponent<VerticeRenderer>("VerticeRenderer");
 }

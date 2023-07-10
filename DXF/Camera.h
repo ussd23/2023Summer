@@ -21,9 +21,9 @@ public:
 	Transform*		transform;
 	static Camera*	main;
 
-	Vector3		vLookatPt;
-	Vector3		vEyePt;
-	Vector3		vUpVec;
+	Vector3			vLookatPt;
+	Vector3			vEyePt;
+	Vector3			vUpVec;
 	float			fovRate = 1.0f;
 
 public:

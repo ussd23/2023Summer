@@ -30,6 +30,9 @@
     <ClCompile Include="winmain.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
+    <ClCompile Include="ScriptRegister.cpp">
+      <Filter>1. Importants</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts.h">

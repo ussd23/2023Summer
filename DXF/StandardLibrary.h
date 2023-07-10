@@ -11,5 +11,6 @@
 #include <vector>
 #include <map>
 #include <typeinfo>
+#include <cstdarg>
 
 using namespace std;

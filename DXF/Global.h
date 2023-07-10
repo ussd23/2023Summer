@@ -9,6 +9,7 @@
 //		- g_RootTransform: g_RootObject의 Transform 컴포넌트
 //		- g_RootObject: RectTransform 소유 최상위 Parent 오브젝트
 //		- g_RootRectTransform: g_RootObject의 RectTransform 컴포넌트
+//		- g_ComponentMap: 클래스명과 팩토리 함수를 매핑
 //
 //		- g_mouse: 마우스의 입력 버퍼
 //		- g_mousepos: 마우스 포인터의 좌표 값
@@ -30,19 +31,22 @@ class RectTransform;
 #define SCREENSIZEY 900
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
+typedef Component* (*FactoryFunction)(...);
 
 #ifdef WINMAIN
-vector<SPTR<GameObject>>		g_Objects;
-GameObject*						g_RootObject;
-Transform*						g_RootTransform;
-GameObject*						g_RootRectObject;
-RectTransform*					g_RootRectTransform;
+vector<SPTR<GameObject>>			g_Objects;
+GameObject*							g_RootObject;
+Transform*							g_RootTransform;
+GameObject*							g_RootRectObject;
+RectTransform*						g_RootRectTransform;
+map<string, FactoryFunction>		g_ComponentMap;
 #else
-extern vector<SPTR<GameObject>>	g_Objects;
-extern GameObject*				g_RootObject;
-extern Transform*				g_RootTransform;
-extern GameObject*				g_RootRectObject;
-extern RectTransform*			g_RootRectTransform;
+extern vector<SPTR<GameObject>>		g_Objects;
+extern GameObject*					g_RootObject;
+extern Transform*					g_RootTransform;
+extern GameObject*					g_RootRectObject;
+extern RectTransform*				g_RootRectTransform;
+extern map<string, FactoryFunction>	g_ComponentMap;
 #endif
 
 enum MouseInput

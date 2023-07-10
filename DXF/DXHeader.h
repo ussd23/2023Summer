@@ -88,6 +88,7 @@ void Update();
 void InitObject();
 void TimeUpdate();
 void InputBufferReset();
+void ComponentRegister();
 }
 
 template<typename T> class SPTR

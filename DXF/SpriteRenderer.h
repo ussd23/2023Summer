@@ -33,8 +33,8 @@ protected:
 
 public:
 	DWORD					color;
-	Vector2				rectsize;
-	Vector2				rectindex;
+	Vector2					rectsize;
+	Vector2					rectindex;
 
 public:
 	SpriteRenderer(GameObject*, string);
