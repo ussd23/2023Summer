@@ -37,7 +37,7 @@ void Game::TimeUpdate()
 
 void Game::InputBufferReset()
 {
-    for (int i = MouseInput::LBUTTONCLK; i < MouseInput::END; ++i)
+    for (int i = MouseInput::LBUTTONDOWN; i < MouseInput::END; ++i)
     {
         if (GetInputBuffer(g_mouse, (MouseInput)i)) SetInputBuffer(g_mouse, (MouseInput)i, false);
     }
