@@ -96,6 +96,9 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>2. Managers</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>2. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>4. Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

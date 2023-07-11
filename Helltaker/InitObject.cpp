@@ -54,17 +54,18 @@ void Game::InitObject()
     AddComponentToObject(gameObject, mouse);
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
-    // Tiger (Object)
-    gameObject = new GameObject("Tiger");
+    // Tiger (Object) -현재 sun의 child로 등록한 상태
+    GameObject* ChildObject = new GameObject("Tiger");
     transform = new Transform(Vector3(-10.f, 1.f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
-    AddComponentToObject(gameObject, transform);
+    AddComponentToObject(ChildObject, transform);
     mesh = new MeshRenderer("tiger.x");
-    AddComponentToObject(gameObject, mesh);
+    AddComponentToObject(ChildObject, mesh);
     BoxCollider* bcollider = new BoxCollider(Vector3(3.0f, 3.0f, 3.0f));
-    AddComponentToObject(gameObject, bcollider);
+    AddComponentToObject(ChildObject, bcollider);
     ObjectMove* omove = new ObjectMove();
-    AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddComponentToObject(ChildObject, omove);
+    Transform* transform2 = GetComponentFromObject(gameObject, Transform);
+    AddObjectToScene(ChildObject, transform2, transform);
 
     // Airplane (Object)
     gameObject = new GameObject("Airplane");
