@@ -18,29 +18,32 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
     case WM_LBUTTONDOWN:
         SetInputBuffer(g_mouse, MouseInput::LBUTTONHOLD, true);
-        SetInputBuffer(g_mouse, MouseInput::LBUTTONCLK, true);
+        SetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN, true);
         return 0;
 
     case WM_LBUTTONUP:
         SetInputBuffer(g_mouse, MouseInput::LBUTTONHOLD, false);
+        SetInputBuffer(g_mouse, MouseInput::LBUTTONUP, true);
         return 0;
 
     case WM_RBUTTONDOWN:
         SetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD, true);
-        SetInputBuffer(g_mouse, MouseInput::RBUTTONCLK, true);
+        SetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN, true);
         return 0;
 
     case WM_RBUTTONUP:
         SetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD, false);
+        SetInputBuffer(g_mouse, MouseInput::RBUTTONUP, true);
         return 0;
 
     case WM_MBUTTONDOWN:
         SetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD, true);
-        SetInputBuffer(g_mouse, MouseInput::MBUTTONCLK, true);
+        SetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN, true);
         return 0;
 
     case WM_MBUTTONUP:
         SetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD, false);
+        SetInputBuffer(g_mouse, MouseInput::MBUTTONUP, true);
         return 0;
 
     case WM_MOUSEMOVE:

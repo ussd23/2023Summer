@@ -53,9 +53,9 @@ void MouseFunction::Update()
 				gameObject->components[i]->OnMouseOver();
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONCLK)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONCLK)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONCLK)))
+				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
+			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN)) ||
+				(GetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN)))
 			{
 				for (int i = 0; i < gameObject->components.size(); ++i)
 				{
@@ -114,9 +114,9 @@ void MouseFunction::Update()
 				gameObject->components[i]->OnMouseOver();
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONCLK)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONCLK)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONCLK)))
+			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN)) ||
+				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
+				(GetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN)))
 			{
 				for (int i = 0; i < gameObject->components.size(); ++i)
 				{

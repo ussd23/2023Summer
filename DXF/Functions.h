@@ -50,3 +50,5 @@ template <typename T> T Functions::Lerp(T startValue, T endValue, float t)
 #define SetInputBuffer(object, type, value) if (object.find(type) == object.end()) object.insert(make_pair(type, value));\
         else object[type] = value
 #define GetInputBuffer(object, type) (object.find(type) == object.end()) ? false : object[type]
+
+
