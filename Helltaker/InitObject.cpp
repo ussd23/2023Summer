@@ -5,9 +5,9 @@ void Game::InitObject()
 {
     // Text (RectTransform)
     GameObject* gameObject = new GameObject("Text");
-    RectTransform* rect = new RectTransform(gameObject, Vector2(300, 55), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(600, 110));
+    RectTransform* rect = new RectTransform(Vector2(300, 55), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(600, 110));
     AddComponentToObject(gameObject, rect);
-    TextRenderer* text = new TextRenderer(gameObject, "¸¼Àº °íµñ", 16, "");
+    TextRenderer* text = new TextRenderer("¸¼Àº °íµñ", 16, "");
     AddComponentToObject(gameObject, text);
     TopText* ttext = new TopText();
     AddComponentToObject(gameObject, ttext);
@@ -17,9 +17,9 @@ void Game::InitObject()
 
     // MainCamera
     gameObject = new GameObject("MainCamera");
-    Transform* transform = new Transform(gameObject, Vector3(0, 40, -40), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+    Transform* transform = new Transform(Vector3(0, 40, -40), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
     AddComponentToObject(gameObject, transform);
-    Camera* camera = new Camera(gameObject, Vector3(0, 1, 0));
+    Camera* camera = new Camera(Vector3(0, 1, 0));
     AddComponentToObject(gameObject, camera);
     CameraMove* cmove = new CameraMove();
     AddComponentToObject(gameObject, cmove);
@@ -27,14 +27,14 @@ void Game::InitObject()
 
     // Bottom
     gameObject = new GameObject("Bottom");
-    transform = new Transform(gameObject, Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+    transform = new Transform(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
     AddComponentToObject(gameObject, transform);
     vector<Vertex> vec;
     vec.push_back({ -30.0f, 0.0f, -20.0f, 0x5383d8ff, 0.0f, 1.0f });
     vec.push_back({ -30.0f, 0.0f,  20.0f, 0x5383d8ff, 0.0f, 0.0f });
     vec.push_back({  30.0f, 0.0f, -20.0f, 0x538378ff, 1.0f, 1.0f });
     vec.push_back({  30.0f, 0.0f,  20.0f, 0x538378ff, 1.0f, 0.0f });
-    VerticeRenderer* vertice = new VerticeRenderer(gameObject, "earthmap1k.jpg", Vector2(3, 3), Vector2(2, 0), vec, D3DPRIMITIVETYPE::D3DPT_TRIANGLESTRIP, 0, 2);
+    VerticeRenderer* vertice = new VerticeRenderer("earthmap1k.jpg", Vector2(3, 3), Vector2(2, 0), vec, D3DPRIMITIVETYPE::D3DPT_TRIANGLESTRIP, 0, 2);
     AddComponentToObject(gameObject, vertice);
     Animator* animator = new Animator(0, MAXINT, 1.f, true);
     AddComponentToObject(gameObject, animator);
@@ -42,9 +42,9 @@ void Game::InitObject()
 
     // Sun (Player)
     gameObject = new GameObject("Sun");
-    transform = new Transform(gameObject, Vector3(0.f, 1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+    transform = new Transform(Vector3(0.f, 1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
     AddComponentToObject(gameObject, transform);
-    MeshRenderer* mesh = new MeshRenderer(gameObject, "sun.x");
+    MeshRenderer* mesh = new MeshRenderer("sun.x");
     AddComponentToObject(gameObject, mesh);
     PlayerMove* pmove = new PlayerMove(20.f);
     AddComponentToObject(gameObject, pmove);
@@ -56,9 +56,9 @@ void Game::InitObject()
 
     // Tiger (Object)
     gameObject = new GameObject("Tiger");
-    transform = new Transform(gameObject, Vector3(-10.f, 1.f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
+    transform = new Transform(Vector3(-10.f, 1.f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
     AddComponentToObject(gameObject, transform);
-    mesh = new MeshRenderer(gameObject, "tiger.x");
+    mesh = new MeshRenderer("tiger.x");
     AddComponentToObject(gameObject, mesh);
     BoxCollider* bcollider = new BoxCollider(Vector3(3.0f, 3.0f, 3.0f));
     AddComponentToObject(gameObject, bcollider);
@@ -68,9 +68,9 @@ void Game::InitObject()
 
     // Airplane (Object)
     gameObject = new GameObject("Airplane");
-    transform = new Transform(gameObject, Vector3(-10.f, 1.f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(0.6f, 0.6f, 0.6f));
+    transform = new Transform(Vector3(-10.f, 1.f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(0.6f, 0.6f, 0.6f));
     AddComponentToObject(gameObject, transform);
-    mesh = new MeshRenderer(gameObject, "airplane 2.x");
+    mesh = new MeshRenderer("airplane 2.x");
     AddComponentToObject(gameObject, mesh);
     bcollider = new BoxCollider(Vector3(8.0f, 8.0f, 8.0f));
     AddComponentToObject(gameObject, bcollider);
@@ -80,9 +80,9 @@ void Game::InitObject()
 
     // Earth (Object)
     gameObject = new GameObject("Earth");
-    transform = new Transform(gameObject, Vector3(5.f, 2.5f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
+    transform = new Transform(Vector3(5.f, 2.5f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
     AddComponentToObject(gameObject, transform);
-    mesh = new MeshRenderer(gameObject, "earth.x");
+    mesh = new MeshRenderer("earth.x");
     AddComponentToObject(gameObject, mesh);
     scollider = new SphereCollider(1.2f);
     AddComponentToObject(gameObject, scollider);
@@ -92,9 +92,9 @@ void Game::InitObject()
 
     // Neptune (Object)
     gameObject = new GameObject("Neptune");
-    transform = new Transform(gameObject, Vector3(5.f, 2.5f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
+    transform = new Transform(Vector3(5.f, 2.5f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
     AddComponentToObject(gameObject, transform);
-    mesh = new MeshRenderer(gameObject, "neptune.x");
+    mesh = new MeshRenderer("neptune.x");
     AddComponentToObject(gameObject, mesh);
     scollider = new SphereCollider(1.2f);
     AddComponentToObject(gameObject, scollider);
@@ -104,9 +104,9 @@ void Game::InitObject()
 
     // Sprite (RectTransform)
     gameObject = new GameObject("Sprite");
-    rect = new RectTransform(gameObject, Vector2(100, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100));
+    rect = new RectTransform(Vector2(100, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100));
     AddComponentToObject(gameObject, rect);
-    SpriteRenderer* spr = new SpriteRenderer(gameObject, "earthmap1k.jpg", Vector2(4,4), Vector2(0,0));
+    SpriteRenderer* spr = new SpriteRenderer("earthmap1k.jpg", Vector2(4,4), Vector2(0,0));
     AddComponentToObject(gameObject, spr);
     animator = new Animator(0.5f);
     AddComponentToObject(gameObject, animator);
