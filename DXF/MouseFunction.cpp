@@ -53,13 +53,23 @@ void MouseFunction::Update()
 				gameObject->components[i]->OnMouseOver();
 			}
 
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
 			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN)) ||
+				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
 				(GetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN)))
 			{
 				for (int i = 0; i < gameObject->components.size(); ++i)
 				{
-					gameObject->components[i]->OnMouseClick();
+					gameObject->components[i]->OnMouseDown();
+				}
+			}
+
+			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONUP)) ||
+				(GetInputBuffer(g_mouse, MouseInput::RBUTTONUP)) ||
+				(GetInputBuffer(g_mouse, MouseInput::MBUTTONUP)))
+			{
+				for (int i = 0; i < gameObject->components.size(); ++i)
+				{
+					gameObject->components[i]->OnMouseUp();
 				}
 			}
 
@@ -120,7 +130,17 @@ void MouseFunction::Update()
 			{
 				for (int i = 0; i < gameObject->components.size(); ++i)
 				{
-					gameObject->components[i]->OnMouseClick();
+					gameObject->components[i]->OnMouseDown();
+				}
+			}
+
+			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONUP)) ||
+				(GetInputBuffer(g_mouse, MouseInput::RBUTTONUP)) ||
+				(GetInputBuffer(g_mouse, MouseInput::MBUTTONUP)))
+			{
+				for (int i = 0; i < gameObject->components.size(); ++i)
+				{
+					gameObject->components[i]->OnMouseUp();
 				}
 			}
 
