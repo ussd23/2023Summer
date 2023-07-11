@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -111,7 +111,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d9.lib;d3dx10d.lib;d3dx9d.lib;dxerr.lib;dxguid.lib;winmm.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -136,11 +136,9 @@
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraMove.cpp" />
     <ClCompile Include="Cleanup.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="FontManager.cpp" />
-    <ClCompile Include="InitObject.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InitD3D.cpp" />
@@ -148,25 +146,22 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MouseFunction.cpp" />
     <ClCompile Include="MsgProc.cpp" />
-    <ClCompile Include="ObjectMove.cpp" />
-    <ClCompile Include="PlayerMove.cpp" />
     <ClCompile Include="Raycast.cpp" />
     <ClCompile Include="RectTransform.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="TopText.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VerticeRenderer.cpp" />
-    <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraMove.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CustomVertex.h" />
@@ -176,22 +171,19 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GetI.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="Variables.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MouseFunction.h" />
-    <ClInclude Include="ObjectMove.h" />
-    <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="Raycast.h" />
     <ClInclude Include="RectTransform.h" />
     <ClInclude Include="ComponentHeader.h" />
-    <ClInclude Include="Scripts.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SphereCollider.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StandardLibrary.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="TopText.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="VerticeRenderer.h" />
   </ItemGroup>

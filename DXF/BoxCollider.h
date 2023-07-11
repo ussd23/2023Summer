@@ -18,10 +18,10 @@ class Transform;
 class BoxCollider : public Collider
 {
 public:
-	D3DXVECTOR3			size;
+	Vector3			size;
 
 public:
-	BoxCollider(D3DXVECTOR3);
+	BoxCollider(Vector3);
 
 	void Update() override;
 };

@@ -42,7 +42,7 @@ protected:
 
 public:
 	GameObject* gameObject = nullptr;
-	~Component() { OnDestroy(); }
+	virtual ~Component() { OnDestroy(); }
 
 	virtual void Start() {};
 	virtual void Update() {};
@@ -60,4 +60,6 @@ public:
 	virtual void OnEnabled() {};
 	virtual void OnDisabled() {};
 	virtual void OnDestroy() {};
+
+	void operator = (void* _ptr) { if (_ptr == nullptr) delete this; }
 };

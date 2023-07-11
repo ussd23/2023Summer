@@ -45,18 +45,17 @@ protected:
     vector<RectTransform*>  childs;
 
 public:
-    D3DXVECTOR2             position;
-    D3DXVECTOR3             rotation;
-    D3DXVECTOR2             scale;
-    D3DXVECTOR2             size;
+    Vector2                 position;
+    Vector3                 rotation;
+    Vector2                 scale;
+    Vector2                 size;
 
 public:
-    RectTransform(GameObject*, D3DXVECTOR2, D3DXVECTOR3, D3DXVECTOR2, D3DXVECTOR2);
-    ~RectTransform();
+    RectTransform(Vector2, Vector3, Vector2, Vector2);
 
-    D3DXVECTOR2 GetScreenPosition();
-    D3DXVECTOR3 GetScreenRotation();
-    D3DXVECTOR2 GetScreenScale();
+    Vector2 GetScreenPosition();
+    Vector3 GetScreenRotation();
+    Vector2 GetScreenScale();
 
     int GetChildCount();
     RectTransform* GetChild(int);

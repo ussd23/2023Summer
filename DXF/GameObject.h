@@ -14,6 +14,9 @@
 //					  실행할 수 있도록 함)
 //
 //		[Functions]
+//		- TransformCheck: Transform과 RectTransform이 동시에 존재하지 않도록 제한
+//		- Erase: 오브젝트 삭제
+// 
 //		- AddComponent: 이미지 파일을 기반으로 텍스쳐 인터페이스를 검색하여 반환
 //		- GetComponent: 텍스쳐 인터페이스 삭제
 //
@@ -48,19 +51,25 @@ class GameObject
 protected:
 	bool							started = false;
 	bool							active = true;
-	string							name;
 	map<string, Component*>			componentsmap;
 	static vector<GameObject*>		safedestroy;
 
 public:
-	vector<Component*>				components;
+	string							name;
+	vector<SPTR<Component>>			components;
+
+private:
+	bool TransformCheck(const string&);
+	static void Erase(GameObject*);
 
 public:
 	GameObject(string);
-	~GameObject();
+	virtual ~GameObject();
 
 	template <class T> void AddComponent(T* _comp);
-	Component* GetComponent(string);
+	Component* GetComponent(const string&);
+	template <class T> T* GetComponent();
+	void RemoveComponent(Component*);
 
 	bool isStarted();
 	bool isActive();
@@ -75,15 +84,7 @@ public:
 	static void SafeDestroy();
 	static bool Exists(GameObject*);
 
-
-	void operator =(void* p_ptr)
-	{
-		if (p_ptr == nullptr)
-		{
-			GameObject::Destroy(this);
-		}
-		
-	}
+	void operator = (void*);
 };
 
 template <class T> void GameObject::AddComponent(T* _comp)
@@ -93,6 +94,12 @@ template <class T> void GameObject::AddComponent(T* _comp)
 	Component* comp = dynamic_cast<Component*>(_comp);
 	if (comp)
 	{
+		if (!TransformCheck(key))
+		{
+			delete _comp;
+			return;
+		}
+
 		map<string, Component*>::iterator iter = componentsmap.find(key);
 		if (iter != componentsmap.end())
 		{
@@ -101,8 +108,21 @@ template <class T> void GameObject::AddComponent(T* _comp)
 		}
 
 		ObjectInit(comp);
-		components.push_back(comp);
 
+		components.push_back(comp);
 		componentsmap.insert(make_pair(key, comp));
 	}
+}
+
+template <class T> T* GameObject::GetComponent()
+{
+	string key = typeid(T).name();
+
+	map<string, Component*>::iterator iter = componentsmap.find(key);
+	if (iter != componentsmap.end())
+	{
+		return nullptr;
+	}
+
+	return componentsmap[key];
 }

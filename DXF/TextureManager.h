@@ -24,7 +24,7 @@ protected:
 	map<string, LPDIRECT3DTEXTURE9> texturesmap;
 
 public:
-	LPDIRECT3DTEXTURE9 GetTexture(string);
+	LPDIRECT3DTEXTURE9 GetTexture(const string&);
 	void Cleanup();
 };
 

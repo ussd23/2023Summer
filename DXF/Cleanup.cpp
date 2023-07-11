@@ -16,8 +16,14 @@ VOID Cleanup()
     if (g_RootObject != nullptr)
     {
         GameObject::Destroy(g_RootObject);
-        g_RootObject = nullptr;
     }
+
+    if (g_RootRectObject != nullptr)
+    {
+        GameObject::Destroy(g_RootRectObject);
+    }
+
+    GameObject::SafeDestroy();
 
     if (g_pd3dDevice != NULL)
         g_pd3dDevice->Release();

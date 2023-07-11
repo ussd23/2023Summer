@@ -24,7 +24,7 @@ protected:
 	map<string, LPD3DXFONT> fontsmap;
 
 public:
-	LPD3DXFONT GetFont(string, int);
+	LPD3DXFONT GetFont(const string&, const int&);
 	void Cleanup();
 };
 

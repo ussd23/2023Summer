@@ -1,8 +1,7 @@
 #include "ComponentHeader.h"
 
-RectTransform::RectTransform(GameObject* _gameObject, D3DXVECTOR2 _pos, D3DXVECTOR3 _rot, D3DXVECTOR2 _scale, D3DXVECTOR2 _size)
+RectTransform::RectTransform(Vector2 _pos, Vector3 _rot, Vector2 _scale, Vector2 _size)
 {
-	gameObject = _gameObject;
 	position = _pos;
 	rotation = _rot;
 	scale = _scale;
@@ -10,27 +9,19 @@ RectTransform::RectTransform(GameObject* _gameObject, D3DXVECTOR2 _pos, D3DXVECT
 	parent = g_RootRectTransform;
 }
 
-RectTransform::~RectTransform()
-{
-	for (int i = 0; i < childs.size(); ++i)
-	{
-		GameObject::Destroy(childs[i]->gameObject);
-	}
-}
-
-D3DXVECTOR2 RectTransform::GetScreenPosition()
+Vector2 RectTransform::GetScreenPosition()
 {
 	if (parent != nullptr)
 	{
-		D3DXVECTOR2 pscale = parent->GetScreenScale();
-		D3DXVECTOR2 pos(pscale.x * position.x, pscale.y * position.y);
+		Vector2 pscale = parent->GetScreenScale();
+		Vector2 pos(pscale.x * position.x, pscale.y * position.y);
 
 		return pos + parent->GetScreenPosition();
 	}
 	return position;
 }
 
-D3DXVECTOR3 RectTransform::GetScreenRotation()
+Vector3 RectTransform::GetScreenRotation()
 {
 	if (parent != nullptr)
 	{
@@ -39,12 +30,12 @@ D3DXVECTOR3 RectTransform::GetScreenRotation()
 	return rotation;
 }
 
-D3DXVECTOR2 RectTransform::GetScreenScale()
+Vector2 RectTransform::GetScreenScale()
 {
 	if (parent != nullptr)
 	{
-		D3DXVECTOR2 pscale = parent->GetScreenScale();
-		return D3DXVECTOR2(scale.x * pscale.x, scale.y * pscale.y);
+		Vector2 pscale = parent->GetScreenScale();
+		return Vector2(scale.x * pscale.x, scale.y * pscale.y);
 	}
 	return scale;
 }
@@ -82,7 +73,7 @@ void RectTransform::RemoveChild(RectTransform* _child)
 	{
 		if (childs[i] == _child)
 		{
-			_child->parent = g_RootRectTransform;
+			_child->parent = nullptr;
 			childs.erase(childs.begin() + i);
 			break;
 		}

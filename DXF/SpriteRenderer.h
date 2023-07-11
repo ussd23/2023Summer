@@ -5,9 +5,12 @@
 //
 //		[Variables]
 //		- recttransform: 오브젝트의 RectTransform 컴포넌트
-//		- texturename: 텍스쳐의 파일명
 //		- pTexture: 텍스쳐 인터페이스
-//		- pSprite: 스프라이트 인터페이스
+//		- texturename: 텍스쳐의 파일명
+//		- texturesize: 텍스쳐의 크기
+//		- color: 텍스쳐의 색상
+//		- rectsize: 텍스쳐 파일의 분할 개수
+//		- rectindex: 렌더링할 텍스쳐 파일의 인덱스
 //
 //		[Functions]
 //		- Render: 렌더 실행
@@ -24,14 +27,19 @@ class SpriteRenderer : public Component
 {
 protected:
 	RectTransform*			recttransform;
-
-public:
-	string					texturename;
 	LPDIRECT3DTEXTURE9		pTexture = NULL;
-	LPD3DXSPRITE			pSprite = NULL;
+	string					texturename;
+	RECT					texturesize;
 
 public:
-	SpriteRenderer(GameObject*, string);
+	DWORD					color;
+	Vector2					rectsize;
+	Vector2					rectindex;
+
+public:
+	SpriteRenderer(string);
+	SpriteRenderer(string, Vector2, Vector2);
+	SpriteRenderer(string, DWORD, Vector2, Vector2);
 	void Render();
 
 	void Start() override;

@@ -11,6 +11,8 @@
 //		- type: 기본 도형(primitive) 유형을 지정하는 enum
 //		- startvertex: 출력을 시작할 버텍스의 인덱스
 //		- count: 출력할 버텍스 단위의 수
+//		- rectsize: 텍스쳐 파일의 분할 개수
+//		- rectindex: 렌더링할 텍스쳐 파일의 인덱스
 //
 //		[Functions]
 //		- Render: 렌더 실행
@@ -31,14 +33,19 @@ protected:
 	Transform*				transform;
 	string					texturename;
 	LPDIRECT3DTEXTURE9		pTexture = NULL;
-	vector<CUSTOMVERTEX>	vertices;
+	vector<Vertex>			vertices;
 	D3DPRIMITIVETYPE		type;
 	UINT					startvertex;
 	UINT					count;
 
 public:
-	VerticeRenderer(GameObject*, vector<CUSTOMVERTEX>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(GameObject*, string, vector<CUSTOMVERTEX>, D3DPRIMITIVETYPE, UINT, UINT);
+	Vector2					rectsize;
+	Vector2					rectindex;
+
+public:
+	VerticeRenderer(vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(string, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(string, Vector2, Vector2, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
 	void Render();
 
 	void Start() override;

@@ -1,6 +1,6 @@
 #include "FontManager.h"
 
-LPD3DXFONT FontManager::GetFont(string _fontname, int _size)
+LPD3DXFONT FontManager::GetFont(const string& _fontname, const int& _size)
 {
     stringstream temp;
     temp << "font:" << _fontname << "_size:" << _size;
