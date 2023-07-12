@@ -15,10 +15,14 @@ bool GameObject::TransformCheck(const string& _key)
 {
 	if (typeid(Transform).name() == _key || typeid(RectTransform).name() == _key)
 	{
-		Transform* transform = GetComponentFromObject(this, Transform);
-		RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+		map<string, Component*>::iterator iter = componentsmap.find(typeid(Transform).name());
+		if (iter != componentsmap.end())
+		{
+			return false;
+		}
 
-		if (transform != nullptr || recttransform != nullptr)
+		iter = componentsmap.find(typeid(RectTransform).name());
+		if (iter != componentsmap.end())
 		{
 			return false;
 		}
@@ -60,11 +64,7 @@ GameObject::~GameObject()
 		}
 	}
 
-	while (components.size() > 0)
-	{
-		components[0] = nullptr;
-		components.erase(components.begin());
-	}
+	components.clear();
 
 	for (int i = 0; i < safedestroy.size(); ++i)
 	{
@@ -79,34 +79,21 @@ GameObject::~GameObject()
 	else if (g_RootRectObject == this) g_RootRectObject = nullptr;
 }
 
-bool GameObject::isStarted()
-{
-	if (started) return true;
-	else return false;
-}
-
 bool GameObject::isActive()
 {
 	if (active) return true;
 	else return false;
 }
 
-void GameObject::Start()
-{
-	for (int i = 0; i < components.size(); ++i)
-	{
-		components[i]->Start();
-	}
-	started = true;
-}
-
 void GameObject::Update()
 {
 	if (!active) return;
 
-	for (int i = 0; i < components.size(); ++i)
+	list<SPTR<Component>>::iterator iter = components.begin();
+
+	while (iter != components.end())
 	{
-		components[i]->Update();
+		(*iter++)->Update();
 	}
 
 	Transform* transform = GetComponentFromObject(this, Transform);
@@ -171,16 +158,20 @@ void GameObject::SetActive(bool _active)
 
 	if (active)
 	{
-		for (int i = 0; i < components.size(); ++i)
+		list<SPTR<Component>>::iterator iter = components.begin();
+
+		while (iter != components.end())
 		{
-			components[i]->OnEnabled();
+			(*iter++)->OnEnabled();
 		}
 	}
 	else
 	{
-		for (int i = 0; i < components.size(); ++i)
+		list<SPTR<Component>>::iterator iter = components.begin();
+
+		while (iter != components.end())
 		{
-			components[i]->OnDisabled();
+			(*iter++)->OnDisabled();
 		}
 	}
 
@@ -205,6 +196,7 @@ void GameObject::SetActive(bool _active)
 void GameObject::ObjectInit(Component* comp)
 {
 	comp->gameObject = this;
+	g_NewComponents.push_back(comp);
 }
 
 Component* GameObject::GetComponent(const string& _key)
@@ -222,21 +214,22 @@ Component* GameObject::GetComponent(const string& _key)
 
 void GameObject::RemoveComponent(Component* _ptr)
 {
-	for (int i = 0; i < components.size(); ++i)
-	{
-		if (components[i] == _ptr)
-		{
-			components[i] = nullptr;
-			components.erase(components.begin() + i);
+	list<SPTR<Component>>::iterator iter = components.begin();
 
-			for (pair<string, Component*> pair : componentsmap)
-			{
-				if (pair.second == _ptr)
-				{
-					componentsmap.erase(pair.first);
-					break;
-				}
-			}
+	while (iter != components.end())
+	{
+		if (_ptr == (*iter)())
+		{
+			components.erase(iter);
+		}
+		++iter;
+	}
+	
+	for (pair<string, Component*> pair : componentsmap)
+	{
+		if (pair.second == _ptr)
+		{
+			componentsmap.erase(pair.first);
 			break;
 		}
 	}
@@ -259,34 +252,35 @@ void GameObject::SafeDestroy()
 		safedestroy.erase(safedestroy.begin());
 	}
 
-	for (int i = 0; i < g_Objects.size(); ++i)
-	{
-		if (g_Objects[i]() == nullptr)
-		{
-			g_Objects.erase(g_Objects.begin() + i--);
-		}
-	}
-
 	safedestroy.clear();
 }
 
 void GameObject::Erase(GameObject* _gameObject)
 {
-	for (int i = 0; i < g_Objects.size(); ++i)
+	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+
+	while (iter != g_Objects.end())
 	{
-		if (g_Objects[i] == _gameObject)
+		if (_gameObject == (*iter)())
 		{
-			g_Objects[i] = nullptr;
-			break;
+			*iter = nullptr;
+			g_Objects.erase(iter);
+			return;
 		}
+		++iter;
 	}
 }
 
 bool GameObject::Exists(GameObject* _gameObject)
 {
-	for (int i = 0; i < g_Objects.size(); ++i)
+	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+
+	while (iter != g_Objects.end())
 	{
-		if (g_Objects[i] == _gameObject) return true;
+		if (*iter++ == _gameObject)
+		{
+			return true;
+		}
 	}
 	return false;
 }

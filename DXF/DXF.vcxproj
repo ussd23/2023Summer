@@ -141,6 +141,7 @@
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GarbageCollector.cpp" />
     <ClCompile Include="InitD3D.cpp" />
     <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GarbageCollector.h" />
     <ClInclude Include="GetI.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="MeshManager.h" />

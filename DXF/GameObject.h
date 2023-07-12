@@ -4,7 +4,6 @@
 // Desc: 게임 오브젝트 클래스
 //
 //		[Variables]
-//		- started: 최초의 Start가 실행되었는 지 여부
 //		- active: Update와 Render를 실행할 지 여부
 //		- name: 해당 오브젝트의 이름 (string 기반 오브젝트 검색 등에 사용)
 //		- componentsmap: string 기반의 컴포넌트 목록
@@ -20,7 +19,6 @@
 //		- AddComponent: 이미지 파일을 기반으로 텍스쳐 인터페이스를 검색하여 반환
 //		- GetComponent: 텍스쳐 인터페이스 삭제
 //
-//		- isStarted: started 반환
 //		- isActive: active 반환
 //		- SetActive: active 상태 설정 및 모든 컴포넌트의 OnEnable, OnDisable 실행
 //		- ObjectInit: 컴포넌트의 gameObject를 자신으로 설정
@@ -45,18 +43,18 @@ class RectTransform;
 class MeshRenderer;
 class VerticeRenderer;
 class TextRenderer;
+template<typename T> class SPTR;
 
 class GameObject
 {
 protected:
-	bool							started = false;
 	bool							active = true;
 	map<string, Component*>			componentsmap;
 	static vector<GameObject*>		safedestroy;
 
 public:
 	string							name;
-	vector<SPTR<Component>>			components;
+	list<SPTR<Component>>			components;
 
 private:
 	bool TransformCheck(const string&);
@@ -71,12 +69,10 @@ public:
 	template <class T> T* GetComponent();
 	void RemoveComponent(Component*);
 
-	bool isStarted();
 	bool isActive();
 	void SetActive(bool);
 	void ObjectInit(Component*);
 
-	void Start();
 	void Update();
 	void Render();
 

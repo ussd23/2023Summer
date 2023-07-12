@@ -32,16 +32,20 @@ void MouseFunction::Update()
 
 			if (entering)
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseEnter();
+					(*iter++)->OnMouseEnter();
 				}
 			}
 			else
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseExit();
+					(*iter++)->OnMouseExit();
 				}
 			}
 		}
@@ -50,16 +54,23 @@ void MouseFunction::Update()
 		{
 			for (int i = 0; i < gameObject->components.size(); ++i)
 			{
-				gameObject->components[i]->OnMouseOver();
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
+				{
+					(*iter++)->OnMouseOver();
+				}
 			}
 
 			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN)) ||
 				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
 				(GetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN)))
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseDown();
+					(*iter++)->OnMouseDown();
 				}
 			}
 
@@ -67,9 +78,11 @@ void MouseFunction::Update()
 				(GetInputBuffer(g_mouse, MouseInput::RBUTTONUP)) ||
 				(GetInputBuffer(g_mouse, MouseInput::MBUTTONUP)))
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseUp();
+					(*iter++)->OnMouseUp();
 				}
 			}
 
@@ -77,9 +90,11 @@ void MouseFunction::Update()
 				(GetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD)) ||
 				(GetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD)))
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseHold();
+					(*iter++)->OnMouseHold();
 				}
 			}
 		}
@@ -103,34 +118,43 @@ void MouseFunction::Update()
 
 			if (entering)
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseEnter();
+					(*iter++)->OnMouseEnter();
 				}
 			}
 			else
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseExit();
+					(*iter++)->OnMouseExit();
 				}
 			}
 		}
 
 		if (entering)
 		{
-			for (int i = 0; i < gameObject->components.size(); ++i)
+
+			list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+			while (iter != gameObject->components.end())
 			{
-				gameObject->components[i]->OnMouseOver();
+				(*iter++)->OnMouseOver();
 			}
 
 			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN)) ||
 				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
 				(GetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN)))
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseDown();
+					(*iter++)->OnMouseDown();
 				}
 			}
 
@@ -138,9 +162,11 @@ void MouseFunction::Update()
 				(GetInputBuffer(g_mouse, MouseInput::RBUTTONUP)) ||
 				(GetInputBuffer(g_mouse, MouseInput::MBUTTONUP)))
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseUp();
+					(*iter++)->OnMouseUp();
 				}
 			}
 
@@ -148,9 +174,11 @@ void MouseFunction::Update()
 				(GetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD)) ||
 				(GetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD)))
 			{
-				for (int i = 0; i < gameObject->components.size(); ++i)
+				list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+				while (iter != gameObject->components.end())
 				{
-					gameObject->components[i]->OnMouseHold();
+					(*iter++)->OnMouseHold();
 				}
 			}
 		}

@@ -46,10 +46,11 @@ void Game::InputBufferReset()
 
 void Game::Start()
 {
-    for (int i = 0; i < g_Objects.size(); ++i)
+    for (int i = 0; i < g_NewComponents.size(); ++i)
     {
-        if (g_Objects[i]->isActive() && !g_Objects[i]->isStarted()) g_Objects[i]->Start();
+        g_NewComponents[i]->Start();
     }
+    g_NewComponents.clear();
 }
 
 void Game::Update()
