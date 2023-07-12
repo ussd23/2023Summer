@@ -32,6 +32,7 @@
 //					   오브젝트 삭제
 //		- Exists: 해당 오브젝트가 삭제되었는 지의 여부 반환 (타 오브젝트 호출 시
 //				  사용하여 예외 처리 권장, GetComponentFromObject에서는 자동 적용)
+//		- Search: name으로 오브젝트 검색
 //-----------------------------------------------------------------------------
 
 #pragma once
@@ -79,6 +80,7 @@ public:
 	static void Destroy(GameObject*);
 	static void SafeDestroy();
 	static bool Exists(GameObject*);
+	static GameObject* Search(const string&);
 
 	void operator = (void*);
 };

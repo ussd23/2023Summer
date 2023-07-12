@@ -285,6 +285,21 @@ bool GameObject::Exists(GameObject* _gameObject)
 	return false;
 }
 
+GameObject* GameObject::Search(const string& _name)
+{
+	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+
+	while (iter != g_Objects.end())
+	{
+		if ((*iter)->name == _name)
+		{
+			return (*iter)();
+		}
+		++iter;
+	}
+	return nullptr;
+}
+
 void GameObject::operator = (void* _ptr)
 {
 	if (_ptr == nullptr) GameObject::Destroy(this);
