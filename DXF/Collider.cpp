@@ -49,7 +49,7 @@ void Collider::OnStay()
 
 			while (citer != gameObject->components.end())
 			{
-				(*citer++)->OnTriggerEnter(iter->first);
+				(*citer++)->OnTriggerStay(iter->first);
 			}
 		}
 		++iter;
