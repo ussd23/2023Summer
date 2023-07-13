@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="InitObject.cpp">
-      <Filter>1. Importants</Filter>
-    </ClCompile>
     <ClCompile Include="CameraMove.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
@@ -29,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="winmain.cpp">
       <Filter>0. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="InitObject.cpp">
+      <Filter>1. Importants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="TopText.h">
       <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Helltaker.h">
+      <Filter>1. Importants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

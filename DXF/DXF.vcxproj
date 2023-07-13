@@ -157,6 +157,7 @@
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VerticeRenderer.cpp" />
   </ItemGroup>
