@@ -7,7 +7,7 @@
 #include "FontManager.h"
 #include "GameObject.h"
 
-VOID Cleanup()
+VOID DXFGame::Cleanup()
 {
     TextureManager::GetInstance()->Cleanup();
     MeshManager::GetInstance()->Cleanup();

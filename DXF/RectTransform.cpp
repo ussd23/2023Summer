@@ -1,8 +1,7 @@
 #include "ComponentHeader.h"
 
-RectTransform::RectTransform(GameObject* _gameObject, Vector2 _pos, Vector3 _rot, Vector2 _scale, Vector2 _size)
+RectTransform::RectTransform(Vector2 _pos, Vector3 _rot, Vector2 _scale, Vector2 _size)
 {
-	gameObject = _gameObject;
 	position = _pos;
 	rotation = _rot;
 	scale = _scale;

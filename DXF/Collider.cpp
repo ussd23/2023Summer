@@ -19,16 +19,20 @@ void Collider::OnTrigger(Collider* _collider, bool _result)
 
 		if (entering[_collider])
 		{
-			for (int i = 0; i < gameObject->components.size(); ++i)
+			list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+			while (iter != gameObject->components.end())
 			{
-				gameObject->components[i]->OnTriggerEnter(_collider);
+				(*iter++)->OnTriggerEnter(_collider);
 			}
 		}
 		else
 		{
-			for (int i = 0; i < gameObject->components.size(); ++i)
+			list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+
+			while (iter != gameObject->components.end())
 			{
-				gameObject->components[i]->OnTriggerExit(_collider);
+				(*iter++)->OnTriggerExit(_collider);
 			}
 		}
 	}
@@ -41,9 +45,11 @@ void Collider::OnStay()
 	{
 		if (iter->second)
 		{
-			for (int i = 0; i < gameObject->components.size(); ++i)
+			list<SPTR<Component>>::iterator citer = gameObject->components.begin();
+
+			while (citer != gameObject->components.end())
 			{
-				gameObject->components[i]->OnTriggerStay(iter->first);
+				(*citer++)->OnTriggerStay(iter->first);
 			}
 		}
 		++iter;

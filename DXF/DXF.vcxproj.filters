@@ -93,6 +93,15 @@
     <ClCompile Include="Animator.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>2. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GarbageCollector.cpp">
+      <Filter>2. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>0. Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -178,6 +187,12 @@
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>2. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GarbageCollector.h">
+      <Filter>2. Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

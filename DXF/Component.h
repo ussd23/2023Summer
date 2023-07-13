@@ -18,7 +18,8 @@
 //		- OnMouseEnter: 해당 오브젝트에 처음 마우스가 오버될 때 실행 
 //		- OnMouseExit: 해당 오브젝트에 마우스 오버가 해제될 때 실행
 //		- OnMouseOver: 해당 오브젝트에 마우스 오버중일 때 매 프레임마다 실행
-//		- OnMouseClick: 해당 오브젝트를 클릭했을 때 실행
+//		- OnMouseDown: 해당 오브젝트를 클릭했을 때 실행
+//		- OnMouseUp: 해당 오브젝트의 클릭이 해제됐을 때 실행
 //		- OnMouseHold: 해당 오브젝트를 클릭중일 때 매 프레임마다 실행
 //
 //		[충돌을 감시할 두 오브젝트 모두 Collider 컴포넌트를 소유하고 있어야 작동]
@@ -50,7 +51,8 @@ public:
 	virtual void OnMouseEnter() {};
 	virtual void OnMouseExit() {};
 	virtual void OnMouseOver() {};
-	virtual void OnMouseClick() {};
+	virtual void OnMouseDown() {};
+	virtual void OnMouseUp() {};
 	virtual void OnMouseHold() {};
 
 	virtual void OnTriggerEnter(Collider*) {};
@@ -60,6 +62,4 @@ public:
 	virtual void OnEnabled() {};
 	virtual void OnDisabled() {};
 	virtual void OnDestroy() {};
-
-	void operator = (void* _ptr) { if (_ptr == nullptr) delete this; }
 };

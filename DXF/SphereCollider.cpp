@@ -7,13 +7,21 @@ SphereCollider::SphereCollider(float _radius)
 
 void SphereCollider::Update()
 {
-	for (int i = 0; i < g_Objects.size(); ++i)
-	{
-		if (g_Objects[i] == gameObject) continue;
+	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
 
-		Transform* objtransform = GetComponentFromObject(g_Objects[i](), Transform);
-		BoxCollider* bcollider = GetComponentFromObject(g_Objects[i](), BoxCollider);
-		SphereCollider* scollider = GetComponentFromObject(g_Objects[i](), SphereCollider);
+	while (iter != g_Objects.end())
+	{
+		if (*iter == gameObject)
+		{
+			++iter;
+			continue;
+		}
+
+		GameObject* obj = (*iter++)();
+
+		Transform* objtransform = GetComponentFromObject(obj, Transform);
+		BoxCollider* bcollider = GetComponentFromObject(obj, BoxCollider);
+		SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
 
 		if (objtransform == nullptr) continue;
 		if (bcollider != nullptr)

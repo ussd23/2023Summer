@@ -1,14 +1,13 @@
 #include "ComponentHeader.h"
 
-TextRenderer::TextRenderer(GameObject* _gameObject, string _fontname, int _size, string _text)
-    : TextRenderer(_gameObject, _fontname, _size, _text, D3DCOLOR(0xffffffff)) {}
+TextRenderer::TextRenderer(string _fontname, int _size, string _text)
+    : TextRenderer(_fontname, _size, _text, D3DCOLOR(0xffffffff)) {}
 
-TextRenderer::TextRenderer(GameObject* _gameObject, string _fontname, int _size, string _text, D3DCOLOR _color)
-    : TextRenderer(_gameObject, _fontname, _size, _text, _color, DT_LEFT | DT_TOP) {}
+TextRenderer::TextRenderer(string _fontname, int _size, string _text, D3DCOLOR _color)
+    : TextRenderer(_fontname, _size, _text, _color, DT_LEFT | DT_TOP) {}
 
-TextRenderer::TextRenderer(GameObject* _gameObject, string _fontname, int _size, string _text, D3DCOLOR _color, DWORD _format)
+TextRenderer::TextRenderer(string _fontname, int _size, string _text, D3DCOLOR _color, DWORD _format)
 {
-    gameObject = _gameObject;
     fontname = _fontname;
     size = _size;
     text = _text;

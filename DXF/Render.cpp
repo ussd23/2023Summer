@@ -7,7 +7,7 @@
 #include "RectTransform.h"
 #include "Camera.h"
 
-HRESULT SetupCamera()
+HRESULT DXFGame::SetupCamera()
 {
     Camera* camera = Camera::main;
     if (camera == nullptr)
@@ -27,7 +27,7 @@ HRESULT SetupCamera()
     return S_OK;
 }
 
-HRESULT Render()
+HRESULT DXFGame::Render()
 {
     g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
         D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);

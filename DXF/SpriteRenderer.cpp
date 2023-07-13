@@ -1,14 +1,13 @@
 #include "ComponentHeader.h"
 
-SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename) :
-    SpriteRenderer(_gameObject, _texturename, Vector2(1, 1), Vector2(0, 0)) {}
+SpriteRenderer::SpriteRenderer(string _texturename) :
+    SpriteRenderer(_texturename, Vector2(1, 1), Vector2(0, 0)) {}
 
-SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename, Vector2 _rectsize, Vector2 _rectindex) :
-    SpriteRenderer(_gameObject, _texturename, 0xffffffff, _rectsize, _rectindex) {}
+SpriteRenderer::SpriteRenderer(string _texturename, Vector2 _rectsize, Vector2 _rectindex) :
+    SpriteRenderer(_texturename, 0xffffffff, _rectsize, _rectindex) {}
 
-SpriteRenderer::SpriteRenderer(GameObject* _gameObject, string _texturename, DWORD _color, Vector2 _rectsize, Vector2 _rectindex)
+SpriteRenderer::SpriteRenderer(string _texturename, DWORD _color, Vector2 _rectsize, Vector2 _rectindex)
 {
-    gameObject = _gameObject;
     texturename = _texturename;
     rectsize = _rectsize;
     rectindex = _rectindex;

@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "RectTransform.h"
 
-HRESULT InitD3D(HWND hWnd)
+HRESULT DXFGame::InitD3D(HWND hWnd)
 {
     if (NULL == (g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
         return E_FAIL;
@@ -31,11 +31,11 @@ HRESULT InitD3D(HWND hWnd)
     D3DXCreateSprite(g_pd3dDevice, &g_pSprite);
 
     g_RootObject = new GameObject("RootObject");
-    g_RootTransform = new Transform(nullptr, Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+    g_RootTransform = new Transform(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
     AddComponentToObject(g_RootObject, g_RootTransform);
 
     g_RootRectObject = new GameObject("RootRectObject");
-    g_RootRectTransform = new RectTransform(nullptr, Vector2(0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(0.f, 0.f));
+    g_RootRectTransform = new RectTransform(Vector2(0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(0.f, 0.f));
     AddComponentToObject(g_RootRectObject, g_RootRectTransform);
 
     g_Objects.push_back(g_RootObject);

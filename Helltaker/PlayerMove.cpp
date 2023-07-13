@@ -42,9 +42,9 @@ void PlayerMove::Update()
     if (transform->position.z < -20) transform->position.z = -20;
 }
 
-void PlayerMove::OnMouseClick()
+void PlayerMove::OnMouseDown()
 {
-    MessageBox(NULL, "OnMouseClick() ½ÇÇàµÊ", "PlayerMove", MB_OK);
+    MessageBox(NULL, "OnMouseDown() ½ÇÇàµÊ", "PlayerMove", MB_OK);
 }
 
 void PlayerMove::OnTriggerStay(Collider* _collider)

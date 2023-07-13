@@ -37,9 +37,9 @@ public:
 	D3DCOLOR			color;
 
 public:
-	TextRenderer(GameObject*, string, int, string);
-	TextRenderer(GameObject*, string, int, string, D3DCOLOR);
-	TextRenderer(GameObject*, string, int, string, D3DCOLOR, DWORD);
+	TextRenderer(string, int, string);
+	TextRenderer(string, int, string, D3DCOLOR);
+	TextRenderer(string, int, string, D3DCOLOR, DWORD);
 	void Render();
 
 	void Start() override;

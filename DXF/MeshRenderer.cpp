@@ -1,8 +1,7 @@
 #include "ComponentHeader.h"
 
-MeshRenderer::MeshRenderer(GameObject* _gameObject, string _modelname)
+MeshRenderer::MeshRenderer(string _modelname)
 {
-    gameObject = _gameObject;
     modelname = _modelname;
 }
 

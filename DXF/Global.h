@@ -21,28 +21,31 @@
 #include "StandardLibrary.h"
 #include "DXHeader.h"
 #include "Raycast.h"
+#include "Component.h"
 
 class GameObject;
 class Transform;
 class RectTransform;
+template<typename T> class SPTR;
 
 #define SCREENSIZEX 1600
 #define SCREENSIZEY 900
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
-
 #ifdef WINMAIN
-vector<SPTR<GameObject>>		g_Objects;
+list<SPTR<GameObject>>		    g_Objects;
 GameObject*						g_RootObject;
 Transform*						g_RootTransform;
 GameObject*						g_RootRectObject;
 RectTransform*					g_RootRectTransform;
+vector<Component*>              g_NewComponents;
 #else
-extern vector<SPTR<GameObject>>	g_Objects;
+extern list<SPTR<GameObject>>	g_Objects;
 extern GameObject*				g_RootObject;
 extern Transform*				g_RootTransform;
 extern GameObject*				g_RootRectObject;
 extern RectTransform*			g_RootRectTransform;
+extern vector<Component*>       g_NewComponents;
 #endif
 
 enum MouseInput
@@ -51,9 +54,13 @@ enum MouseInput
 	RBUTTONHOLD,
 	MBUTTONHOLD,
 
-	LBUTTONCLK,
-	RBUTTONCLK,
-	MBUTTONCLK,
+	LBUTTONDOWN,
+	RBUTTONDOWN,
+	MBUTTONDOWN,
+
+	LBUTTONUP,
+	RBUTTONUP,
+	MBUTTONUP,
 
 	WHEELUP,
 	WHEELDOWN,
@@ -74,3 +81,107 @@ extern Raycast					g_mouseraycast;
 extern map<WPARAM, bool>		g_key;
 extern map<WPARAM, bool>		g_keyhold;
 #endif
+
+template<typename T> class SPTR
+{
+private:
+    T* ptr;
+
+public:
+    static map<T*, int>         ReferenceCounts;
+
+public:
+    SPTR() : SPTR(nullptr) {}
+
+    SPTR(T* _ptr)
+    {
+        ptr = _ptr;
+        RefUp();
+    }
+    
+    SPTR(const SPTR& other)
+    {
+        ptr = other.ptr;
+        RefUp();
+    }
+
+    virtual ~SPTR()
+    {
+        RefDown();
+    }
+
+    void operator=(T* _ptr)
+    {
+        if (ptr != _ptr)
+        {
+            RefDown();
+            ptr = _ptr;
+            RefUp();
+        }
+    }
+
+    bool operator==(T* _ptr)
+    {
+        if (ptr == _ptr) return true;
+        else return false;
+    }
+
+    bool operator==(const SPTR& other)
+    {
+        if (ptr == other->ptr) return true;
+        else return false;
+    }
+
+    bool operator!=(T* _ptr)
+    {
+        if (ptr != _ptr) return true;
+        else return false;
+    }
+
+    bool operator!=(const SPTR& other)
+    {
+        if (ptr != other->ptr) return true;
+        else return false;
+    }
+
+    T* operator->()
+    {
+        return ptr;
+    }
+
+    T* operator()()
+    {
+        return ptr;
+    }
+
+    void RefUp()
+    {
+        if (ptr == nullptr) return;
+
+        if (ReferenceCounts.find(ptr) == ReferenceCounts.end())
+        {
+            ReferenceCounts.insert(make_pair(ptr, 1));
+        }
+        else
+        {
+            ReferenceCounts[ptr] += 1;
+        }
+    }
+
+    void RefDown()
+    {
+        if (ptr == nullptr) return;
+
+        if (ReferenceCounts.find(ptr) != ReferenceCounts.end())
+        {
+            ReferenceCounts[ptr] -= 1;
+            if (ReferenceCounts[ptr] == 0)
+            {
+                ReferenceCounts.erase(ReferenceCounts.find(ptr));
+                delete ptr;
+            }
+        }
+    }
+};
+
+template<typename T> map<T*, int> SPTR<T>::ReferenceCounts;

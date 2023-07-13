@@ -1,0 +1,6 @@
+스마트포인터 적용된 거 vector에서 list로 바꿨음
+(중간 요소 삭제 시 앞으로 한 칸씩 memcpy한 후 맨 뒤 오브젝트를 지워버리는 구조라 reference count에 변동이 일어나는 관계로)
+
+g_Objects[i] 식으로 접근 못 하니 혹시 필요한 경우 iterator로 사용 바람
+
+오브젝트 이름으로 검색 시 GameObject::Search(const string&) 사용 바람
