@@ -32,8 +32,8 @@ void Helltaker::InitObject()
     vector<Vertex> vec;
     vec.push_back({ -30.0f, 0.0f, -20.0f, 0x5383d8ff, 0.0f, 1.0f });
     vec.push_back({ -30.0f, 0.0f,  20.0f, 0x5383d8ff, 0.0f, 0.0f });
-    vec.push_back({ 30.0f, 0.0f, -20.0f, 0x538378ff, 1.0f, 1.0f });
-    vec.push_back({ 30.0f, 0.0f,  20.0f, 0x538378ff, 1.0f, 0.0f });
+    vec.push_back({  30.0f, 0.0f, -20.0f, 0x538378ff, 1.0f, 1.0f });
+    vec.push_back({  30.0f, 0.0f,  20.0f, 0x538378ff, 1.0f, 0.0f });
     VerticeRenderer* vertice = new VerticeRenderer("earthmap1k.jpg", Vector2(3, 3), Vector2(2, 0), vec, D3DPRIMITIVETYPE::D3DPT_TRIANGLESTRIP, 0, 2);
     AddComponentToObject(gameObject, vertice);
     Animator* animator = new Animator(0, MAXINT, 1.f, true);
@@ -108,7 +108,12 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, rect);
     SpriteRenderer* spr = new SpriteRenderer("earthmap1k.jpg", Vector2(4, 4), Vector2(0, 0));
     AddComponentToObject(gameObject, spr);
-    animator = new Animator(0.5f);
+    vector<AnimationInfo> avec;
+    avec.push_back({ Vector2(0,0), 1.0f });
+    avec.push_back({ Vector2(1,1), 0.5f });
+    avec.push_back({ Vector2(2,2), 0.2f });
+    avec.push_back({ Vector2(3,3), 0.2f });
+    animator = new Animator(avec);
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 

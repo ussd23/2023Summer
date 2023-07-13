@@ -51,7 +51,7 @@
       <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Helltaker.h">
-      <Filter>1. Importants</Filter>
+      <Filter>0. Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
