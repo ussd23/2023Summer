@@ -5,6 +5,10 @@
 //-----------------------------------------------------------------------------
 
 #pragma once
+// 게임 헤더
+#include "Helltaker.h"
+
+// 컴포넌트 및 글로벌 변수 헤더
 #include "ComponentHeader.h"
 #include "Variables.h"
 #include "CameraMove.h"

@@ -2,7 +2,7 @@
 // File: MouseFunction
 //
 // Desc: 마우스 입력 처리를 위한 컴포넌트
-//		 (OnMouseEnter, OnMouseExit, OnMouseClick, OnMouseHold 사용 시 필요)
+//		 (OnMouse... 사용 시 필요)
 //
 //		[Variables]
 //		- entering: 마우스 오버가 되었는 지의 여부

@@ -33,7 +33,7 @@ public:
 
 	void Start() override;
 	void Update() override;
-	void OnMouseClick() override;
+	void OnMouseDown() override;
 	void OnTriggerStay(Collider*) override;
 	void OnTriggerExit(Collider*) override;
 };

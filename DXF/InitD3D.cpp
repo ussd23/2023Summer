@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "RectTransform.h"
 
-HRESULT InitD3D(HWND hWnd)
+HRESULT DXFGame::InitD3D(HWND hWnd)
 {
     if (NULL == (g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
         return E_FAIL;

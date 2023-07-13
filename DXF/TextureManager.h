@@ -17,6 +17,8 @@
 #include "GetI.h"
 #include "DXHeader.h"
 
+
+//DefClass(TextureManager)
 class TextureManager : public GetI<TextureManager>
 {
 protected:

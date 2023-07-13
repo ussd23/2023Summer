@@ -2,6 +2,7 @@
 #include "DXHeader.h"
 #include "Global.h"
 #include "GameObject.h"
+#include "Helltaker.h"
 
 INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
@@ -10,7 +11,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
     WNDCLASSEX wc =
     {
-        sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L,
+        sizeof(WNDCLASSEX), CS_CLASSDC, Helltaker::MsgProc, 0L, 0L,
         GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
         "DXF", NULL
     };
@@ -20,22 +21,22 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         WS_OVERLAPPEDWINDOW, 100, 100, SCREENSIZEX + 16, SCREENSIZEY + 39,
         NULL, NULL, wc.hInstance, NULL);
 
-    if (SUCCEEDED(InitD3D(hWnd)))
+    if (SUCCEEDED(Helltaker::InitD3D(hWnd)))
     {
         g_pd3dDevice->GetMaterial(&g_defaultMaterial);
         g_pd3dDevice->GetTexture(0, &g_defaultTexture);
 
         ShowWindow(hWnd, SW_SHOWDEFAULT);
         UpdateWindow(hWnd);
-        Game::InitObject();
+        Helltaker::InitObject();
 
         MSG msg;
         ZeroMemory(&msg, sizeof(msg));
         while (msg.message != WM_QUIT)
         {
             // Frame Update
-            Game::InputBufferReset();
-            Game::TimeUpdate();
+            Helltaker::InputBufferReset();
+            Time::TimeUpdate();
 
             // Message
             if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
@@ -45,13 +46,13 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
             }
 
             // Start
-            Game::Start();
+            Helltaker::Start();
 
             // Update
-            Game::Update();
+            Helltaker::Update();
 
             // Render
-            if (FAILED(Render())) break;
+            if (FAILED(Helltaker::Render())) break;
 
             // SafeDestroy
             GameObject::SafeDestroy();

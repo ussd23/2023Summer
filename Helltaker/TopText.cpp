@@ -29,7 +29,7 @@ void TopText::Update()
     text->text = temp.str();
 }
 
-void TopText::OnMouseClick()
+void TopText::OnMouseDown()
 {
-    MessageBox(NULL, "OnMouseClick() ½ÇÇàµÊ", "TopText", MB_OK);
+    MessageBox(NULL, "OnMouseDown() ½ÇÇàµÊ", "TopText", MB_OK);
 }

@@ -96,6 +96,12 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>2. Managers</Filter>
     </ClCompile>
+    <ClCompile Include="GarbageCollector.cpp">
+      <Filter>2. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>0. Core</Filter>
+    </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
@@ -186,6 +192,9 @@
       <Filter>4. Components</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
+      <Filter>2. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GarbageCollector.h">
       <Filter>2. Managers</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">

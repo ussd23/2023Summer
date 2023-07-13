@@ -16,17 +16,16 @@
 //		[Functions]
 //		- MsgProc: 메시지 값에 따라 입력 버퍼의 값을 세팅하거나 프로그램 종료
 //		- InitD3D: Direct3D 9 및 디바이스 생성 등의 초기 작업 실행
-//		- Cleanup: 이전에 초기화된 모든 개체를 해제
 //		- SetupCamera: Main 카메라의 Transform 등을 받아와 카메라 설정
 //		- Render: Renderer가 있는 오브젝트의 Render 작업 일괄 실행
 //				  (Transform의 Parent/Child 구조 순으로 실행)
+//		- Cleanup: 이전에 초기화된 모든 개체를 해제
 //		- Start: 오브젝트 소유의 모든 컴포넌트의 Start 작업 일괄 실행
 //				 (오브젝트가 생성된 순서대로 실행)
 //		- Update: 오브젝트 소유의 모든 컴포넌트의 Update 작업 일괄 실행
 //				 (Transform의 Parent/Child 구조 순으로 실행)
-//		- InitObject: 애플리케이션이 실행 직후 초기 오브젝트 생성 및 설정 등 실행
-//		- TimeUpdate: deltaTime 연산
 //		- InputBufferReset: 입력 버퍼 초기화 작업 실행
+//		- TimeUpdate: deltaTime 연산
 //-----------------------------------------------------------------------------
 
 #pragma once
@@ -61,88 +60,35 @@ extern LPDIRECT3DVERTEXBUFFER9	g_pVB;
 extern LPD3DXSPRITE				g_pSprite;
 #endif
 
-LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-HRESULT InitD3D(HWND hWnd);
+class DXFGame
+{
+public:
+	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	static HRESULT InitD3D(HWND hWnd);
 
-VOID Cleanup();
-HRESULT SetupCamera();
-HRESULT Render();
+	static HRESULT SetupCamera();
+	static HRESULT Render();
+	static VOID Cleanup();
 
-namespace Time
-{;
-#ifdef WINMAIN
-FLOAT							deltaTime;
-int								framePerSec;
-float							avgFrame;
-#else
-extern FLOAT					deltaTime;
-extern int						framePerSec;
-extern float					avgFrame;
-#endif
-}
+	static void Start();
+	static void Update();
+	static void InputBufferReset();
+};
 
-namespace Game
-{;
-void Start();
-void Update();
-void InitObject();
-void TimeUpdate();
-void InputBufferReset();
-}
-
-template<typename T> class SPTR
+class Time
 {
 private:
-    T* ptr;
+	static UINT					pastTime;
+	static int					sec;
+	static int					frames;
+	static int					passedFrames;
+	static int					passedTime;
 
 public:
-    SPTR() : SPTR(nullptr) {}
+	static FLOAT				deltaTime;
+	static int					framePerSec;
+	static float				avgFrame;
 
-    SPTR(T* _ptr)
-    {
-        ptr = _ptr;
-    }
-
-    void operator=(T* _ptr)
-    {
-        if (ptr != _ptr)
-        {
-            delete ptr;
-            ptr = _ptr;
-        }
-    }
-
-    bool operator==(T* _ptr)
-    {
-        if (ptr == _ptr) return true;
-        else return false;
-    }
-
-    bool operator==(const SPTR& other)
-    {
-        if (ptr == other->ptr) return true;
-        else return false;
-    }
-
-    bool operator!=(T* _ptr)
-    {
-        if (ptr != _ptr) return true;
-        else return false;
-    }
-
-    bool operator!=(const SPTR& other)
-    {
-        if (ptr != other->ptr) return true;
-        else return false;
-    }
-
-    T* operator->()
-    {
-        return ptr;
-    }
-
-    T* operator()()
-    {
-        return ptr;
-    }
+public:
+	static void TimeUpdate();
 };
