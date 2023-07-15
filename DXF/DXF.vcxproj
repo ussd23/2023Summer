@@ -139,6 +139,7 @@
     <ClCompile Include="Cleanup.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GarbageCollector.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="CustomVertex.h" />
     <ClInclude Include="DXHeader.h" />
     <ClInclude Include="FontManager.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GarbageCollector.h" />

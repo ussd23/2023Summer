@@ -9,6 +9,7 @@
 #include "DXHeader.h"
 #include "Functions.h"
 #include "Raycast.h"
+#include "Frustum.h"
 #include "Time.h"
 #include "Global.h"
 #include "SceneManager.h"

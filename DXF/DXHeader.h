@@ -43,6 +43,7 @@ using Vector4 = D3DXVECTOR4;
 using Matrix = D3DXMATRIX;
 using Matrix16 = D3DXMATRIXA16;
 using Quaternion = D3DXQUATERNION;
+using Plane = D3DXPLANE;
 
 #ifdef WINMAIN
 LPDIRECT3D9						g_pD3D = NULL;
@@ -62,6 +63,10 @@ extern LPD3DXSPRITE				g_pSprite;
 
 class DXFGame
 {
+private:
+	static Matrix16 viewMatrix;
+	static Matrix16 projMatrix;
+
 public:
 	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static HRESULT InitD3D(HWND hWnd);

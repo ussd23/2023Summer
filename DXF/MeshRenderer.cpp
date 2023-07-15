@@ -21,6 +21,8 @@ void MeshRenderer::Render()
     Vector3 rot = transform->GetWorldRotation();
     Vector3 scale = transform->GetWorldScale();
 
+    if (!g_Frustum->isIn(pos)) return;
+
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
 

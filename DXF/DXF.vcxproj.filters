@@ -102,6 +102,9 @@
     <ClCompile Include="Time.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>1. Functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="GarbageCollector.h">
       <Filter>2. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>1. Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

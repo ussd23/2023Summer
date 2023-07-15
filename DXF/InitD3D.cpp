@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Transform.h"
 #include "RectTransform.h"
+#include "Frustum.h"
 
 HRESULT DXFGame::InitD3D(HWND hWnd)
 {
@@ -27,6 +28,8 @@ HRESULT DXFGame::InitD3D(HWND hWnd)
     g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
     g_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
     g_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+    g_Frustum = new Frustum();
 
     D3DXCreateSprite(g_pd3dDevice, &g_pSprite);
 

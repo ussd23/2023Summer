@@ -30,6 +30,12 @@ void VerticeRenderer::Render()
 {
     if (transform == nullptr) return;
 
+    Vector3 pos = transform->GetWorldPosition();
+    Vector3 rot = transform->GetWorldRotation();
+    Vector3 scale = transform->GetWorldScale();
+
+    if (!g_Frustum->isIn(pos)) return;
+
     if (FAILED(g_pd3dDevice->CreateVertexBuffer(vertices.size() * sizeof(Vertex),
         0, D3DFVF_CUSTOMVERTEX,
         D3DPOOL_DEFAULT, &g_pVB, NULL)))
@@ -61,10 +67,6 @@ void VerticeRenderer::Render()
         g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
         g_pd3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
     }
-
-    Vector3 pos = transform->GetWorldPosition();
-    Vector3 rot = transform->GetWorldRotation();
-    Vector3 scale = transform->GetWorldScale();
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);

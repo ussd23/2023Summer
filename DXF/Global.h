@@ -4,11 +4,13 @@
 // Desc: Global 설정 및 변수
 //
 //		[Variables]
+//		- g_Frustum: 절두체 컬링 사용을 위한 클래스
 //		- g_Objects: 오브젝트 목록 (생성 순서대로 push_back)
 //		- g_RootObject: Transform 소유 최상위 Parent 오브젝트
 //		- g_RootTransform: g_RootObject의 Transform 컴포넌트
 //		- g_RootObject: RectTransform 소유 최상위 Parent 오브젝트
 //		- g_RootRectTransform: g_RootObject의 RectTransform 컴포넌트
+//		- g_NewComponents: 새로 만들어진 컴포넌트 (Start를 위함)
 //
 //		- g_mouse: 마우스의 입력 버퍼
 //		- g_mousepos: 마우스 포인터의 좌표 값
@@ -26,6 +28,7 @@
 class GameObject;
 class Transform;
 class RectTransform;
+class Frustum;
 template<typename T> class SPTR;
 
 #define SCREENSIZEX 1600
@@ -33,6 +36,8 @@ template<typename T> class SPTR;
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
 #ifdef WINMAIN
+Frustum*                        g_Frustum;
+int                             g_CullingObjects;
 list<SPTR<GameObject>>		    g_Objects;
 GameObject*						g_RootObject;
 Transform*						g_RootTransform;
@@ -40,6 +45,8 @@ GameObject*						g_RootRectObject;
 RectTransform*					g_RootRectTransform;
 vector<Component*>              g_NewComponents;
 #else
+extern Frustum*                 g_Frustum;
+extern int                      g_CullingObjects;
 extern list<SPTR<GameObject>>	g_Objects;
 extern GameObject*				g_RootObject;
 extern Transform*				g_RootTransform;

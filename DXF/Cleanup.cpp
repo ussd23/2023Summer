@@ -36,4 +36,6 @@ VOID DXFGame::Cleanup()
 
     if (g_pVB != NULL)
         g_pVB->Release();
+
+    delete g_Frustum;
 }
