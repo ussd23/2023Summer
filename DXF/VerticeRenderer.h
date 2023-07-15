@@ -8,6 +8,7 @@
 //		- texturename: 텍스쳐의 파일명
 //		- pTexture: 텍스쳐 인터페이스
 //		- vertices: 버텍스 정보
+//		- farthestDistance: 가장 먼 정점의 거리 (Frustum Culling에 사용)
 //		- type: 기본 도형(primitive) 유형을 지정하는 enum
 //		- startvertex: 출력을 시작할 버텍스의 인덱스
 //		- count: 출력할 버텍스 단위의 수
@@ -34,6 +35,7 @@ protected:
 	string					texturename;
 	LPDIRECT3DTEXTURE9		pTexture = NULL;
 	vector<Vertex>			vertices;
+	float					farthestDistance;
 	D3DPRIMITIVETYPE		type;
 	UINT					startvertex;
 	UINT					count;

@@ -9,6 +9,7 @@
 //			- pMeshMaterials: 사용되는 머티리얼 배열
 //			- pMeshTextures: 사용되는 텍스쳐 배열
 //			- dwNumMaterials: 머티리얼의 개수
+//			- farthestDistance: 가장 먼 정점의 거리 (Frustum Culling에 사용)
 //
 //		[Variables]
 //		- meshinfos: 메쉬 정보 목록
@@ -31,6 +32,7 @@ public:
 	D3DMATERIAL9*		pMeshMaterials = NULL;
 	LPDIRECT3DTEXTURE9* pMeshTextures = NULL;
 	DWORD               dwNumMaterials = 0L;
+	float				farthestDistance = 0.f;
 };
 
 class MeshManager : public GetI<MeshManager>

@@ -1,6 +1,7 @@
 #include "DXHeader.h"
 #include "Functions.h"
 #include "Global.h"
+#include "Frustum.h"
 #include "MeshRenderer.h"
 #include "TextureManager.h"
 #include "MeshManager.h"

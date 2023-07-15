@@ -50,6 +50,26 @@ MeshInfo* MeshManager::GetMesh(const string& _filepath)
 
     pD3DXMtrlBuffer->Release();
 
+    D3DXVECTOR3* pVertices;
+    float farthest = 0.f;
+
+    meshinfo->pMesh->GetVertexBuffer(&g_pVB);
+    g_pVB->Lock(0, 0, (void**)&pVertices, 0);
+
+    for (DWORD i = 0; i < meshinfo->pMesh->GetNumVertices(); ++i)
+    {
+        D3DXVECTOR3 vertex = pVertices[i];
+        float distance = D3DXVec3Length(&vertex);
+
+        if (distance > farthest)
+        {
+            farthest = distance;
+        }
+    }
+    g_pVB->Unlock();
+
+    meshinfo->farthestDistance = farthest;
+
     meshinfos.push_back(meshinfo);
     meshinfosmap.insert(make_pair(_filepath, meshinfo));
 

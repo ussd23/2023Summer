@@ -21,7 +21,9 @@ void MeshRenderer::Render()
     Vector3 rot = transform->GetWorldRotation();
     Vector3 scale = transform->GetWorldScale();
 
-    if (!g_Frustum->isIn(pos)) return;
+    float maxscale = max(scale.x, max(scale.y, scale.z));
+
+    if (!g_Frustum->isIn(pos, meshinfo->farthestDistance * maxscale)) return;
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
@@ -45,7 +47,6 @@ void MeshRenderer::Render()
 
     for (DWORD i = 0; i < meshinfo->dwNumMaterials; i++)
     {
-        // mat
         g_pd3dDevice->SetMaterial(&meshinfo->pMeshMaterials[i]);
         g_pd3dDevice->SetTexture(0, meshinfo->pMeshTextures[i]);
         // g_pd3dDevice->SetVertexShader()

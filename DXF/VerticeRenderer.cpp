@@ -24,6 +24,21 @@ void VerticeRenderer::Start()
     if (texturename.size() <= 0) return;
     
     pTexture = TextureManager::GetInstance()->GetTexture(texturename);
+
+    float farthest = 0.f;
+
+    for (DWORD i = 0; i < vertices.size(); ++i)
+    {
+        Vector3 vertex = Vector3(vertices[i].x, vertices[i].y, vertices[i].z);
+        float distance = D3DXVec3Length(&vertex);
+
+        if (distance > farthest)
+        {
+            farthest = distance;
+        }
+    }
+
+    farthestDistance = farthest;
 }
 
 void VerticeRenderer::Render()
@@ -34,7 +49,9 @@ void VerticeRenderer::Render()
     Vector3 rot = transform->GetWorldRotation();
     Vector3 scale = transform->GetWorldScale();
 
-    if (!g_Frustum->isIn(pos)) return;
+    float maxscale = max(scale.x, max(scale.y, scale.z));
+
+    if (!g_Frustum->isIn(pos, farthestDistance * maxscale)) return;
 
     if (FAILED(g_pd3dDevice->CreateVertexBuffer(vertices.size() * sizeof(Vertex),
         0, D3DFVF_CUSTOMVERTEX,
