@@ -7,9 +7,11 @@ BoxCollider::BoxCollider(Vector3 _size)
 
 void BoxCollider::Update()
 {
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+	if (!ColliderTimeCheck()) return;
 
-	while (iter != g_Objects.end())
+	list<GameObject*>::iterator iter = g_ColliderObjects.begin();
+
+	while (iter != g_ColliderObjects.end())
 	{
 		if (*iter == gameObject)
 		{
@@ -17,19 +19,17 @@ void BoxCollider::Update()
 			continue;
 		}
 
-		GameObject* obj = (*iter++)();
+		GameObject* obj = *iter++;
 
-		Transform* objtransform = GetComponentFromObject(obj, Transform);
 		BoxCollider* bcollider = GetComponentFromObject(obj, BoxCollider);
 		SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
 
-		if (objtransform == nullptr) continue;
-		if (bcollider != nullptr)
+		if (bcollider != nullptr && bcollider->transform != nullptr)
 		{
 			bool result = CollisionCheckBtoB(this, bcollider);
 			OnTrigger(bcollider, result);
 		}
-		else if (scollider != nullptr)
+		else if (scollider != nullptr && scollider->transform != nullptr)
 		{
 			bool result = CollisionCheckBtoS(this, scollider);
 			OnTrigger(scollider, result);

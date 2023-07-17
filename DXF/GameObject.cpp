@@ -8,6 +8,8 @@
 #include "TextRenderer.h"
 #include "VerticeRenderer.h"
 #include "SpriteRenderer.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 
 vector<GameObject*> GameObject::safedestroy;
 
@@ -27,6 +29,30 @@ bool GameObject::TransformCheck(const string& _key)
 			return false;
 		}
 	}
+	return true;
+}
+
+bool GameObject::ColliderCheck(Component* _comp)
+{
+	BoxCollider* bcollider = dynamic_cast<BoxCollider*>(_comp);
+	SphereCollider* scollider = dynamic_cast<SphereCollider*>(_comp);
+
+	if (bcollider == nullptr && scollider == nullptr) return true;
+
+	map<string, Component*>::iterator iter = componentsmap.find(typeid(BoxCollider).name());
+	if (iter != componentsmap.end())
+	{
+		return false;
+	}
+
+	iter = componentsmap.find(typeid(SphereCollider).name());
+	if (iter != componentsmap.end())
+	{
+		return false;
+	}
+
+	g_ColliderObjects.push_back(this);
+
 	return true;
 }
 
@@ -268,6 +294,18 @@ void GameObject::Erase(GameObject* _gameObject)
 			return;
 		}
 		++iter;
+	}
+
+	list<GameObject*>::iterator iter2 = g_ColliderObjects.begin();
+
+	while (iter2 != g_ColliderObjects.end())
+	{
+		if (_gameObject == *iter2)
+		{
+			g_ColliderObjects.erase(iter2);
+			return;
+		}
+		++iter2;
 	}
 }
 

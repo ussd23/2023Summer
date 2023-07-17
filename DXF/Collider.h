@@ -5,9 +5,10 @@
 //		 BoxCollider 혹은 SphereCollider의 상위 클래스임
 //
 //		[Variables]
-//		- transform: 오브젝트의 Transform 컴포넌트
 //		- entering: 다른 Collider와 충돌중인 지의 여부
-//		- radius: Collider의 크기 (반지름)
+//		- presecond: 이전 충돌 체크 시간
+//		- transform: 오브젝트의 Transform 컴포넌트
+//		- collidertime: 충돌 체크 시간
 //
 //		[Functions]
 //		- OnTrigger: 충돌 갱신 여부에 따라 모든 컴포넌트의 OnTriggerEnter,
@@ -30,8 +31,15 @@ class SphereCollider;
 class Collider : public Component
 {
 protected:
-	Transform*					transform;
 	map<Collider*, bool>		entering;
+	float						presecond;
+
+public:
+	Transform*					transform;
+	float						collidertime = 0.1f;
+
+protected:
+	bool ColliderTimeCheck();
 
 public:
 	void OnTrigger(Collider*, bool);

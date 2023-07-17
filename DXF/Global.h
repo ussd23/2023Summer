@@ -5,6 +5,7 @@
 //
 //		[Variables]
 //		- g_Objects: 오브젝트 목록 (생성 순서대로 push_back)
+//		- g_ColliderObjects: Collider를 사용하는 오브젝트 목록
 //		- g_RootObject: Transform 소유 최상위 Parent 오브젝트
 //		- g_RootTransform: g_RootObject의 Transform 컴포넌트
 //		- g_RootObject: RectTransform 소유 최상위 Parent 오브젝트
@@ -43,6 +44,7 @@ template<typename T> class SPTR;
 
 #ifdef WINMAIN
 list<SPTR<GameObject>>		    g_Objects;
+list<GameObject*>		        g_ColliderObjects;
 GameObject*						g_RootObject;
 Transform*						g_RootTransform;
 GameObject*						g_RootRectObject;
@@ -56,6 +58,7 @@ vector<Renderer*>               g_TransformRenderList;
 vector<Renderer*>               g_RectTransformRenderList;
 #else
 extern list<SPTR<GameObject>>	g_Objects;
+extern list<GameObject*>	    g_ColliderObjects;
 extern GameObject*				g_RootObject;
 extern Transform*				g_RootTransform;
 extern GameObject*				g_RootRectObject;

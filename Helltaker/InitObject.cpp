@@ -91,16 +91,19 @@ void Helltaker::InitObject()
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
     // Neptune (Object)
-    gameObject = new GameObject("Neptune");
-    transform = new Transform(Vector3(5.f, 2.5f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
-    AddComponentToObject(gameObject, transform);
-    mesh = new MeshRenderer("neptune.x");
-    AddComponentToObject(gameObject, mesh);
-    scollider = new SphereCollider(1.2f);
-    AddComponentToObject(gameObject, scollider);
-    omove = new ObjectMove();
-    AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    for (int i = 0; i < 50; ++i)
+    {
+        gameObject = new GameObject("Neptune");
+        transform = new Transform(Vector3(5.f, 2.5f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
+        AddComponentToObject(gameObject, transform);
+        mesh = new MeshRenderer("neptune.x");
+        AddComponentToObject(gameObject, mesh);
+        scollider = new SphereCollider(1.2f);
+        AddComponentToObject(gameObject, scollider);
+        omove = new ObjectMove();
+        AddComponentToObject(gameObject, omove);
+        AddObjectToScene(gameObject, g_RootTransform, transform);
+    }
 
     // Sprite (RectTransform)
     gameObject = new GameObject("Sprite");

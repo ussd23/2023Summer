@@ -7,9 +7,11 @@ SphereCollider::SphereCollider(float _radius)
 
 void SphereCollider::Update()
 {
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+	if (!ColliderTimeCheck()) return;
 
-	while (iter != g_Objects.end())
+	list<GameObject*>::iterator iter = g_ColliderObjects.begin();
+
+	while (iter != g_ColliderObjects.end())
 	{
 		if (*iter == gameObject)
 		{
@@ -17,23 +19,21 @@ void SphereCollider::Update()
 			continue;
 		}
 
-		GameObject* obj = (*iter++)();
-
-		Transform* objtransform = GetComponentFromObject(obj, Transform);
+		GameObject* obj = *iter++;
 		BoxCollider* bcollider = GetComponentFromObject(obj, BoxCollider);
 		SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
 
-		if (objtransform == nullptr) continue;
-		if (bcollider != nullptr)
+		if (bcollider != nullptr && bcollider->transform != nullptr)
 		{
 			bool result = CollisionCheckBtoS(bcollider, this);
 			OnTrigger(bcollider, result);
 		}
-		else if (scollider != nullptr)
+		else if (scollider != nullptr && scollider->transform != nullptr)
 		{
 			bool result = CollisionCheckStoS(this, scollider);
 			OnTrigger(scollider, result);
 		}
 	}
+
 	OnStay();
 }

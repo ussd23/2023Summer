@@ -3,6 +3,19 @@
 void Collider::Start()
 {
 	transform = GetComponentFromObject(gameObject, Transform);
+
+	presecond = (rand() / (float)RAND_MAX) * collidertime;
+}
+
+bool Collider::ColliderTimeCheck()
+{
+	presecond += Time::deltaTime;
+	if (presecond < collidertime)
+	{
+		return false;
+	}
+	presecond -= collidertime;
+	return true;
 }
 
 void Collider::OnTrigger(Collider* _collider, bool _result)
@@ -58,6 +71,8 @@ void Collider::OnStay()
 
 bool Collider::CollisionCheckBtoB(BoxCollider* _col1, BoxCollider* _col2)
 {
+	if (!_col1->gameObject->isActive() || !_col2->gameObject->isActive()) return false;
+
 	Vector3 pos1 = _col1->transform->GetWorldPosition();
 	Vector3 size = _col1->transform->GetWorldScale();
 	Vector3 size1 = _col1->size;
@@ -89,6 +104,8 @@ bool Collider::CollisionCheckBtoB(BoxCollider* _col1, BoxCollider* _col2)
 
 bool Collider::CollisionCheckBtoS(BoxCollider* _col1, SphereCollider* _col2)
 {
+	if (!_col1->gameObject->isActive() || !_col2->gameObject->isActive()) return false;
+
 	Vector3 pos1 = _col1->transform->GetWorldPosition();
 	Vector3 size = _col1->transform->GetWorldScale();
 	Vector3 size1 = _col1->size;
@@ -123,6 +140,8 @@ bool Collider::CollisionCheckBtoS(BoxCollider* _col1, SphereCollider* _col2)
 
 bool Collider::CollisionCheckStoS(SphereCollider* _col1, SphereCollider* _col2)
 {
+	if (!_col1->gameObject->isActive() || !_col2->gameObject->isActive()) return false;
+
 	float distance = Functions::GetDistance(_col1->transform->GetWorldPosition(), _col2->transform->GetWorldPosition());
 
 	Vector3 scale = _col1->transform->GetWorldScale();

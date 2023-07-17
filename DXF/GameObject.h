@@ -14,6 +14,7 @@
 //
 //		[Functions]
 //		- TransformCheck: Transform과 RectTransform이 동시에 존재하지 않도록 제한
+//		- ColliderCheck: Collider와 관련된 설정 확인
 //		- Erase: 오브젝트 삭제
 // 
 //		- AddComponent: 이미지 파일을 기반으로 텍스쳐 인터페이스를 검색하여 반환
@@ -25,7 +26,7 @@
 //
 //		- Start: 모든 컴포넌트의 Start 일괄 실행
 //		- Update: 모든 컴포넌트의 Update 일괄 실행 후 Child의 Update 실행
-//		- Render: Render 관련 컴포넌트의 Render 일괄 실행 후 Child의 Render 실행
+//		- PreRender: Render 관련 컴포넌트의 Render 일괄 실행
 //
 //		- Destroy: 해당 오브젝트를 삭제 대기열에 올림
 //		- SafeDestroy: 모든 Update와 Render가 완료된 이후에 삭제 대기열에 있는
@@ -59,6 +60,7 @@ public:
 
 protected:
 	bool TransformCheck(const string&);
+	bool ColliderCheck(Component*);
 	static void Erase(GameObject*);
 
 public:
@@ -76,7 +78,6 @@ public:
 
 	void Update();
 	void PreRender();
-	void Render();
 
 	static void Destroy(GameObject*);
 	static void SafeDestroy();
@@ -94,6 +95,12 @@ template <class T> void GameObject::AddComponent(T* _comp)
 	if (comp)
 	{
 		if (!TransformCheck(key))
+		{
+			delete _comp;
+			return;
+		}
+
+		if (!ColliderCheck(comp))
 		{
 			delete _comp;
 			return;
