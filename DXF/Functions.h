@@ -30,6 +30,7 @@ namespace Functions
 template <typename T> T Lerp(T, T, float);
 
 bool Inner(const RECT&, const Vector2&);
+bool Inner(const RECT&, const RECT&);
 Vector2 WorldToScreen(Transform*);
 float GetDistance(const Vector3&, const Vector3&);
 

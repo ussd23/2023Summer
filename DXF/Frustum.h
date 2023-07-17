@@ -15,11 +15,9 @@
 #pragma once
 #include "DXHeader.h"
 
-#define PLANE_EPSILON   5.0f
-
 class Frustum
 {
-private:
+protected:
 	Vector3		vertex[8];
 	Plane		plane[6];
 

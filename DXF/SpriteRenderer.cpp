@@ -29,11 +29,26 @@ void SpriteRenderer::Start()
     SetRect(&texturesize, 0, 0, desc.Width, desc.Height);
 }
 
-void SpriteRenderer::Render()
+void SpriteRenderer::PreRender()
 {
-	if (recttransform == nullptr) return;
+    if (recttransform == nullptr) return;
     if (pTexture == NULL) return;
 
+    Vector2 pos = recttransform->GetScreenPosition();
+    Vector2 scale = recttransform->GetScreenScale();
+    Vector2 size = recttransform->size;
+
+    RECT rect;
+    SetRect(&rect, pos.x - size.x * scale.x, pos.y - size.y * scale.y, pos.x + size.x * scale.x, pos.y + size.y * scale.y);
+
+    if (Functions::Inner(rect, g_ScreenRect))
+    {
+        g_RectTransformRenderList.push_back(this);
+    }
+}
+
+void SpriteRenderer::Render()
+{
     Vector2 temp = Vector2(texturesize.right / rectsize.x, texturesize.bottom / rectsize.y);
     RECT rect;
     SetRect(&rect, rectindex.x * temp.x, rectindex.y * temp.y, (rectindex.x + 1) * temp.x, (rectindex.y + 1) * temp.y);

@@ -63,7 +63,7 @@ extern LPD3DXSPRITE				g_pSprite;
 
 class DXFGame
 {
-private:
+protected:
 	static Matrix16 viewMatrix;
 	static Matrix16 projMatrix;
 
@@ -82,7 +82,7 @@ public:
 
 class Time
 {
-private:
+protected:
 	static UINT					pastTime;
 	static int					sec;
 	static int					frames;

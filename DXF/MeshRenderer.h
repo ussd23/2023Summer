@@ -14,13 +14,14 @@
 
 #pragma once
 #include "Component.h"
+#include "Renderer.h"
 #include "DXHeader.h"
 #include "StandardLibrary.h"
 
 class Transform;
 class MeshInfo;
 
-class MeshRenderer : public Component
+class MeshRenderer : public Renderer
 {
 protected:
 	Transform*			transform;
@@ -29,8 +30,9 @@ protected:
 
 public:
 	MeshRenderer(string);
-	void Render();
 
 	void Start() override;
+	void PreRender() override;
+	void Render() override;
 };
 

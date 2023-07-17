@@ -18,15 +18,17 @@
 
 #pragma once
 #include "Component.h"
+#include "Renderer.h"
 #include "DXHeader.h"
 #include "StandardLibrary.h"
 
 class RectTransform;
 
-class TextRenderer : public Component
+class TextRenderer : public Renderer
 {
 protected:
 	RectTransform*		recttransform;
+	RECT				rect;
 
 public:
 	string				fontname;
@@ -40,8 +42,9 @@ public:
 	TextRenderer(string, int, string);
 	TextRenderer(string, int, string, D3DCOLOR);
 	TextRenderer(string, int, string, D3DCOLOR, DWORD);
-	void Render();
 
 	void Start() override;
+	void PreRender() override;
+	void Render() override;
 };
 

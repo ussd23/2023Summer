@@ -12,5 +12,6 @@
 #include <vector>
 #include <map>
 #include <typeinfo>
+#include <algorithm>
 
 using namespace std;

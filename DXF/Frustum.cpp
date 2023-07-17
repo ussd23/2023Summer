@@ -39,7 +39,7 @@ bool Frustum::isIn(Vector3 _pos)
     for (int i = 0 ; i < 6 ; ++i)
     {
         float fDist = D3DXPlaneDotCoord(&plane[i], &_pos);
-        if (fDist > PLANE_EPSILON) return false;
+        if (fDist > 0) return false;
     }
 
     ++g_CullingObjects;
@@ -51,7 +51,7 @@ bool Frustum::isIn(Vector3 _pos, float _radius)
     for (int i = 0; i < 6; ++i)
     {
         float fDist = D3DXPlaneDotCoord(&plane[i], &_pos);
-        if (fDist > (_radius + PLANE_EPSILON)) return false;
+        if (fDist > (_radius + 0)) return false;
     }
 
     ++g_CullingObjects;

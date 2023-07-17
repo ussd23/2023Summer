@@ -10,8 +10,12 @@
 //		- g_RootObject: RectTransform 소유 최상위 Parent 오브젝트
 //		- g_RootRectTransform: g_RootObject의 RectTransform 컴포넌트
 //		- g_NewComponents: 새로 만들어진 컴포넌트 (Start를 위함)
+// 
 //		- g_Frustum: 절두체 컬링 사용을 위한 클래스
 //      - g_CullingObjects: 렌더링한 오브젝트 수
+//      - g_TransformRenderList: 렌더링할 Transform을 이용하는 오브젝트 리스트
+//      - g_RectTransformRenderList: 렌더링할 RectTransform을 이용하는 오브젝트
+//                                   리스트
 //
 //		- g_mouse: 마우스의 입력 버퍼
 //		- g_mousepos: 마우스 포인터의 좌표 값
@@ -30,6 +34,7 @@ class GameObject;
 class Transform;
 class RectTransform;
 class Frustum;
+class Renderer;
 template<typename T> class SPTR;
 
 #define SCREENSIZEX 1600
@@ -43,8 +48,12 @@ Transform*						g_RootTransform;
 GameObject*						g_RootRectObject;
 RectTransform*					g_RootRectTransform;
 vector<Component*>              g_NewComponents;
+
+RECT                            g_ScreenRect;
 Frustum*                        g_Frustum;
 int                             g_CullingObjects;
+vector<Renderer*>               g_TransformRenderList;
+vector<Renderer*>               g_RectTransformRenderList;
 #else
 extern list<SPTR<GameObject>>	g_Objects;
 extern GameObject*				g_RootObject;
@@ -52,8 +61,12 @@ extern Transform*				g_RootTransform;
 extern GameObject*				g_RootRectObject;
 extern RectTransform*			g_RootRectTransform;
 extern vector<Component*>       g_NewComponents;
+
+extern RECT                     g_ScreenRect;
 extern Frustum*                 g_Frustum;
 extern int                      g_CullingObjects;
+extern vector<Renderer*>        g_TransformRenderList;
+extern vector<Renderer*>        g_RectTransformRenderList;
 #endif
 
 enum MouseInput
@@ -92,7 +105,7 @@ extern map<WPARAM, bool>		g_keyhold;
 
 template<typename T> class SPTR
 {
-private:
+protected:
     T* ptr;
 
 public:

@@ -41,7 +41,7 @@ void VerticeRenderer::Start()
     farthestDistance = farthest;
 }
 
-void VerticeRenderer::Render()
+void VerticeRenderer::PreRender()
 {
     if (transform == nullptr) return;
 
@@ -51,8 +51,17 @@ void VerticeRenderer::Render()
 
     float maxscale = max(scale.x, max(scale.y, scale.z));
 
-    if (!g_Frustum->isIn(pos, farthestDistance * maxscale)) return;
+    Vector3 sub = pos - Camera::main->transform->GetWorldPosition();
+    distance = D3DXVec3Length(&sub) - farthestDistance * maxscale;
 
+    if (g_Frustum->isIn(pos, farthestDistance * maxscale))
+    {
+        g_TransformRenderList.push_back(this);
+    }
+}
+
+void VerticeRenderer::Render()
+{
     if (FAILED(g_pd3dDevice->CreateVertexBuffer(vertices.size() * sizeof(Vertex),
         0, D3DFVF_CUSTOMVERTEX,
         D3DPOOL_DEFAULT, &g_pVB, NULL)))
@@ -84,6 +93,10 @@ void VerticeRenderer::Render()
         g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
         g_pd3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
     }
+
+    Vector3 pos = transform->GetWorldPosition();
+    Vector3 rot = transform->GetWorldRotation();
+    Vector3 scale = transform->GetWorldScale();
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);

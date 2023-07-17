@@ -7,6 +7,7 @@
 #include "Transform.h"
 #include "RectTransform.h"
 #include "Camera.h"
+#include "Renderer.h"
 
 Matrix16 DXFGame::viewMatrix;
 Matrix16 DXFGame::projMatrix;
@@ -34,17 +35,37 @@ HRESULT DXFGame::Render()
     g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
         D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
+    SetRect(&g_ScreenRect, 0, 0, SCREENSIZEX, SCREENSIZEY);
+
     g_CullingObjects = 0;
 
     if (SUCCEEDED(g_pd3dDevice->BeginScene()))
     {
         if (FAILED(SetupCamera())) return E_FAIL;
 
+        // Frustum 생성
         Matrix16 matViewProj = viewMatrix * projMatrix;
-        g_Frustum->MakeFrustum(&matViewProj);
+        if (g_Frustum != nullptr) g_Frustum->MakeFrustum(&matViewProj);
 
-        if (g_RootObject != nullptr) g_RootObject->Render();
-        if (g_RootRectObject != nullptr) g_RootRectObject->Render();
+        g_TransformRenderList.clear();
+        g_RectTransformRenderList.clear();
+
+        // Frustum Culling 적용
+        if (g_RootObject != nullptr) g_RootObject->PreRender();
+        if (g_RootRectObject != nullptr) g_RootRectObject->PreRender();
+
+        // Transform을 사용하는 오브젝트 정렬 및 렌더링 (카메라와 가까운 순)
+        sort(g_TransformRenderList.begin(), g_TransformRenderList.end(), Renderer::Compare);
+        for (int i = 0; i < g_TransformRenderList.size(); ++i)
+        {
+           g_TransformRenderList[i]->Render();
+        }
+
+        // RectTransform을 사용하는 오브젝트 렌더링 (Parent/Child 순)
+        for (int i = 0; i < g_RectTransformRenderList.size(); ++i)
+        {
+            g_RectTransformRenderList[i]->Render();
+        }
 
         g_pd3dDevice->EndScene();
     }

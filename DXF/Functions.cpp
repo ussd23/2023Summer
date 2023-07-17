@@ -9,6 +9,13 @@ bool Functions::Inner(const RECT& _rect, const Vector2& _pos)
     else return false;
 }
 
+bool Functions::Inner(const RECT& _rect1, const RECT& _rect2)
+{
+    if (_rect1.left <= _rect2.right && _rect1.right >= _rect2.left &&
+        _rect1.top <= _rect2.bottom && _rect1.bottom >= _rect2.top) return true;
+    else return false;
+}
+
 Vector2 Functions::WorldToScreen(Transform* _transform)
 {
     Vector3 worldPosition = Vector3(0, 0, 0);

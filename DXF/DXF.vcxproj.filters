@@ -105,6 +105,9 @@
     <ClCompile Include="Frustum.cpp">
       <Filter>1. Functions</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Frustum.h">
       <Filter>1. Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>4. Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

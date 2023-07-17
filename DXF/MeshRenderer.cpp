@@ -12,7 +12,7 @@ void MeshRenderer::Start()
     meshinfo = MeshManager::GetInstance()->GetMesh(modelname);
 }
 
-void MeshRenderer::Render()
+void MeshRenderer::PreRender()
 {
     if (transform == nullptr) return;
     if (meshinfo == nullptr) return;
@@ -23,7 +23,20 @@ void MeshRenderer::Render()
 
     float maxscale = max(scale.x, max(scale.y, scale.z));
 
-    if (!g_Frustum->isIn(pos, meshinfo->farthestDistance * maxscale)) return;
+    Vector3 sub = pos - Camera::main->transform->GetWorldPosition();
+    distance = D3DXVec3Length(&sub) - meshinfo->farthestDistance * maxscale;
+
+    if (g_Frustum->isIn(pos, meshinfo->farthestDistance * maxscale))
+    {
+        g_TransformRenderList.push_back(this);
+    }
+}
+
+void MeshRenderer::Render()
+{
+    Vector3 pos = transform->GetWorldPosition();
+    Vector3 rot = transform->GetWorldRotation();
+    Vector3 scale = transform->GetWorldScale();
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);

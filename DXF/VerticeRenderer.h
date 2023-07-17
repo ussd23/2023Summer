@@ -21,6 +21,7 @@
 
 #pragma once
 #include "Component.h"
+#include "Renderer.h"
 #include "DXHeader.h"
 #include "CustomVertex.h"
 #include "StandardLibrary.h"
@@ -28,7 +29,7 @@
 class Transform;
 class RectTransform;
 
-class VerticeRenderer : public Component
+class VerticeRenderer : public Renderer
 {
 protected:
 	Transform*				transform;
@@ -48,8 +49,9 @@ public:
 	VerticeRenderer(vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
 	VerticeRenderer(string, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
 	VerticeRenderer(string, Vector2, Vector2, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	void Render();
 
 	void Start() override;
+	void PreRender() override;
+	void Render() override;
 };
 

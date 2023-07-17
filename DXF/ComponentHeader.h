@@ -18,6 +18,7 @@
 #include "FontManager.h"
 #include "Transform.h"
 #include "RectTransform.h"
+#include "Renderer.h"
 #include "MeshRenderer.h"
 #include "VerticeRenderer.h"
 #include "TextRenderer.h"

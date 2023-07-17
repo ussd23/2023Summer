@@ -116,7 +116,7 @@ void GameObject::Update()
 	}
 }
 
-void GameObject::Render()
+void GameObject::PreRender()
 {
 	if (!active) return;
 
@@ -126,26 +126,26 @@ void GameObject::Render()
 	if (transform != nullptr)
 	{
 		MeshRenderer* mesh = GetComponentFromObject(this, MeshRenderer);
-		if (mesh != nullptr) mesh->Render();
+		if (mesh != nullptr) { mesh->PreRender(); }
 		VerticeRenderer* vertice = GetComponentFromObject(this, VerticeRenderer);
-		if (vertice != nullptr) vertice->Render();
+		if (vertice != nullptr) { vertice->PreRender(); }
 
 		for (int i = 0; i < transform->GetChildCount(); ++i)
 		{
-			transform->GetChild(i)->gameObject->Render();
+			transform->GetChild(i)->gameObject->PreRender();
 		}
 	}
 
 	else if (recttransform != nullptr)
 	{
 		TextRenderer* text = GetComponentFromObject(this, TextRenderer);
-		if (text != nullptr) text->Render();
+		if (text != nullptr) { text->PreRender(); }
 		SpriteRenderer* sprite = GetComponentFromObject(this, SpriteRenderer);
-		if (sprite != nullptr) sprite->Render();
+		if (sprite != nullptr) { sprite->PreRender(); }
 
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
-			recttransform->GetChild(i)->gameObject->Render();
+			recttransform->GetChild(i)->gameObject->PreRender();
 		}
 	}
 }

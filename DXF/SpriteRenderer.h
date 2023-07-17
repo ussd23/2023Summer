@@ -18,12 +18,13 @@
 
 #pragma once
 #include "Component.h"
+#include "Renderer.h"
 #include "DXHeader.h"
 #include "StandardLibrary.h"
 
 class RectTransform;
 
-class SpriteRenderer : public Component
+class SpriteRenderer : public Renderer
 {
 protected:
 	RectTransform*			recttransform;
@@ -40,7 +41,8 @@ public:
 	SpriteRenderer(string);
 	SpriteRenderer(string, Vector2, Vector2);
 	SpriteRenderer(string, DWORD, Vector2, Vector2);
-	void Render();
 
 	void Start() override;
+	void PreRender() override;
+	void Render() override;
 };

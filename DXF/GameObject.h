@@ -57,7 +57,7 @@ public:
 	string							name;
 	list<SPTR<Component>>			components;
 
-private:
+protected:
 	bool TransformCheck(const string&);
 	static void Erase(GameObject*);
 
@@ -75,6 +75,7 @@ public:
 	void ObjectInit(Component*);
 
 	void Update();
+	void PreRender();
 	void Render();
 
 	static void Destroy(GameObject*);

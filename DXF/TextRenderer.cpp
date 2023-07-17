@@ -22,7 +22,7 @@ void TextRenderer::Start()
     font = FontManager::GetInstance()->GetFont(fontname, size);
 }
 
-void TextRenderer::Render()
+void TextRenderer::PreRender()
 {
     if (recttransform == nullptr) return;
     if (font == NULL) return;
@@ -30,8 +30,15 @@ void TextRenderer::Render()
     Vector2 pos = recttransform->GetScreenPosition();
     Vector2 size = recttransform->size;
 
-    RECT rect;
     SetRect(&rect, pos.x - size.x / 2, pos.y - size.y / 2, pos.x + size.x / 2, pos.y + size.y / 2);
 
+    if (Functions::Inner(rect, g_ScreenRect))
+    {
+        g_RectTransformRenderList.push_back(this);
+    }
+}
+
+void TextRenderer::Render()
+{
     font->DrawTextA(NULL, text.c_str(), -1, &rect, format, color);
 }
