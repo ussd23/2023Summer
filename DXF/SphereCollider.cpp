@@ -7,31 +7,32 @@ SphereCollider::SphereCollider(float _radius)
 
 void SphereCollider::Update()
 {
-	if (!ColliderTimeCheck()) return;
-
-	list<GameObject*>::iterator iter = g_ColliderObjects.begin();
-
-	while (iter != g_ColliderObjects.end())
+	if (ColliderTimeCheck())
 	{
-		if (*iter == gameObject)
-		{
-			++iter;
-			continue;
-		}
+		list<GameObject*>::iterator iter = g_ColliderObjects.begin();
 
-		GameObject* obj = *iter++;
-		BoxCollider* bcollider = GetComponentFromObject(obj, BoxCollider);
-		SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
+		while (iter != g_ColliderObjects.end())
+		{
+			if (*iter == gameObject)
+			{
+				++iter;
+				continue;
+			}
 
-		if (bcollider != nullptr && bcollider->transform != nullptr)
-		{
-			bool result = CollisionCheckBtoS(bcollider, this);
-			OnTrigger(bcollider, result);
-		}
-		else if (scollider != nullptr && scollider->transform != nullptr)
-		{
-			bool result = CollisionCheckStoS(this, scollider);
-			OnTrigger(scollider, result);
+			GameObject* obj = *iter++;
+			BoxCollider* bcollider = GetComponentFromObject(obj, BoxCollider);
+			SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
+
+			if (bcollider != nullptr && bcollider->transform != nullptr)
+			{
+				bool result = CollisionCheckBtoS(bcollider, this);
+				OnTrigger(bcollider, result);
+			}
+			else if (scollider != nullptr && scollider->transform != nullptr)
+			{
+				bool result = CollisionCheckStoS(this, scollider);
+				OnTrigger(scollider, result);
+			}
 		}
 	}
 
