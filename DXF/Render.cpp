@@ -58,7 +58,7 @@ HRESULT DXFGame::Render()
         sort(g_TransformRenderList.begin(), g_TransformRenderList.end(), Renderer::Compare);
         for (int i = 0; i < g_TransformRenderList.size(); ++i)
         {
-           g_TransformRenderList[i]->Render();
+            g_TransformRenderList[i]->Render();
         }
 
         // RectTransform을 사용하는 오브젝트 렌더링 (Parent/Child 순)
