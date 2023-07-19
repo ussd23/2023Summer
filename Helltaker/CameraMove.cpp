@@ -2,23 +2,23 @@
 
 void CameraMove::Start()
 {
-    camera = GetComponentFromObject(gameObject, Camera);
+    m_Camera = GetComponentFromObject(gameObject, Camera);
 }
 
 void CameraMove::Update()
 {
-    if (camera == nullptr) return;
+    if (m_Camera == nullptr) return;
     
     if (GetInputBuffer(g_mouse, MouseInput::WHEELUP))
     {
-        camera->fovRate *= 1.1;
-        if (camera->fovRate > 10.f) camera->fovRate = 10.f;
+        m_Camera->m_FovRate *= 1.1;
+        if (m_Camera->m_FovRate > 10.f) m_Camera->m_FovRate = 10.f;
     }
 
     if (GetInputBuffer(g_mouse, MouseInput::WHEELDOWN))
     {
-        camera->fovRate /= 1.1;
-        if (camera->fovRate < 1.f) camera->fovRate = 1.0f;
+        m_Camera->m_FovRate /= 1.1;
+        if (m_Camera->m_FovRate < 1.f) m_Camera->m_FovRate = 1.0f;
     }
 
     if (GetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD))
@@ -29,11 +29,11 @@ void CameraMove::Update()
         Transform* transform = GetComponentFromObject(comp->gameObject, Transform);
         if (transform == nullptr) return;
 
-        camera->vLookatPt = Functions::Lerp(camera->vLookatPt, transform->position, Time::deltaTime * LerpT);
+        m_Camera->m_LookatPt = Functions::Lerp(m_Camera->m_LookatPt, transform->m_Position, Time::deltaTime * m_LerpT);
     }
     else
     {
-        camera->vLookatPt = Functions::Lerp(camera->vLookatPt, Vector3(0, 1, 0), Time::deltaTime * LerpT);
+        m_Camera->m_LookatPt = Functions::Lerp(m_Camera->m_LookatPt, Vector3(0, 1, 0), Time::deltaTime * m_LerpT);
     }
 
     if (GetInputBuffer(g_key, VK_ESCAPE))

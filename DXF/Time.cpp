@@ -12,13 +12,14 @@ void Time::TimeUpdate()
     UINT iTime = GetTickCount64();
 
     if (pastTime == 0) pastTime = iTime;
-    if (sec == 0) sec = iTime / 1000;
+    int time = iTime / 1000;
+    if (sec == 0) sec = time;
 
-    deltaTime = (iTime - pastTime) / 1000.0f;
+    deltaTime = (iTime - pastTime) * 0.001f;
 
-    if (sec != iTime / 1000)
+    if (sec != time)
     {
-        sec = iTime / 1000;
+        sec = time;
         framePerSec = frames;
         frames = 0;
         avgFrame = passedFrames / (float)++passedTime;

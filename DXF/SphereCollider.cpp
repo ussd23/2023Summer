@@ -1,8 +1,8 @@
 #include "ComponentHeader.h"
 
-SphereCollider::SphereCollider(float _radius)
+SphereCollider::SphereCollider(const float& p_Radius)
 {
-	radius = _radius;
+	m_Radius = p_Radius;
 }
 
 void SphereCollider::Update()
@@ -23,12 +23,12 @@ void SphereCollider::Update()
 			BoxCollider* bcollider = GetComponentFromObject(obj, BoxCollider);
 			SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
 
-			if (bcollider != nullptr && bcollider->transform != nullptr)
+			if (bcollider != nullptr && bcollider->m_Transform != nullptr)
 			{
 				bool result = CollisionCheckBtoS(bcollider, this);
 				OnTrigger(bcollider, result);
 			}
-			else if (scollider != nullptr && scollider->transform != nullptr)
+			else if (scollider != nullptr && scollider->m_Transform != nullptr)
 			{
 				bool result = CollisionCheckStoS(this, scollider);
 				OnTrigger(scollider, result);

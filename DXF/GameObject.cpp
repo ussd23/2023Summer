@@ -11,20 +11,20 @@
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 
-vector<GameObject*> GameObject::safedestroy;
+vector<GameObject*> GameObject::m_SafeDestroy;
 
-bool GameObject::TransformCheck(const string& _key)
+bool GameObject::TransformCheck(const string& p_Key)
 {
-	if (typeid(Transform).name() == _key || typeid(RectTransform).name() == _key)
+	if (typeid(Transform).name() == p_Key || typeid(RectTransform).name() == p_Key)
 	{
-		map<string, Component*>::iterator iter = componentsmap.find(typeid(Transform).name());
-		if (iter != componentsmap.end())
+		map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(Transform).name());
+		if (iter != m_ComponentsMap.end())
 		{
 			return false;
 		}
 
-		iter = componentsmap.find(typeid(RectTransform).name());
-		if (iter != componentsmap.end())
+		iter = m_ComponentsMap.find(typeid(RectTransform).name());
+		if (iter != m_ComponentsMap.end())
 		{
 			return false;
 		}
@@ -32,21 +32,21 @@ bool GameObject::TransformCheck(const string& _key)
 	return true;
 }
 
-bool GameObject::ColliderCheck(Component* _comp)
+bool GameObject::ColliderCheck(Component* p_Comp)
 {
-	BoxCollider* bcollider = dynamic_cast<BoxCollider*>(_comp);
-	SphereCollider* scollider = dynamic_cast<SphereCollider*>(_comp);
+	BoxCollider* bcollider = dynamic_cast<BoxCollider*>(p_Comp);
+	SphereCollider* scollider = dynamic_cast<SphereCollider*>(p_Comp);
 
 	if (bcollider == nullptr && scollider == nullptr) return true;
 
-	map<string, Component*>::iterator iter = componentsmap.find(typeid(BoxCollider).name());
-	if (iter != componentsmap.end())
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider).name());
+	if (iter != m_ComponentsMap.end())
 	{
 		return false;
 	}
 
-	iter = componentsmap.find(typeid(SphereCollider).name());
-	if (iter != componentsmap.end())
+	iter = m_ComponentsMap.find(typeid(SphereCollider).name());
+	if (iter != m_ComponentsMap.end())
 	{
 		return false;
 	}
@@ -56,9 +56,9 @@ bool GameObject::ColliderCheck(Component* _comp)
 	return true;
 }
 
-GameObject::GameObject(string _name)
+GameObject::GameObject(const string& p_Name)
 {
-	name = _name;
+	m_Name = p_Name;
 }
 
 GameObject::~GameObject()
@@ -90,13 +90,13 @@ GameObject::~GameObject()
 		}
 	}
 
-	components.clear();
+	m_Components.clear();
 
-	for (int i = 0; i < safedestroy.size(); ++i)
+	for (int i = 0; i < m_SafeDestroy.size(); ++i)
 	{
-		if (safedestroy[i] == this)
+		if (m_SafeDestroy[i] == this)
 		{
-			safedestroy[i] = nullptr;
+			m_SafeDestroy[i] = nullptr;
 			break;
 		}
 	}
@@ -107,17 +107,17 @@ GameObject::~GameObject()
 
 bool GameObject::isActive()
 {
-	if (active) return true;
+	if (m_isActive) return true;
 	else return false;
 }
 
 void GameObject::Update()
 {
-	if (!active) return;
+	if (!m_isActive) return;
 
-	list<SPTR<Component>>::iterator iter = components.begin();
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
 
-	while (iter != components.end())
+	while (iter != m_Components.end())
 	{
 		(*iter++)->Update();
 	}
@@ -144,7 +144,7 @@ void GameObject::Update()
 
 void GameObject::PreRender()
 {
-	if (!active) return;
+	if (!m_isActive) return;
 
 	Transform* transform = GetComponentFromObject(this, Transform);
 	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
@@ -176,26 +176,26 @@ void GameObject::PreRender()
 	}
 }
 
-void GameObject::SetActive(bool _active)
+void GameObject::SetActive(bool p_isActive)
 {
-	if (active == _active) return;
+	if (m_isActive == p_isActive) return;
 
-	active = _active;
+	m_isActive = p_isActive;
 
-	if (active)
+	if (m_isActive)
 	{
-		list<SPTR<Component>>::iterator iter = components.begin();
+		list<SPTR<Component>>::iterator iter = m_Components.begin();
 
-		while (iter != components.end())
+		while (iter != m_Components.end())
 		{
 			(*iter++)->OnEnabled();
 		}
 	}
 	else
 	{
-		list<SPTR<Component>>::iterator iter = components.begin();
+		list<SPTR<Component>>::iterator iter = m_Components.begin();
 
-		while (iter != components.end())
+		while (iter != m_Components.end())
 		{
 			(*iter++)->OnDisabled();
 		}
@@ -207,30 +207,30 @@ void GameObject::SetActive(bool _active)
 	{
 		for (int i = 0; i < transform->GetChildCount(); ++i)
 		{
-			transform->GetChild(i)->gameObject->SetActive(active);
+			transform->GetChild(i)->gameObject->SetActive(m_isActive);
 		}
 	}
 	else if (recttransform != nullptr)
 	{
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
-			recttransform->GetChild(i)->gameObject->SetActive(active);
+			recttransform->GetChild(i)->gameObject->SetActive(m_isActive);
 		}
 	}
 }
 
-void GameObject::ObjectInit(Component* comp)
+void GameObject::ObjectInit(Component* p_Comp)
 {
-	comp->gameObject = this;
-	g_NewComponents.push_back(comp);
+	p_Comp->gameObject = this;
+	g_NewComponents.push_back(p_Comp);
 }
 
-Component* GameObject::GetComponent(const string& _key)
+Component* GameObject::GetComponent(const string& p_Key)
 {
-	string key = "class " + _key;
+	string key = "class " + p_Key;
 
-	map<string, Component*>::iterator iter = componentsmap.find(key);
-	if (iter != componentsmap.end())
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
+	if (iter != m_ComponentsMap.end())
 	{
 		return iter->second;
 	}
@@ -238,56 +238,56 @@ Component* GameObject::GetComponent(const string& _key)
 	return nullptr;
 }
 
-void GameObject::RemoveComponent(Component* _ptr)
+void GameObject::RemoveComponent(Component* p_Comp)
 {
-	list<SPTR<Component>>::iterator iter = components.begin();
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
 
-	while (iter != components.end())
+	while (iter != m_Components.end())
 	{
-		if (_ptr == (*iter)())
+		if (p_Comp == (*iter)())
 		{
-			components.erase(iter);
+			m_Components.erase(iter);
 		}
 		++iter;
 	}
 	
-	for (pair<string, Component*> pair : componentsmap)
+	for (pair<string, Component*> pair : m_ComponentsMap)
 	{
-		if (pair.second == _ptr)
+		if (pair.second == p_Comp)
 		{
-			componentsmap.erase(pair.first);
+			m_ComponentsMap.erase(pair.first);
 			break;
 		}
 	}
 }
 
-void GameObject::Destroy(GameObject* _gameObject)
+void GameObject::Destroy(GameObject* p_GameObject)
 {
-	safedestroy.push_back(_gameObject);
+	m_SafeDestroy.push_back(p_GameObject);
 }
 
 void GameObject::SafeDestroy()
 {
-	if (safedestroy.size() == 0) return;
+	if (m_SafeDestroy.size() == 0) return;
 
-	while (safedestroy.size() > 0)
+	while (m_SafeDestroy.size() > 0)
 	{
-		if (safedestroy[0] == nullptr) return;
+		if (m_SafeDestroy[0] == nullptr) return;
 
-		Erase(safedestroy[0]);
-		safedestroy.erase(safedestroy.begin());
+		Erase(m_SafeDestroy[0]);
+		m_SafeDestroy.erase(m_SafeDestroy.begin());
 	}
 
-	safedestroy.clear();
+	m_SafeDestroy.clear();
 }
 
-void GameObject::Erase(GameObject* _gameObject)
+void GameObject::Erase(GameObject* p_GameObject)
 {
 	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
 
 	while (iter != g_Objects.end())
 	{
-		if (_gameObject == (*iter)())
+		if (p_GameObject == (*iter)())
 		{
 			*iter = nullptr;
 			g_Objects.erase(iter);
@@ -300,7 +300,7 @@ void GameObject::Erase(GameObject* _gameObject)
 
 	while (iter2 != g_ColliderObjects.end())
 	{
-		if (_gameObject == *iter2)
+		if (p_GameObject == *iter2)
 		{
 			g_ColliderObjects.erase(iter2);
 			return;
@@ -309,13 +309,13 @@ void GameObject::Erase(GameObject* _gameObject)
 	}
 }
 
-bool GameObject::Exists(GameObject* _gameObject)
+bool GameObject::Exists(GameObject* p_GameObject)
 {
 	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
 
 	while (iter != g_Objects.end())
 	{
-		if (*iter++ == _gameObject)
+		if (*iter++ == p_GameObject)
 		{
 			return true;
 		}
@@ -323,13 +323,13 @@ bool GameObject::Exists(GameObject* _gameObject)
 	return false;
 }
 
-GameObject* GameObject::Search(const string& _name)
+GameObject* GameObject::Search(const string& p_Name)
 {
 	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
 
 	while (iter != g_Objects.end())
 	{
-		if ((*iter)->name == _name)
+		if ((*iter)->m_Name == p_Name)
 		{
 			return (*iter)();
 		}
@@ -338,7 +338,7 @@ GameObject* GameObject::Search(const string& _name)
 	return nullptr;
 }
 
-void GameObject::operator = (void* _ptr)
+void GameObject::operator = (void* p_Ptr)
 {
-	if (_ptr == nullptr) GameObject::Destroy(this);
+	if (p_Ptr == nullptr) GameObject::Destroy(this);
 }

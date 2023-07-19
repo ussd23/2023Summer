@@ -21,10 +21,10 @@ HRESULT DXFGame::SetupCamera()
         return E_FAIL;
     }
 
-    D3DXMatrixLookAtLH(&viewMatrix, &camera->vEyePt, &camera->vLookatPt, &camera->vUpVec);
+    D3DXMatrixLookAtLH(&viewMatrix, &camera->m_EyePt, &camera->m_LookatPt, &camera->m_UpVec);
     g_pd3dDevice->SetTransform(D3DTS_VIEW, &viewMatrix);
 
-    D3DXMatrixPerspectiveFovLH(&projMatrix, D3DX_PI / 4 - (camera->fovRate / (D3DX_PI * 5)), SCREENSIZEX / (float)SCREENSIZEY, 1.0f, 100.0f);
+    D3DXMatrixPerspectiveFovLH(&projMatrix, D3DX_PI * 0.25f - (camera->m_FovRate / (D3DX_PI * 5)), SCREENSIZEX / (float)SCREENSIZEY, 1.0f, 100.0f);
     g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &projMatrix);
 
     return S_OK;

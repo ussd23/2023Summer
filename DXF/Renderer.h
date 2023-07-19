@@ -6,13 +6,13 @@
 class Renderer : public Component
 {
 public:
-	float distance = 0.f;
+	float m_Distance = 0.f;
 
 protected:
 	virtual void PreRender() = 0;
 
 public:
 	virtual void Render() = 0;
-	static bool Compare(Renderer*, Renderer*);
+	static bool Compare(Renderer* p_R1, Renderer* p_R2);
 };
 

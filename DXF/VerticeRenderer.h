@@ -4,16 +4,16 @@
 // Desc: 버텍스 렌더를 위한 컴포넌트
 //
 //		[Variables]
-//		- transform: 오브젝트의 Transform 컴포넌트
-//		- texturename: 텍스쳐의 파일명
-//		- pTexture: 텍스쳐 인터페이스
-//		- vertices: 버텍스 정보
-//		- farthestDistance: 가장 먼 정점의 거리 (Frustum Culling에 사용)
-//		- type: 기본 도형(primitive) 유형을 지정하는 enum
-//		- startvertex: 출력을 시작할 버텍스의 인덱스
-//		- count: 출력할 버텍스 단위의 수
-//		- rectsize: 텍스쳐 파일의 분할 개수
-//		- rectindex: 렌더링할 텍스쳐 파일의 인덱스
+//		- m_Transform: 오브젝트의 Transform 컴포넌트
+//		- m_TextureName: 텍스쳐의 파일명
+//		- m_Texture: 텍스쳐 인터페이스
+//		- m_Vertices: 버텍스 정보
+//		- m_FarthestDistance: 가장 먼 정점의 거리 (Frustum Culling에 사용)
+//		- m_Type: 기본 도형(primitive) 유형을 지정하는 enum
+//		- m_StartVertex: 출력을 시작할 버텍스의 인덱스
+//		- m_Count: 출력할 버텍스 단위의 수
+//		- m_RectSize: 텍스쳐 파일의 분할 개수
+//		- m_RectIndex: 렌더링할 텍스쳐 파일의 인덱스
 //
 //		[Functions]
 //		- Render: 렌더 실행
@@ -32,23 +32,23 @@ class RectTransform;
 class VerticeRenderer : public Renderer
 {
 protected:
-	Transform*				transform;
-	string					texturename;
-	LPDIRECT3DTEXTURE9		pTexture = NULL;
-	vector<Vertex>			vertices;
-	float					farthestDistance;
-	D3DPRIMITIVETYPE		type;
-	UINT					startvertex;
-	UINT					count;
+	Transform*				m_Transform;
+	string					m_TextureName;
+	LPDIRECT3DTEXTURE9		m_Texture = NULL;
+	vector<Vertex>			m_Vertices;
+	float					m_FarthestDistance;
+	D3DPRIMITIVETYPE		m_Type;
+	UINT					m_StartVertex;
+	UINT					m_Count;
 
 public:
-	Vector2					rectsize;
-	Vector2					rectindex;
+	Vector2					m_RectSize;
+	Vector2					m_RectIndex;
 
 public:
-	VerticeRenderer(vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(string, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(string, Vector2, Vector2, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
+	VerticeRenderer(vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
+	VerticeRenderer(string p_TextureName, vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
+	VerticeRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex, vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
 
 	void Start() override;
 	void PreRender() override;

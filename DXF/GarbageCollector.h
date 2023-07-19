@@ -4,7 +4,7 @@
 class GarbageCollector
 {
 public:
-	vector<void*> Garbages;
+	vector<void*> m_Garbages;
 
 public:
 	void Erase()

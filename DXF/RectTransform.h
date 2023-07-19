@@ -4,12 +4,12 @@
 // Desc: 화면상의 좌표로 오브젝트를 출력할 때 사용되는 컴포넌트
 //
 //		[Variables]
-//		- parent: Parent 오브젝트의 RectTransform 컴포넌트
-//		- childs: 해당 오브젝트의 Child 오브젝트의 RectTransform 컴포넌트 목록
-//      - position: 해당 오브젝트의 위치
-//      - rotation: 해당 오브젝트의 회전 값
-//      - scale: 해당 오브젝트의 크기 배율
-//      - size: 해당 오브젝트를 출력할 때 표시될 사각형의 크기
+//		- m_Parent: Parent 오브젝트의 RectTransform 컴포넌트
+//		- m_Childs: 해당 오브젝트의 Child 오브젝트의 RectTransform 컴포넌트 목록
+//      - m_Position: 해당 오브젝트의 위치
+//      - m_Rotation: 해당 오브젝트의 회전 값
+//      - m_Scale: 해당 오브젝트의 크기 배율
+//      - m_Size: 해당 오브젝트를 출력할 때 표시될 사각형의 크기
 //              (scale이 (1, 1, 1)일 때 기준)
 //
 //      [Functions]
@@ -41,40 +41,40 @@
 class RectTransform : public Component
 {
 protected:
-    RectTransform*          parent = nullptr;
-    vector<RectTransform*>  childs;
+    RectTransform*          m_Parent = nullptr;
+    vector<RectTransform*>  m_Childs;
 
 public:
-    Vector2                 position;
-    Vector3                 rotation;
-    Vector2                 scale;
-    Vector2                 size;
+    Vector2                 m_Position;
+    Vector3                 m_Rotation;
+    Vector2                 m_Scale;
+    Vector2                 m_Size;
 
 public:
-    RectTransform(Vector2, Vector3, Vector2, Vector2);
+    RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size);
 
     Vector2 GetScreenPosition();
     Vector3 GetScreenRotation();
     Vector2 GetScreenScale();
 
     int GetChildCount();
-    RectTransform* GetChild(int);
+    RectTransform* GetChild(int p_Index);
     RectTransform* GetParent();
-    template <class T> void FindChild(T*);
+    template <class T> void FindChild(T* p_Comp);
 
-    void AddChild(RectTransform*);
-    void AddChildAsFirst(RectTransform*);
-    void RemoveChild(RectTransform*);
+    void AddChild(RectTransform* p_Child);
+    void AddChildAsFirst(RectTransform* p_Child);
+    void RemoveChild(RectTransform* p_Child);
     void SetAsFirstSibling();
     void SetAsLastSibling();
 };
 
-template <class T> void RectTransform::FindChild(T* _comp)
+template <class T> void RectTransform::FindChild(T* p_Comp)
 {
-    for (int i = 0; i < childs.size(); ++i)
+    for (int i = 0; i < m_Childs.size(); ++i)
     {
-        T* comp = GetComponentFromObject(childs[i]->gameObject, T);
+        T* comp = GetComponentFromObject(m_Childs[i]->gameObject, T);
 
-        if (comp != nullptr) return childs[i];
+        if (comp != nullptr) return m_Childs[i];
     }
 }

@@ -5,11 +5,11 @@
 //		 (OnMouse... 사용 시 필요)
 //
 //		[Variables]
-//		- entering: 마우스 오버가 되었는 지의 여부
-//		- transform: 오브젝트의 Transform 컴포넌트
-//		- bcollider: 오브젝트의 Boxcollider 컴포넌트
-//		- scollider: 오브젝트의 SphereCollider 컴포넌트
-//		- recttransform: 오브젝트의 Transform 컴포넌트 (collider 필요 없음)
+//		- m_isEntering: 마우스 오버가 되었는 지의 여부
+//		- m_Transform: 오브젝트의 Transform 컴포넌트
+//		- m_BoxCollider: 오브젝트의 Boxcollider 컴포넌트
+//		- m_SphereCollider: 오브젝트의 SphereCollider 컴포넌트
+//		- m_Recttransform: 오브젝트의 Transform 컴포넌트 (collider 필요 없음)
 //-----------------------------------------------------------------------------
 
 #pragma once
@@ -24,11 +24,11 @@ class SphereCollider;
 class MouseFunction : public Component
 {
 protected:
-	bool				entering = false;
-	Transform*			transform;
-	BoxCollider*		bcollider;
-	SphereCollider*		scollider;
-	RectTransform*		recttransform;
+	bool				m_isEntering = false;
+	Transform*			m_Transform;
+	BoxCollider*		m_BoxCollider;
+	SphereCollider*		m_SphereCollider;
+	RectTransform*		m_RectTransform;
 
 public:
 	void Start() override;

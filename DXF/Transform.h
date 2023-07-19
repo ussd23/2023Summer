@@ -4,11 +4,11 @@
 // Desc: 월드상의 좌표로 오브젝트를 출력할 때 사용되는 컴포넌트
 //
 //		[Variables]
-//		- parent: Parent 오브젝트의 Transform 컴포넌트
-//		- childs: 해당 오브젝트의 Child 오브젝트의 Transform 컴포넌트 목록
-//      - position: 해당 오브젝트의 위치
-//      - rotation: 해당 오브젝트의 회전 값
-//      - scale: 해당 오브젝트의 크기 배율
+//		- m_Parent: Parent 오브젝트의 Transform 컴포넌트
+//		- m_Childs: 해당 오브젝트의 Child 오브젝트의 Transform 컴포넌트 목록
+//      - m_Position: 해당 오브젝트의 위치
+//      - m_Rotation: 해당 오브젝트의 회전 값
+//      - m_Scale: 해당 오브젝트의 크기 배율
 //
 //      [Functions]
 //      - GetScreenPosition: Parent 오브젝트의 위치를 기준으로 현재 오브젝트의
@@ -40,39 +40,39 @@
 class Transform : public Component
 {
 protected:
-    Transform*          parent = nullptr;
-    vector<Transform*>  childs;
+    Transform*          m_Parent = nullptr;
+    vector<Transform*>  m_Childs;
 
 public:
-    Vector3             position;
-    Vector3             rotation;
-    Vector3             scale;
+    Vector3             m_Position;
+    Vector3             m_Rotation;
+    Vector3             m_Scale;
 
 public:
-    Transform(Vector3, Vector3, Vector3);
+    Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale);
 
     Vector3 GetWorldPosition();
     Vector3 GetWorldRotation();
     Vector3 GetWorldScale();
 
     int GetChildCount();
-    Transform* GetChild(int);
+    Transform* GetChild(int p_Index);
     Transform* GetParent();
-    template <class T> void FindChild(T*);
+    template <class T> void FindChild(T* p_Comp);
 
-    void AddChild(Transform*);
-    void AddChildAsFirst(Transform*);
-    void RemoveChild(Transform*);
+    void AddChild(Transform* p_Child);
+    void AddChildAsFirst(Transform* p_Child);
+    void RemoveChild(Transform* p_Child);
     void SetAsFirstSibling();
     void SetAsLastSibling();
 };
 
-template <class T> void Transform::FindChild(T* _comp)
+template <class T> void Transform::FindChild(T* p_Comp)
 {
-    for (int i = 0; i < childs.size(); ++i)
+    for (int i = 0; i < m_Childs.size(); ++i)
     {
-        T* comp = GetComponentFromObject(childs[i]->gameObject, T);
+        T* comp = GetComponentFromObject(m_Childs[i]->gameObject, T);
 
-        if (comp != nullptr) return childs[i];
+        if (comp != nullptr) return m_Childs[i];
     }
 }

@@ -55,9 +55,9 @@ public:
 	virtual void OnMouseUp() {};
 	virtual void OnMouseHold() {};
 
-	virtual void OnTriggerEnter(Collider*) {};
-	virtual void OnTriggerExit(Collider*) {};
-	virtual void OnTriggerStay(Collider*) {};
+	virtual void OnTriggerEnter(Collider* p_Collider) {};
+	virtual void OnTriggerExit(Collider* p_Collider) {};
+	virtual void OnTriggerStay(Collider* p_Collider) {};
 
 	virtual void OnEnabled() {};
 	virtual void OnDisabled() {};

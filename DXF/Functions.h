@@ -7,7 +7,7 @@
 //      - Lerp: 선형 보간 (두 값 사이의 중간값을 반환)
 //      - Inner: 2차원 범위 안에 해당 좌표가 속해있는 지의 여부 반환
 //      - WorldToScreen: 월드상 오브젝트의 위치를 화면상 좌표로 변환
-//      - GetDistance: 두 좌표 사이의 거리 반환
+//      - GetDistanceSquare: 두 좌표 사이의 거리의 제곱 반환
 //
 //      [Macro]
 //      - AddObjectToScene: 오브젝트를 처음 생성시 사용
@@ -27,20 +27,22 @@ class Transform;
 
 namespace Functions
 {;
-template <typename T> T Lerp(T, T, float);
+template <typename T> T Lerp(T p_Start, T p_End, float p_LerpT);
 
-bool Inner(const RECT&, const Vector2&);
-bool Inner(const RECT&, const RECT&);
-Vector2 WorldToScreen(Transform*);
-float GetDistance(const Vector3&, const Vector3&);
+bool Inner(const RECT& p_Rect, const Vector2& p_Pos);
+bool Inner(const RECT& p_Rect1, const RECT& p_Rect2);
+Vector2 WorldToScreen(Transform* p_Transform);
+float GetDistanceSquare(const Vector2&, const Vector2&);
+float GetDistanceSquare(const Vector3&, const Vector3&);
+float GetDistanceSquare(const Vector4&, const Vector4&);
 
-Vector3 SLerp(const Vector3*, const Vector3*, float);
-Vector3 D3DXQuaternionToRotation(Quaternion);
+Vector3 SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_LerpT);
+Vector3 D3DXQuaternionToRotation(Quaternion p_Quaternion);
 }
 
-template <typename T> T Functions::Lerp(T startValue, T endValue, float t)
+template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
 {
-    return startValue + t * (endValue - startValue);
+    return p_Start + p_LerpT * (p_End - p_Start);
 }
 
 #define AddObjectToScene(object, parent, transform) g_Objects.push_back(object);\

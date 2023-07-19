@@ -1,126 +1,131 @@
 #include "ComponentHeader.h"
 
-Animator::Animator(float _refreshTime)
-	: Animator(MAXINT, _refreshTime) {}
+Animator::Animator(float p_RefreshTime)
+	: Animator(MAXINT, p_RefreshTime) {}
 
-Animator::Animator(int _indexMax, float _refreshTime)
-	: Animator(0, _indexMax, _refreshTime) {}
+Animator::Animator(int p_IndexMax, float p_RefreshTime)
+	: Animator(0, p_IndexMax, p_RefreshTime) {}
 
-Animator::Animator(int _indexMin, int _indexMax, float _refreshTime)
-	: Animator(0, _indexMax, _refreshTime, false) {}
+Animator::Animator(int p_IndexMin, int p_IndexMax, float p_RefreshTime)
+	: Animator(0, p_IndexMax, p_RefreshTime, false) {}
 
-Animator::Animator(int _indexMin, int _indexMax, float _refreshTime, bool _isVertical)
+Animator::Animator(int p_IndexMin, int p_IndexMax, float p_RefreshTime, bool p_isVertical)
 {
-	indexMin = _indexMin;
-	if (indexMin < 0) indexMin = 0;
-	indexMax = _indexMax;
-	refreshTime = _refreshTime;
-	isVertical = _isVertical;
+	m_IndexMin = p_IndexMin;
+	if (m_IndexMin < 0) p_IndexMin = 0;
+	m_IndexMax = p_IndexMax;
+	m_RefreshTime = p_RefreshTime;
+	m_isVertical = p_isVertical;
 }
 
-Animator::Animator(vector<AnimationInfo> _dynamicIndex)
+Animator::Animator(vector<AnimationInfo> p_DynamicIndex)
 {
-	dynamicIndex = _dynamicIndex;
+	m_DynamicIndex = p_DynamicIndex;
 }
 
 void Animator::Start()
 {
-	vertice = GetComponentFromObject(gameObject, VerticeRenderer);
-	sprite = GetComponentFromObject(gameObject, SpriteRenderer);
+	m_Vertice = GetComponentFromObject(gameObject, VerticeRenderer);
+	m_Sprite = GetComponentFromObject(gameObject, SpriteRenderer);
 
-	if (isVertical)
+	if (m_isVertical)
 	{
-		if (vertice != nullptr)
+		if (m_Vertice != nullptr)
 		{
-			if (indexMax > vertice->rectsize.x - 1) indexMax = vertice->rectsize.x - 1;
+			if (m_IndexMax > m_Vertice->m_RectSize.x - 1) m_IndexMax = m_Vertice->m_RectSize.x - 1;
 		}
 
-		if (sprite != nullptr)
+		if (m_Sprite != nullptr)
 		{
-			if (indexMax > sprite->rectsize.x - 1) indexMax = sprite->rectsize.x - 1;
+			if (m_IndexMax > m_Sprite->m_RectSize.x - 1) m_IndexMax = m_Sprite->m_RectSize.x - 1;
 		}
 	}
 	else
 	{
-		if (vertice != nullptr)
+		if (m_Vertice != nullptr)
 		{
-			if (indexMax > vertice->rectsize.y - 1) indexMax = vertice->rectsize.y - 1;
+			if (m_IndexMax > m_Vertice->m_RectSize.y - 1) m_IndexMax = m_Vertice->m_RectSize.y - 1;
 		}
 
-		if (sprite != nullptr)
+		if (m_Sprite != nullptr)
 		{
-			if (indexMax > sprite->rectsize.y - 1) indexMax = sprite->rectsize.y - 1;
+			if (m_IndexMax > m_Sprite->m_RectSize.y - 1) m_IndexMax = m_Sprite->m_RectSize.y - 1;
 		}
 	}
 }
 
 void Animator::Update()
 {
-	passedTime += Time::deltaTime;
+	m_PassedTime += Time::deltaTime;
 
-	if (dynamicIndex.size() > 0)
+	if (m_DynamicIndex.size() > 0)
 	{
-		if (passedTime < dynamicIndex[currentdynamicIndex].time) return;
-
-		passedTime -= dynamicIndex[currentdynamicIndex].time;
-
-		if (++currentdynamicIndex >= dynamicIndex.size())
+		while (true)
 		{
-			currentdynamicIndex = 0;
+			if (m_PassedTime < m_DynamicIndex[m_CurrentDynamicIndex].time) return;
+
+			m_PassedTime -= m_DynamicIndex[m_CurrentDynamicIndex].time;
+
+			if (++m_CurrentDynamicIndex >= m_DynamicIndex.size())
+			{
+				m_CurrentDynamicIndex = 0;
+			}
+
+			if (m_Vertice != nullptr)
+			{
+				m_Vertice->m_RectIndex = m_DynamicIndex[m_CurrentDynamicIndex].index;
+
+				if (m_Vertice->m_RectIndex.x < 0) m_Vertice->m_RectIndex.x = 0;
+				else if (m_Vertice->m_RectIndex.x > m_Vertice->m_RectSize.x - 1) m_Vertice->m_RectIndex.x = m_Vertice->m_RectSize.x - 1;
+				if (m_Vertice->m_RectIndex.y < 0) m_Vertice->m_RectIndex.y = 0;
+				else if (m_Vertice->m_RectIndex.y > m_Vertice->m_RectSize.y - 1) m_Vertice->m_RectIndex.y = m_Vertice->m_RectSize.y - 1;
+			}
+
+			if (m_Sprite != nullptr)
+			{
+				m_Sprite->m_RectIndex = m_DynamicIndex[m_CurrentDynamicIndex].index;
+
+				if (m_Sprite->m_RectIndex.x < 0) m_Sprite->m_RectIndex.x = 0;
+				else if (m_Sprite->m_RectIndex.x > m_Sprite->m_RectSize.x - 1) m_Sprite->m_RectIndex.x = m_Sprite->m_RectSize.x - 1;
+				if (m_Sprite->m_RectIndex.y < 0) m_Sprite->m_RectIndex.y = 0;
+				else if (m_Sprite->m_RectIndex.y > m_Sprite->m_RectSize.y - 1) m_Sprite->m_RectIndex.y = m_Sprite->m_RectSize.y - 1;
+			}
 		}
-
-		if (vertice != nullptr)
-		{
-			vertice->rectindex = dynamicIndex[currentdynamicIndex].index;
-
-			if (vertice->rectindex.x < 0) vertice->rectindex.x = 0;
-			else if (vertice->rectindex.x > vertice->rectsize.x - 1) vertice->rectindex.x = vertice->rectsize.x - 1;
-			if (vertice->rectindex.y < 0) vertice->rectindex.y = 0;
-			else if (vertice->rectindex.y > vertice->rectsize.y - 1) vertice->rectindex.y = vertice->rectsize.y - 1;
-		}
-
-		if (sprite != nullptr)
-		{
-			sprite->rectindex = dynamicIndex[currentdynamicIndex].index;
-
-			if (sprite->rectindex.x < 0) sprite->rectindex.x = 0;
-			else if (sprite->rectindex.x > sprite->rectsize.x - 1) sprite->rectindex.x = sprite->rectsize.x - 1;
-			if (sprite->rectindex.y < 0) sprite->rectindex.y = 0;
-			else if (sprite->rectindex.y > sprite->rectsize.y - 1) sprite->rectindex.y = sprite->rectsize.y - 1;
-		}
-
 	}
 	else
 	{
-		if (passedTime < refreshTime) return;
-
-		passedTime -= refreshTime;
-
-		if (vertice != nullptr)
+		while (true)
 		{
-			if (isVertical)
-			{
-				vertice->rectindex.y += 1;
-				if (vertice->rectindex.y > indexMax) vertice->rectindex.y = indexMin;
-			}
-			else
-			{
-				vertice->rectindex.x += 1;
-				if (vertice->rectindex.x > indexMax) vertice->rectindex.x = indexMin;
-			}
-		}
+			if (m_PassedTime < m_RefreshTime) return;
 
-		if (sprite != nullptr)
-		{
-			if (isVertical)
+			m_PassedTime -= m_RefreshTime;
+
+			if (m_Vertice != nullptr)
 			{
-				sprite->rectindex.y += 1;
-				if (sprite->rectindex.y > indexMax) sprite->rectindex.y = indexMin;
+				if (m_isVertical)
+				{
+					m_Vertice->m_RectIndex.y += 1;
+					if (m_Vertice->m_RectIndex.y > m_IndexMax) m_Vertice->m_RectIndex.y = m_IndexMin;
+				}
+				else
+				{
+					m_Vertice->m_RectIndex.x += 1;
+					if (m_Vertice->m_RectIndex.x > m_IndexMax) m_Vertice->m_RectIndex.x = m_IndexMin;
+				}
 			}
-			else
+
+			if (m_Sprite != nullptr)
 			{
-				sprite->rectindex.x += 1;
-				if (sprite->rectindex.x > indexMax) sprite->rectindex.x = indexMin;
+				if (m_isVertical)
+				{
+					m_Sprite->m_RectIndex.y += 1;
+					if (m_Sprite->m_RectIndex.y > m_IndexMax) m_Sprite->m_RectIndex.y = m_IndexMin;
+				}
+				else
+				{
+					m_Sprite->m_RectIndex.x += 1;
+					if (m_Sprite->m_RectIndex.x > m_IndexMax) m_Sprite->m_RectIndex.x = m_IndexMin;
+				}
 			}
 		}
 	}

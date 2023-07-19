@@ -4,8 +4,8 @@
 // Desc: 화면 상단에 텍스트를 출력하기 위한 스크립트
 //
 //		[Variables]
-//		- text: 오브젝트의 TextRenderer 컴포넌트
-//		- camera: 카메라 오브젝트의 Camera 컴포넌트
+//		- m_Text 오브젝트의 TextRenderer 컴포넌트
+//		- m_Camera: 카메라 오브젝트의 Camera 컴포넌트
 //-----------------------------------------------------------------------------
 
 #pragma once
@@ -18,8 +18,8 @@ class Camera;
 class TopText : public Component
 {
 protected:
-	TextRenderer*		text;
-	Camera*				camera;
+	TextRenderer*		m_Text;
+	Camera*				m_Camera;
 
 public:
 	void Start() override;

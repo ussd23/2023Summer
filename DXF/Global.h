@@ -112,7 +112,7 @@ protected:
     T* ptr;
 
 public:
-    static map<T*, int>         ReferenceCounts;
+    static map<T*, int>         m_ReferenceCounts;
 
 public:
     SPTR() : SPTR(nullptr) {}
@@ -182,13 +182,13 @@ public:
     {
         if (ptr == nullptr) return;
 
-        if (ReferenceCounts.find(ptr) == ReferenceCounts.end())
+        if (m_ReferenceCounts.find(ptr) == m_ReferenceCounts.end())
         {
-            ReferenceCounts.insert(make_pair(ptr, 1));
+            m_ReferenceCounts.insert(make_pair(ptr, 1));
         }
         else
         {
-            ReferenceCounts[ptr] += 1;
+            m_ReferenceCounts[ptr] += 1;
         }
     }
 
@@ -196,16 +196,16 @@ public:
     {
         if (ptr == nullptr) return;
 
-        if (ReferenceCounts.find(ptr) != ReferenceCounts.end())
+        if (m_ReferenceCounts.find(ptr) != m_ReferenceCounts.end())
         {
-            ReferenceCounts[ptr] -= 1;
-            if (ReferenceCounts[ptr] == 0)
+            m_ReferenceCounts[ptr] -= 1;
+            if (m_ReferenceCounts[ptr] == 0)
             {
-                ReferenceCounts.erase(ReferenceCounts.find(ptr));
+                m_ReferenceCounts.erase(m_ReferenceCounts.find(ptr));
                 delete ptr;
             }
         }
     }
 };
 
-template<typename T> map<T*, int> SPTR<T>::ReferenceCounts;
+template<typename T> map<T*, int> SPTR<T>::m_ReferenceCounts;

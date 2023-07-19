@@ -2,21 +2,21 @@
 #include "Transform.h"
 #include "Global.h"
 
-bool Functions::Inner(const RECT& _rect, const Vector2& _pos)
+bool Functions::Inner(const RECT& p_Rect, const Vector2& p_Pos)
 {
-    if (_rect.left <= _pos.x && _rect.right >= _pos.x &&
-        _rect.top <= _pos.y && _rect.bottom >= _pos.y) return true;
+    if (p_Rect.left <= p_Pos.x && p_Rect.right >= p_Pos.x &&
+        p_Rect.top <= p_Pos.y && p_Rect.bottom >= p_Pos.y) return true;
     else return false;
 }
 
-bool Functions::Inner(const RECT& _rect1, const RECT& _rect2)
+bool Functions::Inner(const RECT& p_Rect1, const RECT& p_Rect2)
 {
-    if (_rect1.left <= _rect2.right && _rect1.right >= _rect2.left &&
-        _rect1.top <= _rect2.bottom && _rect1.bottom >= _rect2.top) return true;
+    if (p_Rect1.left <= p_Rect2.right && p_Rect1.right >= p_Rect2.left &&
+        p_Rect1.top <= p_Rect2.bottom && p_Rect1.bottom >= p_Rect2.top) return true;
     else return false;
 }
 
-Vector2 Functions::WorldToScreen(Transform* _transform)
+Vector2 Functions::WorldToScreen(Transform* p_Transform)
 {
     Vector3 worldPosition = Vector3(0, 0, 0);
     Matrix16 matWorldSet;
@@ -28,9 +28,9 @@ Vector2 Functions::WorldToScreen(Transform* _transform)
     g_pd3dDevice->GetTransform(D3DTS_PROJECTION, &projectionMatrix);
     g_pd3dDevice->GetTransform(D3DTS_VIEW, &viewMatrix);
 
-    Vector3 pos = _transform->GetWorldPosition();
-    Vector3 rot = _transform->GetWorldRotation();
-    Vector3 scale = _transform->GetWorldScale();
+    Vector3 pos = p_Transform->GetWorldPosition();
+    Vector3 rot = p_Transform->GetWorldRotation();
+    Vector3 scale = p_Transform->GetWorldScale();
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
@@ -55,16 +55,28 @@ Vector2 Functions::WorldToScreen(Transform* _transform)
     return Vector2(projectedPosition.x, projectedPosition.y);
 }
 
-float Functions::GetDistance(const Vector3& point1, const Vector3& point2)
+float Functions::GetDistanceSquare(const Vector2& p_Point1, const Vector2& p_Point2)
 {
-    Vector3 diff = point2 - point1;
-    return D3DXVec3Length(&diff);
+    Vector2 diff = p_Point2 - p_Point1;
+    return D3DXVec2LengthSq(&diff);
 }
 
-Vector3 Functions::SLerp(const Vector3* origin, const Vector3* destination, float t)
+float Functions::GetDistanceSquare(const Vector3& p_Point1, const Vector3& p_Point2)
 {
-    Vector3 startVec = *origin;
-    Vector3 endVec = *destination;
+    Vector3 diff = p_Point2 - p_Point1;
+    return D3DXVec3LengthSq(&diff);
+}
+
+float Functions::GetDistanceSquare(const Vector4& p_Point1, const Vector4& p_Point2)
+{
+    Vector4 diff = p_Point2 - p_Point1;
+    return D3DXVec4LengthSq(&diff);
+}
+
+Vector3 Functions::SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_LerpT)
+{
+    Vector3 startVec = *p_Origin;
+    Vector3 endVec = *p_Destination;
 
     D3DXVec3Normalize(&startVec, &startVec);
     D3DXVec3Normalize(&endVec, &endVec);
@@ -72,14 +84,14 @@ Vector3 Functions::SLerp(const Vector3* origin, const Vector3* destination, floa
     float dot = D3DXVec3Dot(&startVec, &endVec);
 
     if (dot == 1.0f) {
-        return startVec + t * (endVec - startVec);
+        return startVec + p_LerpT * (endVec - startVec);
     }
 
     float theta = acosf(dot);
     float sinTheta = sinf(theta);
 
-    float ratio1 = sinf((1.0f - t) * theta) / sinTheta;
-    float ratio2 = sinf(t * theta) / sinTheta;
+    float ratio1 = sinf((1.0f - p_LerpT) * theta) / sinTheta;
+    float ratio2 = sinf(p_LerpT * theta) / sinTheta;
 
     Vector3 axis;
     D3DXVec3Cross(&axis, &startVec, &endVec);
@@ -103,16 +115,16 @@ Vector3 Functions::SLerp(const Vector3* origin, const Vector3* destination, floa
     return result;
 }
 
-Vector3 Functions::D3DXQuaternionToRotation(Quaternion quat)
+Vector3 Functions::D3DXQuaternionToRotation(Quaternion p_Quaternion)
 {
-    float fqw = quat.w * quat.w;
-    float fqx = quat.x * quat.x;
-    float fqy = quat.y * quat.y;
-    float fqz = quat.z * quat.z;
+    float fqw = p_Quaternion.w * p_Quaternion.w;
+    float fqx = p_Quaternion.x * p_Quaternion.x;
+    float fqy = p_Quaternion.y * p_Quaternion.y;
+    float fqz = p_Quaternion.z * p_Quaternion.z;
 
-    float yaw = atan2f(2.0f * (quat.x * quat.z + quat.w * quat.y), (-fqx - fqy + fqx + fqw));
-    float pitch = asinf(2.0f * (quat.w * quat.x + quat.y * quat.y));
-    float roll = atan2f(2.0f * (quat.x * quat.y + quat.w * quat.z), (-fqx + fqy - fqx + fqw));
+    float yaw = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.z + p_Quaternion.w * p_Quaternion.y), (-fqx - fqy + fqx + fqw));
+    float pitch = asinf(2.0f * (p_Quaternion.w * p_Quaternion.x + p_Quaternion.y * p_Quaternion.y));
+    float roll = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.y + p_Quaternion.w * p_Quaternion.z), (-fqx + fqy - fqx + fqw));
 
     float x = D3DXToDegree(pitch);
     float y = D3DXToDegree(yaw);

@@ -4,12 +4,12 @@
 // Desc: 게임 오브젝트 클래스
 //
 //		[Variables]
-//		- active: Update와 Render를 실행할 지 여부
-//		- name: 해당 오브젝트의 이름 (string 기반 오브젝트 검색 등에 사용)
-//		- componentsmap: string 기반의 컴포넌트 목록
-//		- safedestroy: 삭제 대기 오브젝트 목록 (모든 Update와 Render가 완료된
+//		- m_isActive: Update와 Render를 실행할 지 여부
+//		- m_ComponentsMap: string 기반의 컴포넌트 목록
+//		- m_SafeDestroy: 삭제 대기 오브젝트 목록 (모든 Update와 Render가 완료된
 //					   후에 안전하게 삭제되도록 함)
-//		- components: 컴포넌트 목록 (타 클래스에서 접근하여 컴포넌트의 특정 함수를
+//		- m_Name: 해당 오브젝트의 이름 (string 기반 오브젝트 검색 등에 사용)
+//		- m_Components: 컴포넌트 목록 (타 클래스에서 접근하여 컴포넌트의 특정 함수를
 //					  실행할 수 있도록 함)
 //
 //		[Functions]
@@ -50,73 +50,73 @@ template<typename T> class SPTR;
 class GameObject
 {
 protected:
-	bool							active = true;
-	map<string, Component*>			componentsmap;
-	static vector<GameObject*>		safedestroy;
+	bool							m_isActive = true;
+	map<string, Component*>			m_ComponentsMap;
+	static vector<GameObject*>		m_SafeDestroy;
 
 public:
-	string							name;
-	list<SPTR<Component>>			components;
+	string							m_Name;
+	list<SPTR<Component>>			m_Components;
 
 protected:
-	bool TransformCheck(const string&);
-	bool ColliderCheck(Component*);
-	static void Erase(GameObject*);
+	bool TransformCheck(const string& p_Key);
+	bool ColliderCheck(Component* p_Comp);
+	static void Erase(GameObject* p_Object);
 
 public:
-	GameObject(string);
+	GameObject(const string& p_Name);
 	virtual ~GameObject();
 
-	template <class T> void AddComponent(T* _comp);
-	Component* GetComponent(const string&);
+	template <class T> void AddComponent(T* p_Comp);
+	Component* GetComponent(const string& p_Key);
 	template <class T> T* GetComponent();
-	void RemoveComponent(Component*);
+	void RemoveComponent(Component* p_Comp);
 
 	bool isActive();
-	void SetActive(bool);
-	void ObjectInit(Component*);
+	void SetActive(bool p_isActive);
+	void ObjectInit(Component* p_Comp);
 
 	void Update();
 	void PreRender();
 
-	static void Destroy(GameObject*);
+	static void Destroy(GameObject* p_GameObject);
 	static void SafeDestroy();
-	static bool Exists(GameObject*);
-	static GameObject* Search(const string&);
+	static bool Exists(GameObject* p_GameObject);
+	static GameObject* Search(const string& p_Name);
 
-	void operator = (void*);
+	void operator = (void* p_Ptr);
 };
 
-template <class T> void GameObject::AddComponent(T* _comp)
+template <class T> void GameObject::AddComponent(T* p_Comp)
 {
 	string key = typeid(T).name();
 
-	Component* comp = dynamic_cast<Component*>(_comp);
+	Component* comp = dynamic_cast<Component*>(p_Comp);
 	if (comp)
 	{
 		if (!TransformCheck(key))
 		{
-			delete _comp;
+			delete p_Comp;
 			return;
 		}
 
 		if (!ColliderCheck(comp))
 		{
-			delete _comp;
+			delete p_Comp;
 			return;
 		}
 
-		map<string, Component*>::iterator iter = componentsmap.find(key);
-		if (iter != componentsmap.end())
+		map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
+		if (iter != m_ComponentsMap.end())
 		{
-			delete _comp;
+			delete p_Comp;
 			return;
 		}
 
 		ObjectInit(comp);
 
-		components.push_back(comp);
-		componentsmap.insert(make_pair(key, comp));
+		m_Components.push_back(comp);
+		m_ComponentsMap.insert(make_pair(key, comp));
 	}
 }
 
@@ -124,11 +124,11 @@ template <class T> T* GameObject::GetComponent()
 {
 	string key = typeid(T).name();
 
-	map<string, Component*>::iterator iter = componentsmap.find(key);
-	if (iter != componentsmap.end())
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
+	if (iter != m_ComponentsMap.end())
 	{
 		return nullptr;
 	}
 
-	return componentsmap[key];
+	return m_ComponentsMap[key];
 }

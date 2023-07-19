@@ -1,80 +1,80 @@
 #include "ComponentHeader.h"
 
-RectTransform::RectTransform(Vector2 _pos, Vector3 _rot, Vector2 _scale, Vector2 _size)
+RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size)
 {
-	position = _pos;
-	rotation = _rot;
-	scale = _scale;
-	size = _size;
-	parent = g_RootRectTransform;
+	m_Position = p_Position;
+	m_Rotation = p_Rotation;
+	m_Scale = p_Scale;
+	m_Size = p_Size;
+	m_Parent = g_RootRectTransform;
 }
 
 Vector2 RectTransform::GetScreenPosition()
 {
-	if (parent != nullptr)
+	if (m_Parent != nullptr)
 	{
-		Vector2 pscale = parent->GetScreenScale();
-		Vector2 pos(pscale.x * position.x, pscale.y * position.y);
+		Vector2 pscale = m_Parent->GetScreenScale();
+		Vector2 pos(pscale.x * m_Position.x, pscale.y * m_Position.y);
 
-		return pos + parent->GetScreenPosition();
+		return pos + m_Parent->GetScreenPosition();
 	}
-	return position;
+	return m_Position;
 }
 
 Vector3 RectTransform::GetScreenRotation()
 {
-	if (parent != nullptr)
+	if (m_Parent != nullptr)
 	{
-		return rotation + parent->GetScreenRotation();
+		return m_Rotation + m_Parent->GetScreenRotation();
 	}
-	return rotation;
+	return m_Rotation;
 }
 
 Vector2 RectTransform::GetScreenScale()
 {
-	if (parent != nullptr)
+	if (m_Parent != nullptr)
 	{
-		Vector2 pscale = parent->GetScreenScale();
-		return Vector2(scale.x * pscale.x, scale.y * pscale.y);
+		Vector2 pscale = m_Parent->GetScreenScale();
+		return Vector2(m_Scale.x * pscale.x, m_Scale.y * pscale.y);
 	}
-	return scale;
+	return m_Scale;
 }
 
 int RectTransform::GetChildCount()
 {
-	return childs.size();
+	return m_Childs.size();
 }
 
 RectTransform* RectTransform::GetChild(int _index)
 {
-	return childs[_index];
+	return m_Childs[_index];
 }
 
 RectTransform* RectTransform::GetParent()
 {
-	return parent;
+	return m_Parent;
 }
 
-void RectTransform::AddChild(RectTransform* _child)
+void RectTransform::AddChild(RectTransform* p_Child)
 {
-	_child->parent = this;
-	childs.push_back(_child);
+	p_Child->m_Parent = this;
+	m_Childs.push_back(p_Child);
 }
 
-void RectTransform::AddChildAsFirst(RectTransform* _child)
+void RectTransform::AddChildAsFirst(RectTransform* p_Child)
 {
-	_child->parent = this;
-	childs.insert(childs.begin(), _child);
+	p_Child->m_Parent = this;
+	m_Childs.insert(m_Childs.begin(), p_Child);
 }
 
-void RectTransform::RemoveChild(RectTransform* _child)
+void RectTransform::RemoveChild(RectTransform* p_Child)
 {
-	for (int i = 0; i < childs.size(); ++i)
+	for (int i = 0; i < m_Childs.size(); ++i)
 	{
-		if (childs[i] == _child)
+		if (m_Childs[i] == p_Child)
 		{
-			_child->parent = nullptr;
-			childs.erase(childs.begin() + i);
+			p_Child->m_Parent = nullptr;
+			m_Childs.erase(m_Childs.begin() + i);
 			break;
 		}
 	}
@@ -82,12 +82,12 @@ void RectTransform::RemoveChild(RectTransform* _child)
 
 void RectTransform::SetAsFirstSibling()
 {
-	parent->RemoveChild(this);
-	parent->AddChildAsFirst(this);
+	m_Parent->RemoveChild(this);
+	m_Parent->AddChildAsFirst(this);
 }
 
 void RectTransform::SetAsLastSibling()
 {
-	parent->RemoveChild(this);
-	parent->AddChild(this);
+	m_Parent->RemoveChild(this);
+	m_Parent->AddChild(this);
 }

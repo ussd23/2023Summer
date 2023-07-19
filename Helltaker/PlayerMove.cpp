@@ -2,20 +2,20 @@
 
 PlayerMove* PlayerMove::player = nullptr;
 
-PlayerMove::PlayerMove(float _movespeed)
+PlayerMove::PlayerMove(float p_Speed)
 {
-    movespeed = _movespeed;
+    m_Speed = p_Speed;
     if (player == nullptr) player = this;
 }
 
 void PlayerMove::Start()
 {
-    transform = GetComponentFromObject(gameObject, Transform);
+    m_Transform = GetComponentFromObject(gameObject, Transform);
 }
 
 void PlayerMove::Update()
 {
-    if (transform == nullptr) return;
+    if (m_Transform == nullptr) return;
 
     Vector3 temp = Vector3(0, 0, 0);
     float length;
@@ -25,21 +25,21 @@ void PlayerMove::Update()
     if (GetInputBuffer(g_keyhold, 'W')) temp.z += 1;
     if (GetInputBuffer(g_keyhold, 'S')) temp.z -= 1;
 
-    if (GetInputBuffer(g_keyhold, 'Q')) transform->rotation.y -= (90 * Time::deltaTime);
-    if (GetInputBuffer(g_keyhold, 'E')) transform->rotation.y += (90 * Time::deltaTime);
-    if (GetInputBuffer(g_keyhold, 'R')) transform->scale *= 1.01f;
-    if (GetInputBuffer(g_keyhold, 'F')) transform->scale /= 1.01f;
+    if (GetInputBuffer(g_keyhold, 'Q')) m_Transform->m_Rotation.y -= (90 * Time::deltaTime);
+    if (GetInputBuffer(g_keyhold, 'E')) m_Transform->m_Rotation.y += (90 * Time::deltaTime);
+    if (GetInputBuffer(g_keyhold, 'R')) m_Transform->m_Scale *= 1.01f;
+    if (GetInputBuffer(g_keyhold, 'F')) m_Transform->m_Scale /= 1.01f;
 
     length = sqrt((fabs(temp.x) * fabs(temp.x) + fabs(temp.z) * fabs(temp.z)));
     if (length == 0.f) return;
 
-    transform->position.x += (temp.x / length) * Time::deltaTime * movespeed;
-    transform->position.z += (temp.z / length) * Time::deltaTime * movespeed;
+    m_Transform->m_Position.x += (temp.x / length) * Time::deltaTime * m_Speed;
+    m_Transform->m_Position.z += (temp.z / length) * Time::deltaTime * m_Speed;
 
-    if (transform->position.x > 30) transform->position.x = 30;
-    if (transform->position.x < -30) transform->position.x = -30;
-    if (transform->position.z > 20) transform->position.z = 20;
-    if (transform->position.z < -20) transform->position.z = -20;
+    if (m_Transform->m_Position.x > 30) m_Transform->m_Position.x = 30;
+    if (m_Transform->m_Position.x < -30) m_Transform->m_Position.x = -30;
+    if (m_Transform->m_Position.z > 20) m_Transform->m_Position.z = 20;
+    if (m_Transform->m_Position.z < -20) m_Transform->m_Position.z = -20;
 }
 
 void PlayerMove::OnMouseDown()
@@ -49,10 +49,10 @@ void PlayerMove::OnMouseDown()
 
 void PlayerMove::OnTriggerStay(Collider* _collider)
 {
-    triggered = true;
+    m_isTriggered = true;
 }
 
 void PlayerMove::OnTriggerExit(Collider* _collider)
 {
-    triggered = false;
+    m_isTriggered = false;
 }

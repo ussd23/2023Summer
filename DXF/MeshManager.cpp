@@ -1,10 +1,10 @@
 #include "MeshManager.h"
 #include "TextureManager.h"
 
-MeshInfo* MeshManager::GetMesh(const string& _filepath)
+MeshInfo* MeshManager::GetMesh(const string& p_Path)
 {
-    map<string, MeshInfo*>::iterator iter = meshinfosmap.find(_filepath);
-    if (iter != meshinfosmap.end())
+    map<string, MeshInfo*>::iterator iter = m_MeshInfosMap.find(p_Path);
+    if (iter != m_MeshInfosMap.end())
     {
         return iter->second;
     }
@@ -13,13 +13,13 @@ MeshInfo* MeshManager::GetMesh(const string& _filepath)
 
     LPD3DXBUFFER pD3DXMtrlBuffer;
 
-    string path = "resources\\" + _filepath;
+    string path = "resources\\" + p_Path;
     if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
     {
-        path = "..\\resources\\" + _filepath;
+        path = "..\\resources\\" + p_Path;
         if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
         {
-            path = "..\\..\\resources\\", _filepath;
+            path = "..\\..\\resources\\", p_Path;
             if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
             {
                 MessageBox(NULL, "Could not find mesh file", "Mesh Load Failed", MB_OK);
@@ -70,31 +70,31 @@ MeshInfo* MeshManager::GetMesh(const string& _filepath)
 
     meshinfo->farthestDistance = farthest;
 
-    meshinfos.push_back(meshinfo);
-    meshinfosmap.insert(make_pair(_filepath, meshinfo));
+    m_MeshInfos.push_back(meshinfo);
+    m_MeshInfosMap.insert(make_pair(p_Path, meshinfo));
 
     return meshinfo;
 }
 
 void MeshManager::Cleanup()
 {
-    for (int i = 0; i < meshinfos.size(); ++i)
+    for (int i = 0; i < m_MeshInfos.size(); ++i)
     {
-        if (meshinfos[i]->pMeshMaterials != NULL)
-            delete[] meshinfos[i]->pMeshMaterials;
+        if (m_MeshInfos[i]->pMeshMaterials != NULL)
+            delete[] m_MeshInfos[i]->pMeshMaterials;
 
-        if (meshinfos[i]->pMeshTextures)
+        if (m_MeshInfos[i]->pMeshTextures)
         {
-            for (DWORD j = 0; j < meshinfos[i]->dwNumMaterials; j++)
+            for (DWORD j = 0; j < m_MeshInfos[i]->dwNumMaterials; j++)
             {
-                if (meshinfos[i]->pMeshTextures[j])
-                    meshinfos[i]->pMeshTextures[j]->Release();
+                if (m_MeshInfos[i]->pMeshTextures[j])
+                    m_MeshInfos[i]->pMeshTextures[j]->Release();
             }
-            delete[] meshinfos[i]->pMeshTextures;
+            delete[] m_MeshInfos[i]->pMeshTextures;
         }
-        if (meshinfos[i]->pMesh != NULL)
-            meshinfos[i]->pMesh->Release();
+        if (m_MeshInfos[i]->pMesh != NULL)
+            m_MeshInfos[i]->pMesh->Release();
 
-        delete meshinfos[i];
+        delete m_MeshInfos[i];
     }
 }

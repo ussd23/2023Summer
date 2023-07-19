@@ -6,39 +6,39 @@
 #include "Transform.h"
 #include "Camera.h"
 
-void Frustum::MakeFrustum(Matrix16* _pMatViewProj)
+void Frustum::MakeFrustum(Matrix16* p_MatViewProj)
 {
-    vertex[0] = Vector3(-1.0f, -1.0f, 0.0f);
-    vertex[1] = Vector3(1.0f, -1.0f, 0.0f);
-    vertex[2] = Vector3(1.0f, -1.0f, 1.0f);
-    vertex[3] = Vector3(-1.0f, -1.0f, 1.0f);
-    vertex[4] = Vector3(-1.0f, 1.0f, 0.0f);
-    vertex[5] = Vector3(1.0f, 1.0f, 0.0f);
-    vertex[6] = Vector3(1.0f, 1.0f, 1.0f);
-    vertex[7] = Vector3(-1.0f, 1.0f, 1.0f);
+    m_Vertex[0] = Vector3(-1.0f, -1.0f, 0.0f);
+    m_Vertex[1] = Vector3(1.0f, -1.0f, 0.0f);
+    m_Vertex[2] = Vector3(1.0f, -1.0f, 1.0f);
+    m_Vertex[3] = Vector3(-1.0f, -1.0f, 1.0f);
+    m_Vertex[4] = Vector3(-1.0f, 1.0f, 0.0f);
+    m_Vertex[5] = Vector3(1.0f, 1.0f, 0.0f);
+    m_Vertex[6] = Vector3(1.0f, 1.0f, 1.0f);
+    m_Vertex[7] = Vector3(-1.0f, 1.0f, 1.0f);
 
     Matrix16 matInv;
-    D3DXMatrixInverse(&matInv, NULL, _pMatViewProj);
+    D3DXMatrixInverse(&matInv, NULL, p_MatViewProj);
 
     for (int i = 0; i < 8; ++i)
     {
-        D3DXVec3TransformCoord(&vertex[i], &vertex[i], &matInv);
+        D3DXVec3TransformCoord(&m_Vertex[i], &m_Vertex[i], &matInv);
     }
 
     // 절두체 평면 생성
-    D3DXPlaneFromPoints(&plane[0], &vertex[4], &vertex[7], &vertex[6]);
-    D3DXPlaneFromPoints(&plane[1], &vertex[0], &vertex[1], &vertex[2]);
-    D3DXPlaneFromPoints(&plane[2], &vertex[0], &vertex[4], &vertex[5]);
-    D3DXPlaneFromPoints(&plane[3], &vertex[2], &vertex[6], &vertex[7]);
-    D3DXPlaneFromPoints(&plane[4], &vertex[0], &vertex[3], &vertex[7]);
-    D3DXPlaneFromPoints(&plane[5], &vertex[1], &vertex[5], &vertex[6]);
+    D3DXPlaneFromPoints(&m_Plane[0], &m_Vertex[4], &m_Vertex[7], &m_Vertex[6]);
+    D3DXPlaneFromPoints(&m_Plane[1], &m_Vertex[0], &m_Vertex[1], &m_Vertex[2]);
+    D3DXPlaneFromPoints(&m_Plane[2], &m_Vertex[0], &m_Vertex[4], &m_Vertex[5]);
+    D3DXPlaneFromPoints(&m_Plane[3], &m_Vertex[2], &m_Vertex[6], &m_Vertex[7]);
+    D3DXPlaneFromPoints(&m_Plane[4], &m_Vertex[0], &m_Vertex[3], &m_Vertex[7]);
+    D3DXPlaneFromPoints(&m_Plane[5], &m_Vertex[1], &m_Vertex[5], &m_Vertex[6]);
 }
 
-bool Frustum::isIn(Vector3 _pos)
+bool Frustum::isIn(Vector3 p_Pos)
 {
     for (int i = 0 ; i < 6 ; ++i)
     {
-        float fDist = D3DXPlaneDotCoord(&plane[i], &_pos);
+        float fDist = D3DXPlaneDotCoord(&m_Plane[i], &p_Pos);
         if (fDist > 0) return false;
     }
 
@@ -46,12 +46,12 @@ bool Frustum::isIn(Vector3 _pos)
     return true;
 }
 
-bool Frustum::isIn(Vector3 _pos, float _radius)
+bool Frustum::isIn(Vector3 p_Pos, float p_Radius)
 {
     for (int i = 0; i < 6; ++i)
     {
-        float fDist = D3DXPlaneDotCoord(&plane[i], &_pos);
-        if (fDist > (_radius + 0)) return false;
+        float fDist = D3DXPlaneDotCoord(&m_Plane[i], &p_Pos);
+        if (fDist > (p_Radius + 0)) return false;
     }
 
     ++g_CullingObjects;

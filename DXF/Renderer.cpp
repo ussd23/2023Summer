@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-bool Renderer::Compare(Renderer* _r1, Renderer* _r2)
+bool Renderer::Compare(Renderer* p_R1, Renderer* p_R2)
 {
-	return _r1->distance < _r2->distance;
+	return p_R1->m_Distance < p_R2->m_Distance;
 }

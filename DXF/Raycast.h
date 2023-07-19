@@ -4,8 +4,8 @@
 // Desc: Raycast와 관련된 기능
 //
 //		[Variables]
-//		- vStartPt: 직선의 시작 지점
-//		- vDirection: 직선의 진행 방향
+//		- m_StartPt: 직선의 시작 지점
+//		- m_Direction: 직선의 진행 방향
 //
 //		[Functions]
 //      - ScreenToWorld: 마우스 포인터의 화면상 위치에서 월드상 위치로 향하는 직선
@@ -26,13 +26,13 @@ class SphereCollider;
 class Raycast
 {
 protected:
-	Vector3			vStartPt = Vector3(0.f, 0.f, 0.f);
-	Vector3			vDirection = Vector3(0.f, 0.f, 0.f);
+	Vector3			m_StartPt = Vector3(0.f, 0.f, 0.f);
+	Vector3			m_Direction = Vector3(0.f, 0.f, 0.f);
 
 public:
-	static Raycast ScreenToWorld(const Vector2&);
-	bool IsPicked(BoxCollider*);
-	bool IsPicked(SphereCollider*);
-	bool IntersectTri(const Vector3&, const Vector3&, const Vector3&, Vector3&);
+	static Raycast ScreenToWorld(const Vector2& p_Pos);
+	bool IsPicked(BoxCollider* p_Collider);
+	bool IsPicked(SphereCollider* p_Collider);
+	bool IntersectTri(const Vector3& p_Pos0, const Vector3& p_Pos1, const Vector3& p_Pos2, Vector3& p_Result);
 };
 

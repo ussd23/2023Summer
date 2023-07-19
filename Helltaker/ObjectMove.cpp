@@ -2,23 +2,23 @@
 
 void ObjectMove::Start()
 {
-    transform = GetComponentFromObject(gameObject, Transform);
+    m_Transform = GetComponentFromObject(gameObject, Transform);
 
-    movementvec = Vector3(rand() - (RAND_MAX / 2), 0.f, rand() - (RAND_MAX / 2));
-    movespeed = rand() / RAND_MAX * 10.f + 5.f;
-    length = sqrt((fabs(movementvec.x) * fabs(movementvec.x) + fabs(movementvec.z) * fabs(movementvec.z)));
+    m_MovementVec = Vector3(rand() - (RAND_MAX * 0.5f), 0.f, rand() - (RAND_MAX * 0.5f));
+    m_Speed = rand() / RAND_MAX * 10.f + 5.f;
+    m_Length = sqrt((fabs(m_MovementVec.x) * fabs(m_MovementVec.x) + fabs(m_MovementVec.z) * fabs(m_MovementVec.z)));
 }
 
 void ObjectMove::Update()
 {
-    if (length == 0.f) return;
-    if (transform == nullptr) return;
+    if (m_Length == 0.f) return;
+    if (m_Transform == nullptr) return;
 
-    transform->position.x += (movementvec.x / length) * Time::deltaTime * movespeed;
-    transform->position.z += (movementvec.z / length) * Time::deltaTime * movespeed;
+    m_Transform->m_Position.x += (m_MovementVec.x / m_Length) * Time::deltaTime * m_Speed;
+    m_Transform->m_Position.z += (m_MovementVec.z / m_Length) * Time::deltaTime * m_Speed;
 
-    if (transform->position.x > 30) { transform->position.x = 30; movementvec.x *= -1; }
-    if (transform->position.x < -30) { transform->position.x = -30; movementvec.x *= -1; }
-    if (transform->position.z > 20) { transform->position.z = 20; movementvec.z *= -1; }
-    if (transform->position.z < -20) { transform->position.z = -20; movementvec.z *= -1; }
+    if (m_Transform->m_Position.x > 30) { m_Transform->m_Position.x = 30; m_MovementVec.x *= -1; }
+    if (m_Transform->m_Position.x < -30) { m_Transform->m_Position.x = -30; m_MovementVec.x *= -1; }
+    if (m_Transform->m_Position.z > 20) { m_Transform->m_Position.z = 20; m_MovementVec.z *= -1; }
+    if (m_Transform->m_Position.z < -20) { m_Transform->m_Position.z = -20; m_MovementVec.z *= -1; }
 }

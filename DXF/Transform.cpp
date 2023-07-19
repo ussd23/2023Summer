@@ -1,79 +1,79 @@
 #include "ComponentHeader.h"
 
-Transform::Transform(Vector3 _pos, Vector3 _rot, Vector3 _scale)
+Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 {
-	position = _pos;
-	rotation = _rot;
-	scale = _scale;
-	parent = g_RootTransform;
+	m_Position = p_Position;
+	m_Rotation = p_Rotation;
+	m_Scale = p_Scale;
+	m_Parent = g_RootTransform;
 }
 
 Vector3 Transform::GetWorldPosition()
 {
-	if (parent != nullptr)
+	if (m_Parent != nullptr)
 	{
-		Vector3 pscale = parent->GetWorldScale();
-		Vector3 pos(pscale.x * position.x, pscale.y * position.y, pscale.z * position.z);
+		Vector3 pscale = m_Parent->GetWorldScale();
+		Vector3 pos(pscale.x * m_Position.x, pscale.y * m_Position.y, pscale.z * m_Position.z);
 
-		return pos + parent->GetWorldPosition();
+		return pos + m_Parent->GetWorldPosition();
 	}
-	return position;
+	return m_Position;
 }
 
 Vector3 Transform::GetWorldRotation()
 {
-	if (parent != nullptr)
+	if (m_Parent != nullptr)
 	{
-		return rotation + parent->GetWorldRotation();
+		return m_Rotation + m_Parent->GetWorldRotation();
 	}
-	return rotation;
+	return m_Rotation;
 }
 
 Vector3 Transform::GetWorldScale()
 {
-	if (parent != nullptr)
+	if (m_Parent != nullptr)
 	{
-		Vector3 pscale = parent->GetWorldScale();
-		return Vector3(scale.x * pscale.x, scale.y * pscale.y, scale.z * pscale.z);
+		Vector3 pscale = m_Parent->GetWorldScale();
+		return Vector3(m_Scale.x * pscale.x, m_Scale.y * pscale.y, m_Scale.z * pscale.z);
 	}
-	return scale;
+	return m_Scale;
 }
 
 int Transform::GetChildCount()
 {
-	return childs.size();
+	return m_Childs.size();
 }
 
-Transform* Transform::GetChild(int _index)
+Transform* Transform::GetChild(int p_Index)
 {
-	return childs[_index];
+	return m_Childs[p_Index];
 }
 
 Transform* Transform::GetParent()
 {
-	return parent;
+	return m_Parent;
 }
 
-void Transform::AddChild(Transform* _child)
+void Transform::AddChild(Transform* p_Child)
 {
-	_child->parent = this;
-	childs.push_back(_child);
+	p_Child->m_Parent = this;
+	m_Childs.push_back(p_Child);
 }
 
-void Transform::AddChildAsFirst(Transform* _child)
+void Transform::AddChildAsFirst(Transform* p_Child)
 {
-	_child->parent = this;
-	childs.insert(childs.begin(), _child);
+	p_Child->m_Parent = this;
+	m_Childs.insert(m_Childs.begin(), p_Child);
 }
 
-void Transform::RemoveChild(Transform* _child)
+void Transform::RemoveChild(Transform* p_Child)
 {
-	for (int i = 0; i < childs.size(); ++i)
+	for (int i = 0; i < m_Childs.size(); ++i)
 	{
-		if (childs[i] == _child)
+		if (m_Childs[i] == p_Child)
 		{
-			_child->parent = nullptr;
-			childs.erase(childs.begin() + i);
+			p_Child->m_Parent = nullptr;
+			m_Childs.erase(m_Childs.begin() + i);
 			break;
 		}
 	}
@@ -81,12 +81,12 @@ void Transform::RemoveChild(Transform* _child)
 
 void Transform::SetAsFirstSibling()
 {
-	parent->RemoveChild(this);
-	parent->AddChildAsFirst(this);
+	m_Parent->RemoveChild(this);
+	m_Parent->AddChildAsFirst(this);
 }
 
 void Transform::SetAsLastSibling()
 {
-	parent->RemoveChild(this);
-	parent->AddChild(this);
+	m_Parent->RemoveChild(this);
+	m_Parent->AddChild(this);
 }

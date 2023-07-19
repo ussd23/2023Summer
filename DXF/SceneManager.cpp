@@ -1,20 +1,20 @@
 #include <fstream>
 #include "ComponentHeader.h"
 
-#define GetData(string, data, conversion) if (tempmap.find(#string) != tempmap.end()) data = conversion(object->find(key)->second.find(#string)->second);
+#define GetData(string, data, conversion) if (tempmap.find(#string) != tempmap.end()) data = conversion(p_Object->find(key)->second.find(#string)->second);
 
-void SceneManager::SceneLoad(string _filepath)
+void SceneManager::SceneLoad(string p_Path)
 {
     ifstream file;
-    string path = "scenes\\" + _filepath;
+    string path = "scenes\\" + p_Path;
     file.open(path);
     if (file.fail())
     {
-        path = "..\\..\\scenes\\", _filepath;
+        path = "..\\..\\scenes\\", p_Path;
         file.open(path);
         if (file.fail())
         {
-            path = "..\\..\\scenes\\", _filepath;
+            path = "..\\..\\scenes\\", p_Path;
             file.open(path);
             if (file.fail())
             {
@@ -59,34 +59,34 @@ void SceneManager::SceneLoad(string _filepath)
     file.close();
 }
 
-void SceneManager::Parse(vector<string>* comp, map<string, map<string, string>>* object, string line)
+void SceneManager::Parse(vector<string>* p_Comp, map<string, map<string, string>>* p_Object, string p_Line)
 {
     string value;
 
-    while (0 != line.length())
+    while (0 != p_Line.length())
     {
-        for (int i = 0; i < line.length(); ++i)
+        for (int i = 0; i < p_Line.length(); ++i)
         {
-            if (',' == line[i])
+            if (',' == p_Line[i])
             {
-                value = line.substr(0, i);
-                comp->push_back(value);
-                line = line.substr(i + 1);
+                value = p_Line.substr(0, i);
+                p_Comp->push_back(value);
+                p_Line = p_Line.substr(i + 1);
                 break;
             }
 
-            else if ('{' == line[i])
+            else if ('{' == p_Line[i])
             {
-                value = line.substr(0, i);
-                comp->push_back(value);
-                line = Layer(value, object, line.substr(i + 1));
+                value = p_Line.substr(0, i);
+                p_Comp->push_back(value);
+                p_Line = Layer(value, p_Object, p_Line.substr(i + 1));
                 break;
             }
         }
     }
 }
 
-string SceneManager::Layer(string key, map<string, map<string, string>>* object, string line)
+string SceneManager::Layer(string p_Key, map<string, map<string, string>>* p_Object, string p_Line)
 {
     int instant_key = 0;
     bool intstant_sw = true;
@@ -95,23 +95,23 @@ string SceneManager::Layer(string key, map<string, map<string, string>>* object,
 
     while (1)
     {
-        for (int i = 0; i < line.length(); ++i)
+        for (int i = 0; i < p_Line.length(); ++i)
         {
-            if (':' == line[i])
+            if (':' == p_Line[i])
             {
-                key2 = line.substr(0, i);
-                line = line.substr(i + 1);
+                key2 = p_Line.substr(0, i);
+                p_Line = p_Line.substr(i + 1);
                 intstant_sw = false;
                 break;
             }
 
-            else if (',' == line[i] || '}' == line[i])
+            else if (',' == p_Line[i] || '}' == p_Line[i])
             {
-                value = line.substr(0, i);
+                value = p_Line.substr(0, i);
 
                 if (intstant_sw)
                 {
-                    if ("Script" == key)
+                    if ("Script" == p_Key)
                     {
                         key2 = "Value";
                     }
@@ -127,13 +127,13 @@ string SceneManager::Layer(string key, map<string, map<string, string>>* object,
 
                 temp.insert(make_pair(key2, value));
 
-                if ('}' == line[i])
+                if ('}' == p_Line[i])
                 {
-                    object->insert(make_pair(key, temp));
-                    return line.substr(i + 1);
+                    p_Object->insert(make_pair(p_Key, temp));
+                    return p_Line.substr(i + 1);
                 }
 
-                line = line.substr(i + 1);
+                p_Line = p_Line.substr(i + 1);
                 break;
             }
         }
@@ -141,25 +141,25 @@ string SceneManager::Layer(string key, map<string, map<string, string>>* object,
 }
 
 // 수정 필요
-GameObject* SceneManager::Initialize(vector<string>* comp, map<string, map<string, string>>* object)
+GameObject* SceneManager::Initialize(vector<string>* p_Comp, map<string, map<string, string>>* p_Object)
 {
     string objname = "";
     map<string, string> tempmap;
 
     GameObject* tempobj = new GameObject("");
 
-    for (int i = 0; i < comp->size(); i++)
+    for (int i = 0; i < p_Comp->size(); i++)
     {
-        string key = comp->at(i);
-        if (object->find(key) != object->end())
+        string key = p_Comp->at(i);
+        if (p_Object->find(key) != p_Object->end())
         {
-            tempmap = object->find(key)->second;
+            tempmap = p_Object->find(key)->second;
         }
 
         if (key == "Name")
         {
             GetData(Value, objname);
-            tempobj->name = objname;
+            tempobj->m_Name = objname;
         }
 
         else if (key == "Transform")

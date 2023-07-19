@@ -1,42 +1,42 @@
 #include "ComponentHeader.h"
 
-SpriteRenderer::SpriteRenderer(string _texturename) :
-    SpriteRenderer(_texturename, Vector2(1, 1), Vector2(0, 0)) {}
+SpriteRenderer::SpriteRenderer(string p_TextureName) :
+    SpriteRenderer(p_TextureName, Vector2(1, 1), Vector2(0, 0)) {}
 
-SpriteRenderer::SpriteRenderer(string _texturename, Vector2 _rectsize, Vector2 _rectindex) :
-    SpriteRenderer(_texturename, 0xffffffff, _rectsize, _rectindex) {}
+SpriteRenderer::SpriteRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex) :
+    SpriteRenderer(p_TextureName, 0xffffffff, p_RectSize, p_RectIndex) {}
 
-SpriteRenderer::SpriteRenderer(string _texturename, DWORD _color, Vector2 _rectsize, Vector2 _rectindex)
+SpriteRenderer::SpriteRenderer(string p_TextureName, DWORD p_Color, Vector2 p_RectSize, Vector2 p_RectIndex)
 {
-    texturename = _texturename;
-    rectsize = _rectsize;
-    rectindex = _rectindex;
-    color = _color;
+    m_TextureName = p_TextureName;
+    m_Color = p_Color;
+    m_RectSize = p_RectSize;
+    m_RectIndex = p_RectIndex;
 }
 
 void SpriteRenderer::Start()
 {
-    recttransform = GetComponentFromObject(gameObject, RectTransform);
+    m_RectTransform = GetComponentFromObject(gameObject, RectTransform);
 
-    if (texturename.size() <= 0) return;
+    if (m_TextureName.size() <= 0) return;
 
-    pTexture = TextureManager::GetInstance()->GetTexture(texturename);
+    m_Texture = TextureManager::GetInstance()->GetTexture(m_TextureName);
 
-    if (pTexture == NULL) return;
+    if (m_Texture == NULL) return;
 
     D3DSURFACE_DESC desc;
-    pTexture->GetLevelDesc(0, &desc);
-    SetRect(&texturesize, 0, 0, desc.Width, desc.Height);
+    m_Texture->GetLevelDesc(0, &desc);
+    SetRect(&m_TextureSize, 0, 0, desc.Width, desc.Height);
 }
 
 void SpriteRenderer::PreRender()
 {
-    if (recttransform == nullptr) return;
-    if (pTexture == NULL) return;
+    if (m_RectTransform == nullptr) return;
+    if (m_Texture == NULL) return;
 
-    Vector2 pos = recttransform->GetScreenPosition();
-    Vector2 scale = recttransform->GetScreenScale();
-    Vector2 size = recttransform->size;
+    Vector2 pos = m_RectTransform->GetScreenPosition();
+    Vector2 scale = m_RectTransform->GetScreenScale();
+    Vector2 size = m_RectTransform->m_Size;
 
     RECT rect;
     SetRect(&rect, pos.x - size.x * scale.x, pos.y - size.y * scale.y, pos.x + size.x * scale.x, pos.y + size.y * scale.y);
@@ -49,17 +49,17 @@ void SpriteRenderer::PreRender()
 
 void SpriteRenderer::Render()
 {
-    Vector2 temp = Vector2(texturesize.right / rectsize.x, texturesize.bottom / rectsize.y);
+    Vector2 temp = Vector2(m_TextureSize.right / m_RectSize.x, m_TextureSize.bottom / m_RectSize.y);
     RECT rect;
-    SetRect(&rect, rectindex.x * temp.x, rectindex.y * temp.y, (rectindex.x + 1) * temp.x, (rectindex.y + 1) * temp.y);
+    SetRect(&rect, m_RectIndex.x * temp.x, m_RectIndex.y * temp.y, (m_RectIndex.x + 1) * temp.x, (m_RectIndex.y + 1) * temp.y);
     
-    Vector2 pos = recttransform->GetScreenPosition();
-    Vector3 rot = recttransform->GetScreenRotation();
-    Vector2 scale = recttransform->GetScreenScale();
-    Vector2 size = recttransform->size;
+    Vector2 pos = m_RectTransform->GetScreenPosition();
+    Vector3 rot = m_RectTransform->GetScreenRotation();
+    Vector2 scale = m_RectTransform->GetScreenScale();
+    Vector2 size = m_RectTransform->m_Size;
 
 	Matrix matScreenPosition;
-	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x / 2, pos.y - size.y / 2, 0);
+	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
 
     Matrix16 matScreenRotationX;
     D3DXMatrixRotationX(&matScreenRotationX, D3DXToRadian(rot.x));
@@ -78,6 +78,6 @@ void SpriteRenderer::Render()
     matScreenSet = matScreenScale * matScreenRotationX * matScreenRotationY * matScreenRotationZ * matScreenPosition;
 	g_pSprite->SetTransform(&matScreenSet);
     g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-    g_pSprite->Draw(pTexture, &rect, NULL, NULL, color);
+    g_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
     g_pSprite->End();
 }
