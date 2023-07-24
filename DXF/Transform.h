@@ -6,16 +6,22 @@
 //		[Variables]
 //		- m_Parent: Parent 오브젝트의 Transform 컴포넌트
 //		- m_Childs: 해당 오브젝트의 Child 오브젝트의 Transform 컴포넌트 목록
+//      - m_WorldPosition: 해당 오브젝트의 월드상 위치
+//      - m_WorldRotation: 해당 오브젝트의 월드상 회전 값
+//      - m_WorldScale: 해당 오브젝트의 월드상 크기 배율
 //      - m_Position: 해당 오브젝트의 위치
 //      - m_Rotation: 해당 오브젝트의 회전 값
 //      - m_Scale: 해당 오브젝트의 크기 배율
 //
 //      [Functions]
-//      - GetScreenPosition: Parent 오브젝트의 위치를 기준으로 현재 오브젝트의
+//      - SetWorldPosition: GetWorldPosition 값을 구하는 내부 함수
+//      - SetWorldRotation: GetWorldRotation 값을 구하는 내부 함수
+//      - SetWorldScale: GetWorldScale 값을 구하는 내부 함수
+//      - GetWorldPosition: Parent 오브젝트의 위치를 기준으로 현재 오브젝트의
 //                           월드상 좌표를 반환
-//      - GetScreenRotation: Parent 오브젝트의 회전 값을 기준으로 현재 오브젝트의
+//      - GetWorldRotation: Parent 오브젝트의 회전 값을 기준으로 현재 오브젝트의
 //                           월드상 회전 값을 반환
-//      - GetScreenScale: Parent 오브젝트의 크기 배율을 기준으로 현재 오브젝트의
+//      - GetWorldScale: Parent 오브젝트의 크기 배율을 기준으로 현재 오브젝트의
 //                        월드상 크기 배율을 반환
 //
 //      - GetChildCount: Child 오브젝트의 개수 반환
@@ -42,11 +48,19 @@ class Transform : public Component
 protected:
     Transform*          m_Parent = nullptr;
     vector<Transform*>  m_Childs;
+    Vector3             m_WorldPosition;
+    Vector3             m_WorldRotation;
+    Vector3             m_WorldScale;
 
 public:
     Vector3             m_Position;
     Vector3             m_Rotation;
     Vector3             m_Scale;
+
+protected:
+    Vector3 SetWorldPosition();
+    Vector3 SetWorldRotation();
+    Vector3 SetWorldScale();
 
 public:
     Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale);
@@ -65,6 +79,8 @@ public:
     void RemoveChild(Transform* p_Child);
     void SetAsFirstSibling();
     void SetAsLastSibling();
+
+    void Update() override;
 };
 
 template <class T> void Transform::FindChild(T* p_Comp)

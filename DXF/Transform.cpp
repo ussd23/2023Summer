@@ -1,5 +1,44 @@
 #include "ComponentHeader.h"
 
+Vector3 Transform::SetWorldPosition()
+{
+	if (m_Parent != nullptr)
+	{
+		Vector3 pscale = m_Parent->GetWorldScale();
+		Vector3 pos(pscale.x * m_Position.x, pscale.y * m_Position.y, pscale.z * m_Position.z);
+		Vector3 rot = m_Parent->GetWorldRotation();
+
+		Matrix rotationMatrix;
+		D3DXMatrixRotationYawPitchRoll(&rotationMatrix, D3DXToRadian(rot.y), D3DXToRadian(rot.x), D3DXToRadian(rot.z));
+
+		Vector4 newPosition;
+		D3DXVec3Transform(&newPosition, &pos, &rotationMatrix);
+
+		pos = Vector3(newPosition.x, newPosition.y, newPosition.z);
+		return pos + m_Parent->GetWorldPosition();
+	}
+	return m_Position;
+}
+
+Vector3 Transform::SetWorldRotation()
+{
+	if (m_Parent != nullptr)
+	{
+		return m_Rotation + m_Parent->GetWorldRotation();
+	}
+	return m_Rotation;
+}
+
+Vector3 Transform::SetWorldScale()
+{
+	if (m_Parent != nullptr)
+	{
+		Vector3 pscale = m_Parent->GetWorldScale();
+		return Vector3(m_Scale.x * pscale.x, m_Scale.y * pscale.y, m_Scale.z * pscale.z);
+	}
+	return m_Scale;
+}
+
 Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 {
 	m_Position = p_Position;
@@ -10,33 +49,17 @@ Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 
 Vector3 Transform::GetWorldPosition()
 {
-	if (m_Parent != nullptr)
-	{
-		Vector3 pscale = m_Parent->GetWorldScale();
-		Vector3 pos(pscale.x * m_Position.x, pscale.y * m_Position.y, pscale.z * m_Position.z);
-
-		return pos + m_Parent->GetWorldPosition();
-	}
-	return m_Position;
+	return m_WorldPosition;
 }
 
 Vector3 Transform::GetWorldRotation()
 {
-	if (m_Parent != nullptr)
-	{
-		return m_Rotation + m_Parent->GetWorldRotation();
-	}
-	return m_Rotation;
+	return m_WorldRotation;
 }
 
 Vector3 Transform::GetWorldScale()
 {
-	if (m_Parent != nullptr)
-	{
-		Vector3 pscale = m_Parent->GetWorldScale();
-		return Vector3(m_Scale.x * pscale.x, m_Scale.y * pscale.y, m_Scale.z * pscale.z);
-	}
-	return m_Scale;
+	return m_WorldScale;
 }
 
 int Transform::GetChildCount()
@@ -89,4 +112,11 @@ void Transform::SetAsLastSibling()
 {
 	m_Parent->RemoveChild(this);
 	m_Parent->AddChild(this);
+}
+
+void Transform::Update()
+{
+	m_WorldPosition = SetWorldPosition();
+	m_WorldRotation = SetWorldRotation();
+	m_WorldScale = SetWorldScale();
 }

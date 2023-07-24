@@ -18,7 +18,6 @@ void MeshRenderer::PreRender()
     if (m_MeshInfo == nullptr) return;
 
     Vector3 pos = m_Transform->GetWorldPosition();
-    Vector3 rot = m_Transform->GetWorldRotation();
     Vector3 scale = m_Transform->GetWorldScale();
 
     float maxscale = max(scale.x, max(scale.y, scale.z));

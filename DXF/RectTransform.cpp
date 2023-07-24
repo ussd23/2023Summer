@@ -1,15 +1,6 @@
 #include "ComponentHeader.h"
 
-RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size)
-{
-	m_Position = p_Position;
-	m_Rotation = p_Rotation;
-	m_Scale = p_Scale;
-	m_Size = p_Size;
-	m_Parent = g_RootRectTransform;
-}
-
-Vector2 RectTransform::GetScreenPosition()
+Vector2 RectTransform::SetScreenPosition()
 {
 	if (m_Parent != nullptr)
 	{
@@ -21,7 +12,7 @@ Vector2 RectTransform::GetScreenPosition()
 	return m_Position;
 }
 
-Vector3 RectTransform::GetScreenRotation()
+Vector3 RectTransform::SetScreenRotation()
 {
 	if (m_Parent != nullptr)
 	{
@@ -30,7 +21,7 @@ Vector3 RectTransform::GetScreenRotation()
 	return m_Rotation;
 }
 
-Vector2 RectTransform::GetScreenScale()
+Vector2 RectTransform::SetScreenScale()
 {
 	if (m_Parent != nullptr)
 	{
@@ -38,6 +29,30 @@ Vector2 RectTransform::GetScreenScale()
 		return Vector2(m_Scale.x * pscale.x, m_Scale.y * pscale.y);
 	}
 	return m_Scale;
+}
+
+RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size)
+{
+	m_Position = p_Position;
+	m_Rotation = p_Rotation;
+	m_Scale = p_Scale;
+	m_Size = p_Size;
+	m_Parent = g_RootRectTransform;
+}
+
+Vector2 RectTransform::GetScreenPosition()
+{
+	return m_WorldPosition;
+}
+
+Vector3 RectTransform::GetScreenRotation()
+{
+	return m_WorldRotation;
+}
+
+Vector2 RectTransform::GetScreenScale()
+{
+	return m_WorldScale;
 }
 
 int RectTransform::GetChildCount()
@@ -90,4 +105,11 @@ void RectTransform::SetAsLastSibling()
 {
 	m_Parent->RemoveChild(this);
 	m_Parent->AddChild(this);
+}
+
+void RectTransform::Update()
+{
+	m_WorldPosition = SetScreenPosition();
+	m_WorldRotation = SetScreenRotation();
+	m_WorldScale = SetScreenScale();
 }

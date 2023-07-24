@@ -6,6 +6,9 @@
 //		[Variables]
 //		- m_Parent: Parent 오브젝트의 RectTransform 컴포넌트
 //		- m_Childs: 해당 오브젝트의 Child 오브젝트의 RectTransform 컴포넌트 목록
+//      - m_ScreenPosition: 해당 오브젝트의 스크린상 위치
+//      - m_ScreenRotation: 해당 오브젝트의 스크린상 회전 값
+//      - m_ScreenScale: 해당 오브젝트의 스크린상 크기 배율
 //      - m_Position: 해당 오브젝트의 위치
 //      - m_Rotation: 해당 오브젝트의 회전 값
 //      - m_Scale: 해당 오브젝트의 크기 배율
@@ -13,12 +16,15 @@
 //              (scale이 (1, 1, 1)일 때 기준)
 //
 //      [Functions]
+//      - SetScreenPosition: GetScreenPosition 값을 구하는 내부 함수
+//      - SetScreenRotation: GetScreenRotation 값을 구하는 내부 함수
+//      - SetScreenScale: GetScreenScale 값을 구하는 내부 함수
 //      - GetScreenPosition: Parent 오브젝트의 위치를 기준으로 현재 오브젝트의
-//                           월드상 좌표를 반환
+//                           스크린상 좌표를 반환
 //      - GetScreenRotation: Parent 오브젝트의 회전 값을 기준으로 현재 오브젝트의
-//                           월드상 회전 값을 반환
+//                           스크린상 회전 값을 반환
 //      - GetScreenScale: Parent 오브젝트의 크기 배율을 기준으로 현재 오브젝트의
-//                        월드상 크기 배율을 반환
+//                        스크린상 크기 배율을 반환
 //
 //      - GetChildCount: Child 오브젝트의 개수 반환
 //      - GetChild: 특정 인덱스의 Child 오브젝트의 RectTransform 컴포넌트 반환
@@ -43,12 +49,20 @@ class RectTransform : public Component
 protected:
     RectTransform*          m_Parent = nullptr;
     vector<RectTransform*>  m_Childs;
+    Vector2                 m_WorldPosition;
+    Vector3                 m_WorldRotation;
+    Vector2                 m_WorldScale;
 
 public:
     Vector2                 m_Position;
     Vector3                 m_Rotation;
     Vector2                 m_Scale;
     Vector2                 m_Size;
+
+protected:
+    Vector2 SetScreenPosition();
+    Vector3 SetScreenRotation();
+    Vector2 SetScreenScale();
 
 public:
     RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size);
@@ -67,6 +81,8 @@ public:
     void RemoveChild(RectTransform* p_Child);
     void SetAsFirstSibling();
     void SetAsLastSibling();
+
+    void Update() override;
 };
 
 template <class T> void RectTransform::FindChild(T* p_Comp)
