@@ -54,7 +54,7 @@ void MeshRenderer::Render()
 
     Matrix16 matWorldSet;
     D3DXMatrixIdentity(&matWorldSet);
-    matWorldSet = matWorldScale * matWorldRotationX * matWorldRotationY * matWorldRotationZ * matWorldPosition;
+    matWorldSet = matWorldScale * (matWorldRotationZ * matWorldRotationX * matWorldRotationY) * matWorldPosition;
     g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
 
     for (DWORD i = 0; i < m_MeshInfo->dwNumMaterials; i++)

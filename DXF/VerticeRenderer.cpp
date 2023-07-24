@@ -114,7 +114,7 @@ void VerticeRenderer::Render()
 
     Matrix16 matWorldSet;
     D3DXMatrixIdentity(&matWorldSet);
-    matWorldSet = matWorldScale * matWorldRotationX * matWorldRotationY * matWorldRotationZ * matWorldPosition;
+    matWorldSet = matWorldScale * (matWorldRotationZ * matWorldRotationX * matWorldRotationY) * matWorldPosition;
     g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
     g_pd3dDevice->SetStreamSource(0, g_pVB, 0, sizeof(Vertex));
     g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);

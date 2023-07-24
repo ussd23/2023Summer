@@ -75,7 +75,7 @@ void SpriteRenderer::Render()
 
     Matrix16 matScreenSet;
     D3DXMatrixIdentity(&matScreenSet);
-    matScreenSet = matScreenScale * matScreenRotationX * matScreenRotationY * matScreenRotationZ * matScreenPosition;
+    matScreenSet = matScreenScale * (matScreenRotationZ * matScreenRotationX * matScreenRotationY) * matScreenPosition;
 	g_pSprite->SetTransform(&matScreenSet);
     g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
     g_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
