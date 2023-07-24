@@ -6,7 +6,15 @@ Vector2 RectTransform::SetScreenPosition()
 	{
 		Vector2 pscale = m_Parent->GetScreenScale();
 		Vector2 pos(pscale.x * m_Position.x, pscale.y * m_Position.y);
+		Vector3 rot = m_Parent->GetScreenRotation();
 
+		Matrix rotationMatrix;
+		D3DXMatrixRotationYawPitchRoll(&rotationMatrix, D3DXToRadian(rot.y), D3DXToRadian(rot.x), D3DXToRadian(rot.z));
+
+		Vector4 newPosition;
+		D3DXVec2Transform(&newPosition, &pos, &rotationMatrix);
+
+		pos = Vector2(newPosition.x, newPosition.y);
 		return pos + m_Parent->GetScreenPosition();
 	}
 	return m_Position;
