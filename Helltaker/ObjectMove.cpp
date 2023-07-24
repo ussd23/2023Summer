@@ -14,11 +14,15 @@ void ObjectMove::Update()
     if (m_Length == 0.f) return;
     if (m_Transform == nullptr) return;
 
-    m_Transform->m_Position.x += (m_MovementVec.x / m_Length) * Time::deltaTime * m_Speed;
-    m_Transform->m_Position.z += (m_MovementVec.z / m_Length) * Time::deltaTime * m_Speed;
+    Vector3 position = m_Transform->GetPosition();
 
-    if (m_Transform->m_Position.x > 30) { m_Transform->m_Position.x = 30; m_MovementVec.x *= -1; }
-    if (m_Transform->m_Position.x < -30) { m_Transform->m_Position.x = -30; m_MovementVec.x *= -1; }
-    if (m_Transform->m_Position.z > 20) { m_Transform->m_Position.z = 20; m_MovementVec.z *= -1; }
-    if (m_Transform->m_Position.z < -20) { m_Transform->m_Position.z = -20; m_MovementVec.z *= -1; }
+    position.x += (m_MovementVec.x / m_Length) * Time::deltaTime * m_Speed;
+    position.z += (m_MovementVec.z / m_Length) * Time::deltaTime * m_Speed;
+
+    if (position.x > 30) { position.x = 30; m_MovementVec.x *= -1; }
+    if (position.x < -30) { position.x = -30; m_MovementVec.x *= -1; }
+    if (position.z > 20) { position.z = 20; m_MovementVec.z *= -1; }
+    if (position.z < -20) { position.z = -20; m_MovementVec.z *= -1; }
+
+    m_Transform->SetPosition(position);
 }

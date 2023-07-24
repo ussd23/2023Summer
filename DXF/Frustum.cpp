@@ -34,11 +34,11 @@ void Frustum::MakeFrustum(Matrix16* p_MatViewProj)
     D3DXPlaneFromPoints(&m_Plane[5], &m_Vertex[1], &m_Vertex[5], &m_Vertex[6]);
 }
 
-bool Frustum::isIn(Vector3 p_Pos)
+bool Frustum::isIn(Vector3 p_Position)
 {
     for (int i = 0 ; i < 6 ; ++i)
     {
-        float fDist = D3DXPlaneDotCoord(&m_Plane[i], &p_Pos);
+        float fDist = D3DXPlaneDotCoord(&m_Plane[i], &p_Position);
         if (fDist > 0) return false;
     }
 
@@ -46,11 +46,11 @@ bool Frustum::isIn(Vector3 p_Pos)
     return true;
 }
 
-bool Frustum::isIn(Vector3 p_Pos, float p_Radius)
+bool Frustum::isIn(Vector3 p_Position, float p_Radius)
 {
     for (int i = 0; i < 6; ++i)
     {
-        float fDist = D3DXPlaneDotCoord(&m_Plane[i], &p_Pos);
+        float fDist = D3DXPlaneDotCoord(&m_Plane[i], &p_Position);
         if (fDist > (p_Radius + 0)) return false;
     }
 

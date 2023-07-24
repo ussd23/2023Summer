@@ -49,14 +49,14 @@ class RectTransform : public Component
 protected:
     RectTransform*          m_Parent = nullptr;
     vector<RectTransform*>  m_Childs;
-    Vector2                 m_WorldPosition;
-    Vector3                 m_WorldRotation;
-    Vector2                 m_WorldScale;
-
-public:
+    Vector2                 m_ScreenPosition;
+    Vector3                 m_ScreenRotation;
+    Vector2                 m_ScreenScale;
     Vector2                 m_Position;
     Vector3                 m_Rotation;
     Vector2                 m_Scale;
+
+public:
     Vector2                 m_Size;
 
 protected:
@@ -71,6 +71,13 @@ public:
     Vector3 GetScreenRotation();
     Vector2 GetScreenScale();
 
+    Vector2 GetPosition();
+    Vector3 GetRotation();
+    Vector2 GetScale();
+    void SetPosition(Vector2 p_Position);
+    void SetRotation(Vector3 p_Rotation);
+    void SetScale(Vector2 p_Scale);
+
     int GetChildCount();
     RectTransform* GetChild(int p_Index);
     RectTransform* GetParent();
@@ -82,7 +89,7 @@ public:
     void SetAsFirstSibling();
     void SetAsLastSibling();
 
-    void Update() override;
+    void PreUpdate() override;
 };
 
 template <class T> void RectTransform::FindChild(T* p_Comp)

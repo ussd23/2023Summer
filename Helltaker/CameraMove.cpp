@@ -29,7 +29,7 @@ void CameraMove::Update()
         Transform* transform = GetComponentFromObject(comp->gameObject, Transform);
         if (transform == nullptr) return;
 
-        m_Camera->m_LookatPt = Functions::Lerp(m_Camera->m_LookatPt, transform->m_Position, Time::deltaTime * m_LerpT);
+        m_Camera->m_LookatPt = Functions::Lerp(m_Camera->m_LookatPt, transform->GetWorldPosition(), Time::deltaTime * m_LerpT);
     }
     else
     {

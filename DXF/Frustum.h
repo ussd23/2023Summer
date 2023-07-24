@@ -23,7 +23,7 @@ protected:
 
 public:
 	void MakeFrustum(Matrix16* p_MatViewProj);
-	bool isIn(Vector3 p_Pos);
-	bool isIn(Vector3 p_Pos, float p_Radius);
+	bool isIn(Vector3 p_Position);
+	bool isIn(Vector3 p_Position, float p_Radius);
 };
 

@@ -30,9 +30,9 @@ protected:
 	Vector3			m_Direction = Vector3(0.f, 0.f, 0.f);
 
 public:
-	static Raycast ScreenToWorld(const Vector2& p_Pos);
+	static Raycast ScreenToWorld(const Vector2& p_Position);
 	bool IsPicked(BoxCollider* p_Collider);
 	bool IsPicked(SphereCollider* p_Collider);
-	bool IntersectTri(const Vector3& p_Pos0, const Vector3& p_Pos1, const Vector3& p_Pos2, Vector3& p_Result);
+	bool IntersectTri(const Vector3& p_V0, const Vector3& p_V1, const Vector3& p_V2, Vector3& p_Result);
 };
 

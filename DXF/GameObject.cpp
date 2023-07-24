@@ -111,6 +111,37 @@ bool GameObject::isActive()
 	else return false;
 }
 
+void GameObject::PreUpdate()
+{
+	if (!m_isActive) return;
+
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	while (iter != m_Components.end())
+	{
+		(*iter++)->PreUpdate();
+	}
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+	if (transform != nullptr)
+	{
+		for (int i = 0; i < transform->GetChildCount(); ++i)
+		{
+			transform->GetChild(i)->gameObject->PreUpdate();
+		}
+	}
+
+	else if (recttransform != nullptr)
+	{
+		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		{
+			recttransform->GetChild(i)->gameObject->PreUpdate();
+		}
+	}
+}
+
 void GameObject::Update()
 {
 	if (!m_isActive) return;
@@ -138,6 +169,37 @@ void GameObject::Update()
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
 			recttransform->GetChild(i)->gameObject->Update();
+		}
+	}
+}
+
+void GameObject::LateUpdate()
+{
+	if (!m_isActive) return;
+
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	while (iter != m_Components.end())
+	{
+		(*iter++)->LateUpdate();
+	}
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+	if (transform != nullptr)
+	{
+		for (int i = 0; i < transform->GetChildCount(); ++i)
+		{
+			transform->GetChild(i)->gameObject->LateUpdate();
+		}
+	}
+
+	else if (recttransform != nullptr)
+	{
+		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		{
+			recttransform->GetChild(i)->gameObject->LateUpdate();
 		}
 	}
 }

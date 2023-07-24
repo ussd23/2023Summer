@@ -62,6 +62,39 @@ Vector3 Transform::GetWorldScale()
 	return m_WorldScale;
 }
 
+Vector3 Transform::GetPosition()
+{
+	return m_Position;
+}
+
+Vector3 Transform::GetRotation()
+{
+	return m_Rotation;
+}
+
+Vector3 Transform::GetScale()
+{
+	return m_Scale;
+}
+
+void Transform::SetPosition(Vector3 p_Position)
+{
+	m_Position = p_Position;
+	m_WorldPosition = SetWorldPosition();
+}
+
+void Transform::SetRotation(Vector3 p_Rotation)
+{
+	m_Rotation = p_Rotation;
+	m_WorldRotation = SetWorldRotation();
+}
+
+void Transform::SetScale(Vector3 p_Scale)
+{
+	m_Scale = p_Scale;
+	m_WorldScale = SetWorldScale();
+}
+
 int Transform::GetChildCount()
 {
 	return m_Childs.size();
@@ -114,7 +147,7 @@ void Transform::SetAsLastSibling()
 	m_Parent->AddChild(this);
 }
 
-void Transform::Update()
+void Transform::PreUpdate()
 {
 	m_WorldPosition = SetWorldPosition();
 	m_WorldRotation = SetWorldRotation();

@@ -29,7 +29,7 @@ namespace Functions
 {;
 template <typename T> T Lerp(T p_Start, T p_End, float p_LerpT);
 
-bool Inner(const RECT& p_Rect, const Vector2& p_Pos);
+bool Inner(const RECT& p_Rect, const Vector2& p_Position);
 bool Inner(const RECT& p_Rect1, const RECT& p_Rect2);
 Vector2 WorldToScreen(Transform* p_Transform);
 float GetDistanceSquare(const Vector2&, const Vector2&);

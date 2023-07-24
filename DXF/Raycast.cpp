@@ -122,13 +122,13 @@ bool Raycast::IsPicked(SphereCollider* p_Collider)
 	return qv * qv - vv * (qq - rr) >= 0;
 }
 
-bool Raycast::IntersectTri(const Vector3& p_Pos0, const Vector3& p_Pos1, const Vector3& p_Pos2, Vector3& p_Result)
+bool Raycast::IntersectTri(const Vector3& p_V0, const Vector3& p_V1, const Vector3& p_V2, Vector3& p_Result)
 {
 	// verteice 3개를 잇는 면이 충돌하는 지 판정
 	float u, v, t;
-	bool b = D3DXIntersectTri(&p_Pos0, &p_Pos1, &p_Pos2, &m_StartPt, &m_Direction, &u, &v, &t);
+	bool b = D3DXIntersectTri(&p_V0, &p_V1, &p_V2, &m_StartPt, &m_Direction, &u, &v, &t);
 	p_Result = m_StartPt + (t * m_Direction);
-	//vposition = p_Pos0 + (u * (p_Pos1 - p_Pos0)) + (v * (p_Pos2 - p_Pos0));
+	//p_Result = p_Pos0 + (u * (p_V1 - p_V0)) + (v * (p_V2 - p_V0));
 
 	return b;
 }

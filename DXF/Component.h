@@ -11,7 +11,9 @@
 //		[Functions]
 //      - Start: Active 상태인 오브젝트의 최초의 Update()가 실행되기 전에 1회 실행
 //				 (오브젝트가 생성된 순서대로 실행)
+//      - PreUpdate: Update 이전에 실행
 //      - Update: 매 프레임마다 실행 (Transform의 Parent/Child 구조 순으로 실행)
+//      - LateUpdate: Update 이후에 실행
 //
 //      [MouseFunction 컴포넌트를 소유하고 있어야 작동]
 //		[Transform 오브젝트의 경우 Collider 컴포넌트를 소유하고 있어야 작동]
@@ -46,7 +48,9 @@ public:
 	virtual ~Component() { OnDestroy(); }
 
 	virtual void Start() {};
+	virtual void PreUpdate() {};
 	virtual void Update() {};
+	virtual void LateUpdate() {};
 
 	virtual void OnMouseEnter() {};
 	virtual void OnMouseExit() {};

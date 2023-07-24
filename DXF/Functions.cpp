@@ -2,10 +2,10 @@
 #include "Transform.h"
 #include "Global.h"
 
-bool Functions::Inner(const RECT& p_Rect, const Vector2& p_Pos)
+bool Functions::Inner(const RECT& p_Rect, const Vector2& p_Position)
 {
-    if (p_Rect.left <= p_Pos.x && p_Rect.right >= p_Pos.x &&
-        p_Rect.top <= p_Pos.y && p_Rect.bottom >= p_Pos.y) return true;
+    if (p_Rect.left <= p_Position.x && p_Rect.right >= p_Position.x &&
+        p_Rect.top <= p_Position.y && p_Rect.bottom >= p_Position.y) return true;
     else return false;
 }
 

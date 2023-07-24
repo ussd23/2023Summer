@@ -50,17 +50,50 @@ RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_S
 
 Vector2 RectTransform::GetScreenPosition()
 {
-	return m_WorldPosition;
+	return m_ScreenPosition;
 }
 
 Vector3 RectTransform::GetScreenRotation()
 {
-	return m_WorldRotation;
+	return m_ScreenRotation;
 }
 
 Vector2 RectTransform::GetScreenScale()
 {
-	return m_WorldScale;
+	return m_ScreenScale;
+}
+
+Vector2 RectTransform::GetPosition()
+{
+	return m_Position;
+}
+
+Vector3 RectTransform::GetRotation()
+{
+	return m_Rotation;
+}
+
+Vector2 RectTransform::GetScale()
+{
+	return m_Scale;
+}
+
+void RectTransform::SetPosition(Vector2 p_Position)
+{
+	m_Position = p_Position;
+	m_ScreenPosition = SetScreenPosition();
+}
+
+void RectTransform::SetRotation(Vector3 p_Rotation)
+{
+	m_Rotation = p_Rotation;
+	m_ScreenRotation = SetScreenRotation();
+}
+
+void RectTransform::SetScale(Vector2 p_Scale)
+{
+	m_Scale = p_Scale;
+	m_ScreenScale = SetScreenScale();
 }
 
 int RectTransform::GetChildCount()
@@ -115,9 +148,9 @@ void RectTransform::SetAsLastSibling()
 	m_Parent->AddChild(this);
 }
 
-void RectTransform::Update()
+void RectTransform::PreUpdate()
 {
-	m_WorldPosition = SetScreenPosition();
-	m_WorldRotation = SetScreenRotation();
-	m_WorldScale = SetScreenScale();
+	m_ScreenPosition = SetScreenPosition();
+	m_ScreenRotation = SetScreenRotation();
+	m_ScreenScale = SetScreenScale();
 }

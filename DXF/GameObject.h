@@ -24,8 +24,9 @@
 //		- SetActive: active 상태 설정 및 모든 컴포넌트의 OnEnable, OnDisable 실행
 //		- ObjectInit: 컴포넌트의 gameObject를 자신으로 설정
 //
-//		- Start: 모든 컴포넌트의 Start 일괄 실행
+//		- PreUpdate: Update 이전에 실행
 //		- Update: 모든 컴포넌트의 Update 일괄 실행 후 Child의 Update 실행
+//		- LateUpdate: Update 이후에 실행
 //		- PreRender: Render 관련 컴포넌트의 Render 일괄 실행
 //
 //		- Destroy: 해당 오브젝트를 삭제 대기열에 올림
@@ -76,7 +77,9 @@ public:
 	void SetActive(bool p_isActive);
 	void ObjectInit(Component* p_Comp);
 
+	void PreUpdate();
 	void Update();
+	void LateUpdate();
 	void PreRender();
 
 	static void Destroy(GameObject* p_GameObject);

@@ -29,6 +29,12 @@ void DXFGame::Start()
 
 void DXFGame::Update()
 {
+    if (g_RootObject != nullptr) g_RootObject->PreUpdate();
+    if (g_RootRectObject != nullptr) g_RootRectObject->PreUpdate();
+
     if (g_RootObject != nullptr) g_RootObject->Update();
     if (g_RootRectObject != nullptr) g_RootRectObject->Update();
+
+    if (g_RootObject != nullptr) g_RootObject->LateUpdate();
+    if (g_RootRectObject != nullptr) g_RootRectObject->LateUpdate();
 }

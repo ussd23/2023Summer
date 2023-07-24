@@ -51,8 +51,6 @@ protected:
     Vector3             m_WorldPosition;
     Vector3             m_WorldRotation;
     Vector3             m_WorldScale;
-
-public:
     Vector3             m_Position;
     Vector3             m_Rotation;
     Vector3             m_Scale;
@@ -69,6 +67,13 @@ public:
     Vector3 GetWorldRotation();
     Vector3 GetWorldScale();
 
+    Vector3 GetPosition();
+    Vector3 GetRotation();
+    Vector3 GetScale();
+    void SetPosition(Vector3 p_Position);
+    void SetRotation(Vector3 p_Rotation);
+    void SetScale(Vector3 p_Scale);
+
     int GetChildCount();
     Transform* GetChild(int p_Index);
     Transform* GetParent();
@@ -80,7 +85,7 @@ public:
     void SetAsFirstSibling();
     void SetAsLastSibling();
 
-    void Update() override;
+    void PreUpdate() override;
 };
 
 template <class T> void Transform::FindChild(T* p_Comp)
