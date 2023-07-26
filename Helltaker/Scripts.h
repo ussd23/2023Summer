@@ -15,3 +15,4 @@
 #include "PlayerMove.h"
 #include "ObjectMove.h"
 #include "TopText.h"
+#include "ButtonTest.h"

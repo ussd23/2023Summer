@@ -54,17 +54,18 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, mouse);
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
-    // Tiger (Object)
-    gameObject = new GameObject("Tiger");
+    // Tiger (Object) -현재 sun의 child로 등록된 상태
+    GameObject* ChildObject = new GameObject("Tiger");
     transform = new Transform(Vector3(-10.f, 1.f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
-    AddComponentToObject(gameObject, transform);
+    AddComponentToObject(ChildObject, transform);
     mesh = new MeshRenderer("tiger.x");
-    AddComponentToObject(gameObject, mesh);
+    AddComponentToObject(ChildObject, mesh);
     BoxCollider* bcollider = new BoxCollider(Vector3(3.0f, 3.0f, 3.0f));
-    AddComponentToObject(gameObject, bcollider);
+    AddComponentToObject(ChildObject, bcollider);
     ObjectMove* omove = new ObjectMove();
-    AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddComponentToObject(ChildObject, omove);
+    Transform* Ptransform = GetComponentFromObject(gameObject, Transform);  //부모 오브젝트의 트랜스폼 받아옴
+    AddObjectToScene(ChildObject, Ptransform, transform);   //루트 트랜스폼 대신 부모의 트랜스폼을 넣음
 
     // Airplane (Object)
     gameObject = new GameObject("Airplane");
@@ -115,6 +116,23 @@ void Helltaker::InitObject()
     avec.push_back({ Vector2(3,3), 0.2f });
     animator = new Animator(avec);
     AddComponentToObject(gameObject, animator);
+    AddObjectToScene(gameObject, g_RootRectTransform, rect);
+
+    gameObject = new GameObject("btn");
+
+    //Button* btn = new Button(Vector2(300, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100), "earthmap1k.jpg", 0xffffffff, Vector2(4, 4), Vector2(0, 0));
+    //AddComponentToObject(gameObject, btn);
+    //btn->InitBtn();
+
+    rect = new RectTransform(Vector2(300, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100));
+    AddComponentToObject(gameObject, rect);
+    spr = new SpriteRenderer("earthmap1k.jpg", Vector2(4, 4), Vector2(0, 0));
+    AddComponentToObject(gameObject, spr);
+    mouse = new MouseFunction();
+    AddComponentToObject(gameObject, mouse);
+
+    ButtonTest* test = new ButtonTest();
+    AddComponentToObject(gameObject, test);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 
 }

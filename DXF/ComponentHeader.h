@@ -7,10 +7,12 @@
 #pragma once
 #include "StandardLibrary.h"
 #include "DXHeader.h"
+#include "CallFunc.h"
 #include "Functions.h"
 #include "Raycast.h"
 #include "Time.h"
 #include "Global.h"
+#include "EventManager.h"
 #include "SceneManager.h"
 #include "MeshManager.h"
 #include "TextureManager.h"
@@ -27,3 +29,5 @@
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 #include "Camera.h"
+#include "UI.h"
+#include "Button.h"

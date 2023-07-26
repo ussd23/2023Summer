@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ButtonTest.cpp" />
     <ClCompile Include="CameraMove.cpp" />
     <ClCompile Include="InitObject.cpp" />
     <ClCompile Include="ObjectMove.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ButtonTest.h" />
     <ClInclude Include="CameraMove.h" />
     <ClInclude Include="Helltaker.h" />
     <ClInclude Include="ObjectMove.h" />

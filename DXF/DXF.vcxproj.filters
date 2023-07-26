@@ -105,6 +105,15 @@
     <ClCompile Include="UI.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>2. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CallFunc.cpp">
+      <Filter>1. Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -198,6 +207,15 @@
       <Filter>2. Managers</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>2. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CallFunc.h">
+      <Filter>1. Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
       <Filter>4. Components</Filter>
     </ClInclude>
   </ItemGroup>
