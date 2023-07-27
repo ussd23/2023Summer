@@ -23,9 +23,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
     if (SUCCEEDED(Helltaker::InitD3D(hWnd)))
     {
-        g_pd3dDevice->GetMaterial(&g_defaultMaterial);
-        g_pd3dDevice->GetTexture(0, &g_defaultTexture);
-
         ShowWindow(hWnd, SW_SHOWDEFAULT);
         UpdateWindow(hWnd);
         Helltaker::InitObject();

@@ -30,6 +30,9 @@ HRESULT DXFGame::InitD3D(HWND hWnd)
         }
     }
 
+    g_pd3dDevice->GetMaterial(&g_defaultMaterial);
+    g_pd3dDevice->GetTexture(0, &g_defaultTexture);
+
     g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
     g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
     g_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
