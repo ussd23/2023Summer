@@ -20,13 +20,14 @@ class CallFunc;
 class EventManager
 {
 public:
-    std::list<Event*> _events; // 모은 이벤트를 저장
+    std::list<Event*> m_Events; // 모은 이벤트를 저장
 public:
-    void Instance(CallFunc* func) // 이벤트를 넣어줄 함수
+    void Instance(CallFunc* p_Func) // 이벤트를 넣어줄 함수
     {
-        _events.emplace_back(func);
+        m_Events.emplace_back(p_Func);
     }
 
     void Update();
 };
 
+//다른걸로 대체해서 안쓸거같은데 혹시모르니 일단 남김

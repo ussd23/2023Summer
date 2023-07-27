@@ -114,6 +114,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
+    <ClCompile Include="CallBack.cpp">
+      <Filter>1. Functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CallBack.h">
+      <Filter>1. Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
