@@ -62,16 +62,28 @@ RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_S
 
 Vector2 RectTransform::GetScreenPosition()
 {
+	if (!gameObject->isActive())
+	{
+		m_ScreenPosition = SetScreenPosition();
+	}
 	return m_ScreenPosition;
 }
 
 Quaternion RectTransform::GetScreenRotation()
 {
+	if (!gameObject->isActive())
+	{
+		m_ScreenRotation = SetScreenRotation();
+	}
 	return m_ScreenRotation;
 }
 
 Vector2 RectTransform::GetScreenScale()
 {
+	if (!gameObject->isActive())
+	{
+		m_ScreenScale = SetScreenScale();
+	}
 	return m_ScreenScale;
 }
 

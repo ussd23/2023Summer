@@ -61,16 +61,28 @@ Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 
 Vector3 Transform::GetWorldPosition()
 {
+	if (!gameObject->isActive())
+	{
+		m_WorldPosition = SetWorldPosition();
+	}
 	return m_WorldPosition;
 }
 
 Quaternion Transform::GetWorldRotation()
 {
+	if (!gameObject->isActive())
+	{
+		m_WorldRotation = SetWorldRotation();
+	}
 	return m_WorldRotation;
 }
 
 Vector3 Transform::GetWorldScale()
 {
+	if (!gameObject->isActive())
+	{
+		m_WorldScale = SetWorldScale();
+	}
 	return m_WorldScale;
 }
 
