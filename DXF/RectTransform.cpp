@@ -6,10 +6,10 @@ Vector2 RectTransform::SetScreenPosition()
 	{
 		Vector2 pscale = m_Parent->GetScreenScale();
 		Vector2 pos(pscale.x * m_Position.x, pscale.y * m_Position.y);
-		Vector3 rot = m_Parent->GetScreenRotation();
+		Quaternion rot = m_Parent->GetScreenRotation();
 
 		Matrix rotationMatrix;
-		D3DXMatrixRotationYawPitchRoll(&rotationMatrix, D3DXToRadian(rot.y), D3DXToRadian(rot.x), D3DXToRadian(rot.z));
+		D3DXMatrixRotationQuaternion(&rotationMatrix, &rot);
 
 		Vector4 newPosition;
 		D3DXVec2Transform(&newPosition, &pos, &rotationMatrix);
@@ -20,11 +20,23 @@ Vector2 RectTransform::SetScreenPosition()
 	return m_Position;
 }
 
-Vector3 RectTransform::SetScreenRotation()
+Quaternion RectTransform::SetScreenRotation()
 {
 	if (m_Parent != nullptr)
 	{
-		return m_Rotation + m_Parent->GetScreenRotation();
+		Quaternion parentRotation = m_Parent->GetScreenRotation();
+		Matrix16 parentMatrix;
+		D3DXMatrixRotationQuaternion(&parentMatrix, &parentRotation);
+
+		Matrix16 rotationMatrix;
+		D3DXMatrixRotationQuaternion(&rotationMatrix, &m_Rotation);
+
+		Matrix16 combinedMatrix = parentMatrix * rotationMatrix;
+
+		Quaternion result;
+		D3DXQuaternionRotationMatrix(&result, &combinedMatrix);
+
+		return result;
 	}
 	return m_Rotation;
 }
@@ -42,7 +54,7 @@ Vector2 RectTransform::SetScreenScale()
 RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size)
 {
 	m_Position = p_Position;
-	m_Rotation = p_Rotation;
+	m_Rotation = Functions::EulerToQuaternion(p_Rotation);
 	m_Scale = p_Scale;
 	m_Size = p_Size;
 	m_Parent = g_RootRectTransform;
@@ -53,7 +65,7 @@ Vector2 RectTransform::GetScreenPosition()
 	return m_ScreenPosition;
 }
 
-Vector3 RectTransform::GetScreenRotation()
+Quaternion RectTransform::GetScreenRotation()
 {
 	return m_ScreenRotation;
 }
@@ -68,7 +80,7 @@ Vector2 RectTransform::GetPosition()
 	return m_Position;
 }
 
-Vector3 RectTransform::GetRotation()
+Quaternion RectTransform::GetRotation()
 {
 	return m_Rotation;
 }
@@ -81,19 +93,16 @@ Vector2 RectTransform::GetScale()
 void RectTransform::SetPosition(Vector2 p_Position)
 {
 	m_Position = p_Position;
-	m_ScreenPosition = SetScreenPosition();
 }
 
-void RectTransform::SetRotation(Vector3 p_Rotation)
+void RectTransform::SetRotation(Quaternion p_Rotation)
 {
 	m_Rotation = p_Rotation;
-	m_ScreenRotation = SetScreenRotation();
 }
 
 void RectTransform::SetScale(Vector2 p_Scale)
 {
 	m_Scale = p_Scale;
-	m_ScreenScale = SetScreenScale();
 }
 
 int RectTransform::GetChildCount()
@@ -148,7 +157,7 @@ void RectTransform::SetAsLastSibling()
 	m_Parent->AddChild(this);
 }
 
-void RectTransform::PreUpdate()
+void RectTransform::LateUpdate()
 {
 	m_ScreenPosition = SetScreenPosition();
 	m_ScreenRotation = SetScreenRotation();

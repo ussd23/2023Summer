@@ -54,28 +54,22 @@ void SpriteRenderer::Render()
     SetRect(&rect, m_RectIndex.x * temp.x, m_RectIndex.y * temp.y, (m_RectIndex.x + 1) * temp.x, (m_RectIndex.y + 1) * temp.y);
     
     Vector2 pos = m_RectTransform->GetScreenPosition();
-    Vector3 rot = m_RectTransform->GetScreenRotation();
+    Quaternion rot = m_RectTransform->GetScreenRotation();
     Vector2 scale = m_RectTransform->GetScreenScale();
     Vector2 size = m_RectTransform->m_Size;
 
 	Matrix matScreenPosition;
 	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
 
-    Matrix16 matScreenRotationX;
-    D3DXMatrixRotationX(&matScreenRotationX, D3DXToRadian(rot.x));
-
-    Matrix16 matScreenRotationY;
-    D3DXMatrixRotationY(&matScreenRotationY, D3DXToRadian(rot.y));
-
-    Matrix16 matScreenRotationZ;
-    D3DXMatrixRotationZ(&matScreenRotationZ, D3DXToRadian(rot.z));
+    Matrix16 matScreenRotation;
+    D3DXMatrixRotationQuaternion(&matScreenRotation, &rot);
 
     Matrix matScreenScale;
     D3DXMatrixScaling(&matScreenScale, (size.x / temp.x) * scale.x, (size.y / temp.y) * scale.y, 0);
 
     Matrix16 matScreenSet;
     D3DXMatrixIdentity(&matScreenSet);
-    matScreenSet = matScreenScale * (matScreenRotationZ * matScreenRotationX * matScreenRotationY) * matScreenPosition;
+    matScreenSet = matScreenScale * matScreenRotation * matScreenPosition;
 	g_pSprite->SetTransform(&matScreenSet);
     g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
     g_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);

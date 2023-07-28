@@ -34,34 +34,28 @@ void MeshRenderer::PreRender()
 void MeshRenderer::Render()
 {
     Vector3 pos = m_Transform->GetWorldPosition();
-    Vector3 rot = m_Transform->GetWorldRotation();
+    Quaternion rot = m_Transform->GetWorldRotation();
     Vector3 scale = m_Transform->GetWorldScale();
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
 
-    Matrix16 matWorldRotationX;
-    D3DXMatrixRotationX(&matWorldRotationX, D3DXToRadian(rot.x));
-
-    Matrix16 matWorldRotationY;
-    D3DXMatrixRotationY(&matWorldRotationY, D3DXToRadian(rot.y));
-
-    Matrix16 matWorldRotationZ;
-    D3DXMatrixRotationZ(&matWorldRotationZ, D3DXToRadian(rot.z));
+    Matrix16 matWorldRotation;
+    D3DXMatrixRotationQuaternion(&matWorldRotation, &rot);
 
     Matrix16 matWorldScale;
     D3DXMatrixScaling(&matWorldScale, scale.x, scale.y, scale.z);
 
     Matrix16 matWorldSet;
     D3DXMatrixIdentity(&matWorldSet);
-    matWorldSet = matWorldScale * (matWorldRotationZ * matWorldRotationX * matWorldRotationY) * matWorldPosition;
+    matWorldSet = matWorldScale * matWorldRotation * matWorldPosition;
     g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
 
     for (DWORD i = 0; i < m_MeshInfo->dwNumMaterials; i++)
     {
         g_pd3dDevice->SetMaterial(&m_MeshInfo->pMeshMaterials[i]);
         g_pd3dDevice->SetTexture(0, m_MeshInfo->pMeshTextures[i]);
-        // g_pd3dDevice->SetVertexShader()
+        //g_pd3dDevice->SetVertexShader();
 
         if (m_MeshInfo->pMesh == NULL) return;
         m_MeshInfo->pMesh->DrawSubset(i);

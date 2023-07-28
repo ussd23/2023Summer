@@ -49,29 +49,29 @@ protected:
     Transform*          m_Parent = nullptr;
     vector<Transform*>  m_Childs;
     Vector3             m_WorldPosition;
-    Vector3             m_WorldRotation;
+    Quaternion          m_WorldRotation;
     Vector3             m_WorldScale;
     Vector3             m_Position;
-    Vector3             m_Rotation;
+    Quaternion          m_Rotation;
     Vector3             m_Scale;
 
 protected:
     Vector3 SetWorldPosition();
-    Vector3 SetWorldRotation();
+    Quaternion SetWorldRotation();
     Vector3 SetWorldScale();
 
 public:
     Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale);
 
     Vector3 GetWorldPosition();
-    Vector3 GetWorldRotation();
+    Quaternion GetWorldRotation();
     Vector3 GetWorldScale();
 
     Vector3 GetPosition();
-    Vector3 GetRotation();
+    Quaternion GetRotation();
     Vector3 GetScale();
     void SetPosition(Vector3 p_Position);
-    void SetRotation(Vector3 p_Rotation);
+    void SetRotation(Quaternion p_Rotation);
     void SetScale(Vector3 p_Scale);
 
     int GetChildCount();
@@ -85,7 +85,7 @@ public:
     void SetAsFirstSibling();
     void SetAsLastSibling();
 
-    void PreUpdate() override;
+    void LateUpdate() override;
 };
 
 template <class T> void Transform::FindChild(T* p_Comp)

@@ -50,10 +50,10 @@ protected:
     RectTransform*          m_Parent = nullptr;
     vector<RectTransform*>  m_Childs;
     Vector2                 m_ScreenPosition;
-    Vector3                 m_ScreenRotation;
+    Quaternion              m_ScreenRotation;
     Vector2                 m_ScreenScale;
     Vector2                 m_Position;
-    Vector3                 m_Rotation;
+    Quaternion              m_Rotation;
     Vector2                 m_Scale;
 
 public:
@@ -61,21 +61,21 @@ public:
 
 protected:
     Vector2 SetScreenPosition();
-    Vector3 SetScreenRotation();
+    Quaternion SetScreenRotation();
     Vector2 SetScreenScale();
 
 public:
     RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size);
 
     Vector2 GetScreenPosition();
-    Vector3 GetScreenRotation();
+    Quaternion GetScreenRotation();
     Vector2 GetScreenScale();
 
     Vector2 GetPosition();
-    Vector3 GetRotation();
+    Quaternion GetRotation();
     Vector2 GetScale();
     void SetPosition(Vector2 p_Position);
-    void SetRotation(Vector3 p_Rotation);
+    void SetRotation(Quaternion p_Rotation);
     void SetScale(Vector2 p_Scale);
 
     int GetChildCount();
@@ -89,7 +89,7 @@ public:
     void SetAsFirstSibling();
     void SetAsLastSibling();
 
-    void PreUpdate() override;
+    void LateUpdate() override;
 };
 
 template <class T> void RectTransform::FindChild(T* p_Comp)

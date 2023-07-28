@@ -54,6 +54,14 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, mouse);
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
+    // Child
+    GameObject* childObject = new GameObject("Child");
+    Transform* childTransform = new Transform(Vector3(0.f, 0.f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(0.5f, 0.5f, 0.5f));
+    AddComponentToObject(childObject, childTransform);
+    mesh = new MeshRenderer("sun.x");
+    AddComponentToObject(childObject, mesh);
+    AddObjectToScene(childObject, transform, childTransform);
+
     // Tiger (Object)
     gameObject = new GameObject("Tiger");
     transform = new Transform(Vector3(-10.f, 1.f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));

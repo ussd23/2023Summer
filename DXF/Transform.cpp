@@ -6,10 +6,10 @@ Vector3 Transform::SetWorldPosition()
 	{
 		Vector3 pscale = m_Parent->GetWorldScale();
 		Vector3 pos(pscale.x * m_Position.x, pscale.y * m_Position.y, pscale.z * m_Position.z);
-		Vector3 rot = m_Parent->GetWorldRotation();
+		Quaternion rot = m_Parent->GetWorldRotation();
 
 		Matrix rotationMatrix;
-		D3DXMatrixRotationYawPitchRoll(&rotationMatrix, D3DXToRadian(rot.y), D3DXToRadian(rot.x), D3DXToRadian(rot.z));
+		D3DXMatrixRotationQuaternion(&rotationMatrix, &rot);
 
 		Vector4 newPosition;
 		D3DXVec3Transform(&newPosition, &pos, &rotationMatrix);
@@ -20,11 +20,23 @@ Vector3 Transform::SetWorldPosition()
 	return m_Position;
 }
 
-Vector3 Transform::SetWorldRotation()
+Quaternion Transform::SetWorldRotation()
 {
 	if (m_Parent != nullptr)
 	{
-		return m_Rotation + m_Parent->GetWorldRotation();
+		Quaternion parentRotation = m_Parent->GetWorldRotation();
+		Matrix16 parentMatrix;
+		D3DXMatrixRotationQuaternion(&parentMatrix, &parentRotation);
+
+		Matrix16 rotationMatrix;
+		D3DXMatrixRotationQuaternion(&rotationMatrix, &m_Rotation);
+
+		Matrix16 combinedMatrix = parentMatrix * rotationMatrix;
+
+		Quaternion result;
+		D3DXQuaternionRotationMatrix(&result, &combinedMatrix);
+
+		return result;
 	}
 	return m_Rotation;
 }
@@ -42,7 +54,7 @@ Vector3 Transform::SetWorldScale()
 Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 {
 	m_Position = p_Position;
-	m_Rotation = p_Rotation;
+	m_Rotation = Functions::EulerToQuaternion(p_Rotation);
 	m_Scale = p_Scale;
 	m_Parent = g_RootTransform;
 }
@@ -52,7 +64,7 @@ Vector3 Transform::GetWorldPosition()
 	return m_WorldPosition;
 }
 
-Vector3 Transform::GetWorldRotation()
+Quaternion Transform::GetWorldRotation()
 {
 	return m_WorldRotation;
 }
@@ -67,7 +79,7 @@ Vector3 Transform::GetPosition()
 	return m_Position;
 }
 
-Vector3 Transform::GetRotation()
+Quaternion Transform::GetRotation()
 {
 	return m_Rotation;
 }
@@ -80,19 +92,16 @@ Vector3 Transform::GetScale()
 void Transform::SetPosition(Vector3 p_Position)
 {
 	m_Position = p_Position;
-	m_WorldPosition = SetWorldPosition();
 }
 
-void Transform::SetRotation(Vector3 p_Rotation)
+void Transform::SetRotation(Quaternion p_Rotation)
 {
 	m_Rotation = p_Rotation;
-	m_WorldRotation = SetWorldRotation();
 }
 
 void Transform::SetScale(Vector3 p_Scale)
 {
 	m_Scale = p_Scale;
-	m_WorldScale = SetWorldScale();
 }
 
 int Transform::GetChildCount()
@@ -147,7 +156,7 @@ void Transform::SetAsLastSibling()
 	m_Parent->AddChild(this);
 }
 
-void Transform::PreUpdate()
+void Transform::LateUpdate()
 {
 	m_WorldPosition = SetWorldPosition();
 	m_WorldRotation = SetWorldRotation();

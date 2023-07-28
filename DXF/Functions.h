@@ -37,6 +37,9 @@ float GetDistanceSquare(const Vector3&, const Vector3&);
 float GetDistanceSquare(const Vector4&, const Vector4&);
 
 Vector3 SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_LerpT);
+
+Quaternion EulerToQuaternion(Vector3 p_Euler);
+Vector3 QuaternionToEuler(Quaternion p_Quaternion);
 Vector3 D3DXQuaternionToRotation(Quaternion p_Quaternion);
 }
 

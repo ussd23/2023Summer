@@ -29,26 +29,20 @@ Vector2 Functions::WorldToScreen(Transform* p_Transform)
     g_pd3dDevice->GetTransform(D3DTS_VIEW, &viewMatrix);
 
     Vector3 pos = p_Transform->GetWorldPosition();
-    Vector3 rot = p_Transform->GetWorldRotation();
+    Quaternion rot = p_Transform->GetWorldRotation();
     Vector3 scale = p_Transform->GetWorldScale();
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
 
-    Matrix16 matWorldRotationX;
-    D3DXMatrixRotationX(&matWorldRotationX, D3DXToRadian(rot.x));
-
-    Matrix16 matWorldRotationY;
-    D3DXMatrixRotationY(&matWorldRotationY, D3DXToRadian(rot.y));
-
-    Matrix16 matWorldRotationZ;
-    D3DXMatrixRotationZ(&matWorldRotationZ, D3DXToRadian(rot.z));
+    Matrix16 matWorldRotation;
+    D3DXMatrixRotationQuaternion(&matWorldRotation, &rot);
 
     Matrix16 matWorldScale;
     D3DXMatrixScaling(&matWorldScale, scale.x, scale.y, scale.z);
 
     D3DXMatrixIdentity(&matWorldSet);
-    matWorldSet = matWorldScale * matWorldRotationX * matWorldRotationY * matWorldRotationZ * matWorldPosition;
+    matWorldSet = matWorldScale * matWorldRotation * matWorldPosition;
 
     D3DXVec3Project(&projectedPosition, &worldPosition, &viewport, &projectionMatrix, &viewMatrix, &matWorldSet);
 
@@ -83,7 +77,8 @@ Vector3 Functions::SLerp(const Vector3* p_Origin, const Vector3* p_Destination, 
 
     float dot = D3DXVec3Dot(&startVec, &endVec);
 
-    if (dot == 1.0f) {
+    if (dot == 1.0f)
+    {
         return startVec + p_LerpT * (endVec - startVec);
     }
 
@@ -113,6 +108,33 @@ Vector3 Functions::SLerp(const Vector3* p_Origin, const Vector3* p_Destination, 
     D3DXVec3TransformCoord(&result, &rvec, &rotMat);
 
     return result;
+}
+
+Quaternion Functions::EulerToQuaternion(Vector3 p_Euler)
+{
+    Quaternion quaternion;
+    D3DXQuaternionRotationYawPitchRoll(&quaternion, D3DXToRadian(p_Euler.y), D3DXToRadian(p_Euler.x), D3DXToRadian(p_Euler.z));
+
+    return quaternion;
+}
+
+Vector3 Functions::QuaternionToEuler(Quaternion p_Quaternion)
+{
+    float fqw = p_Quaternion.w * p_Quaternion.w;
+    float fqx = p_Quaternion.x * p_Quaternion.x;
+    float fqy = p_Quaternion.y * p_Quaternion.y;
+    float fqz = p_Quaternion.z * p_Quaternion.z;
+
+    float pitch = asinf(2.0f * (p_Quaternion.w * p_Quaternion.x - p_Quaternion.y * p_Quaternion.z));
+    float yaw = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.z + p_Quaternion.w * p_Quaternion.y), (-fqx - fqy + fqz + fqw));
+    float roll = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.y + p_Quaternion.w * p_Quaternion.z), (-fqx + fqy - fqz + fqw));
+
+    float x = D3DXToDegree(pitch);
+    float y = D3DXToDegree(yaw);
+    float z = D3DXToDegree(roll);
+
+    Vector3 vec = Vector3(x, y, z);
+    return vec;
 }
 
 Vector3 Functions::D3DXQuaternionToRotation(Quaternion p_Quaternion)

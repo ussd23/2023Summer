@@ -18,7 +18,7 @@ void PlayerMove::Update()
     if (m_Transform == nullptr) return;
 
     Vector3 position = m_Transform->GetPosition();
-    Vector3 rotation = m_Transform->GetRotation();
+    Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
     Vector3 scale = m_Transform->GetScale();
 
     Vector3 temp = Vector3(0, 0, 0);
@@ -48,7 +48,7 @@ void PlayerMove::Update()
     }
 
     m_Transform->SetPosition(position);
-    m_Transform->SetRotation(rotation);
+    m_Transform->SetRotation(Functions::EulerToQuaternion(rotation));
     m_Transform->SetScale(scale);
 }
 
