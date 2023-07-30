@@ -36,5 +36,7 @@ public:
 	void OnMouseDown() override;
 	void OnTriggerStay(Collider* p_Collider) override;
 	void OnTriggerExit(Collider* p_Collider) override;
+
+	SerializeFunctions(PlayerMove);
 };
 

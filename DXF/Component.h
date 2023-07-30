@@ -39,7 +39,7 @@
 
 class Collider;
 
-class Component
+class Component : public Serializable
 {
 protected:
 

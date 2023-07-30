@@ -21,6 +21,7 @@
 
 #pragma once
 #include "DXHeader.h"
+#include "StandardLibrary.h"
 
 class GameObject;
 class Transform;
@@ -40,12 +41,24 @@ Vector3 SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_Ler
 
 Quaternion EulerToQuaternion(Vector3 p_Euler);
 Vector3 QuaternionToEuler(Quaternion p_Quaternion);
-Vector3 D3DXQuaternionToRotation(Quaternion p_Quaternion);
+
+template <typename T> void Serialize(const T& data, ofstream& outFile);
+template <typename T> void Deserialize(T& data, ifstream& inFile);
 }
 
 template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
 {
     return p_Start + p_LerpT * (p_End - p_Start);
+}
+
+template <typename T> void Functions::Serialize(const T& data, ofstream& outFile)
+{
+    outFile.write(reinterpret_cast<const char*>(&data), sizeof(T));
+}
+
+template <typename T> void Functions::Deserialize(T& data, ifstream& inFile)
+{
+    inFile.read(reinterpret_cast<char*>(&data), sizeof(T));
 }
 
 #define AddObjectToScene(object, parent, transform) g_Objects.push_back(object);\
@@ -57,4 +70,12 @@ template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
         else object[type] = value
 #define GetInputBuffer(object, type) (object.find(type) == object.end()) ? false : object[type]
 
-
+#define SerializeFunctions(type) string Serialize() override\
+{\
+    string buffer(reinterpret_cast<const char*>(this), sizeof(type));\
+    return buffer;\
+}\
+void Deserialize(const string& p_Buffer) override\
+{\
+    if (p_Buffer.size() == sizeof(type)) memcpy(this, p_Buffer.data(), sizeof(type));\
+}

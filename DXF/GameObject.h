@@ -39,6 +39,8 @@
 
 #pragma once
 #include "StandardLibrary.h"
+#include "Functions.h"
+#include "Serializable.h"
 
 class Component;
 class Transform;
@@ -48,7 +50,7 @@ class VerticeRenderer;
 class TextRenderer;
 template<typename T> class SPTR;
 
-class GameObject
+class GameObject : public Serializable
 {
 protected:
 	bool							m_isActive = true;
@@ -88,6 +90,8 @@ public:
 	static GameObject* Search(const string& p_Name);
 
 	void operator = (void* p_Ptr);
+
+	SerializeFunctions(GameObject);
 };
 
 template <class T> void GameObject::AddComponent(T* p_Comp)

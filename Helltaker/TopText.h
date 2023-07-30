@@ -26,5 +26,7 @@ public:
 	void Update() override;
 
 	void OnMouseDown() override;
+
+	SerializeFunctions(TopText);
 };
 

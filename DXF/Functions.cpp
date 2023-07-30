@@ -120,33 +120,14 @@ Quaternion Functions::EulerToQuaternion(Vector3 p_Euler)
 
 Vector3 Functions::QuaternionToEuler(Quaternion p_Quaternion)
 {
-    float fqw = p_Quaternion.w * p_Quaternion.w;
-    float fqx = p_Quaternion.x * p_Quaternion.x;
-    float fqy = p_Quaternion.y * p_Quaternion.y;
-    float fqz = p_Quaternion.z * p_Quaternion.z;
+    float qw = p_Quaternion.w * p_Quaternion.w;
+    float qx = p_Quaternion.x * p_Quaternion.x;
+    float qy = p_Quaternion.y * p_Quaternion.y;
+    float qz = p_Quaternion.z * p_Quaternion.z;
 
     float pitch = asinf(2.0f * (p_Quaternion.w * p_Quaternion.x - p_Quaternion.y * p_Quaternion.z));
-    float yaw = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.z + p_Quaternion.w * p_Quaternion.y), (-fqx - fqy + fqz + fqw));
-    float roll = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.y + p_Quaternion.w * p_Quaternion.z), (-fqx + fqy - fqz + fqw));
-
-    float x = D3DXToDegree(pitch);
-    float y = D3DXToDegree(yaw);
-    float z = D3DXToDegree(roll);
-
-    Vector3 vec = Vector3(x, y, z);
-    return vec;
-}
-
-Vector3 Functions::D3DXQuaternionToRotation(Quaternion p_Quaternion)
-{
-    float fqw = p_Quaternion.w * p_Quaternion.w;
-    float fqx = p_Quaternion.x * p_Quaternion.x;
-    float fqy = p_Quaternion.y * p_Quaternion.y;
-    float fqz = p_Quaternion.z * p_Quaternion.z;
-
-    float yaw = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.z + p_Quaternion.w * p_Quaternion.y), (-fqx - fqy + fqx + fqw));
-    float pitch = asinf(2.0f * (p_Quaternion.w * p_Quaternion.x + p_Quaternion.y * p_Quaternion.y));
-    float roll = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.y + p_Quaternion.w * p_Quaternion.z), (-fqx + fqy - fqx + fqw));
+    float yaw = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.z + p_Quaternion.w * p_Quaternion.y), (-qx - qy + qz + qw));
+    float roll = atan2f(2.0f * (p_Quaternion.x * p_Quaternion.y + p_Quaternion.w * p_Quaternion.z), (-qx + qy - qz + qw));
 
     float x = D3DXToDegree(pitch);
     float y = D3DXToDegree(yaw);

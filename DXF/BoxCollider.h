@@ -24,5 +24,7 @@ public:
 	BoxCollider(const Vector3& p_Size);
 
 	void Update() override;
+
+	SerializeFunctions(BoxCollider);
 };
 

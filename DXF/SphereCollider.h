@@ -24,5 +24,7 @@ public:
 	SphereCollider(const float& p_Radius);
 
 	void Update() override;
+
+	SerializeFunctions(SphereCollider);
 };
 

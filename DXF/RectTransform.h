@@ -90,6 +90,8 @@ public:
     void SetAsLastSibling();
 
     void LateUpdate() override;
+
+    SerializeFunctions(RectTransform);
 };
 
 template <class T> void RectTransform::FindChild(T* p_Comp)

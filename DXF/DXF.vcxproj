@@ -190,6 +190,7 @@
     <ClInclude Include="ComponentHeader.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Serializable.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="SpriteRenderer.h" />

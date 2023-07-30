@@ -47,5 +47,7 @@ public:
 	void Start() override;
 	void PreRender() override;
 	void Render() override;
+
+	SerializeFunctions(TextRenderer);
 };
 

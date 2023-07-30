@@ -206,5 +206,8 @@
     <ClInclude Include="Renderer.h">
       <Filter>4. Components</Filter>
     </ClInclude>
+    <ClInclude Include="Serializable.h">
+      <Filter>0. Core\Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

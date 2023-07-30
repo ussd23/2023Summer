@@ -86,6 +86,8 @@ public:
     void SetAsLastSibling();
 
     void LateUpdate() override;
+
+    SerializeFunctions(Transform);
 };
 
 template <class T> void Transform::FindChild(T* p_Comp)
