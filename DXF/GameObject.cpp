@@ -8,6 +8,7 @@
 #include "TextRenderer.h"
 #include "VerticeRenderer.h"
 #include "SpriteRenderer.h"
+#include "Checkbox.h"
 
 vector<GameObject*> GameObject::safedestroy;
 
@@ -142,6 +143,8 @@ void GameObject::Render()
 		if (text != nullptr) text->Render();
 		SpriteRenderer* sprite = GetComponentFromObject(this, SpriteRenderer);
 		if (sprite != nullptr) sprite->Render();
+		Checkbox* checkbox = GetComponentFromObject(this, Checkbox);
+		if (checkbox != nullptr) checkbox->Render();
 
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{

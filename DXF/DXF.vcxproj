@@ -139,6 +139,7 @@
     <ClCompile Include="CallBack.cpp" />
     <ClCompile Include="CallFunc.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Cleanup.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="CallBack.h" />
     <ClInclude Include="CallFunc.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CustomVertex.h" />

@@ -118,6 +118,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 
+    // button
     gameObject = new GameObject("btn");
 
     //Button* btn = new Button(Vector2(300, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100), "earthmap1k.jpg", 0xffffffff, Vector2(4, 4), Vector2(0, 0));
@@ -126,13 +127,33 @@ void Helltaker::InitObject()
 
     rect = new RectTransform(Vector2(300, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100));
     AddComponentToObject(gameObject, rect);
-    spr = new SpriteRenderer("earthmap1k.jpg", Vector2(4, 4), Vector2(0, 0));
+    spr = new SpriteRenderer("earthmap1k.jpg", Vector2(1, 1), Vector2(0, 0));
     AddComponentToObject(gameObject, spr);
     mouse = new MouseFunction();
     AddComponentToObject(gameObject, mouse);
 
     ButtonTest* test = new ButtonTest();
     AddComponentToObject(gameObject, test);
+    AddObjectToScene(gameObject, g_RootRectTransform, rect);
+
+    // button text
+    gameObject = new GameObject("Text");
+    RectTransform* childrect = new RectTransform(Vector2(10, 30), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(100, 100));
+    AddComponentToObject(gameObject, childrect);
+    text = new TextRenderer("¸¼Àº °íµñ", 28, "");
+    AddComponentToObject(gameObject, text);
+    BtnText* btext = new BtnText();
+    AddComponentToObject(gameObject, btext);
+    AddObjectToScene(gameObject, rect, childrect);
+
+    // checkbox
+    gameObject = new GameObject("checkbox");
+    rect = new RectTransform(Vector2(500, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(50, 50));
+    AddComponentToObject(gameObject, rect);
+    Checkbox* ckb = new Checkbox();
+    AddComponentToObject(gameObject, ckb);
+    mouse = new MouseFunction();
+    AddComponentToObject(gameObject, mouse);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 
 }

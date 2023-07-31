@@ -16,3 +16,4 @@
 #include "ObjectMove.h"
 #include "TopText.h"
 #include "ButtonTest.h"
+#include "BtnText.h"

@@ -42,5 +42,7 @@ public:
 	SpriteRenderer(string, DWORD, Vector2, Vector2);
 	void Render();
 
+	void ChangeSprite();
+
 	void Start() override;
 };
