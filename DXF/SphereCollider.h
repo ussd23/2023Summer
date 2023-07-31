@@ -22,6 +22,9 @@ public:
 
 public:
 	SphereCollider(const float& p_Radius);
+	SphereCollider(const float& p_Radius, bool p_isPassive);
+	SphereCollider(const float& p_Radius, bool p_isPassive, bool p_isFixedChecking);
+	SphereCollider(const float& p_Radius, bool p_isPassive, bool p_isFixedChecking, float p_CheckTime);
 
 	void Update() override;
 

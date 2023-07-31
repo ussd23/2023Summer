@@ -1,10 +1,10 @@
 #include "ComponentHeader.h"
 
-SpriteRenderer::SpriteRenderer(string p_TextureName) :
-    SpriteRenderer(p_TextureName, Vector2(1, 1), Vector2(0, 0)) {}
+SpriteRenderer::SpriteRenderer(string p_TextureName)
+    : SpriteRenderer(p_TextureName, 0xffffffff, Vector2(1, 1), Vector2(0, 0)) {}
 
-SpriteRenderer::SpriteRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex) :
-    SpriteRenderer(p_TextureName, 0xffffffff, p_RectSize, p_RectIndex) {}
+SpriteRenderer::SpriteRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex)
+    : SpriteRenderer(p_TextureName, 0xffffffff, p_RectSize, p_RectIndex) {}
 
 SpriteRenderer::SpriteRenderer(string p_TextureName, DWORD p_Color, Vector2 p_RectSize, Vector2 p_RectIndex)
 {

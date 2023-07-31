@@ -1,9 +1,7 @@
 #include "ComponentHeader.h"
 
 MeshRenderer::MeshRenderer(const string& p_ModelName)
-{
-    m_ModelName = p_ModelName;
-}
+    : m_ModelName(p_ModelName) {}
 
 void MeshRenderer::Start()
 {

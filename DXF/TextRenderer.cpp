@@ -1,7 +1,7 @@
 #include "ComponentHeader.h"
 
 TextRenderer::TextRenderer(string p_FontName, int p_FontSize, string p_Text)
-    : TextRenderer(p_FontName, p_FontSize, p_Text, D3DCOLOR(0xffffffff)) {}
+    : TextRenderer(p_FontName, p_FontSize, p_Text, D3DCOLOR(0xffffffff), DT_LEFT | DT_TOP) {}
 
 TextRenderer::TextRenderer(string p_FontName, int p_FontSize, string p_Text, D3DCOLOR p_Color)
     : TextRenderer(p_FontName, p_FontSize, p_Text, p_Color, DT_LEFT | DT_TOP) {}

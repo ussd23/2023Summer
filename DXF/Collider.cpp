@@ -9,6 +9,8 @@ void Collider::Start()
 
 bool Collider::ColliderTimeCheck()
 {
+	if (!m_isFixedChecking) return true;
+
 	m_PreSecond += Time::deltaTime;
 	if (m_PreSecond < m_CheckTime)
 	{

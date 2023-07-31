@@ -22,6 +22,9 @@ public:
 
 public:
 	BoxCollider(const Vector3& p_Size);
+	BoxCollider(const Vector3& p_Size, bool p_isPassive);
+	BoxCollider(const Vector3& p_Size, bool p_isPassive, bool p_isFixedChecking);
+	BoxCollider(const Vector3& p_Size, bool p_isPassive, bool p_isFixedChecking, float p_CheckTime);
 
 	void Update() override;
 

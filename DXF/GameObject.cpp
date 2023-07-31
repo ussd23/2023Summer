@@ -57,9 +57,7 @@ bool GameObject::ColliderCheck(Component* p_Comp)
 }
 
 GameObject::GameObject(const string& p_Name)
-{
-	m_Name = p_Name;
-}
+	: m_Name(p_Name) {}
 
 GameObject::~GameObject()
 {

@@ -1,13 +1,13 @@
 #include "ComponentHeader.h"
 
 Animator::Animator(float p_RefreshTime)
-	: Animator(MAXINT, p_RefreshTime) {}
+	: Animator(0, MAXINT, p_RefreshTime, false) {}
 
 Animator::Animator(int p_IndexMax, float p_RefreshTime)
-	: Animator(0, p_IndexMax, p_RefreshTime) {}
+	: Animator(0, p_IndexMax, p_RefreshTime, false) {}
 
 Animator::Animator(int p_IndexMin, int p_IndexMax, float p_RefreshTime)
-	: Animator(0, p_IndexMax, p_RefreshTime, false) {}
+	: Animator(p_IndexMin, p_IndexMax, p_RefreshTime, false) {}
 
 Animator::Animator(int p_IndexMin, int p_IndexMax, float p_RefreshTime, bool p_isVertical)
 {

@@ -41,6 +41,7 @@
 #include "StandardLibrary.h"
 #include "Functions.h"
 #include "Serializable.h"
+#include "SPTR.h"
 
 class Component;
 class Transform;
@@ -48,7 +49,6 @@ class RectTransform;
 class MeshRenderer;
 class VerticeRenderer;
 class TextRenderer;
-template<typename T> class SPTR;
 
 class GameObject : public Serializable
 {

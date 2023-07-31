@@ -1,7 +1,7 @@
 #include "ComponentHeader.h"
 
 VerticeRenderer::VerticeRenderer(vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count)
-    : VerticeRenderer("", p_Vertices, p_Type, p_StartVertex, p_Count) {}
+    : VerticeRenderer("", Vector2(1, 1), Vector2(0, 0), p_Vertices, p_Type, p_StartVertex, p_Count) {}
 
 VerticeRenderer::VerticeRenderer(string p_TextureName, vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count)
     : VerticeRenderer(p_TextureName, Vector2(1, 1), Vector2(0, 0), p_Vertices, p_Type, p_StartVertex, p_Count) {}

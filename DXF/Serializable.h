@@ -4,6 +4,7 @@
 
 class Serializable
 {
+public:
     virtual string Serialize() = 0;
     virtual void Deserialize(const string& p_Object) = 0;
 };

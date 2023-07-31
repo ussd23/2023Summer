@@ -209,5 +209,8 @@
     <ClInclude Include="Serializable.h">
       <Filter>0. Core\Header</Filter>
     </ClInclude>
+    <ClInclude Include="SPTR.h">
+      <Filter>0. Core\Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,6 +36,8 @@ protected:
 
 public:
 	Transform*					m_Transform;
+	bool						m_isPassive = false;
+	bool						m_isFixedChecking = false;
 	float						m_CheckTime = 0.1f;
 
 protected:
