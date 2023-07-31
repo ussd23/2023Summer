@@ -99,7 +99,7 @@ void Helltaker::InitObject()
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
     // Neptune (Object)
-    for (int i = 0; i < 300; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         gameObject = new GameObject("Neptune");
         transform = new Transform(Vector3(5.f, 2.5f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
@@ -127,6 +127,4 @@ void Helltaker::InitObject()
     animator = new Animator(avec);
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
-
-    SpriteRenderer* spr22222 = new SpriteRenderer();
 }
