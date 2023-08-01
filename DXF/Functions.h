@@ -33,9 +33,9 @@ template <typename T> T Lerp(T p_Start, T p_End, float p_LerpT);
 bool Inner(const RECT& p_Rect, const Vector2& p_Position);
 bool Inner(const RECT& p_Rect1, const RECT& p_Rect2);
 Vector2 WorldToScreen(Transform* p_Transform);
-float GetDistanceSquare(const Vector2&, const Vector2&);
-float GetDistanceSquare(const Vector3&, const Vector3&);
-float GetDistanceSquare(const Vector4&, const Vector4&);
+float GetDistanceSquare(const Vector2& p_Point1, const Vector2& p_Point2);
+float GetDistanceSquare(const Vector3& p_Point1, const Vector3& p_Point2);
+float GetDistanceSquare(const Vector4& p_Point1, const Vector4& p_Point2);
 
 Vector3 SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_LerpT);
 
