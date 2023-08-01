@@ -67,9 +67,9 @@ void SpriteRenderer::Render()
     g_pSprite->End();
 }
 
-void SpriteRenderer::ChangeSprite()
+void SpriteRenderer::ChangeSprite(string p_Texturename)
 {
-    recttransform = GetComponentFromObject(gameObject, RectTransform);
+    texturename = p_Texturename;
 
     if (texturename.size() <= 0) return;
 

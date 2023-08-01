@@ -42,7 +42,7 @@ public:
 	SpriteRenderer(string, DWORD, Vector2, Vector2);
 	void Render();
 
-	void ChangeSprite();
+	void ChangeSprite(string p_Texturename);
 
 	void Start() override;
 };

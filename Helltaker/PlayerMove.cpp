@@ -45,6 +45,7 @@ void PlayerMove::Update()
 void PlayerMove::OnMouseDown()
 {
     MessageBox(NULL, "OnMouseDown() ½ÇÇàµÊ", "PlayerMove", MB_OK);
+
 }
 
 void PlayerMove::OnTriggerStay(Collider* _collider)
@@ -56,3 +57,5 @@ void PlayerMove::OnTriggerExit(Collider* _collider)
 {
     triggered = false;
 }
+
+

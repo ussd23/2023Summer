@@ -7,10 +7,15 @@ class TextRenderer;
 class BtnText : public Component
 {
 protected:
-	TextRenderer* text;
+	TextRenderer*	m_TextRender;
+	string			m_Text;
 
 public:
+	BtnText();
+
 	void Start() override;
 	void Update() override;
+
+	void SetText(string p_Text);
 };
 
