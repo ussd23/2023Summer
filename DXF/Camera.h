@@ -33,5 +33,12 @@ public:
 	void Start() override;
 	void Update() override;
 
-	SerializeFunctions(Camera);
+	SerializeFunction(Camera)
+	{
+		Serialize(m_LookatPt);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_LookatPt);
+	}
 };

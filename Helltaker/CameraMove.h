@@ -25,6 +25,11 @@ public:
 	void Start() override;
 	void Update() override;
 
-	SerializeFunctions(CameraMove);
+	SerializeFunction(CameraMove)
+	{
+	}
+	DeserializeFunction()
+	{
+	}
 };
 

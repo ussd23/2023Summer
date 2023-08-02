@@ -28,6 +28,19 @@ public:
 
 	void Update() override;
 
-	SerializeFunctions(BoxCollider);
+	SerializeFunction(BoxCollider)
+	{
+		Serialize(m_Size);
+		Serialize(m_isPassive);
+		Serialize(m_isFixedChecking);
+		Serialize(m_CheckTime);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_Size);
+		Deserialize(m_isPassive);
+		Deserialize(m_isFixedChecking);
+		Deserialize(m_CheckTime);
+	}
 };
 

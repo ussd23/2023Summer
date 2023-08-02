@@ -54,6 +54,25 @@ public:
 	void PreRender() override;
 	void Render() override;
 
-	SerializeFunctions(VerticeRenderer);
+	SerializeFunction(VerticeRenderer)
+	{
+		Serialize(m_TextureName);
+		VectorSerialize(m_Vertices);
+		Serialize(m_Type);
+		Serialize(m_StartVertex);
+		Serialize(m_Count);
+		Serialize(m_RectSize);
+		Serialize(m_RectIndex);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_TextureName);
+		VectorDeserialize(m_Vertices);
+		Deserialize(m_Type);
+		Deserialize(m_StartVertex);
+		Deserialize(m_Count);
+		Deserialize(m_RectSize);
+		Deserialize(m_RectIndex);
+	}
 };
 

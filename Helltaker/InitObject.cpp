@@ -99,20 +99,14 @@ void Helltaker::InitObject()
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
     // Serialize Test
-    gameObject = new GameObject("Serialize Test");
-    transform = new Transform(Vector3(5.f, 2.5f, -10.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
-    string serialize1 = transform->Serialize();
-    AddComponentToObject(gameObject, transform);
-    mesh = new MeshRenderer("earth.x");
-    string serialize2 = mesh->Serialize();
-    AddComponentToObject(gameObject, mesh);
-    scollider = new SphereCollider(1.2f);
-    string serialize3 = scollider->Serialize();
-    AddComponentToObject(gameObject, scollider);
-    omove = new ObjectMove();
-    string serialize4 = omove->Serialize();
-    AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    Json::Value jTransform;
+    Json::Value jMesh;
+    Json::Value jScollider;
+    Json::Value jOmove;
+    transform->JsonSerialize(jTransform);
+    mesh->JsonSerialize(jMesh);
+    scollider->JsonSerialize(jScollider);
+    omove->JsonSerialize(jOmove);
 
     // Deserialize Test
     gameObject = new GameObject("Deserialize Test");
@@ -120,10 +114,10 @@ void Helltaker::InitObject()
     mesh = new MeshRenderer();
     scollider = new SphereCollider();
     omove = new ObjectMove();
-    transform->Deserialize(serialize1);
-    mesh->Deserialize(serialize2);
-    scollider->Deserialize(serialize3);
-    omove->Deserialize(serialize4);
+    transform->JsonDeserialize(jTransform);
+    mesh->JsonDeserialize(jMesh);
+    scollider->JsonDeserialize(jScollider);
+    omove->JsonDeserialize(jOmove);
     AddComponentToObject(gameObject, transform);
     AddComponentToObject(gameObject, mesh);
     AddComponentToObject(gameObject, scollider);

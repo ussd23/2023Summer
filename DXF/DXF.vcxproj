@@ -149,6 +149,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GarbageCollector.cpp" />
     <ClCompile Include="InitD3D.cpp" />
+    <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MouseFunction.cpp" />
@@ -182,6 +183,8 @@
     <ClInclude Include="GarbageCollector.h" />
     <ClInclude Include="GetI.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="json-forwards.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MouseFunction.h" />

@@ -87,7 +87,18 @@ public:
 
     void LateUpdate() override;
 
-    SerializeFunctions(Transform);
+    SerializeFunction(Transform)
+    {
+        Serialize(m_Position);
+        Serialize(m_Rotation);
+        Serialize(m_Scale);
+    }
+    DeserializeFunction()
+    {
+        Deserialize(m_Position);
+        Deserialize(m_Rotation);
+        Deserialize(m_Scale);
+    }
 };
 
 template <class T> void Transform::FindChild(T* p_Comp)

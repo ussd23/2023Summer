@@ -69,15 +69,3 @@ template <typename T> void Functions::Deserialize(T& data, ifstream& inFile)
 #define SetInputBuffer(object, type, value) if (object.find(type) == object.end()) object.insert(make_pair(type, value));\
         else object[type] = value
 #define GetInputBuffer(object, type) (object.find(type) == object.end()) ? false : object[type]
-
-#define SerializeFunctions(type)\
-string Serialize() override\
-{\
-    string buffer(reinterpret_cast<const char*>(this), sizeof(type));\
-    return buffer;\
-}\
-void Deserialize(const string& p_Buffer) override\
-{\
-    if (p_Buffer.size() == sizeof(type)) memcpy(this, p_Buffer.data(), sizeof(type));\
-}\
-type() {}

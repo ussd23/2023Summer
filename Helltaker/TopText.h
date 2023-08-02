@@ -27,6 +27,11 @@ public:
 
 	void OnMouseDown() override;
 
-	SerializeFunctions(TopText);
+	SerializeFunction(TopText)
+	{
+	}
+	DeserializeFunction()
+	{
+	}
 };
 

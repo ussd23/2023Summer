@@ -35,6 +35,13 @@ public:
 	void PreRender() override;
 	void Render() override;
 
-	SerializeFunctions(MeshRenderer);
+	SerializeFunction(MeshRenderer)
+	{
+		Serialize(m_ModelName);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_ModelName);
+	}
 };
 

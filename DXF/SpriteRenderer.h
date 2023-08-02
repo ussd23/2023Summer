@@ -46,5 +46,18 @@ public:
 	void PreRender() override;
 	void Render() override;
 
-	SerializeFunctions(SpriteRenderer);
+	SerializeFunction(SpriteRenderer)
+	{
+		Serialize(m_TextureName);
+		Serialize(m_Color);
+		Serialize(m_RectSize);
+		Serialize(m_RectIndex);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_TextureName);
+		Deserialize(m_Color);
+		Deserialize(m_RectSize);
+		Deserialize(m_RectIndex);
+	}
 };

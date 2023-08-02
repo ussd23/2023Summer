@@ -28,6 +28,19 @@ public:
 
 	void Update() override;
 
-	SerializeFunctions(SphereCollider);
+	SerializeFunction(SphereCollider)
+	{
+		Serialize(m_Radius);
+		Serialize(m_isPassive);
+		Serialize(m_isFixedChecking);
+		Serialize(m_CheckTime);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_Radius);
+		Deserialize(m_isPassive);
+		Deserialize(m_isFixedChecking);
+		Deserialize(m_CheckTime);
+	}
 };
 

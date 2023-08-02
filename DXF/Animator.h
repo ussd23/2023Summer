@@ -64,5 +64,20 @@ public:
 	void Start() override;
 	void Update() override;
 
-	SerializeFunctions(Animator);
+	SerializeFunction(Animator)
+	{
+		Serialize(m_IndexMin);
+		Serialize(m_IndexMax);
+		Serialize(m_RefreshTime);
+		Serialize(m_isVertical);
+		VectorSerialize(m_DynamicIndex);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_IndexMin);
+		Deserialize(m_IndexMax);
+		Deserialize(m_RefreshTime);
+		Deserialize(m_isVertical);
+		VectorDeserialize(m_DynamicIndex);
+	}
 };

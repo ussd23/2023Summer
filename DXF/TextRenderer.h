@@ -48,6 +48,21 @@ public:
 	void PreRender() override;
 	void Render() override;
 
-	SerializeFunctions(TextRenderer);
+	SerializeFunction(TextRenderer)
+	{
+		Serialize(m_FontName);
+		Serialize(m_FontSize);
+		Serialize(m_Text);
+		Serialize(m_Format);
+		Serialize(m_Color);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_FontName);
+		Deserialize(m_FontSize);
+		Deserialize(m_Text);
+		Deserialize(m_Format);
+		Deserialize(m_Color);
+	}
 };
 

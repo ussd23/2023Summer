@@ -19,6 +19,9 @@
     <Filter Include="2. Managers">
       <UniqueIdentifier>{510c2cb6-19bb-4ab9-a40c-4100a943e31c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0. Core\External Sources">
+      <UniqueIdentifier>{80eac979-b5da-46d2-9efd-b59afefaa6cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InitD3D.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>4. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="jsoncpp.cpp">
+      <Filter>0. Core\External Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +217,12 @@
     </ClInclude>
     <ClInclude Include="SPTR.h">
       <Filter>0. Core\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="json.h">
+      <Filter>0. Core\External Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="json-forwards.h">
+      <Filter>0. Core\External Sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -37,6 +37,13 @@ public:
 	void OnTriggerStay(Collider* p_Collider) override;
 	void OnTriggerExit(Collider* p_Collider) override;
 
-	SerializeFunctions(PlayerMove);
+	SerializeFunction(PlayerMove)
+	{
+		Serialize(m_Speed);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_Speed);
+	}
 };
 
