@@ -40,6 +40,29 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
+    // Serialize Test
+    Json::Value jTransform;
+    Json::Value jVertice;
+    Json::Value jAnimator;
+    transform->JsonSerialize(jTransform);
+    vertice->JsonSerialize(jVertice);
+    animator->JsonSerialize(jAnimator);
+
+    // Deserialize Test
+    gameObject = new GameObject("Deserialize Test");
+    transform = new Transform();
+    vertice = new VerticeRenderer();
+    animator = new Animator();
+    transform->JsonDeserialize(jTransform);
+    vertice->JsonDeserialize(jVertice);
+    animator->JsonDeserialize(jAnimator);
+    transform->SetPosition(Vector3(0.f, 15.f, 0.f));
+    transform->SetScale(Vector3(0.1f, 0.1f, 0.1f));
+    AddComponentToObject(gameObject, transform);
+    AddComponentToObject(gameObject, vertice);
+    AddComponentToObject(gameObject, animator);
+    AddObjectToScene(gameObject, g_RootTransform, transform);
+
     // Sun (Player)
     gameObject = new GameObject("Sun");
     transform = new Transform(Vector3(0.f, 1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
@@ -99,7 +122,6 @@ void Helltaker::InitObject()
     AddObjectToScene(gameObject, g_RootTransform, transform);
 
     // Serialize Test
-    Json::Value jTransform;
     Json::Value jMesh;
     Json::Value jScollider;
     Json::Value jOmove;
@@ -151,6 +173,27 @@ void Helltaker::InitObject()
     avec.push_back({ Vector2(2,2), 0.2f });
     avec.push_back({ Vector2(3,3), 0.2f });
     animator = new Animator(avec);
+    AddComponentToObject(gameObject, animator);
+    AddObjectToScene(gameObject, g_RootRectTransform, rect);
+
+    // Serialize Test
+    Json::Value jRect;
+    Json::Value jSpr;
+    rect->JsonSerialize(jRect);
+    spr->JsonSerialize(jSpr);
+    animator->JsonSerialize(jAnimator);
+
+    // Deserialize Test
+    gameObject = new GameObject("Deserialize Test");
+    rect = new RectTransform();
+    spr = new SpriteRenderer();
+    animator = new Animator();
+    rect->JsonDeserialize(jRect);
+    spr->JsonDeserialize(jSpr);
+    animator->JsonDeserialize(jAnimator);
+    rect->SetPosition(Vector2(300, SCREENSIZEY - 50));
+    AddComponentToObject(gameObject, rect);
+    AddComponentToObject(gameObject, spr);
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, g_RootRectTransform, rect);
 }

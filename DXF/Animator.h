@@ -31,11 +31,25 @@
 class SpriteRenderer;
 class VerticeRenderer;
 
-class AnimationInfo
+class AnimationInfo : public Serializable
 {
 public:
 	Vector2					index;
 	float					time;
+
+public:
+	AnimationInfo(Vector2 _index, float _time);
+
+	SerializeFunction(AnimationInfo)
+	{
+		Serialize(index);
+		Serialize(time);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(index);
+		Deserialize(time);
+	}
 };
 
 class Animator : public Component
@@ -70,7 +84,7 @@ public:
 		Serialize(m_IndexMax);
 		Serialize(m_RefreshTime);
 		Serialize(m_isVertical);
-		VectorSerialize(m_DynamicIndex);
+		SuperVectorSerialize(m_DynamicIndex);
 	}
 	DeserializeFunction()
 	{
@@ -78,6 +92,6 @@ public:
 		Deserialize(m_IndexMax);
 		Deserialize(m_RefreshTime);
 		Deserialize(m_isVertical);
-		VectorDeserialize(m_DynamicIndex);
+		SuperVectorDeserialize(m_DynamicIndex);
 	}
 };

@@ -1,5 +1,11 @@
 #include "ComponentHeader.h"
 
+AnimationInfo::AnimationInfo(Vector2 _index, float _time)
+{
+	index = _index;
+	time = _time;
+}
+
 Animator::Animator(float p_RefreshTime)
 	: Animator(0, MAXINT, p_RefreshTime, false) {}
 

@@ -19,7 +19,8 @@ LPDIRECT3DTEXTURE9 TextureManager::GetTexture(const string& p_Path)
             path = "..\\..\\resources\\" + p_Path;
             if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, path.c_str(), &texture)))
             {
-                MessageBox(NULL, "Could not find texture", "Texture Load Failed", MB_OK);
+                string text = "Could not find texture: " + p_Path;
+                MessageBox(NULL, p_Path.c_str(), "Texture Load Failed", MB_OK);
                 return NULL;
             }
         }
