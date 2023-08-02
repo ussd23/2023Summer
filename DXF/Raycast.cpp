@@ -9,11 +9,11 @@ Raycast Raycast::ScreenToWorld(const Vector2& p_Position)
 {
 	// 뷰포트
 	D3DVIEWPORT9 viewport;
-	g_pd3dDevice->GetViewport(&viewport);
+	DXFGame::m_pd3dDevice->GetViewport(&viewport);
 
 	// 투영행렬
 	Matrix16 matProjection;
-	g_pd3dDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+	DXFGame::m_pd3dDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 
 	Raycast r;
 
@@ -26,7 +26,7 @@ Raycast Raycast::ScreenToWorld(const Vector2& p_Position)
 
 	// 뷰스페이스가 적용되기 전의 좌표가 필요하므로 뷰의 역행렬을 구함
 	Matrix16 matView, matInvView;
-	g_pd3dDevice->GetTransform(D3DTS_VIEW, &matView);
+	DXFGame::m_pd3dDevice->GetTransform(D3DTS_VIEW, &matView);
 	D3DXMatrixInverse(&matInvView, 0, &matView);
 
 	// 뷰의 역행렬로 ray의 출발점과 방향벡터를 변환 및 정규화

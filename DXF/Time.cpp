@@ -1,5 +1,11 @@
 #include "DXHeader.h"
+#include "Global.h"
 
+UINT Time::pastTime = 0;
+int Time::sec = 0;
+int Time::frames = 0;
+int Time::passedFrames = 0;
+int Time::passedTime = 0;
 FLOAT Time::deltaTime = 0;
 int	  Time::framePerSec = 0;
 float Time::avgFrame = 0;

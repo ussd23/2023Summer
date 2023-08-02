@@ -149,6 +149,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GarbageCollector.cpp" />
     <ClCompile Include="InitD3D.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Variables.cpp" />
     <ClCompile Include="VerticeRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

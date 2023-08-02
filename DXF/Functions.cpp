@@ -24,9 +24,9 @@ Vector2 Functions::WorldToScreen(Transform* p_Transform)
     Matrix projectionMatrix;
     Vector3 projectedPosition;
     D3DVIEWPORT9 viewport;
-    g_pd3dDevice->GetViewport(&viewport);
-    g_pd3dDevice->GetTransform(D3DTS_PROJECTION, &projectionMatrix);
-    g_pd3dDevice->GetTransform(D3DTS_VIEW, &viewMatrix);
+    DXFGame::m_pd3dDevice->GetViewport(&viewport);
+    DXFGame::m_pd3dDevice->GetTransform(D3DTS_PROJECTION, &projectionMatrix);
+    DXFGame::m_pd3dDevice->GetTransform(D3DTS_VIEW, &viewMatrix);
 
     Vector3 pos = p_Transform->GetWorldPosition();
     Quaternion rot = p_Transform->GetWorldRotation();

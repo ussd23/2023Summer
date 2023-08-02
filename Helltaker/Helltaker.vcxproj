@@ -159,7 +159,6 @@
     <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="Scripts.h" />
     <ClInclude Include="TopText.h" />
-    <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXF\DXF.vcxproj">

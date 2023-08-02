@@ -13,7 +13,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, ttext);
     MouseFunction* mouse = new MouseFunction();
     AddComponentToObject(gameObject, mouse);
-    AddObjectToScene(gameObject, g_RootRectTransform, rect);
+    AddObjectToScene(gameObject, Var::RootRectTransform, rect);
 
     // MainCamera
     gameObject = new GameObject("MainCamera");
@@ -23,7 +23,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, camera);
     CameraMove* cmove = new CameraMove();
     AddComponentToObject(gameObject, cmove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Bottom
     gameObject = new GameObject("Bottom");
@@ -38,7 +38,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, vertice);
     Animator* animator = new Animator(0, MAXINT, 1.f, true);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Serialize Test
     Json::Value jTransform;
@@ -61,7 +61,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, transform);
     AddComponentToObject(gameObject, vertice);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Sun (Player)
     gameObject = new GameObject("Sun");
@@ -75,7 +75,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, scollider);
     mouse = new MouseFunction();
     AddComponentToObject(gameObject, mouse);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Child
     GameObject* childObject = new GameObject("Child");
@@ -95,7 +95,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, bcollider);
     ObjectMove* omove = new ObjectMove();
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Airplane (Object)
     gameObject = new GameObject("Airplane");
@@ -107,7 +107,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, bcollider);
     omove = new ObjectMove();
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Earth (Object)
     gameObject = new GameObject("Earth");
@@ -119,7 +119,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, scollider);
     omove = new ObjectMove();
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Serialize Test
     Json::Value jMesh;
@@ -144,7 +144,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, mesh);
     AddComponentToObject(gameObject, scollider);
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, g_RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootTransform, transform);
 
     // Neptune (Object)
     for (int i = 0; i < 300; ++i)
@@ -158,7 +158,7 @@ void Helltaker::InitObject()
         AddComponentToObject(gameObject, scollider);
         omove = new ObjectMove();
         AddComponentToObject(gameObject, omove);
-        AddObjectToScene(gameObject, g_RootTransform, transform);
+        AddObjectToScene(gameObject, Var::RootTransform, transform);
     }
 
     // Sprite (RectTransform)
@@ -174,7 +174,7 @@ void Helltaker::InitObject()
     avec.push_back({ Vector2(3,3), 0.2f });
     animator = new Animator(avec);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, g_RootRectTransform, rect);
+    AddObjectToScene(gameObject, Var::RootRectTransform, rect);
 
     // Serialize Test
     Json::Value jRect;
@@ -195,5 +195,5 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, rect);
     AddComponentToObject(gameObject, spr);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, g_RootRectTransform, rect);
+    AddObjectToScene(gameObject, Var::RootRectTransform, rect);
 }

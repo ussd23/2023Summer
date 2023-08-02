@@ -53,17 +53,17 @@ void VerticeRenderer::PreRender()
     Vector3 sub = pos - Camera::main->m_Transform->GetWorldPosition();
     m_Distance = D3DXVec3Length(&sub) - m_FarthestDistance * maxscale;
 
-    if (g_Frustum->isIn(pos, m_FarthestDistance * maxscale))
+    if (Var::Frustum->isIn(pos, m_FarthestDistance * maxscale))
     {
-        g_TransformRenderList.push_back(this);
+        Var::TransformRenderList.push_back(this);
     }
 }
 
 void VerticeRenderer::Render()
 {
-    if (FAILED(g_pd3dDevice->CreateVertexBuffer(m_Vertices.size() * sizeof(Vertex),
+    if (FAILED(DXFGame::m_pd3dDevice->CreateVertexBuffer(m_Vertices.size() * sizeof(Vertex),
         0, D3DFVF_CUSTOMVERTEX,
-        D3DPOOL_DEFAULT, &g_pVB, NULL)))
+        D3DPOOL_DEFAULT, &DXFGame::m_pVB, NULL)))
     {
         return;
     }
@@ -71,7 +71,7 @@ void VerticeRenderer::Render()
     Vector2 temp = Vector2(1 / m_RectSize.x, 1 / m_RectSize.y);
 
     Vertex* pVertices;
-    if (FAILED(g_pVB->Lock(0, 0, (void**)&pVertices, 0)))
+    if (FAILED(DXFGame::m_pVB->Lock(0, 0, (void**)&pVertices, 0)))
         return;
     for (DWORD i = 0; i < m_Vertices.size(); ++i)
     {
@@ -80,17 +80,17 @@ void VerticeRenderer::Render()
         vertex.tv = m_RectIndex.y * temp.y + (vertex.tv * temp.y);
         pVertices[i] = vertex;
     }
-    g_pVB->Unlock();
+    DXFGame::m_pVB->Unlock();
 
-    g_pd3dDevice->SetMaterial(&g_defaultMaterial);
-    if (m_Texture != NULL) g_pd3dDevice->SetTexture(0, m_Texture);
+    DXFGame::m_pd3dDevice->SetMaterial(&DXFGame::m_defaultMaterial);
+    if (m_Texture != NULL) DXFGame::m_pd3dDevice->SetTexture(0, m_Texture);
     else
     {
-        g_pd3dDevice->SetTexture(0, g_defaultTexture);
-        g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-        g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-        g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-        g_pd3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+        DXFGame::m_pd3dDevice->SetTexture(0, DXFGame::m_defaultTexture);
+        DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+        DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+        DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+        DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
     }
 
     Vector3 pos = m_Transform->GetWorldPosition();
@@ -109,8 +109,8 @@ void VerticeRenderer::Render()
     Matrix16 matWorldSet;
     D3DXMatrixIdentity(&matWorldSet);
     matWorldSet = matWorldScale * matWorldRotation * matWorldPosition;
-    g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
-    g_pd3dDevice->SetStreamSource(0, g_pVB, 0, sizeof(Vertex));
-    g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-    g_pd3dDevice->DrawPrimitive(m_Type, m_StartVertex, m_Count);
+    DXFGame::m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
+    DXFGame::m_pd3dDevice->SetStreamSource(0, DXFGame::m_pVB, 0, sizeof(Vertex));
+    DXFGame::m_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
+    DXFGame::m_pd3dDevice->DrawPrimitive(m_Type, m_StartVertex, m_Count);
 }

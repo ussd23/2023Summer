@@ -19,11 +19,11 @@ void MouseFunction::Update()
 
 		if (m_BoxCollider != nullptr)
 		{
-			result = g_mouseraycast.IsPicked(m_BoxCollider);
+			result = Input::MouseRaycast.IsPicked(m_BoxCollider);
 		}
 		else if (m_SphereCollider != nullptr)
 		{
-			result = g_mouseraycast.IsPicked(m_SphereCollider);
+			result = Input::MouseRaycast.IsPicked(m_SphereCollider);
 		}
 
 		if (result != m_isEntering)
@@ -62,9 +62,9 @@ void MouseFunction::Update()
 				}
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN)))
+			if ((GetInputBuffer(Mouse, MouseInput::LBUTTONDOWN)) ||
+				(GetInputBuffer(Mouse, MouseInput::RBUTTONDOWN)) ||
+				(GetInputBuffer(Mouse, MouseInput::MBUTTONDOWN)))
 			{
 				list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 
@@ -74,9 +74,9 @@ void MouseFunction::Update()
 				}
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONUP)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONUP)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONUP)))
+			if ((GetInputBuffer(Mouse, MouseInput::LBUTTONUP)) ||
+				(GetInputBuffer(Mouse, MouseInput::RBUTTONUP)) ||
+				(GetInputBuffer(Mouse, MouseInput::MBUTTONUP)))
 			{
 				list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 
@@ -86,9 +86,9 @@ void MouseFunction::Update()
 				}
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONHOLD)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD)))
+			if ((GetInputBuffer(Mouse, MouseInput::LBUTTONHOLD)) ||
+				(GetInputBuffer(Mouse, MouseInput::RBUTTONHOLD)) ||
+				(GetInputBuffer(Mouse, MouseInput::MBUTTONHOLD)))
 			{
 				list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 
@@ -110,7 +110,7 @@ void MouseFunction::Update()
 		SetRect(&rect, pos.x - (size.x * scale.x * 0.5f), pos.y - (size.y * scale.y * 0.5f),
 			pos.x + (size.x * scale.x * 0.5f), pos.y + (size.y * scale.y * 0.5f));
 
-		bool result = Functions::Inner(rect, g_mousepos);
+		bool result = Functions::Inner(rect, Input::MousePosition);
 
 		if (result != m_isEntering)
 		{
@@ -145,9 +145,9 @@ void MouseFunction::Update()
 				(*iter++)->OnMouseOver();
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN)))
+			if ((GetInputBuffer(Mouse, MouseInput::LBUTTONDOWN)) ||
+				(GetInputBuffer(Mouse, MouseInput::RBUTTONDOWN)) ||
+				(GetInputBuffer(Mouse, MouseInput::MBUTTONDOWN)))
 			{
 				list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 
@@ -157,9 +157,9 @@ void MouseFunction::Update()
 				}
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONUP)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONUP)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONUP)))
+			if ((GetInputBuffer(Mouse, MouseInput::LBUTTONUP)) ||
+				(GetInputBuffer(Mouse, MouseInput::RBUTTONUP)) ||
+				(GetInputBuffer(Mouse, MouseInput::MBUTTONUP)))
 			{
 				list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 
@@ -169,9 +169,9 @@ void MouseFunction::Update()
 				}
 			}
 
-			if ((GetInputBuffer(g_mouse, MouseInput::LBUTTONHOLD)) ||
-				(GetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD)) ||
-				(GetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD)))
+			if ((GetInputBuffer(Mouse, MouseInput::LBUTTONHOLD)) ||
+				(GetInputBuffer(Mouse, MouseInput::RBUTTONHOLD)) ||
+				(GetInputBuffer(Mouse, MouseInput::MBUTTONHOLD)))
 			{
 				list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 

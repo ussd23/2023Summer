@@ -6,7 +6,7 @@
 
 HRESULT DXFGame::InitD3D(HWND hWnd)
 {
-    if (NULL == (g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
+    if (NULL == (m_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
         return E_FAIL;
 
     D3DPRESENT_PARAMETERS d3dpp;
@@ -18,40 +18,40 @@ HRESULT DXFGame::InitD3D(HWND hWnd)
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
     //d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
-    if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+    if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
         D3DCREATE_HARDWARE_VERTEXPROCESSING,
-        &d3dpp, &g_pd3dDevice)))
+        &d3dpp, &m_pd3dDevice)))
     {
-        if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+        if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
             D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-            &d3dpp, &g_pd3dDevice)))
+            &d3dpp, &m_pd3dDevice)))
         {
             return E_FAIL;
         }
     }
 
-    g_pd3dDevice->GetMaterial(&g_defaultMaterial);
-    g_pd3dDevice->GetTexture(0, &g_defaultTexture);
+    m_pd3dDevice->GetMaterial(&m_defaultMaterial);
+    m_pd3dDevice->GetTexture(0, &m_defaultTexture);
 
-    g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
-    g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
-    g_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
-    g_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+    m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+    m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
+    m_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
+    m_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-    g_Frustum = new Frustum();
+    D3DXCreateSprite(m_pd3dDevice, &m_pSprite);
 
-    D3DXCreateSprite(g_pd3dDevice, &g_pSprite);
+    Var::Frustum = new Frustum();
 
-    g_RootObject = new GameObject("RootObject");
-    g_RootTransform = new Transform(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
-    AddComponentToObject(g_RootObject, g_RootTransform);
+    Var::RootObject = new GameObject("RootObject");
+    Var::RootTransform = new Transform(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+    AddComponentToObject(Var::RootObject, Var::RootTransform);
 
-    g_RootRectObject = new GameObject("RootRectObject");
-    g_RootRectTransform = new RectTransform(Vector2(0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(0.f, 0.f));
-    AddComponentToObject(g_RootRectObject, g_RootRectTransform);
+    Var::RootRectObject = new GameObject("RootRectObject");
+    Var::RootRectTransform = new RectTransform(Vector2(0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(0.f, 0.f));
+    AddComponentToObject(Var::RootRectObject, Var::RootRectTransform);
 
-    g_Objects.push_back(g_RootObject);
-    g_Objects.push_back(g_RootRectObject);
+    Var::Objects.push_back(Var::RootObject);
+    Var::Objects.push_back(Var::RootRectObject);
 
     return S_OK;
 }

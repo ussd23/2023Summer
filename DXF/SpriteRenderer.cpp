@@ -41,9 +41,9 @@ void SpriteRenderer::PreRender()
     RECT rect;
     SetRect(&rect, pos.x - size.x * scale.x, pos.y - size.y * scale.y, pos.x + size.x * scale.x, pos.y + size.y * scale.y);
 
-    if (Functions::Inner(rect, g_ScreenRect))
+    if (Functions::Inner(rect, Var::ScreenRect))
     {
-        g_RectTransformRenderList.push_back(this);
+        Var::RectTransformRenderList.push_back(this);
     }
 }
 
@@ -70,8 +70,8 @@ void SpriteRenderer::Render()
     Matrix16 matScreenSet;
     D3DXMatrixIdentity(&matScreenSet);
     matScreenSet = matScreenScale * matScreenRotation * matScreenPosition;
-	g_pSprite->SetTransform(&matScreenSet);
-    g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-    g_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
-    g_pSprite->End();
+	DXFGame::m_pSprite->SetTransform(&matScreenSet);
+    DXFGame::m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+    DXFGame::m_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
+    DXFGame::m_pSprite->End();
 }

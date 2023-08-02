@@ -8,53 +8,53 @@ LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
     switch (msg)
     {
     case WM_KEYDOWN:
-        SetInputBuffer(g_key, wParam, true);
-        SetInputBuffer(g_keyhold, wParam, true);
+        SetInputBuffer(Key, wParam, true);
+        SetInputBuffer(KeyHold, wParam, true);
         return 0;
 
     case WM_KEYUP:
-        SetInputBuffer(g_keyhold, wParam, false);
+        SetInputBuffer(KeyHold, wParam, false);
         return 0;
 
     case WM_LBUTTONDOWN:
-        SetInputBuffer(g_mouse, MouseInput::LBUTTONHOLD, true);
-        SetInputBuffer(g_mouse, MouseInput::LBUTTONDOWN, true);
+        SetInputBuffer(Mouse, MouseInput::LBUTTONHOLD, true);
+        SetInputBuffer(Mouse, MouseInput::LBUTTONDOWN, true);
         return 0;
 
     case WM_LBUTTONUP:
-        SetInputBuffer(g_mouse, MouseInput::LBUTTONHOLD, false);
-        SetInputBuffer(g_mouse, MouseInput::LBUTTONUP, true);
+        SetInputBuffer(Mouse, MouseInput::LBUTTONHOLD, false);
+        SetInputBuffer(Mouse, MouseInput::LBUTTONUP, true);
         return 0;
 
     case WM_RBUTTONDOWN:
-        SetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD, true);
-        SetInputBuffer(g_mouse, MouseInput::RBUTTONDOWN, true);
+        SetInputBuffer(Mouse, MouseInput::RBUTTONHOLD, true);
+        SetInputBuffer(Mouse, MouseInput::RBUTTONDOWN, true);
         return 0;
 
     case WM_RBUTTONUP:
-        SetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD, false);
-        SetInputBuffer(g_mouse, MouseInput::RBUTTONUP, true);
+        SetInputBuffer(Mouse, MouseInput::RBUTTONHOLD, false);
+        SetInputBuffer(Mouse, MouseInput::RBUTTONUP, true);
         return 0;
 
     case WM_MBUTTONDOWN:
-        SetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD, true);
-        SetInputBuffer(g_mouse, MouseInput::MBUTTONDOWN, true);
+        SetInputBuffer(Mouse, MouseInput::MBUTTONHOLD, true);
+        SetInputBuffer(Mouse, MouseInput::MBUTTONDOWN, true);
         return 0;
 
     case WM_MBUTTONUP:
-        SetInputBuffer(g_mouse, MouseInput::MBUTTONHOLD, false);
-        SetInputBuffer(g_mouse, MouseInput::MBUTTONUP, true);
+        SetInputBuffer(Mouse, MouseInput::MBUTTONHOLD, false);
+        SetInputBuffer(Mouse, MouseInput::MBUTTONUP, true);
         return 0;
 
     case WM_MOUSEMOVE:
-        g_mousepos.x = LOWORD(lParam);
-        g_mousepos.y = HIWORD(lParam);
-        g_mouseraycast = Raycast::ScreenToWorld(g_mousepos);
+        Input::MousePosition.x = LOWORD(lParam);
+        Input::MousePosition.y = HIWORD(lParam);
+        Input::MouseRaycast = Raycast::ScreenToWorld(Input::MousePosition);
         return 0;
 
     case WM_MOUSEWHEEL:
-        if (GET_WHEEL_DELTA_WPARAM(wParam) > 0) SetInputBuffer(g_mouse, MouseInput::WHEELUP, true);
-        if (GET_WHEEL_DELTA_WPARAM(wParam) < 0) SetInputBuffer(g_mouse, MouseInput::WHEELDOWN, true);
+        if (GET_WHEEL_DELTA_WPARAM(wParam) > 0) SetInputBuffer(Mouse, MouseInput::WHEELUP, true);
+        if (GET_WHEEL_DELTA_WPARAM(wParam) < 0) SetInputBuffer(Mouse, MouseInput::WHEELDOWN, true);
         return 0;
 
     case WM_DESTROY:

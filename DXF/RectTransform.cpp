@@ -57,7 +57,7 @@ RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_S
 	m_Rotation = Functions::EulerToQuaternion(p_Rotation);
 	m_Scale = p_Scale;
 	m_Size = p_Size;
-	m_Parent = g_RootRectTransform;
+	m_Parent = Var::RootRectTransform;
 }
 
 Vector2 RectTransform::GetScreenPosition()

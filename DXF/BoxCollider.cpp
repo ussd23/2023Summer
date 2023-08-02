@@ -23,9 +23,9 @@ void BoxCollider::Update()
 
 	if (ColliderTimeCheck())
 	{
-		list<GameObject*>::iterator iter = g_ColliderObjects.begin();
+		list<GameObject*>::iterator iter = Var::ColliderObjects.begin();
 
-		while (iter != g_ColliderObjects.end())
+		while (iter != Var::ColliderObjects.end())
 		{
 			if (*iter == gameObject)
 			{

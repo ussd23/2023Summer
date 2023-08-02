@@ -42,7 +42,7 @@ bool Frustum::isIn(Vector3 p_Position)
         if (fDist > 0) return false;
     }
 
-    ++g_CullingObjects;
+    ++Var::CullingObjects;
     return true;
 }
 
@@ -54,6 +54,6 @@ bool Frustum::isIn(Vector3 p_Position, float p_Radius)
         if (fDist > (p_Radius + 0)) return false;
     }
 
-    ++g_CullingObjects;
+    ++Var::CullingObjects;
     return true;
 }

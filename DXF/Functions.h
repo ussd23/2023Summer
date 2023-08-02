@@ -48,11 +48,11 @@ template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
     return p_Start + p_LerpT * (p_End - p_Start);
 }
 
-#define AddObjectToScene(object, parent, transform) g_Objects.push_back(object);\
+#define AddObjectToScene(object, parent, transform) Var::Objects.push_back(object);\
         parent->AddChild(transform);
 #define AddComponentToObject(object, component) object->AddComponent(component)
 #define GetComponentFromObject(object, type) GameObject::Exists(object) ? dynamic_cast<type*>(object->GetComponent(#type)) : nullptr
 
-#define SetInputBuffer(object, type, value) if (object.find(type) == object.end()) object.insert(make_pair(type, value));\
-        else object[type] = value
-#define GetInputBuffer(object, type) (object.find(type) == object.end()) ? false : object[type]
+#define SetInputBuffer(object, type, value) if (Input::object.find(type) == Input::object.end()) Input::object.insert(make_pair(type, value));\
+        else Input::object[type] = value
+#define GetInputBuffer(object, type) (Input::object.find(type) == Input::object.end()) ? false : Input::object[type]

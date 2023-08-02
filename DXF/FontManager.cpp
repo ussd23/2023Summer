@@ -16,7 +16,7 @@ LPD3DXFONT FontManager::GetFont(const string& p_FontName, const int& p_Size)
     LPD3DXFONT font;
 
     AddFontResource(p_FontName.c_str());
-    D3DXCreateFont(g_pd3dDevice, -p_Size, 0, FW_DONTCARE, 1, FALSE, DEFAULT_CHARSET,
+    D3DXCreateFont(DXFGame::m_pd3dDevice, -p_Size, 0, FW_DONTCARE, 1, FALSE, DEFAULT_CHARSET,
         OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
         p_FontName.c_str(), &font);
 

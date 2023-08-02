@@ -24,16 +24,16 @@ void PlayerMove::Update()
     Vector3 temp = Vector3(0, 0, 0);
     float length;
 
-    if (GetInputBuffer(g_keyhold, 'A')) temp.x -= 1;
-    if (GetInputBuffer(g_keyhold, 'D')) temp.x += 1;
-    if (GetInputBuffer(g_keyhold, 'W')) temp.z += 1;
-    if (GetInputBuffer(g_keyhold, 'S')) temp.z -= 1;
+    if (GetInputBuffer(KeyHold, 'A')) temp.x -= 1;
+    if (GetInputBuffer(KeyHold, 'D')) temp.x += 1;
+    if (GetInputBuffer(KeyHold, 'W')) temp.z += 1;
+    if (GetInputBuffer(KeyHold, 'S')) temp.z -= 1;
 
-    if (GetInputBuffer(g_keyhold, 'Q')) rotation.y -= (90 * Time::deltaTime);
-    if (GetInputBuffer(g_keyhold, 'E')) rotation.y += (90 * Time::deltaTime);
+    if (GetInputBuffer(KeyHold, 'Q')) rotation.y -= (90 * Time::deltaTime);
+    if (GetInputBuffer(KeyHold, 'E')) rotation.y += (90 * Time::deltaTime);
 
-    if (GetInputBuffer(g_keyhold, 'R')) scale *= 1.01f;
-    if (GetInputBuffer(g_keyhold, 'F')) scale /= 1.01f;
+    if (GetInputBuffer(KeyHold, 'R')) scale *= 1.01f;
+    if (GetInputBuffer(KeyHold, 'F')) scale /= 1.01f;
 
     length = sqrt((fabs(temp.x) * fabs(temp.x) + fabs(temp.z) * fabs(temp.z)));
     if (length > 0.f)

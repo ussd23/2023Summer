@@ -48,11 +48,11 @@ void SceneManager::SceneLoad(string p_Path)
         RectTransform* recttransform = GetComponentFromObject(gameObject, RectTransform);
         if (transform != nullptr)
         {
-            AddObjectToScene(gameObject, g_RootTransform, transform);
+            AddObjectToScene(gameObject, Var::RootTransform, transform);
         }
         else if (recttransform != nullptr)
         {
-            AddObjectToScene(gameObject, g_RootRectTransform, recttransform);
+            AddObjectToScene(gameObject, Var::RootRectTransform, recttransform);
         }
     }
 

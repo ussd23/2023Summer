@@ -3,38 +3,32 @@
 #include "Functions.h"
 #include "GameObject.h"
 
-UINT Time::pastTime = 0;
-int Time::sec = 0;
-int Time::frames = 0;
-int Time::passedFrames = 0;
-int Time::passedTime = 0;
-
-void DXFGame::InputBufferReset()
-{
-    for (int i = MouseInput::LBUTTONDOWN; i < MouseInput::END; ++i)
-    {
-        if (GetInputBuffer(g_mouse, (MouseInput)i)) SetInputBuffer(g_mouse, (MouseInput)i, false);
-    }
-    g_key.clear();
-}
+LPDIRECT3D9	DXFGame::m_pD3D;
+LPDIRECT3DDEVICE9 DXFGame::m_pd3dDevice;
+D3DMATERIAL9 DXFGame::m_defaultMaterial;
+IDirect3DBaseTexture9* DXFGame::m_defaultTexture;
+LPDIRECT3DVERTEXBUFFER9 DXFGame::m_pVB;
+LPD3DXSPRITE DXFGame::m_pSprite;
+Matrix16 DXFGame::m_ViewMatrix;
+Matrix16 DXFGame::m_ProjMatrix;
 
 void DXFGame::Start()
 {
-    for (int i = 0; i < g_NewComponents.size(); ++i)
+    for (int i = 0; i < Var::NewComponents.size(); ++i)
     {
-        g_NewComponents[i]->Start();
+        Var::NewComponents[i]->Start();
     }
-    g_NewComponents.clear();
+    Var::NewComponents.clear();
 }
 
 void DXFGame::Update()
 {
-    if (g_RootObject != nullptr) g_RootObject->PreUpdate();
-    if (g_RootRectObject != nullptr) g_RootRectObject->PreUpdate();
+    if (Var::RootObject != nullptr) Var::RootObject->PreUpdate();
+    if (Var::RootRectObject != nullptr) Var::RootRectObject->PreUpdate();
 
-    if (g_RootObject != nullptr) g_RootObject->Update();
-    if (g_RootRectObject != nullptr) g_RootRectObject->Update();
+    if (Var::RootObject != nullptr) Var::RootObject->Update();
+    if (Var::RootRectObject != nullptr) Var::RootRectObject->Update();
 
-    if (g_RootObject != nullptr) g_RootObject->LateUpdate();
-    if (g_RootRectObject != nullptr) g_RootRectObject->LateUpdate();
+    if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
+    if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
 }

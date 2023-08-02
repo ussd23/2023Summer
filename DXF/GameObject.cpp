@@ -51,7 +51,7 @@ bool GameObject::ColliderCheck(Component* p_Comp)
 		return false;
 	}
 
-	g_ColliderObjects.push_back(this);
+	Var::ColliderObjects.push_back(this);
 
 	return true;
 }
@@ -99,8 +99,8 @@ GameObject::~GameObject()
 		}
 	}
 
-	if (g_RootObject == this) g_RootObject = nullptr;
-	else if (g_RootRectObject == this) g_RootRectObject = nullptr;
+	if (Var::RootObject == this) Var::RootObject = nullptr;
+	else if (Var::RootRectObject == this) Var::RootRectObject = nullptr;
 }
 
 bool GameObject::isActive()
@@ -282,7 +282,7 @@ void GameObject::SetActive(bool p_isActive)
 void GameObject::ObjectInit(Component* p_Comp)
 {
 	p_Comp->gameObject = this;
-	g_NewComponents.push_back(p_Comp);
+	Var::NewComponents.push_back(p_Comp);
 }
 
 Component* GameObject::GetComponent(const string& p_Key)
@@ -343,26 +343,26 @@ void GameObject::SafeDestroy()
 
 void GameObject::Erase(GameObject* p_GameObject)
 {
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 
-	while (iter != g_Objects.end())
+	while (iter != Var::Objects.end())
 	{
 		if (p_GameObject == (*iter)())
 		{
 			*iter = nullptr;
-			g_Objects.erase(iter);
+			Var::Objects.erase(iter);
 			return;
 		}
 		++iter;
 	}
 
-	list<GameObject*>::iterator iter2 = g_ColliderObjects.begin();
+	list<GameObject*>::iterator iter2 = Var::ColliderObjects.begin();
 
-	while (iter2 != g_ColliderObjects.end())
+	while (iter2 != Var::ColliderObjects.end())
 	{
 		if (p_GameObject == *iter2)
 		{
-			g_ColliderObjects.erase(iter2);
+			Var::ColliderObjects.erase(iter2);
 			return;
 		}
 		++iter2;
@@ -371,9 +371,9 @@ void GameObject::Erase(GameObject* p_GameObject)
 
 bool GameObject::Exists(GameObject* p_GameObject)
 {
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 
-	while (iter != g_Objects.end())
+	while (iter != Var::Objects.end())
 	{
 		if (*iter++ == p_GameObject)
 		{
@@ -385,9 +385,9 @@ bool GameObject::Exists(GameObject* p_GameObject)
 
 GameObject* GameObject::Search(const string& p_Name)
 {
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 
-	while (iter != g_Objects.end())
+	while (iter != Var::Objects.end())
 	{
 		if ((*iter)->m_Name == p_Name)
 		{

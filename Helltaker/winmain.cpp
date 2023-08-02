@@ -32,7 +32,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         while (msg.message != WM_QUIT)
         {
             // Frame Update
-            Helltaker::InputBufferReset();
+            Input::InputBufferReset();
             Time::TimeUpdate();
 
             // Message

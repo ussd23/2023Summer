@@ -11,13 +11,13 @@ LPDIRECT3DTEXTURE9 TextureManager::GetTexture(const string& p_Path)
     LPDIRECT3DTEXTURE9 texture;
 
     string path = "resources\\" + p_Path;
-    if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, path.c_str(), &texture)))
+    if (FAILED(D3DXCreateTextureFromFile(DXFGame::m_pd3dDevice, path.c_str(), &texture)))
     {
         path = "..\\resources\\" + p_Path;
-        if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, path.c_str(), &texture)))
+        if (FAILED(D3DXCreateTextureFromFile(DXFGame::m_pd3dDevice, path.c_str(), &texture)))
         {
             path = "..\\..\\resources\\" + p_Path;
-            if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, path.c_str(), &texture)))
+            if (FAILED(D3DXCreateTextureFromFile(DXFGame::m_pd3dDevice, path.c_str(), &texture)))
             {
                 string text = "Could not find texture: " + p_Path;
                 MessageBox(NULL, p_Path.c_str(), "Texture Load Failed", MB_OK);

@@ -114,6 +114,12 @@
     <ClCompile Include="jsoncpp.cpp">
       <Filter>0. Core\External Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>0. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Variables.cpp">
+      <Filter>0. Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">

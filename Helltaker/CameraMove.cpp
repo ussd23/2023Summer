@@ -9,19 +9,19 @@ void CameraMove::Update()
 {
     if (m_Camera == nullptr) return;
     
-    if (GetInputBuffer(g_mouse, MouseInput::WHEELUP))
+    if (GetInputBuffer(Mouse, MouseInput::WHEELUP))
     {
         m_Camera->m_FovRate *= 1.1;
         if (m_Camera->m_FovRate > 10.f) m_Camera->m_FovRate = 10.f;
     }
 
-    if (GetInputBuffer(g_mouse, MouseInput::WHEELDOWN))
+    if (GetInputBuffer(Mouse, MouseInput::WHEELDOWN))
     {
         m_Camera->m_FovRate /= 1.1;
         if (m_Camera->m_FovRate < 1.f) m_Camera->m_FovRate = 1.0f;
     }
 
-    if (GetInputBuffer(g_mouse, MouseInput::RBUTTONHOLD))
+    if (GetInputBuffer(Mouse, MouseInput::RBUTTONHOLD))
     {
         PlayerMove* comp = PlayerMove::player;
         if (comp == nullptr) return;
@@ -36,8 +36,8 @@ void CameraMove::Update()
         m_Camera->m_LookatPt = Functions::Lerp(m_Camera->m_LookatPt, Vector3(0, 1, 0), Time::deltaTime * m_LerpT);
     }
 
-    if (GetInputBuffer(g_key, VK_ESCAPE))
+    if (GetInputBuffer(Key, VK_ESCAPE))
     {
-        GameObject::Destroy(g_RootObject);
+        GameObject::Destroy(Var::RootObject);
     }
 }

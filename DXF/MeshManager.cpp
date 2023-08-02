@@ -14,13 +14,13 @@ MeshInfo* MeshManager::GetMesh(const string& p_Path)
     LPD3DXBUFFER pD3DXMtrlBuffer;
 
     string path = "resources\\" + p_Path;
-    if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
+    if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, DXFGame::m_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
     {
         path = "..\\resources\\" + p_Path;
-        if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
+        if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, DXFGame::m_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
         {
             path = "..\\..\\resources\\", p_Path;
-            if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
+            if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, DXFGame::m_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
             {
                 string text = "Could not find mesh file: " + p_Path;
                 MessageBox(NULL, p_Path.c_str(), "Mesh Load Failed", MB_OK);
@@ -54,8 +54,8 @@ MeshInfo* MeshManager::GetMesh(const string& p_Path)
     D3DXVECTOR3* pVertices;
     float farthest = 0.f;
 
-    meshinfo->pMesh->GetVertexBuffer(&g_pVB);
-    g_pVB->Lock(0, 0, (void**)&pVertices, 0);
+    meshinfo->pMesh->GetVertexBuffer(&DXFGame::m_pVB);
+    DXFGame::m_pVB->Lock(0, 0, (void**)&pVertices, 0);
 
     for (DWORD i = 0; i < meshinfo->pMesh->GetNumVertices(); ++i)
     {
@@ -67,7 +67,7 @@ MeshInfo* MeshManager::GetMesh(const string& p_Path)
             farthest = distance;
         }
     }
-    g_pVB->Unlock();
+    DXFGame::m_pVB->Unlock();
 
     meshinfo->farthestDistance = farthest;
 

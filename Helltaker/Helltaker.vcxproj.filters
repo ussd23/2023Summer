@@ -35,9 +35,6 @@
     <ClInclude Include="Scripts.h">
       <Filter>1. Importants</Filter>
     </ClInclude>
-    <ClInclude Include="Variables.h">
-      <Filter>1. Importants</Filter>
-    </ClInclude>
     <ClInclude Include="CameraMove.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>

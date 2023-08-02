@@ -23,9 +23,9 @@ void MeshRenderer::PreRender()
     Vector3 sub = pos - Camera::main->m_Transform->GetWorldPosition();
     m_Distance = D3DXVec3LengthSq(&sub) - m_MeshInfo->farthestDistance * maxscale;
 
-    if (g_Frustum->isIn(pos, m_MeshInfo->farthestDistance * maxscale))
+    if (Var::Frustum->isIn(pos, m_MeshInfo->farthestDistance * maxscale))
     {
-        g_TransformRenderList.push_back(this);
+        Var::TransformRenderList.push_back(this);
     }
 }
 
@@ -47,13 +47,13 @@ void MeshRenderer::Render()
     Matrix16 matWorldSet;
     D3DXMatrixIdentity(&matWorldSet);
     matWorldSet = matWorldScale * matWorldRotation * matWorldPosition;
-    g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
+    DXFGame::m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
 
     for (DWORD i = 0; i < m_MeshInfo->dwNumMaterials; i++)
     {
-        g_pd3dDevice->SetMaterial(&m_MeshInfo->pMeshMaterials[i]);
-        g_pd3dDevice->SetTexture(0, m_MeshInfo->pMeshTextures[i]);
-        //g_pd3dDevice->SetVertexShader();
+        DXFGame::m_pd3dDevice->SetMaterial(&m_MeshInfo->pMeshMaterials[i]);
+        DXFGame::m_pd3dDevice->SetTexture(0, m_MeshInfo->pMeshTextures[i]);
+        //DXFGame::m_pd3dDevice->SetVertexShader();
 
         if (m_MeshInfo->pMesh == NULL) return;
         m_MeshInfo->pMesh->DrawSubset(i);

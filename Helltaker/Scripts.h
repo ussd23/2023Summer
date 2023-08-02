@@ -10,7 +10,6 @@
 
 // 컴포넌트 및 글로벌 변수 헤더
 #include "ComponentHeader.h"
-#include "Variables.h"
 #include "CameraMove.h"
 #include "PlayerMove.h"
 #include "ObjectMove.h"

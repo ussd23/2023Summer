@@ -56,7 +56,7 @@ Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 	m_Position = p_Position;
 	m_Rotation = Functions::EulerToQuaternion(p_Rotation);
 	m_Scale = p_Scale;
-	m_Parent = g_RootTransform;
+	m_Parent = Var::RootTransform;
 }
 
 Vector3 Transform::GetWorldPosition()

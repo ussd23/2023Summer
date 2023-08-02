@@ -32,9 +32,9 @@ void TextRenderer::PreRender()
 
     SetRect(&m_Rect, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, pos.x + size.x * 0.5f, pos.y + size.y * 0.5f);
 
-    if (Functions::Inner(m_Rect, g_ScreenRect))
+    if (Functions::Inner(m_Rect, Var::ScreenRect))
     {
-        g_RectTransformRenderList.push_back(this);
+        Var::RectTransformRenderList.push_back(this);
     }
 }
 
