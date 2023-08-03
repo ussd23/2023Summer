@@ -29,11 +29,7 @@ public:
 	void Start() override;
 	void Update() override;
 
-	SerializeFunction(ObjectMove)
-	{
-	}
-	DeserializeFunction()
-	{
-	}
+	SerializeFunction(ObjectMove) {}
+	DeserializeFunction() {}
 };
 

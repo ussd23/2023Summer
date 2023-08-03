@@ -38,6 +38,6 @@ void CameraMove::Update()
 
     if (GetInputBuffer(Key, VK_ESCAPE))
     {
-        GameObject::Destroy(Var::RootObject);
+        GameObject::Destroy(Var::RootObject, 1.f);
     }
 }

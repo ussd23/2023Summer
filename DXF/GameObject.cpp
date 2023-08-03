@@ -340,8 +340,6 @@ void GameObject::SafeDestroy()
 
 		++iter;
 	}
-
-	m_SafeDestroy.clear();
 }
 
 void GameObject::Erase(GameObject* p_GameObject)

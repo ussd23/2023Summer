@@ -34,11 +34,7 @@ public:
 	void Start() override;
 	void Update() override;
 
-	SerializeFunction(MouseFunction)
-	{
-	}
-	DeserializeFunction()
-	{
-	}
+	SerializeFunction(MouseFunction) {}
+	DeserializeFunction() {}
 };
 
