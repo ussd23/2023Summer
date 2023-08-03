@@ -30,6 +30,27 @@ void JsonDeserialize(Json::Value p_JsonValue) override
 class Serializable
 {
 protected:
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, int* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, int* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned int* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned int* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, float* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, float* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, double* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, double* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, bool* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, bool* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, string* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, string* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, Vector2* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, Vector2* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, Vector3* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, Vector3* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, Vector4* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, Vector4* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, Quaternion* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, Quaternion* p_Value);
+
     template <typename T> void InnerSerialzeFunction(Json::Value& p_JsonValue, T* p_Value);
     template <typename T> void InnerDeserialzeFunction(Json::Value& p_JsonValue, T* p_Value);
     template <typename T> void InnerVectorSerialzeFunction(Json::Value& p_JsonValue, vector<T>& p_Value);
@@ -64,8 +85,8 @@ template <typename T> void Serializable::InnerVectorSerialzeFunction(Json::Value
 {
     for (int i = 0; i < p_Value.size(); ++i)
     {
-        T value = p_Value[i];
-        Json::Value result = string(reinterpret_cast<const char*>(&value), sizeof(T));
+        Json::Value result;
+        InnerSerialzeFunction(result, &p_Value[i]);
 
         p_JsonValue.append(result);
     }
@@ -76,7 +97,7 @@ template <typename T> void Serializable::InnerVectorDeserialzeFunction(Json::Val
     for (unsigned int i = 0; i < p_JsonValue.size(); ++i)
     {
         T value;
-        if (sizeof(T) == p_JsonValue[i].asString().length()) memcpy(&value, p_JsonValue[i].asString().data(), sizeof(T));
+        InnerDeserialzeFunction(p_JsonValue[i], &value);
         p_Value.push_back(value);
     }
 }

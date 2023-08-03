@@ -159,7 +159,7 @@ void Helltaker::InitObject()
     AddObjectToScene(gameObject, Var::RootObject);
 
     // Instantiate Test
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < 1; ++i)
     {
         GameObject::Instantiate(gameObject);
     }

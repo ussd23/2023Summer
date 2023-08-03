@@ -161,6 +161,7 @@
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />

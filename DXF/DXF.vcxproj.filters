@@ -123,6 +123,9 @@
     <ClCompile Include="ComponentManager.cpp">
       <Filter>2. Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Serializable.cpp">
+      <Filter>1. Functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -221,9 +224,6 @@
     <ClInclude Include="Renderer.h">
       <Filter>4. Components</Filter>
     </ClInclude>
-    <ClInclude Include="Serializable.h">
-      <Filter>0. Core\Header</Filter>
-    </ClInclude>
     <ClInclude Include="SPTR.h">
       <Filter>0. Core\Header</Filter>
     </ClInclude>
@@ -235,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="ComponentManager.h">
       <Filter>2. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializable.h">
+      <Filter>1. Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
