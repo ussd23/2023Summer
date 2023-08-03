@@ -12,6 +12,7 @@
 #include "Frustum.h"
 #include "Time.h"
 #include "Global.h"
+#include "ComponentManager.h"
 #include "SceneManager.h"
 #include "MeshManager.h"
 #include "TextureManager.h"

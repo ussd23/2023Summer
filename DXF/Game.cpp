@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Functions.h"
 #include "GameObject.h"
+#include "ComponentHeader.h"
 
 LPDIRECT3D9	DXFGame::m_pD3D;
 LPDIRECT3DDEVICE9 DXFGame::m_pd3dDevice;
@@ -31,4 +32,19 @@ void DXFGame::Update()
 
     if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
+}
+
+void DXFGame::ComponentRegister()
+{
+    ComponentManager::RegisterComponent<Animator>(typeid(Animator).name());
+    ComponentManager::RegisterComponent<BoxCollider>(typeid(BoxCollider).name());
+    ComponentManager::RegisterComponent<Camera>(typeid(Camera).name());
+    ComponentManager::RegisterComponent<MeshRenderer>(typeid(MeshRenderer).name());
+    ComponentManager::RegisterComponent<MouseFunction>(typeid(MouseFunction).name());
+    ComponentManager::RegisterComponent<RectTransform>(typeid(RectTransform).name());
+    ComponentManager::RegisterComponent<SphereCollider>(typeid(SphereCollider).name());
+    ComponentManager::RegisterComponent<SpriteRenderer>(typeid(SpriteRenderer).name());
+    ComponentManager::RegisterComponent<TextRenderer>(typeid(TextRenderer).name());
+    ComponentManager::RegisterComponent<Transform>(typeid(Transform).name());
+    ComponentManager::RegisterComponent<VerticeRenderer>(typeid(VerticeRenderer).name());
 }

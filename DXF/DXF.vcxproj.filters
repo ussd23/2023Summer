@@ -120,6 +120,9 @@
     <ClCompile Include="Variables.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>2. Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="json-forwards.h">
       <Filter>0. Core\External Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>2. Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

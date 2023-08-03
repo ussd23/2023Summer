@@ -62,6 +62,7 @@ public:
 	static HRESULT Render();
 	static VOID Cleanup();
 
+	static void ComponentRegister();
 	static void Start();
 	static void Update();
 };

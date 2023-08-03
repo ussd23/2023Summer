@@ -13,7 +13,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, ttext);
     MouseFunction* mouse = new MouseFunction();
     AddComponentToObject(gameObject, mouse);
-    AddObjectToScene(gameObject, Var::RootRectTransform, rect);
+    AddObjectToScene(gameObject, Var::RootRectObject);
 
     // MainCamera
     gameObject = new GameObject("MainCamera");
@@ -23,7 +23,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, camera);
     CameraMove* cmove = new CameraMove();
     AddComponentToObject(gameObject, cmove);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Bottom
     gameObject = new GameObject("Bottom");
@@ -38,7 +38,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, vertice);
     Animator* animator = new Animator(0, MAXINT, 1.f, true);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Serialize Test
     Json::Value jTransform;
@@ -61,7 +61,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, transform);
     AddComponentToObject(gameObject, vertice);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Sun (Player)
     gameObject = new GameObject("Sun");
@@ -75,7 +75,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, scollider);
     mouse = new MouseFunction();
     AddComponentToObject(gameObject, mouse);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Child
     GameObject* childObject = new GameObject("Child");
@@ -83,7 +83,7 @@ void Helltaker::InitObject()
     AddComponentToObject(childObject, childTransform);
     mesh = new MeshRenderer("sun.x");
     AddComponentToObject(childObject, mesh);
-    AddObjectToScene(childObject, transform, childTransform);
+    AddObjectToScene(childObject, gameObject);
 
     // Tiger (Object)
     gameObject = new GameObject("Tiger");
@@ -95,7 +95,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, bcollider);
     ObjectMove* omove = new ObjectMove();
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Airplane (Object)
     gameObject = new GameObject("Airplane");
@@ -107,7 +107,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, bcollider);
     omove = new ObjectMove();
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Earth (Object)
     gameObject = new GameObject("Earth");
@@ -119,7 +119,7 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, scollider);
     omove = new ObjectMove();
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Serialize Test
     Json::Value jMesh;
@@ -144,21 +144,24 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, mesh);
     AddComponentToObject(gameObject, scollider);
     AddComponentToObject(gameObject, omove);
-    AddObjectToScene(gameObject, Var::RootTransform, transform);
+    AddObjectToScene(gameObject, Var::RootObject);
 
     // Neptune (Object)
-    for (int i = 0; i < 300; ++i)
+    gameObject = new GameObject("Neptune");
+    transform = new Transform(Vector3(5.f, 2.5f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
+    AddComponentToObject(gameObject, transform);
+    mesh = new MeshRenderer("neptune.x");
+    AddComponentToObject(gameObject, mesh);
+    scollider = new SphereCollider(1.2f, true);
+    AddComponentToObject(gameObject, scollider);
+    omove = new ObjectMove();
+    AddComponentToObject(gameObject, omove);
+    AddObjectToScene(gameObject, Var::RootObject);
+
+    // Instantiate Test
+    for (int i = 0; i < 100; ++i)
     {
-        gameObject = new GameObject("Neptune");
-        transform = new Transform(Vector3(5.f, 2.5f, 5.f), Vector3(0.f, 0.f, 0.f), Vector3(2.f, 2.f, 2.f));
-        AddComponentToObject(gameObject, transform);
-        mesh = new MeshRenderer("neptune.x");
-        AddComponentToObject(gameObject, mesh);
-        scollider = new SphereCollider(1.2f, true);
-        AddComponentToObject(gameObject, scollider);
-        omove = new ObjectMove();
-        AddComponentToObject(gameObject, omove);
-        AddObjectToScene(gameObject, Var::RootTransform, transform);
+        GameObject::Instantiate(gameObject);
     }
 
     // Sprite (RectTransform)
@@ -174,7 +177,7 @@ void Helltaker::InitObject()
     avec.push_back({ Vector2(3,3), 0.2f });
     animator = new Animator(avec);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, Var::RootRectTransform, rect);
+    AddObjectToScene(gameObject, Var::RootRectObject);
 
     // Serialize Test
     Json::Value jRect;
@@ -195,5 +198,5 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, rect);
     AddComponentToObject(gameObject, spr);
     AddComponentToObject(gameObject, animator);
-    AddObjectToScene(gameObject, Var::RootRectTransform, rect);
+    AddObjectToScene(gameObject, Var::RootRectObject);
 }

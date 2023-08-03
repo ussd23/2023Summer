@@ -1,6 +1,7 @@
 #pragma once
 #include "DXHeader.h"
 #include "StandardLibrary.h"
+#include "ComponentManager.h"
 #include "json.h"
 
 class Serializable;
@@ -21,6 +22,11 @@ void JsonDeserialize(Json::Value p_JsonValue) override
 #define SuperVectorSerialize(value) InnerSuperVectorSerialzeFunction(p_JsonValue[#value], value);
 #define SuperVectorDeserialize(value) InnerSuperVectorDeserialzeFunction(p_JsonValue[#value], value);
 
+#define SuperSerializePtr(value) InnerSuperSerialzePtrFunction(p_JsonValue[#value], value);
+#define SuperDeserializePtr(value) InnerSuperDeserialzePtrFunction(p_JsonValue[#value], value);
+#define SuperVectorSerializePtr(value) InnerSuperVectorSerialzePtrFunction(p_JsonValue[#value], value);
+#define SuperVectorDeserializePtr(value) InnerSuperVectorDeserialzePtrFunction(p_JsonValue[#value], value);
+
 class Serializable
 {
 protected:
@@ -33,6 +39,11 @@ protected:
     template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void InnerSuperDeserialzeFunction(Json::Value& p_JsonValue, T& p_Value);
     template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void InnerSuperVectorSerialzeFunction(Json::Value& p_JsonValue, vector<T>& p_Value);
     template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void InnerSuperVectorDeserialzeFunction(Json::Value& p_JsonValue, vector<T>& p_Value);
+
+    template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void InnerSuperSerialzePtrFunction(Json::Value& p_JsonValue, T* p_Value);
+    template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void InnerSuperDeserialzePtrFunction(Json::Value& p_JsonValue, T* p_Value);
+    template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void InnerSuperVectorSerialzePtrFunction(Json::Value& p_JsonValue, vector<T*>& p_Value);
+    template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void InnerSuperVectorDeserialzePtrFunction(Json::Value& p_JsonValue, vector<T*>& p_Value);
 
 public:
     virtual void JsonSerialize(Json::Value& p_JsonValue) = 0;
@@ -99,6 +110,44 @@ template <typename T, typename> void Serializable::InnerSuperVectorDeserialzeFun
     {
         T value;
         value.JsonDeserialize(p_JsonValue[i]);
+
+        p_Value.push_back(value);
+    }
+}
+
+template <typename T, typename> void Serializable::InnerSuperSerialzePtrFunction(Json::Value& p_JsonValue, T* p_Value)
+{ 
+    Json::Value result;
+    p_Value->JsonSerialize(result);
+    p_JsonValue = result;
+}
+
+template <typename T, typename> void Serializable::InnerSuperDeserialzePtrFunction(Json::Value& p_JsonValue, T* p_Value)
+{
+    p_Value->JsonDeserialize(p_JsonValue);
+}
+
+template <typename T, typename> void Serializable::InnerSuperVectorSerialzePtrFunction(Json::Value& p_JsonValue, vector<T*>& p_Value)
+{
+    for (int i = 0; i < p_Value.size(); ++i)
+    {
+        Json::Value result;
+        p_Value[i]->JsonSerialize(result);
+        result["__dxfclassname"] = typeid(*p_Value[i]).name();
+
+        p_JsonValue.append(result);
+    }
+}
+
+template <typename T, typename> void Serializable::InnerSuperVectorDeserialzePtrFunction(Json::Value& p_JsonValue, vector<T*>& p_Value)
+{
+    for (unsigned int i = 0; i < p_JsonValue.size(); ++i)
+    {
+        string classname = p_JsonValue[i]["__dxfclassname"].asString();
+        T* value = ComponentManager::CreateComponent(classname);
+        if (value == nullptr) continue;
+
+        value->JsonDeserialize(p_JsonValue[i]);
 
         p_Value.push_back(value);
     }

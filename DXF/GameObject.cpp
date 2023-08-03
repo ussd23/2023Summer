@@ -11,7 +11,7 @@
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 
-vector<GameObject*> GameObject::m_SafeDestroy;
+map<GameObject*, float> GameObject::m_SafeDestroy;
 
 bool GameObject::TransformCheck(const string& p_Key)
 {
@@ -89,15 +89,6 @@ GameObject::~GameObject()
 	}
 
 	m_Components.clear();
-
-	for (int i = 0; i < m_SafeDestroy.size(); ++i)
-	{
-		if (m_SafeDestroy[i] == this)
-		{
-			m_SafeDestroy[i] = nullptr;
-			break;
-		}
-	}
 
 	if (Var::RootObject == this) Var::RootObject = nullptr;
 	else if (Var::RootRectObject == this) Var::RootRectObject = nullptr;
@@ -323,19 +314,31 @@ void GameObject::RemoveComponent(Component* p_Comp)
 
 void GameObject::Destroy(GameObject* p_GameObject)
 {
-	m_SafeDestroy.push_back(p_GameObject);
+	m_SafeDestroy.insert(make_pair(p_GameObject, 0.f));
+}
+
+void GameObject::Destroy(GameObject* p_GameObject, float p_Time)
+{
+	m_SafeDestroy.insert(make_pair(p_GameObject, p_Time));
 }
 
 void GameObject::SafeDestroy()
 {
 	if (m_SafeDestroy.size() == 0) return;
 
-	while (m_SafeDestroy.size() > 0)
-	{
-		if (m_SafeDestroy[0] == nullptr) return;
+	map<GameObject*, float>::iterator iter = m_SafeDestroy.begin();
 
-		Erase(m_SafeDestroy[0]);
-		m_SafeDestroy.erase(m_SafeDestroy.begin());
+	while (iter != m_SafeDestroy.end())
+	{
+		iter->second -= Time::deltaTime;
+
+		if (iter->second < 0.f)
+		{
+			Erase(iter->first);
+			m_SafeDestroy.erase(iter);
+		}
+
+		++iter;
 	}
 
 	m_SafeDestroy.clear();
@@ -398,7 +401,60 @@ GameObject* GameObject::Search(const string& p_Name)
 	return nullptr;
 }
 
+GameObject* GameObject::Instantiate(GameObject* p_GameObject)
+{
+	Json::Value value;
+	p_GameObject->JsonSerialize(value);
+
+	GameObject* newObject = new GameObject;
+	newObject->JsonDeserialize(value);
+
+	GameObject* parent = nullptr;
+
+	Transform* transform = GetComponentFromObject(p_GameObject, Transform);
+	if (transform != nullptr)
+	{
+		parent = transform->GetParent()->gameObject;
+	}
+	RectTransform* recttransform = GetComponentFromObject(p_GameObject, RectTransform);
+	if (recttransform != nullptr)
+	{
+		parent = recttransform->GetParent()->gameObject;
+	}
+
+	if (parent != nullptr)
+	{
+		AddObjectToScene(newObject, parent);
+	}
+	else
+	{
+		delete newObject;
+		newObject = nullptr;
+	}
+
+	return newObject;
+}
+
 void GameObject::operator = (void* p_Ptr)
 {
 	if (p_Ptr == nullptr) GameObject::Destroy(this);
+}
+
+void GameObject::JsonSerialize(Json::Value& p_JsonValue)
+{
+	Serialize(m_Name);
+	vector<Component*> components;
+	for (SPTR<Component> c : m_Components) components.push_back(c());
+	SuperVectorSerializePtr(components);
+}
+
+void GameObject::JsonDeserialize(Json::Value p_JsonValue)
+{
+	Deserialize(m_Name);
+	vector<Component*> components;
+	SuperVectorDeserializePtr(components);
+	for (Component* c : components)
+	{
+		AddComponent(c);
+	}
 }

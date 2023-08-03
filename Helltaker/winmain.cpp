@@ -25,6 +25,10 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
     {
         ShowWindow(hWnd, SW_SHOWDEFAULT);
         UpdateWindow(hWnd);
+
+        Helltaker::ComponentRegister();
+        Helltaker::ScriptRegister();
+
         Helltaker::InitObject();
 
         MSG msg;

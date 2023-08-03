@@ -48,7 +48,14 @@ template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
     return p_Start + p_LerpT * (p_End - p_Start);
 }
 
-#define AddObjectToScene(object, parent, transform) Var::Objects.push_back(object);\
+#define AddObjectToScene(object, parent) { Var::Objects.push_back(object);\
+        Transform* obj = GetComponentFromObject(object, Transform);\
+        Transform* par = GetComponentFromObject(parent, Transform);\
+        if (par != nullptr && obj != nullptr) par->AddChild(obj);\
+        else { RectTransform* robj = GetComponentFromObject(object, RectTransform);\
+        RectTransform* rpar = GetComponentFromObject(parent, RectTransform);\
+        if (rpar != nullptr && robj != nullptr) rpar->AddChild(robj); } }
+#define AddObjectToSceneComponent(parent, transform) Var::Objects.push_back(transform->gameObject);\
         parent->AddChild(transform);
 #define AddComponentToObject(object, component) object->AddComponent(component)
 #define GetComponentFromObject(object, type) GameObject::Exists(object) ? dynamic_cast<type*>(object->GetComponent(#type)) : nullptr

@@ -5,5 +5,6 @@ class Helltaker : public DXFGame
 {
 public:
 	static void InitObject();
+	static void ScriptRegister();
 };
 

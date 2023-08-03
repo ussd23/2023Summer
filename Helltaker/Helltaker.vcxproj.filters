@@ -30,6 +30,9 @@
     <ClCompile Include="InitObject.cpp">
       <Filter>1. Importants</Filter>
     </ClCompile>
+    <ClCompile Include="ScriptRegister.cpp">
+      <Filter>1. Importants</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts.h">

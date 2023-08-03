@@ -50,12 +50,12 @@ class MeshRenderer;
 class VerticeRenderer;
 class TextRenderer;
 
-class GameObject
+class GameObject : public Serializable
 {
 protected:
 	bool							m_isActive = true;
 	map<string, Component*>			m_ComponentsMap;
-	static vector<GameObject*>		m_SafeDestroy;
+	static map<GameObject*, float>	m_SafeDestroy;
 
 public:
 	string							m_Name;
@@ -85,16 +85,21 @@ public:
 	void PreRender();
 
 	static void Destroy(GameObject* p_GameObject);
+	static void Destroy(GameObject* p_GameObject, float p_Time);
 	static void SafeDestroy();
 	static bool Exists(GameObject* p_GameObject);
 	static GameObject* Search(const string& p_Name);
+	static GameObject* Instantiate(GameObject* p_GameObject);
 
 	void operator = (void* p_Ptr);
+
+	SerializeFunction(GameObject);
+	DeserializeFunction();
 };
 
 template <class T> void GameObject::AddComponent(T* p_Comp)
 {
-	string key = typeid(T).name();
+	string key = typeid(*p_Comp).name();
 
 	Component* comp = dynamic_cast<Component*>(p_Comp);
 	if (comp)
