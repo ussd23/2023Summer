@@ -1,5 +1,6 @@
 #pragma once
 #include "DXHeader.h"
+#include "CustomVertex.h"
 #include "StandardLibrary.h"
 #include "ComponentManager.h"
 #include "json.h"
@@ -37,6 +38,10 @@ protected:
     void InnerDeserialzeFunction(Json::Value& p_JsonValue, int* p_Value);
     void InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned int* p_Value);
     void InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned int* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, long* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, long* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned long* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned long* p_Value);
     void InnerSerialzeFunction(Json::Value& p_JsonValue, long long* p_Value);
     void InnerDeserialzeFunction(Json::Value& p_JsonValue, long long* p_Value);
     void InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned long long* p_Value);
@@ -57,6 +62,8 @@ protected:
     void InnerDeserialzeFunction(Json::Value& p_JsonValue, Vector4* p_Value);
     void InnerSerialzeFunction(Json::Value& p_JsonValue, Quaternion* p_Value);
     void InnerDeserialzeFunction(Json::Value& p_JsonValue, Quaternion* p_Value);
+    void InnerSerialzeFunction(Json::Value& p_JsonValue, Vertex* p_Value);
+    void InnerDeserialzeFunction(Json::Value& p_JsonValue, Vertex* p_Value);
 
     template <typename T> void InnerSerialzeFunction(Json::Value& p_JsonValue, T* p_Value);
     template <typename T> void InnerDeserialzeFunction(Json::Value& p_JsonValue, T* p_Value);
