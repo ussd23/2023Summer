@@ -148,7 +148,6 @@
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GarbageCollector.cpp" />
     <ClCompile Include="InitD3D.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="jsoncpp.cpp" />
@@ -185,7 +184,6 @@
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GarbageCollector.h" />
     <ClInclude Include="GetI.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="json-forwards.h" />

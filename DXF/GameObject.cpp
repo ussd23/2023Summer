@@ -298,6 +298,7 @@ void GameObject::RemoveComponent(Component* p_Comp)
 		if (p_Comp == (*iter)())
 		{
 			m_Components.erase(iter);
+			break;
 		}
 		++iter;
 	}
@@ -332,10 +333,12 @@ void GameObject::SafeDestroy()
 	{
 		iter->second -= Time::deltaTime;
 
-		if (iter->second < 0.f)
+		if (iter->second <= 0.f)
 		{
 			Erase(iter->first);
-			m_SafeDestroy.erase(iter);
+			iter = m_SafeDestroy.erase(iter);
+
+			continue;
 		}
 
 		++iter;
@@ -399,11 +402,45 @@ GameObject* GameObject::Search(const string& p_Name)
 	return nullptr;
 }
 
+int GameObject::ObjectID(Transform* p_Transform)
+{
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
+
+	int index = -1;
+	while (iter != Var::Objects.end())
+	{
+		++index;
+		if ((*iter) == p_Transform->gameObject)
+		{
+			return index;
+		}
+		++iter;
+	}
+	return index;
+}
+
+int GameObject::ObjectID(RectTransform* p_RectTransform)
+{
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
+
+	int index = -1;
+	while (iter != Var::Objects.end())
+	{
+		++index;
+		if ((*iter) == p_RectTransform->gameObject)
+		{
+			return index;
+		}
+		++iter;
+	}
+	return index;
+}
+
 GameObject* GameObject::Instantiate(GameObject* p_GameObject)
 {
 	Json::Value value;
 	p_GameObject->JsonSerialize(value);
-
+	
 	GameObject* newObject = new GameObject;
 	newObject->JsonDeserialize(value);
 
@@ -441,16 +478,18 @@ void GameObject::operator = (void* p_Ptr)
 void GameObject::JsonSerialize(Json::Value& p_JsonValue)
 {
 	Serialize(m_Name);
+	Serialize(m_isActive);
 	vector<Component*> components;
 	for (SPTR<Component> c : m_Components) components.push_back(c());
-	SuperVectorSerializePtr(components);
+	ComponentSerialize(components);
 }
 
 void GameObject::JsonDeserialize(Json::Value p_JsonValue)
 {
 	Deserialize(m_Name);
+	Deserialize(m_isActive);
 	vector<Component*> components;
-	SuperVectorDeserializePtr(components);
+	ComponentDeserialize(components);
 	for (Component* c : components)
 	{
 		AddComponent(c);

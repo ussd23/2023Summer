@@ -89,6 +89,8 @@ public:
 	static void SafeDestroy();
 	static bool Exists(GameObject* p_GameObject);
 	static GameObject* Search(const string& p_Name);
+	static int ObjectID(Transform* p_Transform);
+	static int ObjectID(RectTransform* p_RectTransform);
 	static GameObject* Instantiate(GameObject* p_GameObject);
 
 	void operator = (void* p_Ptr);

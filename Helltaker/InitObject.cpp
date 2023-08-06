@@ -3,6 +3,10 @@
 
 void Helltaker::InitObject()
 {
+    SceneManager::LoadScene("scene1");
+
+    return;
+
     // Text (RectTransform)
     GameObject* gameObject = new GameObject("Text");
     RectTransform* rect = new RectTransform(Vector2(300, 55), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(600, 110));
@@ -199,4 +203,6 @@ void Helltaker::InitObject()
     AddComponentToObject(gameObject, spr);
     AddComponentToObject(gameObject, animator);
     AddObjectToScene(gameObject, Var::RootRectObject);
+
+    SceneManager::SaveScene("scene1");
 }

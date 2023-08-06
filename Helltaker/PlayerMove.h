@@ -31,6 +31,7 @@ public:
 public:
 	PlayerMove(float p_Speed);
 
+	void Awake() override;
 	void Start() override;
 	void Update() override;
 	void OnMouseDown() override;

@@ -23,7 +23,7 @@ MeshInfo* MeshManager::GetMesh(const string& p_Path)
             if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, DXFGame::m_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &meshinfo->dwNumMaterials, &meshinfo->pMesh)))
             {
                 string text = "Could not find mesh file: " + p_Path;
-                MessageBox(NULL, p_Path.c_str(), "Mesh Load Failed", MB_OK);
+                MessageBox(NULL, text.c_str(), "Mesh Load Failed", MB_OK);
                 return nullptr;
             }
         }

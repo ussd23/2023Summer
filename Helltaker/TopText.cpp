@@ -4,16 +4,18 @@ void TopText::Start()
 {
     m_Text = GetComponentFromObject(gameObject, TextRenderer);
     m_Camera = Camera::main;
+    m_Player = PlayerMove::player->gameObject;
 }
 
 void TopText::Update()
 {
     if (m_Text == nullptr) return;
     if (m_Camera == nullptr) return;
+    if (m_Player == nullptr) return;
 
-    Transform* transform = GetComponentFromObject(PlayerMove::player->gameObject, Transform);
+    Transform* transform = GetComponentFromObject(m_Player, Transform);
     if (transform == nullptr) return;
-    PlayerMove* playermove = GetComponentFromObject(PlayerMove::player->gameObject, PlayerMove);
+    PlayerMove* playermove = GetComponentFromObject(m_Player, PlayerMove);
     if (playermove == nullptr) return;
 
     Vector3 wpos = transform->GetWorldPosition();

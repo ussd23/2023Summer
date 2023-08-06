@@ -5,6 +5,10 @@ PlayerMove* PlayerMove::player = nullptr;
 PlayerMove::PlayerMove(float p_Speed)
 {
     m_Speed = p_Speed;
+}
+
+void PlayerMove::Awake()
+{
     if (player == nullptr) player = this;
 }
 

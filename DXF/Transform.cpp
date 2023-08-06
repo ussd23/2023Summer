@@ -121,6 +121,11 @@ int Transform::GetChildCount()
 	return m_Childs.size();
 }
 
+vector<int> Transform::GetChildID()
+{
+	return m_ChildID;
+}
+
 Transform* Transform::GetChild(int p_Index)
 {
 	return m_Childs[p_Index];

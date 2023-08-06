@@ -53,5 +53,8 @@ HRESULT DXFGame::InitD3D(HWND hWnd)
     Var::Objects.push_back(Var::RootObject);
     Var::Objects.push_back(Var::RootRectObject);
 
+    //locale krlocale("Korean");
+    //locale::global(krlocale);
+
     return S_OK;
 }

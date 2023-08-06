@@ -20,6 +20,26 @@ void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned in
 	*p_Value = p_JsonValue.asUInt();
 }
 
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, long long* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, long long* p_Value)
+{
+	*p_Value = p_JsonValue.asInt64();
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned long long* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned long long* p_Value)
+{
+	*p_Value = p_JsonValue.asUInt64();
+}
+
 void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, float* p_Value)
 {
 	p_JsonValue = *p_Value;

@@ -19,7 +19,7 @@
 class Camera : public Component
 {
 public:
-	static Camera* main;
+	static Camera*	main;
 
 	Transform*		m_Transform;
 	Vector3			m_LookatPt;
@@ -29,7 +29,9 @@ public:
 
 public:
 	Camera(const Vector3& p_Lookat);
+	~Camera();
 
+	void Awake() override;
 	void Start() override;
 	void Update() override;
 

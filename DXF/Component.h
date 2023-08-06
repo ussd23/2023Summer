@@ -47,6 +47,7 @@ public:
 	GameObject* gameObject = nullptr;
 	virtual ~Component() { OnDestroy(); }
 
+	virtual void Awake() {};
 	virtual void Start() {};
 	virtual void PreUpdate() {};
 	virtual void Update() {};

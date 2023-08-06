@@ -1,0 +1,950 @@
+[
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : [ 3, 4, 5, 6, 8, 9, 10, 11, 12, 13 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			}
+		],
+		"m_Name" : "RootObject",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 2, 14, 15 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					}
+				}
+			}
+		],
+		"m_Name" : "RootRectObject",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 300.0,
+						"y" : 55.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 600.0,
+						"y" : 110.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : "ÿÿÿÿ",
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 16,
+					"m_Format" : "\u0000\u0000\u0000\u0000",
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class TopText",
+				"values" : null
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : null
+			}
+		],
+		"m_Name" : "Text",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 40.0,
+						"z" : -40.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class Camera",
+				"values" : 
+				{
+					"m_LookatPt" : 
+					{
+						"x" : 0.0,
+						"y" : 1.0,
+						"z" : 0.0
+					}
+				}
+			},
+			{
+				"type" : "class CameraMove",
+				"values" : null
+			}
+		],
+		"m_Name" : "MainCamera",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class VerticeRenderer",
+				"values" : 
+				{
+					"m_Count" : 2,
+					"m_RectIndex" : 
+					{
+						"x" : 2.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 3.0,
+						"y" : 3.0
+					},
+					"m_StartVertex" : 0,
+					"m_TextureName" : "earthmap1k.jpg",
+					"m_Type" : "\u0005\u0000\u0000\u0000",
+					"m_Vertices" : 
+					[
+						"\u0000\u0000ðÁ\u0000\u0000\u0000\u0000\u0000\u0000 ÁÿØƒS\u0000\u0000\u0000\u0000\u0000\u0000€?",
+						"\u0000\u0000ðÁ\u0000\u0000\u0000\u0000\u0000\u0000 AÿØƒS\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+						"\u0000\u0000ðA\u0000\u0000\u0000\u0000\u0000\u0000 ÁÿxƒS\u0000\u0000€?\u0000\u0000€?",
+						"\u0000\u0000ðA\u0000\u0000\u0000\u0000\u0000\u0000 AÿxƒS\u0000\u0000€?\u0000\u0000\u0000\u0000"
+					]
+				}
+			},
+			{
+				"type" : "class Animator",
+				"values" : 
+				{
+					"m_DynamicIndex" : null,
+					"m_IndexMax" : 2147483647,
+					"m_IndexMin" : 0,
+					"m_RefreshTime" : 1.0,
+					"m_isVertical" : true
+				}
+			}
+		],
+		"m_Name" : "Bottom",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 15.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					}
+				}
+			},
+			{
+				"type" : "class VerticeRenderer",
+				"values" : 
+				{
+					"m_Count" : 2,
+					"m_RectIndex" : 
+					{
+						"x" : 2.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 3.0,
+						"y" : 3.0
+					},
+					"m_StartVertex" : 0,
+					"m_TextureName" : "earthmap1k.jpg",
+					"m_Type" : "\u0005\u0000\u0000\u0000",
+					"m_Vertices" : 
+					[
+						"\u0000\u0000ðÁ\u0000\u0000\u0000\u0000\u0000\u0000 ÁÿØƒS\u0000\u0000\u0000\u0000\u0000\u0000€?",
+						"\u0000\u0000ðÁ\u0000\u0000\u0000\u0000\u0000\u0000 AÿØƒS\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+						"\u0000\u0000ðA\u0000\u0000\u0000\u0000\u0000\u0000 ÁÿxƒS\u0000\u0000€?\u0000\u0000€?",
+						"\u0000\u0000ðA\u0000\u0000\u0000\u0000\u0000\u0000 AÿxƒS\u0000\u0000€?\u0000\u0000\u0000\u0000"
+					]
+				}
+			},
+			{
+				"type" : "class Animator",
+				"values" : 
+				{
+					"m_DynamicIndex" : null,
+					"m_IndexMax" : 2147483647,
+					"m_IndexMin" : 0,
+					"m_RefreshTime" : 1.0,
+					"m_isVertical" : true
+				}
+			}
+		],
+		"m_Name" : "Deserialize Test",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : [ 7 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 1.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "sun.x"
+				}
+			},
+			{
+				"type" : "class PlayerMove",
+				"values" : 
+				{
+					"m_Speed" : 20.0
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.0,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : false
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : null
+			}
+		],
+		"m_Name" : "Sun",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 5.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5,
+						"z" : 0.5
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "sun.x"
+				}
+			}
+		],
+		"m_Name" : "Child",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -10.0,
+						"y" : 1.0,
+						"z" : -10.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 2.0,
+						"y" : 2.0,
+						"z" : 2.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "tiger.x"
+				}
+			},
+			{
+				"type" : "class BoxCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Size" : 
+					{
+						"x" : 3.0,
+						"y" : 3.0,
+						"z" : 3.0
+					},
+					"m_isFixedChecking" : false,
+					"m_isPassive" : false
+				}
+			},
+			{
+				"type" : "class ObjectMove",
+				"values" : null
+			}
+		],
+		"m_Name" : "Tiger",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -10.0,
+						"y" : 1.0,
+						"z" : 5.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 0.60000002384185791,
+						"y" : 0.60000002384185791,
+						"z" : 0.60000002384185791
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "airplane 2.x"
+				}
+			},
+			{
+				"type" : "class BoxCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Size" : 
+					{
+						"x" : 8.0,
+						"y" : 8.0,
+						"z" : 8.0
+					},
+					"m_isFixedChecking" : false,
+					"m_isPassive" : false
+				}
+			},
+			{
+				"type" : "class ObjectMove",
+				"values" : null
+			}
+		],
+		"m_Name" : "Airplane",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 5.0,
+						"y" : 2.5,
+						"z" : -10.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 2.0,
+						"y" : 2.0,
+						"z" : 2.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "earth.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.2000000476837158,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : false
+				}
+			},
+			{
+				"type" : "class ObjectMove",
+				"values" : null
+			}
+		],
+		"m_Name" : "Earth",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 5.0,
+						"y" : 2.5,
+						"z" : -10.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 2.0,
+						"y" : 2.0,
+						"z" : 2.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "earth.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.2000000476837158,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : false
+				}
+			},
+			{
+				"type" : "class ObjectMove",
+				"values" : null
+			}
+		],
+		"m_Name" : "Deserialize Test",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 5.0,
+						"y" : 2.5,
+						"z" : 5.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 2.0,
+						"y" : 2.0,
+						"z" : 2.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "neptune.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.2000000476837158,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class ObjectMove",
+				"values" : null
+			}
+		],
+		"m_Name" : "Neptune",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 5.0,
+						"y" : 2.5,
+						"z" : 5.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 2.0,
+						"y" : 2.0,
+						"z" : 2.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "neptune.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.2000000476837158,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class ObjectMove",
+				"values" : null
+			}
+		],
+		"m_Name" : "Neptune",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 100.0,
+						"y" : 850.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 200.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : "ÿÿÿÿ",
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 4.0,
+						"y" : 4.0
+					},
+					"m_TextureName" : "earthmap1k.jpg"
+				}
+			},
+			{
+				"type" : "class Animator",
+				"values" : 
+				{
+					"m_DynamicIndex" : 
+					[
+						{
+							"index" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0
+							},
+							"time" : 1.0
+						},
+						{
+							"index" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0
+							},
+							"time" : 0.5
+						},
+						{
+							"index" : 
+							{
+								"x" : 2.0,
+								"y" : 2.0
+							},
+							"time" : 0.20000000298023224
+						},
+						{
+							"index" : 
+							{
+								"x" : 3.0,
+								"y" : 3.0
+							},
+							"time" : 0.20000000298023224
+						}
+					],
+					"m_IndexMax" : 0,
+					"m_IndexMin" : 0,
+					"m_RefreshTime" : 0.0,
+					"m_isVertical" : false
+				}
+			}
+		],
+		"m_Name" : "Sprite",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 300.0,
+						"y" : 850.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 200.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : "ÿÿÿÿ",
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 4.0,
+						"y" : 4.0
+					},
+					"m_TextureName" : "earthmap1k.jpg"
+				}
+			},
+			{
+				"type" : "class Animator",
+				"values" : 
+				{
+					"m_DynamicIndex" : 
+					[
+						{
+							"index" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0
+							},
+							"time" : 1.0
+						},
+						{
+							"index" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0
+							},
+							"time" : 0.5
+						},
+						{
+							"index" : 
+							{
+								"x" : 2.0,
+								"y" : 2.0
+							},
+							"time" : 0.20000000298023224
+						},
+						{
+							"index" : 
+							{
+								"x" : 3.0,
+								"y" : 3.0
+							},
+							"time" : 0.20000000298023224
+						}
+					],
+					"m_IndexMax" : 0,
+					"m_IndexMin" : 0,
+					"m_RefreshTime" : 0.0,
+					"m_isVertical" : false
+				}
+			}
+		],
+		"m_Name" : "Deserialize Test",
+		"m_isActive" : true
+	}
+]

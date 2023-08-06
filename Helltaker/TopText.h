@@ -19,6 +19,7 @@ class TopText : public Component
 {
 protected:
 	TextRenderer*		m_Text;
+	GameObject*			m_Player;
 	Camera*				m_Camera;
 
 public:

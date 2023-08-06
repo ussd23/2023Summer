@@ -55,6 +55,7 @@ protected:
     Vector2                 m_Position;
     Quaternion              m_Rotation;
     Vector2                 m_Scale;
+    vector<int>             m_ChildID;
 
 public:
     Vector2                 m_Size;
@@ -79,6 +80,7 @@ public:
     void SetScale(Vector2 p_Scale);
 
     int GetChildCount();
+    vector<int> GetChildID();
     RectTransform* GetChild(int p_Index);
     RectTransform* GetParent();
     template <class T> void FindChild(T* p_Comp);
@@ -93,6 +95,9 @@ public:
 
     SerializeFunction(RectTransform)
     {
+        m_ChildID.clear();
+        for (int i = 0; i < m_Childs.size(); ++i) m_ChildID.push_back(GameObject::ObjectID(m_Childs[i]));
+        VectorSerialize(m_ChildID);
         Serialize(m_Position);
         Serialize(m_Rotation);
         Serialize(m_Scale);
@@ -100,6 +105,7 @@ public:
     }
     DeserializeFunction()
     {
+        VectorDeserialize(m_ChildID);
         Deserialize(m_Position);
         Deserialize(m_Rotation);
         Deserialize(m_Scale);

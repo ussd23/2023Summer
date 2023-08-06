@@ -122,6 +122,11 @@ int RectTransform::GetChildCount()
 	return m_Childs.size();
 }
 
+vector<int> RectTransform::GetChildID()
+{
+	return m_ChildID;
+}
+
 RectTransform* RectTransform::GetChild(int _index)
 {
 	return m_Childs[_index];
