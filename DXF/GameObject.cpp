@@ -11,6 +11,14 @@
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 
+#define AddObjectToScene(object, parent) { Var::Objects.push_back(object);\
+        Transform* obj = GetComponentFromObject(object, Transform);\
+        Transform* par = GetComponentFromObject(parent, Transform);\
+        if (par != nullptr && obj != nullptr) par->AddChild(obj);\
+        else { RectTransform* robj = GetComponentFromObject(object, RectTransform);\
+        RectTransform* rpar = GetComponentFromObject(parent, RectTransform);\
+        if (rpar != nullptr && robj != nullptr) rpar->AddChild(robj); } }
+
 map<GameObject*, float> GameObject::m_SafeDestroy;
 
 bool GameObject::TransformCheck(const string& p_Key)
@@ -94,10 +102,96 @@ GameObject::~GameObject()
 	else if (Var::RootRectObject == this) Var::RootRectObject = nullptr;
 }
 
+Component* GameObject::GetComponent(const string& p_Key)
+{
+	string key = "class " + p_Key;
+
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
+	if (iter != m_ComponentsMap.end())
+	{
+		return iter->second;
+	}
+
+	return nullptr;
+}
+
+void GameObject::RemoveComponent(Component* p_Comp)
+{
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	while (iter != m_Components.end())
+	{
+		if (p_Comp == (*iter)())
+		{
+			m_Components.erase(iter);
+			break;
+		}
+		++iter;
+	}
+
+	for (pair<string, Component*> pair : m_ComponentsMap)
+	{
+		if (pair.second == p_Comp)
+		{
+			m_ComponentsMap.erase(pair.first);
+			break;
+		}
+	}
+}
+
 bool GameObject::isActive()
 {
 	if (m_isActive) return true;
 	else return false;
+}
+
+void GameObject::SetActive(bool p_isActive)
+{
+	if (m_isActive == p_isActive) return;
+
+	m_isActive = p_isActive;
+
+	if (m_isActive)
+	{
+		list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+		while (iter != m_Components.end())
+		{
+			(*iter++)->OnEnabled();
+		}
+	}
+	else
+	{
+		list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+		while (iter != m_Components.end())
+		{
+			(*iter++)->OnDisabled();
+		}
+	}
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+	if (transform != nullptr)
+	{
+		for (int i = 0; i < transform->GetChildCount(); ++i)
+		{
+			transform->GetChild(i)->gameObject->SetActive(m_isActive);
+		}
+	}
+	else if (recttransform != nullptr)
+	{
+		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		{
+			recttransform->GetChild(i)->gameObject->SetActive(m_isActive);
+		}
+	}
+}
+
+void GameObject::ObjectInit(Component* p_Comp)
+{
+	p_Comp->gameObject = this;
+	Var::NewComponents.push_back(p_Comp);
 }
 
 void GameObject::PreUpdate()
@@ -223,92 +317,6 @@ void GameObject::PreRender()
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
 			recttransform->GetChild(i)->gameObject->PreRender();
-		}
-	}
-}
-
-void GameObject::SetActive(bool p_isActive)
-{
-	if (m_isActive == p_isActive) return;
-
-	m_isActive = p_isActive;
-
-	if (m_isActive)
-	{
-		list<SPTR<Component>>::iterator iter = m_Components.begin();
-
-		while (iter != m_Components.end())
-		{
-			(*iter++)->OnEnabled();
-		}
-	}
-	else
-	{
-		list<SPTR<Component>>::iterator iter = m_Components.begin();
-
-		while (iter != m_Components.end())
-		{
-			(*iter++)->OnDisabled();
-		}
-	}
-
-	Transform* transform = GetComponentFromObject(this, Transform);
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
-	if (transform != nullptr)
-	{
-		for (int i = 0; i < transform->GetChildCount(); ++i)
-		{
-			transform->GetChild(i)->gameObject->SetActive(m_isActive);
-		}
-	}
-	else if (recttransform != nullptr)
-	{
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
-		{
-			recttransform->GetChild(i)->gameObject->SetActive(m_isActive);
-		}
-	}
-}
-
-void GameObject::ObjectInit(Component* p_Comp)
-{
-	p_Comp->gameObject = this;
-	Var::NewComponents.push_back(p_Comp);
-}
-
-Component* GameObject::GetComponent(const string& p_Key)
-{
-	string key = "class " + p_Key;
-
-	map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
-	if (iter != m_ComponentsMap.end())
-	{
-		return iter->second;
-	}
-
-	return nullptr;
-}
-
-void GameObject::RemoveComponent(Component* p_Comp)
-{
-	list<SPTR<Component>>::iterator iter = m_Components.begin();
-
-	while (iter != m_Components.end())
-	{
-		if (p_Comp == (*iter)())
-		{
-			m_Components.erase(iter);
-			break;
-		}
-		++iter;
-	}
-	
-	for (pair<string, Component*> pair : m_ComponentsMap)
-	{
-		if (pair.second == p_Comp)
-		{
-			m_ComponentsMap.erase(pair.first);
-			break;
 		}
 	}
 }

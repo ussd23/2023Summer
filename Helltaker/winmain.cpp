@@ -61,5 +61,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
     }
 
     UnregisterClass("DXF", wc.hInstance);
+    Helltaker::Cleanup();
     return 0;
 }

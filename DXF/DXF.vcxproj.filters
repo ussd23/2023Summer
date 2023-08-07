@@ -123,6 +123,9 @@
     <ClCompile Include="Serializable.cpp">
       <Filter>1. Functions</Filter>
     </ClCompile>
+    <ClCompile Include="PrebuiltObjects.cpp">
+      <Filter>3. Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -197,9 +200,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>3. Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>3. Object</Filter>
-    </ClInclude>
     <ClInclude Include="Functions.h">
       <Filter>1. Functions</Filter>
     </ClInclude>
@@ -232,6 +232,12 @@
     </ClInclude>
     <ClInclude Include="Serializable.h">
       <Filter>1. Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>3. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PrebuiltObjects.h">
+      <Filter>3. Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

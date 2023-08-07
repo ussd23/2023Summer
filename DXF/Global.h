@@ -5,25 +5,27 @@
 //
 //		[Class]
 //		- Variables: Global 변수
-//			- m_Objects: 오브젝트 목록 (생성 순서대로 push_back)
-//			- m_ColliderObjects: Collider를 사용하는 오브젝트 목록
-//			- m_RootObject: Transform 소유 최상위 Parent 오브젝트
-//			- m_RootTransform: m_RootObject의 Transform 컴포넌트
-//			- m_RootRectObject: RectTransform 소유 최상위 Parent 오브젝트
-//			- m_RootRectTransform: m_RootRectObject의 RectTransform 컴포넌트
-//			- m_NewComponents: 새로 만들어진 컴포넌트 (Start를 위함)
+//			- Objects: 오브젝트 목록 (생성 순서대로 push_back)
+//			- ColliderObjects: Collider를 사용하는 오브젝트 목록
+//			- RootObject: Transform 소유 최상위 Parent 오브젝트
+//			- RootTransform: m_RootObject의 Transform 컴포넌트
+//			- RootRectObject: RectTransform 소유 최상위 Parent 오브젝트
+//			- RootRectTransform: m_RootRectObject의 RectTransform 컴포넌트
+//			- NewComponents: 새로 만들어진 컴포넌트 (Awake를 위함)
+//			- WaitComponents: Awake 된 컴포넌트 (Start를 위함)
 // 
-//			- m_Frustum: 절두체 컬링 사용을 위한 클래스
-//			- m_CullingObjects: 렌더링한 오브젝트 수
-//			- m_TransformRenderList: 렌더링할 Transform 오브젝트 리스트
-//			- m_RectTransformRenderList: 렌더링할 RectTransform 오브젝트 리스트
+//			- Frustum: 절두체 컬링 사용을 위한 클래스
+//			- CullingObjects: 렌더링한 오브젝트 수
+//			- TransformRenderList: 렌더링할 Transform 오브젝트 리스트
+//			- RectTransformRenderList: 렌더링할 RectTransform 오브젝트 리스트
 // 
 //		- Input: Input 변수
-//			- m_Mouse: 마우스의 입력 버퍼
-//			- m_MousePosition: 마우스 포인터의 좌표 값
-//			- m_MouseRaycast: 마우스 포인터의 월드상 좌표 및 직선의 Raycast 정보
-//			- m_Key: 키보드의 입력 버퍼 (입력 시점에만 적용)
-//			- m_KeyHold: 키보드의 입력 버퍼 (입력 중인 상태인 경우 매 프레임마다 적용)
+//			- Mouse: 마우스의 입력 버퍼
+//			- MousePosition: 마우스 포인터의 좌표 값
+//			- MouseRaycast: 마우스 포인터의 월드상 좌표 및 직선의 Raycast 정보
+//			- Key: 키보드의 입력 버퍼 (입력 시점에만 적용)
+//			- KeyHold: 키보드의 입력 버퍼 (입력 중인 상태인 경우 매 프레임마다 적용)
+// 
 //			- InputBufferReset: 입력 버퍼 초기화 작업 실행
 // 
 //		- Time: Time 변수
@@ -44,14 +46,15 @@
 class GameObject;
 class Transform;
 class RectTransform;
-class Frustum;
+class MouseFunction;
 class Renderer;
+class Frustum;
 
 #define SCREENSIZEX 1600
 #define SCREENSIZEY 900
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
-class Variables
+typedef class Variables
 {
 public:
 	static list<SPTR<GameObject>>	Objects;
@@ -61,15 +64,14 @@ public:
 	static GameObject*				RootRectObject;
 	static RectTransform*			RootRectTransform;
 	static vector<Component*>		NewComponents;
+	static list<Component*>			WaitComponents;
 
 	static RECT						ScreenRect;
 	static Frustum*					Frustum;
 	static int						CullingObjects;
 	static vector<Renderer*>		TransformRenderList;
 	static vector<Renderer*>		RectTransformRenderList;
-};
-
-using Var = Variables;
+} Global, Var;
 
 enum MouseInput
 {

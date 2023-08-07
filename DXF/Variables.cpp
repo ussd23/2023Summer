@@ -8,6 +8,7 @@ Transform* Variables::RootTransform;
 GameObject* Variables::RootRectObject;
 RectTransform* Variables::RootRectTransform;
 vector<Component*> Variables::NewComponents;
+list<Component*> Variables::WaitComponents;
 
 RECT Variables::ScreenRect;
 Frustum* Variables::Frustum;

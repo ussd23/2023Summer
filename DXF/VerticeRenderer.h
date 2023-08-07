@@ -35,13 +35,13 @@ protected:
 	Transform*				m_Transform;
 	string					m_TextureName;
 	LPDIRECT3DTEXTURE9		m_Texture = NULL;
-	vector<Vertex>			m_Vertices;
 	float					m_FarthestDistance;
 	D3DPRIMITIVETYPE		m_Type;
 	UINT					m_StartVertex;
 	UINT					m_Count;
 
 public:
+	vector<Vertex>			m_Vertices;
 	Vector2					m_RectSize;
 	Vector2					m_RectIndex;
 

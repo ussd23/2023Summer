@@ -10,7 +10,6 @@
 //      - GetDistanceSquare: 두 좌표 사이의 거리의 제곱 반환
 //
 //      [Macro]
-//      - AddObjectToScene: 오브젝트를 처음 생성시 사용
 //      - AddComponentToObject: 오브젝트에 컴포넌트 추가
 //      - GetComponentFromObject: 오브젝트에서 특정 컴포넌트 반환 (해당 오브젝트
 //                                또는 컴포넌트가 없을 경우 nullptr 반환)
@@ -48,17 +47,9 @@ template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
     return p_Start + p_LerpT * (p_End - p_Start);
 }
 
-#define AddObjectToScene(object, parent) { Var::Objects.push_back(object);\
-        Transform* obj = GetComponentFromObject(object, Transform);\
-        Transform* par = GetComponentFromObject(parent, Transform);\
-        if (par != nullptr && obj != nullptr) par->AddChild(obj);\
-        else { RectTransform* robj = GetComponentFromObject(object, RectTransform);\
-        RectTransform* rpar = GetComponentFromObject(parent, RectTransform);\
-        if (rpar != nullptr && robj != nullptr) rpar->AddChild(robj); } }
-#define AddObjectToSceneComponent(parent, transform) Var::Objects.push_back(transform->gameObject);\
-        parent->AddChild(transform);
 #define AddComponentToObject(object, component) object->AddComponent(component)
 #define GetComponentFromObject(object, type) GameObject::Exists(object) ? dynamic_cast<type*>(object->GetComponent(#type)) : nullptr
+#define ComponentRegist(type) ComponentManager::RegisterComponent<type>(typeid(type).name())
 
 #define SetInputBuffer(object, type, value) if (Input::object.find(type) == Input::object.end()) Input::object.insert(make_pair(type, value));\
         else Input::object[type] = value

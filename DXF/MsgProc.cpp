@@ -58,7 +58,6 @@ LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
         return 0;
 
     case WM_DESTROY:
-        Cleanup();
         PostQuitMessage(0);
         return 0;
     }

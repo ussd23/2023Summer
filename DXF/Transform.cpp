@@ -136,14 +136,21 @@ Transform* Transform::GetParent()
 	return m_Parent;
 }
 
+void Transform::SetParent(Transform* p_Parent)
+{
+	p_Parent->AddChild(this);
+}
+
 void Transform::AddChild(Transform* p_Child)
 {
+	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
 	p_Child->m_Parent = this;
 	m_Childs.push_back(p_Child);
 }
 
 void Transform::AddChildAsFirst(Transform* p_Child)
 {
+	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
 	p_Child->m_Parent = this;
 	m_Childs.insert(m_Childs.begin(), p_Child);
 }

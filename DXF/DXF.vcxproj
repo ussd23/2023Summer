@@ -155,6 +155,7 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MouseFunction.cpp" />
     <ClCompile Include="MsgProc.cpp" />
+    <ClCompile Include="PrebuiltObjects.cpp" />
     <ClCompile Include="Raycast.cpp" />
     <ClCompile Include="RectTransform.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MouseFunction.h" />
+    <ClInclude Include="PrebuiltObjects.h" />
     <ClInclude Include="Raycast.h" />
     <ClInclude Include="RectTransform.h" />
     <ClInclude Include="ComponentHeader.h" />

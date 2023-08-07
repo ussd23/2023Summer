@@ -79,6 +79,7 @@ public:
     vector<int> GetChildID();
     Transform* GetChild(int p_Index);
     Transform* GetParent();
+    void SetParent(Transform* p_Parent);
     template <class T> void FindChild(T* p_Comp);
 
     void AddChild(Transform* p_Child);
