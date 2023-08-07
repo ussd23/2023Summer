@@ -122,7 +122,7 @@ void Helltaker::InitObject()
     gameObject = new GameObject("btn");
     rect = new RectTransform(Vector2(300, SCREENSIZEY - 50), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100));
     AddComponentToObject(gameObject, rect);
-    Button* btn = new Button("earthmap1k.jpg", 0xffffffff, Vector2(4, 4), Vector2(0, 0));
+    Button* btn = new Button("earthmap1k.jpg", 0xffffffff, Vector2(2, 2), Vector2(0, 0));
     AddComponentToObject(gameObject, btn);
     //ButtonTest* test = new ButtonTest();
     //AddComponentToObject(gameObject, test);
@@ -146,6 +146,47 @@ void Helltaker::InitObject()
     Checkbox* ckb = new Checkbox();
     AddComponentToObject(gameObject, ckb);
     
+    // viewbox
+    gameObject = new GameObject("viewbox");
+    rect = new RectTransform(Vector2(700, SCREENSIZEY - 80), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(150, 100));
+    AddComponentToObject(gameObject, rect);
+    AddObjectToScene(gameObject, g_RootRectTransform, rect);
+    ViewBox* vb = new ViewBox();
+    AddComponentToObject(gameObject, vb);
+
+    // contentbox
+    gameObject = new GameObject("contentbox");
+    childrect = new RectTransform(Vector2(0, 100), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 200));
+    AddComponentToObject(gameObject, childrect);
+    AddObjectToScene(gameObject, rect, childrect);
+    ContentBox* ctb = new ContentBox();
+    AddComponentToObject(gameObject, ctb);
+
+    // content Sprite
+    gameObject = new GameObject("content Sprite");
+    RectTransform* childrect2 = new RectTransform(Vector2(0, 40), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(200, 100));
+    AddComponentToObject(gameObject, childrect2);
+    AddObjectToScene(gameObject, childrect, childrect2);
+    spr = new SpriteRenderer("earthmap1k.jpg", Vector2(2, 2), Vector2(0, 0));
+    AddComponentToObject(gameObject, spr);
+
+    // content Text
+    gameObject = new GameObject("content Text");
+    childrect2 = new RectTransform(Vector2(0, -20), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(100, 100));
+    AddComponentToObject(gameObject, childrect2);
+    AddObjectToScene(gameObject, childrect, childrect2);
+    text = new TextRenderer("¸¼Àº °íµñ", 28, "");
+    AddComponentToObject(gameObject, text);
+    btext = new BtnText();
+    AddComponentToObject(gameObject, btext);
+
+    // scroll
+    gameObject = new GameObject("scroll");
+    childrect = new RectTransform(Vector2(130, 0), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(15, 100));
+    AddComponentToObject(gameObject, childrect);
+    AddObjectToScene(gameObject, rect, childrect);
+    Scroll* scr = new Scroll();
+    AddComponentToObject(gameObject, scr);
 
 
 

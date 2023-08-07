@@ -1,6 +1,3 @@
-//spriterenderer대신 넣으면 됨
-//텍스쳐 두개 사이에서 왔다갔다 할테니까 생성자에서 텍스쳐 이름 뺌
-
 #pragma once
 #include "Component.h"
 #include "DXHeader.h"

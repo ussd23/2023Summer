@@ -54,6 +54,8 @@ public:
 	virtual void OnMouseDown() {};
 	virtual void OnMouseUp() {};
 	virtual void OnMouseHold() {};
+	virtual void OnWheelDown() {};
+	virtual void OnWheelUp() {};
 
 	virtual void OnTriggerEnter(Collider*) {};
 	virtual void OnTriggerExit(Collider*) {};

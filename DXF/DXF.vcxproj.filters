@@ -120,6 +120,15 @@
     <ClCompile Include="Checkbox.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
+    <ClCompile Include="ContentBox.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scroll.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewBox.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -228,6 +237,15 @@
       <Filter>1. Functions</Filter>
     </ClInclude>
     <ClInclude Include="Checkbox.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentBox.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scroll.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewBox.h">
       <Filter>4. Components</Filter>
     </ClInclude>
   </ItemGroup>

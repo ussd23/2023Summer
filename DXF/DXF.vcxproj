@@ -142,6 +142,7 @@
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Cleanup.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ContentBox.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Functions.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="RectTransform.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -166,6 +168,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="VerticeRenderer.cpp" />
+    <ClCompile Include="ViewBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxCollider.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ContentBox.h" />
     <ClInclude Include="CustomVertex.h" />
     <ClInclude Include="DXHeader.h" />
     <ClInclude Include="EventManager.h" />
@@ -192,6 +196,7 @@
     <ClInclude Include="RectTransform.h" />
     <ClInclude Include="ComponentHeader.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scroll.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="SpriteRenderer.h" />
@@ -201,6 +206,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="VerticeRenderer.h" />
+    <ClInclude Include="ViewBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

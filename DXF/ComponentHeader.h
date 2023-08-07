@@ -33,3 +33,6 @@
 #include "UI.h"
 #include "Button.h"
 #include "Checkbox.h"
+#include "ContentBox.h"
+#include "Scroll.h"
+#include "ViewBox.h"
