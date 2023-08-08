@@ -1,7 +1,7 @@
 ﻿#include "ComponentHeader.h"
 #include "Scripts.h"
 
-void Helltaker::InitObject()
+void Sample::InitObject()
 {
     SceneManager::LoadScene("scene1");
 

@@ -1,7 +1,7 @@
 #include "ComponentHeader.h"
 #include "Scripts.h"
 
-void Helltaker::ScriptRegister()
+void Sample::ScriptRegister()
 {
     ComponentRegist(CameraMove);
     ComponentRegist(ObjectMove);

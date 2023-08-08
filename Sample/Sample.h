@@ -1,7 +1,7 @@
 #pragma once
 #include "DXHeader.h"
 
-class Helltaker : public DXFGame
+class Sample : public DXFGame
 {
 public:
 	static void InitObject();

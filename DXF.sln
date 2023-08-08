@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXF", "DXF\DXF.vcxproj", "{7E519F01-6CE6-45BB-AAE2-A6B099200574}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Helltaker", "Helltaker\Helltaker.vcxproj", "{3940DCCA-3D59-42F4-9571-30188E2CDA0F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample", "Sample\Sample.vcxproj", "{3940DCCA-3D59-42F4-9571-30188E2CDA0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

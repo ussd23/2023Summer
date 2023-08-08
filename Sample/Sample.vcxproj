@@ -24,6 +24,7 @@
     <ProjectGuid>{3940dcca-3d59-42f4-9571-30188e2cda0f}</ProjectGuid>
     <RootNamespace>Helltaker</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Sample</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -159,7 +160,7 @@
     <ClInclude Include="BtnText.h" />
     <ClInclude Include="ButtonTest.h" />
     <ClInclude Include="CameraMove.h" />
-    <ClInclude Include="Helltaker.h" />
+    <ClInclude Include="Sample.h" />
     <ClInclude Include="ObjectMove.h" />
     <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="Scripts.h" />

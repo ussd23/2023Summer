@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CallBack.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Cleanup.cpp" />

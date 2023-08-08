@@ -6,7 +6,7 @@
 
 #pragma once
 // 게임 헤더
-#include "Helltaker.h"
+#include "Sample.h"
 
 // 컴포넌트 및 글로벌 변수 헤더
 #include "ComponentHeader.h"

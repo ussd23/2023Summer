@@ -56,7 +56,7 @@
     <ClInclude Include="TopText.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Helltaker.h">
+    <ClInclude Include="Sample.h">
       <Filter>0. Core</Filter>
     </ClInclude>
     <ClInclude Include="BtnText.h">

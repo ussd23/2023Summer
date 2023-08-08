@@ -2,7 +2,7 @@
 #include "DXHeader.h"
 #include "Global.h"
 #include "GameObject.h"
-#include "Helltaker.h"
+#include "Sample.h"
 
 INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
@@ -11,7 +11,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
     WNDCLASSEX wc =
     {
-        sizeof(WNDCLASSEX), CS_CLASSDC, Helltaker::MsgProc, 0L, 0L,
+        sizeof(WNDCLASSEX), CS_CLASSDC, Sample::MsgProc, 0L, 0L,
         GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
         "DXF", NULL
     };
@@ -21,15 +21,15 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         WS_OVERLAPPEDWINDOW, 100, 100, SCREENSIZEX + 16, SCREENSIZEY + 39,
         NULL, NULL, wc.hInstance, NULL);
 
-    if (SUCCEEDED(Helltaker::InitD3D(hWnd)))
+    if (SUCCEEDED(Sample::InitD3D(hWnd)))
     {
         ShowWindow(hWnd, SW_SHOWDEFAULT);
         UpdateWindow(hWnd);
 
-        Helltaker::ComponentRegister();
-        Helltaker::ScriptRegister();
+        Sample::ComponentRegister();
+        Sample::ScriptRegister();
 
-        Helltaker::InitObject();
+        Sample::InitObject();
 
         MSG msg;
         ZeroMemory(&msg, sizeof(msg));
@@ -47,13 +47,13 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
             }
 
             // Start
-            Helltaker::Start();
+            Sample::Start();
 
             // Update
-            Helltaker::Update();
+            Sample::Update();
 
             // Render
-            if (FAILED(Helltaker::Render())) break;
+            if (FAILED(Sample::Render())) break;
 
             // SafeDestroy
             GameObject::SafeDestroy();
@@ -61,6 +61,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
     }
 
     UnregisterClass("DXF", wc.hInstance);
-    Helltaker::Cleanup();
+    Sample::Cleanup();
     return 0;
 }
