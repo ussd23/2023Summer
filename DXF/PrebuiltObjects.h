@@ -45,3 +45,27 @@ class TextObject : public GameObject
 public:
 	TextObject(string p_Name, Vector2 p_Size, Vector2 p_Position, string p_FontName, int p_FontSize, string p_Text);
 };
+
+class ButtonObject : public GameObject
+{
+public:
+	ButtonObject(string p_Name, Vector2 p_Size, Vector2 p_Position, string p_TextureName);
+};
+
+class CheckBoxObject : public GameObject
+{
+public:
+	CheckBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
+};
+
+class ContentBoxObject : public GameObject
+{
+public:
+	ContentBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
+};
+
+class ViewBoxObject : public GameObject
+{
+public:
+	ViewBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
+};

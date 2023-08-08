@@ -94,3 +94,76 @@ TextObject::TextObject(string p_Name, Vector2 p_Size, Vector2 p_Position, string
 	Var::Objects.push_back(this);
 	Var::RootRectTransform->AddChild(recttransform);
 }
+
+ButtonObject::ButtonObject(string p_Name, Vector2 p_Size, Vector2 p_Position, string p_TextureName)
+	: GameObject(p_Name)
+{
+	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
+	AddComponent(recttransform);
+
+	SpriteRenderer* sprite = new SpriteRenderer(p_TextureName);
+	AddComponent(sprite);
+
+	MouseFunction* mouse = new MouseFunction(true);
+	AddComponent(mouse);
+
+	Button* button = new Button();
+	AddComponent(button);
+
+	Var::Objects.push_back(this);
+	Var::RootRectTransform->AddChild(recttransform);
+}
+
+CheckBoxObject::CheckBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position)
+	: GameObject(p_Name)
+{
+	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
+	AddComponent(recttransform);
+
+	SpriteRenderer* sprite = new SpriteRenderer("system\\CheckBoxOff.png");
+	AddComponent(sprite);
+
+	MouseFunction* mouse = new MouseFunction(true);
+	AddComponent(mouse);
+
+	CheckBox* checkBox = new CheckBox("system\\CheckBoxOff.png", "system\\CheckBoxOn.png");
+	AddComponent(checkBox);
+
+	Var::Objects.push_back(this);
+	Var::RootRectTransform->AddChild(recttransform);
+}
+
+ContentBoxObject::ContentBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position)
+	: GameObject(p_Name)
+{
+	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
+	AddComponent(recttransform);
+
+	SpriteRenderer* sprite = new SpriteRenderer("system\\default.png");
+	AddComponent(sprite);
+
+	ContentBox* contentBox = new ContentBox();
+	AddComponent(contentBox);
+
+	Var::Objects.push_back(this);
+	Var::RootRectTransform->AddChild(recttransform);
+}
+
+ViewBoxObject::ViewBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position)
+	: GameObject(p_Name)
+{
+	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
+	AddComponent(recttransform);
+
+	SpriteRenderer* sprite = new SpriteRenderer("system\\default.png");
+	AddComponent(sprite);
+
+	MouseFunction* mouse = new MouseFunction(true);
+	AddComponent(mouse);
+
+	ViewBox* viewBox = new ViewBox();
+	AddComponent(viewBox);
+
+	Var::Objects.push_back(this);
+	Var::RootRectTransform->AddChild(recttransform);
+}

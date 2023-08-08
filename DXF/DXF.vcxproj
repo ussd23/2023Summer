@@ -140,10 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CallBack.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Cleanup.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="ContentBox.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Functions.cpp" />
@@ -172,13 +176,18 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Variables.cpp" />
     <ClCompile Include="VerticeRenderer.cpp" />
+    <ClCompile Include="ViewBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CallBack.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ContentBox.h" />
     <ClInclude Include="CustomVertex.h" />
     <ClInclude Include="DXHeader.h" />
     <ClInclude Include="FontManager.h" />
@@ -208,6 +217,7 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="VerticeRenderer.h" />
+    <ClInclude Include="ViewBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

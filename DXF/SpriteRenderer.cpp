@@ -75,3 +75,18 @@ void SpriteRenderer::Render()
     DXFGame::m_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
     DXFGame::m_pSprite->End();
 }
+
+void SpriteRenderer::ChangeSprite(string p_TextureName)
+{
+    m_TextureName = p_TextureName;
+
+    if (m_TextureName.size() <= 0) return;
+
+    m_Texture = TextureManager::GetInstance()->GetTexture(m_TextureName);
+
+    if (m_Texture == NULL) return;
+
+    D3DSURFACE_DESC desc;
+    m_Texture->GetLevelDesc(0, &desc);
+    SetRect(&m_TextureSize, 0, 0, desc.Width, desc.Height);
+}

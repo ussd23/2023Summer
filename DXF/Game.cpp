@@ -17,7 +17,10 @@ void DXFGame::ComponentRegister()
 {
     ComponentRegist(Animator);
     ComponentRegist(BoxCollider);
+    ComponentRegist(Button);
     ComponentRegist(Camera);
+    ComponentRegist(CheckBox);
+    ComponentRegist(ContentBox);
     ComponentRegist(MeshRenderer);
     ComponentRegist(MouseFunction);
     ComponentRegist(RectTransform);
@@ -26,6 +29,7 @@ void DXFGame::ComponentRegister()
     ComponentRegist(TextRenderer);
     ComponentRegist(Transform);
     ComponentRegist(VerticeRenderer);
+    ComponentRegist(ViewBox);
 }
 
 void DXFGame::Start()

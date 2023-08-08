@@ -148,7 +148,7 @@
 				"type" : "class RectTransform",
 				"values" : 
 				{
-					"m_ChildID" : [ 2, 111 ],
+					"m_ChildID" : [ 2, 111, 112, 114, 115 ],
 					"m_Position" : 
 					{
 						"x" : 0.0,
@@ -6210,6 +6210,430 @@
 			}
 		],
 		"m_Name" : "Sprite",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 113 ],
+					"m_Position" : 
+					{
+						"x" : 300.0,
+						"y" : 850.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 200.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "earthmap1k.jpg"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class Button",
+				"values" : null
+			},
+			{
+				"type" : "class ButtonTest",
+				"values" : null
+			},
+			{
+				"type" : "class BtnText",
+				"values" : 
+				{
+					"m_Text" : ""
+				}
+			}
+		],
+		"m_Name" : "btn",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 10.0,
+						"y" : 30.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 28,
+					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			}
+		],
+		"m_Name" : "Text",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 500.0,
+						"y" : 850.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 50.0,
+						"y" : 50.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\CheckBoxOff.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class CheckBox",
+				"values" : 
+				{
+					"m_CheckedTextureName" : "system\\CheckBoxOn.png",
+					"m_DefaultTextureName" : "system\\CheckBoxOff.png",
+					"m_isChecked" : false
+				}
+			}
+		],
+		"m_Name" : "CheckBox",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 116 ],
+					"m_Position" : 
+					{
+						"x" : 700.0,
+						"y" : 820.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 150.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4284506208,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\default.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class ViewBox",
+				"values" : null
+			}
+		],
+		"m_Name" : "viewbox",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 117, 118 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 100.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 200.0,
+						"y" : 200.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 553648127,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\default.png"
+				}
+			},
+			{
+				"type" : "class ContentBox",
+				"values" : null
+			}
+		],
+		"m_Name" : "contentbox",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 40.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 200.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "earthmap1k.jpg"
+				}
+			}
+		],
+		"m_Name" : "content Sprite",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : -20.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 28,
+					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class BtnText",
+				"values" : 
+				{
+					"m_Text" : ""
+				}
+			}
+		],
+		"m_Name" : "content Text",
 		"m_isActive" : true
 	}
 ]

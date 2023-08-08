@@ -181,6 +181,13 @@ void RectTransform::SetAsLastSibling()
 	m_Parent->AddChild(this);
 }
 
+void RectTransform::Start()
+{
+	m_ScreenPosition = SetScreenPosition();
+	m_ScreenRotation = SetScreenRotation();
+	m_ScreenScale = SetScreenScale();
+}
+
 void RectTransform::LateUpdate()
 {
 	m_ScreenPosition = SetScreenPosition();

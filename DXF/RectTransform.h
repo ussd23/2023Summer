@@ -92,6 +92,7 @@ public:
     void SetAsFirstSibling();
     void SetAsLastSibling();
 
+    void Start() override;
     void LateUpdate() override;
 
     SerializeFunction(RectTransform)

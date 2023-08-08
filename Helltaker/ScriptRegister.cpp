@@ -7,4 +7,6 @@ void Helltaker::ScriptRegister()
     ComponentRegist(ObjectMove);
     ComponentRegist(PlayerMove);
     ComponentRegist(TopText);
+    ComponentRegist(BtnText);
+    ComponentRegist(ButtonTest);
 }

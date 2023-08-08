@@ -180,6 +180,13 @@ void Transform::SetAsLastSibling()
 	m_Parent->AddChild(this);
 }
 
+void Transform::Start()
+{
+	m_WorldPosition = SetWorldPosition();
+	m_WorldRotation = SetWorldRotation();
+	m_WorldScale = SetWorldScale();
+}
+
 void Transform::LateUpdate()
 {
 	m_WorldPosition = SetWorldPosition();

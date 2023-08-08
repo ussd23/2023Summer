@@ -121,6 +121,26 @@ void MouseFunction::LateUpdate()
 				(*iter++)->OnMouseHold();
 			}
 		}
+
+		if ((GetInputBuffer(Mouse, MouseInput::WHEELUP)))
+		{
+			list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
+
+			while (iter != gameObject->m_Components.end())
+			{
+				(*iter++)->OnWheelUp();
+			}
+		}
+
+		if ((GetInputBuffer(Mouse, MouseInput::WHEELDOWN)))
+		{
+			list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
+
+			while (iter != gameObject->m_Components.end())
+			{
+				(*iter++)->OnWheelDown();
+			}
+		}
 	}
 }
 

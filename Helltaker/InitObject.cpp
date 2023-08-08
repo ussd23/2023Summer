@@ -104,5 +104,46 @@ void Helltaker::InitObject()
     animator = new Animator(avec);
     AddComponentToObject(gameObject, animator);
 
+    // button
+    gameObject = new ButtonObject("btn", Vector2(200, 100), Vector2(300, SCREENSIZEY - 50), "earthmap1k.jpg");
+    ButtonTest* test = new ButtonTest();
+    AddComponentToObject(gameObject, test);
+
+    // button text
+    childObject = new TextObject("Text", Vector2(100, 100), Vector2(10, 30), "맑은 고딕", 28, "");
+    BtnText* btext = new BtnText();
+    AddComponentToObject(gameObject, btext);
+    RectTransform* recttransform = GetComponentFromObject(gameObject, RectTransform);
+    RectTransform* childrecttransform = GetComponentFromObject(childObject, RectTransform);
+    recttransform->AddChild(childrecttransform);
+
+    // CheckBox
+    gameObject = new CheckBoxObject("CheckBox", Vector2(50, 50), Vector2(500, SCREENSIZEY - 50));
+
+    // viewbox
+    gameObject = new ViewBoxObject("viewbox", Vector2(150, 100), Vector2(700, SCREENSIZEY - 80));
+    sprite = GetComponentFromObject(gameObject, SpriteRenderer);
+    sprite->m_Color = 0xff606060;
+
+    // contentbox
+    childObject = new ContentBoxObject("contentbox", Vector2(200, 200), Vector2(0, 100));
+    recttransform = GetComponentFromObject(gameObject, RectTransform);
+    childrecttransform = GetComponentFromObject(childObject, RectTransform);
+    recttransform->AddChild(childrecttransform);
+    sprite = GetComponentFromObject(childObject, SpriteRenderer);
+    sprite->m_Color = 0x20ffffff;
+
+    // content Sprite
+    GameObject* childChildObject = new SpriteObject("content Sprite", Vector2(200, 100), Vector2(0, 40), "earthmap1k.jpg");
+    RectTransform* childChildRecttransform = GetComponentFromObject(childChildObject, RectTransform);
+    childrecttransform->AddChild(childChildRecttransform);
+
+    // content Text
+    childChildObject = new TextObject("content Text", Vector2(100, 100), Vector2(0, -20), "맑은 고딕", 28, "");
+    btext = new BtnText();
+    AddComponentToObject(childChildObject, btext);
+    childChildRecttransform = GetComponentFromObject(childChildObject, RectTransform);
+    childrecttransform->AddChild(childChildRecttransform);
+
     SceneManager::SaveScene("scene1");
 }

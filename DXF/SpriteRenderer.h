@@ -46,6 +46,8 @@ public:
 	void PreRender() override;
 	void Render() override;
 
+	void ChangeSprite(string p_TextureName);
+
 	SerializeFunction(SpriteRenderer)
 	{
 		Serialize(m_TextureName);
