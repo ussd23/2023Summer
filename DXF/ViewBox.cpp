@@ -152,14 +152,15 @@ void ViewBox::OnWheelUp()
     rectRB.x = rect->GetScreenPosition().x + (rect->size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
     rectRB.y = rect->GetScreenPosition().y + (rect->size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
 
-    if (childRB.y > rectRB.y)
+
+    if (childLT.y < rectLT.y)
     {
-        child->position.y -= 5;
+        child->position.y += 5;
     }
 
-    if (childRB.y < rectRB.y)
+    if (childLT.y > rectLT.y)
     {
-        gap.y = childRB.y - rectRB.y;
+        gap.y = childLT.y - rectLT.y;
 
         child->position.y = child->position.y - gap.y;
     }
@@ -182,14 +183,14 @@ void ViewBox::OnWheelDown()
     rectRB.x = rect->GetScreenPosition().x + (rect->size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
     rectRB.y = rect->GetScreenPosition().y + (rect->size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
 
-    if (childLT.y < rectLT.y)
+    if (childRB.y > rectRB.y)
     {
-        child->position.y += 5;
+        child->position.y -= 5;
     }
 
-    if (childLT.y > rectLT.y)
+    if (childRB.y < rectRB.y)
     {
-        gap.y = childLT.y - rectLT.y;
+        gap.y = childRB.y - rectRB.y;
 
         child->position.y = child->position.y - gap.y;
     }
