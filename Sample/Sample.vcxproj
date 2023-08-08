@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{3940dcca-3d59-42f4-9571-30188e2cda0f}</ProjectGuid>
-    <RootNamespace>Helltaker</RootNamespace>
+    <RootNamespace>Sample</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Sample</ProjectName>
   </PropertyGroup>
