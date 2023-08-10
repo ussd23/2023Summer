@@ -123,12 +123,14 @@ void Transform::SetRotation(Quaternion p_Rotation)
 {
 	m_Rotation = p_Rotation;
 	SetWorldRotation();
+	SetWorldPosition();
 }
 
 void Transform::SetScale(Vector3 p_Scale)
 {
 	m_Scale = p_Scale;
 	SetWorldScale();
+	SetWorldPosition();
 }
 
 int Transform::GetChildCount()
