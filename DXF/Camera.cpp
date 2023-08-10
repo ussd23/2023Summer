@@ -22,8 +22,3 @@ void Camera::Start()
 {
     m_Transform = GetComponentFromObject(gameObject, Transform);
 }
-
-void Camera::Update()
-{
-    m_EyePt = m_Transform->GetWorldPosition();
-}

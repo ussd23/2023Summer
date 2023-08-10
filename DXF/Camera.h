@@ -23,7 +23,6 @@ public:
 
 	Transform*		m_Transform;
 	Vector3			m_LookatPt;
-	Vector3			m_EyePt;
 	Vector3			m_UpVec;
 	float			m_FovRate = 1.0f;
 
@@ -33,7 +32,6 @@ public:
 
 	void Awake() override;
 	void Start() override;
-	void Update() override;
 
 	SerializeFunction(Camera)
 	{

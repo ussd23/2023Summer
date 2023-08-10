@@ -278,7 +278,10 @@
 			},
 			{
 				"type" : "class CameraMove",
-				"values" : null
+				"values" : 
+				{
+					"m_LerpT" : 5.0
+				}
 			}
 		],
 		"m_Name" : "MainCamera",

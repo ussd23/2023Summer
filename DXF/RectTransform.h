@@ -61,9 +61,9 @@ public:
     Vector2                 m_Size;
 
 protected:
-    Vector2 SetScreenPosition();
-    Quaternion SetScreenRotation();
-    Vector2 SetScreenScale();
+    void SetScreenPosition();
+    void SetScreenRotation();
+    void SetScreenScale();
 
 public:
     RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size);
@@ -93,7 +93,6 @@ public:
     void SetAsLastSibling();
 
     void Start() override;
-    void LateUpdate() override;
 
     SerializeFunction(RectTransform)
     {

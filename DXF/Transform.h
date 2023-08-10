@@ -57,9 +57,9 @@ protected:
     vector<int>         m_ChildID;
 
 protected:
-    Vector3 SetWorldPosition();
-    Quaternion SetWorldRotation();
-    Vector3 SetWorldScale();
+    void SetWorldPosition();
+    void SetWorldRotation();
+    void SetWorldScale();
 
 public:
     Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale);
@@ -89,7 +89,6 @@ public:
     void SetAsLastSibling();
 
     void Start() override;
-    void LateUpdate() override;
 
     SerializeFunction(Transform)
     {

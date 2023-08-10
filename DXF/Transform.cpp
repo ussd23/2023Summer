@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-Vector3 Transform::SetWorldPosition()
+void Transform::SetWorldPosition()
 {
 	if (m_Parent != nullptr)
 	{
@@ -15,12 +15,20 @@ Vector3 Transform::SetWorldPosition()
 		D3DXVec3Transform(&newPosition, &pos, &rotationMatrix);
 
 		pos = Vector3(newPosition.x, newPosition.y, newPosition.z);
-		return pos + m_Parent->GetWorldPosition();
+		m_WorldPosition = pos + m_Parent->GetWorldPosition();
 	}
-	return m_Position;
+	else
+	{
+		m_WorldPosition = m_Position;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetWorldPosition();
+	}
 }
 
-Quaternion Transform::SetWorldRotation()
+void Transform::SetWorldRotation()
 {
 	if (m_Parent != nullptr)
 	{
@@ -36,19 +44,35 @@ Quaternion Transform::SetWorldRotation()
 		Quaternion result;
 		D3DXQuaternionRotationMatrix(&result, &combinedMatrix);
 
-		return result;
+		m_WorldRotation = result;
 	}
-	return m_Rotation;
+	else
+	{
+		m_WorldRotation = m_Rotation;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetWorldRotation();
+	}
 }
 
-Vector3 Transform::SetWorldScale()
+void Transform::SetWorldScale()
 {
 	if (m_Parent != nullptr)
 	{
 		Vector3 pscale = m_Parent->GetWorldScale();
-		return Vector3(m_Scale.x * pscale.x, m_Scale.y * pscale.y, m_Scale.z * pscale.z);
+		m_WorldScale = Vector3(m_Scale.x * pscale.x, m_Scale.y * pscale.y, m_Scale.z * pscale.z);
 	}
-	return m_Scale;
+	else
+	{
+		m_WorldScale = m_Scale;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetWorldScale();
+	}
 }
 
 Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
@@ -61,28 +85,16 @@ Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 
 Vector3 Transform::GetWorldPosition()
 {
-	if (!gameObject->isActive())
-	{
-		m_WorldPosition = SetWorldPosition();
-	}
 	return m_WorldPosition;
 }
 
 Quaternion Transform::GetWorldRotation()
 {
-	if (!gameObject->isActive())
-	{
-		m_WorldRotation = SetWorldRotation();
-	}
 	return m_WorldRotation;
 }
 
 Vector3 Transform::GetWorldScale()
 {
-	if (!gameObject->isActive())
-	{
-		m_WorldScale = SetWorldScale();
-	}
 	return m_WorldScale;
 }
 
@@ -104,16 +116,19 @@ Vector3 Transform::GetScale()
 void Transform::SetPosition(Vector3 p_Position)
 {
 	m_Position = p_Position;
+	SetWorldPosition();
 }
 
 void Transform::SetRotation(Quaternion p_Rotation)
 {
 	m_Rotation = p_Rotation;
+	SetWorldRotation();
 }
 
 void Transform::SetScale(Vector3 p_Scale)
 {
 	m_Scale = p_Scale;
+	SetWorldScale();
 }
 
 int Transform::GetChildCount()
@@ -182,14 +197,7 @@ void Transform::SetAsLastSibling()
 
 void Transform::Start()
 {
-	m_WorldPosition = SetWorldPosition();
-	m_WorldRotation = SetWorldRotation();
-	m_WorldScale = SetWorldScale();
-}
-
-void Transform::LateUpdate()
-{
-	m_WorldPosition = SetWorldPosition();
-	m_WorldRotation = SetWorldRotation();
-	m_WorldScale = SetWorldScale();
+	SetWorldPosition();
+	SetWorldRotation();
+	SetWorldScale();
 }

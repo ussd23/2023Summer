@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-Vector2 RectTransform::SetScreenPosition()
+void RectTransform::SetScreenPosition()
 {
 	if (m_Parent != nullptr)
 	{
@@ -15,12 +15,20 @@ Vector2 RectTransform::SetScreenPosition()
 		D3DXVec2Transform(&newPosition, &pos, &rotationMatrix);
 
 		pos = Vector2(newPosition.x, newPosition.y);
-		return pos + m_Parent->GetScreenPosition();
+		m_ScreenPosition = pos + m_Parent->GetScreenPosition();
 	}
-	return m_Position;
+	else
+	{
+		m_ScreenPosition = m_Position;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetScreenPosition();
+	}
 }
 
-Quaternion RectTransform::SetScreenRotation()
+void RectTransform::SetScreenRotation()
 {
 	if (m_Parent != nullptr)
 	{
@@ -36,19 +44,35 @@ Quaternion RectTransform::SetScreenRotation()
 		Quaternion result;
 		D3DXQuaternionRotationMatrix(&result, &combinedMatrix);
 
-		return result;
+		m_ScreenRotation = result;
 	}
-	return m_Rotation;
+	else
+	{
+		m_ScreenRotation = m_Rotation;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetScreenRotation();
+	}
 }
 
-Vector2 RectTransform::SetScreenScale()
+void RectTransform::SetScreenScale()
 {
 	if (m_Parent != nullptr)
 	{
 		Vector2 pscale = m_Parent->GetScreenScale();
-		return Vector2(m_Scale.x * pscale.x, m_Scale.y * pscale.y);
+		m_ScreenScale = Vector2(m_Scale.x * pscale.x, m_Scale.y * pscale.y);
 	}
-	return m_Scale;
+	else
+	{
+		m_ScreenScale = m_Scale;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetScreenScale();
+	}
 }
 
 RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size)
@@ -62,28 +86,16 @@ RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_S
 
 Vector2 RectTransform::GetScreenPosition()
 {
-	if (!gameObject->isActive())
-	{
-		m_ScreenPosition = SetScreenPosition();
-	}
 	return m_ScreenPosition;
 }
 
 Quaternion RectTransform::GetScreenRotation()
 {
-	if (!gameObject->isActive())
-	{
-		m_ScreenRotation = SetScreenRotation();
-	}
 	return m_ScreenRotation;
 }
 
 Vector2 RectTransform::GetScreenScale()
 {
-	if (!gameObject->isActive())
-	{
-		m_ScreenScale = SetScreenScale();
-	}
 	return m_ScreenScale;
 }
 
@@ -183,14 +195,7 @@ void RectTransform::SetAsLastSibling()
 
 void RectTransform::Start()
 {
-	m_ScreenPosition = SetScreenPosition();
-	m_ScreenRotation = SetScreenRotation();
-	m_ScreenScale = SetScreenScale();
-}
-
-void RectTransform::LateUpdate()
-{
-	m_ScreenPosition = SetScreenPosition();
-	m_ScreenRotation = SetScreenRotation();
-	m_ScreenScale = SetScreenScale();
+	SetScreenPosition();
+	SetScreenRotation();
+	SetScreenScale();
 }
