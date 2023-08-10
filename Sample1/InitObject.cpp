@@ -9,20 +9,14 @@ void Sample1::InitObject()
     AddComponentToObject(cameraObject, cmove);
 
     // Bottom
-    GameObject* gameObject = new EmptyObject("terrain", Vector3(0, 0, 0));
+    GameObject* gameObject = new PlaneObject("", Vector3(0, 0, 0), "terraintex.jpg");
     Transform* transform = GetComponentFromObject(gameObject, Transform);
-    for (int i = -10; i <= 10; ++i)
-    {
-        for (int j = -10; j <= 10; ++j)
-        {
-            GameObject* planeObject = new PlaneObject("", Vector3(0, 0, 0), "terraintex.jpg");
-            Transform* pTransform = GetComponentFromObject(planeObject, Transform);
-            pTransform->SetPosition(Vector3(i * 50, 0, j * 50));
-            pTransform->SetScale(Vector3(50, 1, 50));
-
-            transform->AddChild(pTransform);    
-        }
-    }
+    transform->SetScale(Vector3(1000, 1, 1000));
+    VerticeRenderer* vertice = GetComponentFromObject(gameObject, VerticeRenderer);
+    vertice->m_Vertices[0].tv = 20.f;
+    vertice->m_Vertices[2].tu = 20.f;
+    vertice->m_Vertices[2].tv = 20.f;
+    vertice->m_Vertices[3].tu = 20.f;
 
     gameObject = new MeshObject("Airplane", Vector3(0, 1, 0), "airplane 2.x");
     transform = GetComponentFromObject(gameObject, Transform);

@@ -50,8 +50,6 @@ class MouseFunction;
 class Renderer;
 class Frustum;
 
-#define SCREENSIZEX 600
-#define SCREENSIZEY 900
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
 typedef class Variables

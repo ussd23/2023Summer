@@ -65,7 +65,7 @@ void PuzzleBobble::InitObject()
     }
 
     // 화살표
-    gameObject = new SpriteObject("empty", Vector2(0, 0), Vector2(SCREENSIZEX * 0.5 + 11, 750), "system\\default.png");
+    gameObject = new SpriteObject("empty", Vector2(0, 0), Vector2(PuzzleBobble::m_Resolution.x * 0.5 + 25, 750), "system\\default.png");
     Controll* controll = new Controll();
     AddComponentToObject(gameObject, controll);
 

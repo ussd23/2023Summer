@@ -4,8 +4,23 @@
 #include "RectTransform.h"
 #include "Frustum.h"
 
-HRESULT DXFGame::InitD3D(HWND hWnd)
+HRESULT DXFGame::InitD3D(HINSTANCE hInst)
 {
+    UNREFERENCED_PARAMETER(hInst);
+    srand(time(NULL));
+
+    m_WndClass =
+    {
+        sizeof(WNDCLASSEX), CS_CLASSDC, DXFGame::MsgProc, 0L, 0L,
+        GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
+        "DXF", NULL
+    };
+    RegisterClassEx(&m_WndClass);
+
+    m_hWnd = CreateWindow("DXF", DXFGame::m_Title.c_str(),
+        WS_OVERLAPPEDWINDOW, 100, 100, DXFGame::m_Resolution.x + 16, DXFGame::m_Resolution.y + 39,
+        NULL, NULL, m_WndClass.hInstance, NULL);
+
     if (NULL == (m_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
         return E_FAIL;
 
@@ -18,11 +33,11 @@ HRESULT DXFGame::InitD3D(HWND hWnd)
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
     //d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
-    if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+    if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
         D3DCREATE_HARDWARE_VERTEXPROCESSING,
         &d3dpp, &m_pd3dDevice)))
     {
-        if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+        if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
             D3DCREATE_SOFTWARE_VERTEXPROCESSING,
             &d3dpp, &m_pd3dDevice)))
         {

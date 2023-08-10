@@ -57,6 +57,10 @@ LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
         if (GET_WHEEL_DELTA_WPARAM(wParam) < 0) SetInputBuffer(Mouse, MouseInput::WHEELDOWN, true);
         return 0;
 
+    case WM_SIZE:
+        SetWindowPos(hWnd, NULL, 0, 0, m_Resolution.x + 16, m_Resolution.y + 39, SWP_NOMOVE | SWP_NOZORDER);
+        return 0;
+
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;
