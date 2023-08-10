@@ -117,16 +117,21 @@ Vector2 RectTransform::GetScale()
 void RectTransform::SetPosition(Vector2 p_Position)
 {
 	m_Position = p_Position;
+	SetScreenPosition();
 }
 
 void RectTransform::SetRotation(Quaternion p_Rotation)
 {
 	m_Rotation = p_Rotation;
+	SetScreenRotation();
+	SetScreenPosition();
 }
 
 void RectTransform::SetScale(Vector2 p_Scale)
 {
 	m_Scale = p_Scale;
+	SetScreenScale();
+	SetScreenPosition();
 }
 
 int RectTransform::GetChildCount()
