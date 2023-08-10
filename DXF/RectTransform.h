@@ -93,12 +93,6 @@ public:
     void SetAsLastSibling();
 
     void Start() override;
-    void LateUpdate() override
-    {
-        SetScreenPosition();
-        SetScreenRotation();
-        SetScreenScale();
-    }
 
     SerializeFunction(RectTransform)
     {
