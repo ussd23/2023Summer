@@ -19,13 +19,17 @@ void TopText::Update()
     if (playermove == nullptr) return;
 
     Vector3 wpos = transform->GetWorldPosition();
+    Quaternion wrot = transform->GetWorldRotation();
     Vector2 spos = Functions::WorldToScreen(transform);
 
     stringstream temp;
     temp << fixed << setprecision(2) << "[FPS: " << Time::framePerSec << " / AvgFPS: " << Time::avgFrame << "] / Rendered: " << Var::CullingObjects << "\n"\
         << "W/S: 가속/감속, A/D: 수평 회전, Q/E: 선회 비행, R/F: 상승/하강";
-    temp << "\n플레이어 좌표: (" << wpos.x << ", " << wpos.y << ", " << wpos.z << ") / 속력: " << playermove->m_Speed * playermove->m_AdditionTorque;
-    if (playermove->m_isTriggered) temp << " (충돌중)";
+    temp << "\n플레이어 좌표: (x: " << wpos.x << ", y: " << wpos.y << ", z: " << wpos.z << ")\n";
+    if (playermove->m_isTriggered) temp << "[Landing]";
+    else temp << "[Flying]";
+    temp << " Speed: " << playermove->m_Speed * playermove->m_AdditionTorque\
+        << " / Torque: (w: " << wrot.w << " x: " << wrot.x << " y: " << wrot.y << " z: " << wrot.z << ")";
 
     m_Text->m_Text = temp.str();
 }

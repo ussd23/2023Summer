@@ -16,12 +16,12 @@ void Sample1::InitObject()
     // Bottom
     gameObject = new PlaneObject("", Vector3(0, 0, 0), "terraintex.jpg");
     Transform* transform = GetComponentFromObject(gameObject, Transform);
-    transform->SetScale(Vector3(1000, 1, 1000));
+    transform->SetScale(Vector3(10000, 1, 10000));
     VerticeRenderer* vertice = GetComponentFromObject(gameObject, VerticeRenderer);
-    vertice->m_Vertices[0].tv = 20.f;
-    vertice->m_Vertices[2].tu = 20.f;
-    vertice->m_Vertices[2].tv = 20.f;
-    vertice->m_Vertices[3].tu = 20.f;
+    vertice->m_Vertices[0].tv = 100.f;
+    vertice->m_Vertices[2].tu = 100.f;
+    vertice->m_Vertices[2].tv = 100.f;
+    vertice->m_Vertices[3].tu = 100.f;
     BoxCollider* bcollider = new BoxCollider(Vector3(1, 1, 1), false);
     AddComponentToObject(gameObject, bcollider);
 
