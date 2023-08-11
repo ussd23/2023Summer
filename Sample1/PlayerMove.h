@@ -9,12 +9,15 @@ class PlayerMove : public Component
 {
 protected:
 	Transform*			m_Transform;
-	float				m_Speed;
 	Vector3				m_Direction;
 
 public:
 	static PlayerMove*	player;
 	bool				m_isTriggered = false;
+	bool				m_isLanding;
+	float				m_Speed;
+	float				m_AdditionTorque;
+	Vector3				m_RotationTorque;
 
 public:
 	PlayerMove(float p_Speed);

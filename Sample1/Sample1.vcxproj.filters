@@ -27,6 +27,9 @@
     <ClCompile Include="PlayerMove.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="TopText.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts.h">
@@ -39,6 +42,9 @@
       <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMove.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="TopText.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
   </ItemGroup>
