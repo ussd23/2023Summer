@@ -1,0 +1,41 @@
+#pragma once
+#include "Component.h"
+#include "DXHeader.h"
+
+class Mine : public Component {
+protected:
+	GameObject* Mine_Object;
+	class Minesweeper* Mine_Sweeper;
+	int Mine_Point = 0;
+
+	bool Mine_Check = false;
+	int Mine_Near = 0;
+	bool Mine_Show = false;
+	bool Mine_Flag = false;
+
+public:
+	Mine(GameObject* Obj);
+
+	void Start() override;
+	void Update() override;
+	void OnMouseDown() override;
+
+	// Ä­ ÃÊ±âÈ­
+	void InitMine(class Minesweeper* Manager, int Index);
+	// Áö·Ú ¼³Á¤
+	void SetMine(bool Mine);
+	// Áö·Ú¿©ºÎ ¹ÝÈ¯
+	bool GetMine();
+
+	// Ä­ À§Ä¡ ¹ÝÈ¯
+	int GetMinePoint();
+	// ÁÖº¯ÀÇ Áö·Ú °¹¼ö ¼³Á¤
+	void AddNearMine();
+	// ÁÖº¯ÀÇ Áö·Ú °¹¼ö ¹ÝÈ¯
+	int GetNearMine();
+	// Ä­ °ø°³
+	void ShowMine();
+
+	SerializeFunction(Mine) {}
+	DeserializeFunction() {}
+};
