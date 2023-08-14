@@ -20,6 +20,8 @@ class TopText : public Component
 protected:
 	TextRenderer*		m_Text;
 
+	int Count = 0;
+	float Time = 0;
 public:
 	void Start() override;
 	void Update() override;

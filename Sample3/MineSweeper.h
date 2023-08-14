@@ -5,7 +5,7 @@
 
 class Minesweeper : public Component {
 protected:
-	int MapSize = 10;
+	int MapSize = 5;
 	std::vector<class GameObject*> Map;
 
 	bool IsStart = false;
@@ -27,10 +27,14 @@ public:
 	bool GetStart();
 	// 시작 설정
 	void SetStart(bool Start);
+	// 종료 여부 반환
+	bool GetFinish();
 	// 칸 공개수 증가
 	void AddFind();
 	// 칸 크기 반환
 	int GetMapSize();
+	// 지뢰 갯수 반환
+	int GetMineCount();
 	// 칸 반환
 	std::vector<class GameObject*> GetMap();
 

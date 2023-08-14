@@ -1,9 +1,5 @@
 #include "Scripts.h"
 
-Mine::Mine(GameObject* Obj) {
-	Mine_Object = Obj;
-}
-
 void Mine::Start() {
 
 }
@@ -19,13 +15,13 @@ void Mine::OnMouseDown() {
 		//MessageBox(NULL, "GameStart", "MineSweeper", MB_OK);
 
 		// 게임시작 초기화
-		Mine_Sweeper->StartGame(this, 20);
+		Mine_Sweeper->StartGame(this, int(Mine_Sweeper->GetMap().size() / 4));
 	}
 	
 	// 미공개 칸일시
 	if (Mine_Show == false) {
 		// 좌클릭시
-		if (true) {
+		if (GetInputBuffer(Input::Mouse, MouseInput::LBUTTONDOWN)) {
 			// 깃발있으면 무시
 			if (Mine_Flag == false) {
 				// 지뢰면 종료
@@ -39,16 +35,16 @@ void Mine::OnMouseDown() {
 			}
 		}
 		// 우클릭시
-		else {
+		else if (GetInputBuffer(Input::Mouse, MouseInput::RBUTTONDOWN)) {
 			// 깃발 표시
 			if (Mine_Flag == true) {
 				Mine_Flag = false;
-				VerticeRenderer* Mine_Vertex = GetComponentFromObject(Mine_Object, VerticeRenderer);
+				VerticeRenderer* Mine_Vertex = GetComponentFromObject(gameObject, VerticeRenderer);
 				Mine_Vertex->m_RectIndex = Vector2(0, 0);
 			}
 			else {
 				Mine_Flag = true;
-				VerticeRenderer* Mine_Vertex = GetComponentFromObject(Mine_Object, VerticeRenderer);
+				VerticeRenderer* Mine_Vertex = GetComponentFromObject(gameObject, VerticeRenderer);
 				Mine_Vertex->m_RectIndex = Vector2(11, 0);
 			}
 		}
@@ -66,7 +62,11 @@ void Mine::InitMine(Minesweeper* Manager, int Index) {
 	Mine_Show = false;
 	Mine_Flag = false;
 
-	VerticeRenderer* Mine_Vertex = GetComponentFromObject(Mine_Object, VerticeRenderer);
+	Transform* Trans = GetComponentFromObject(gameObject, Transform);
+	int Size = Mine_Sweeper->GetMapSize();
+	Trans->SetPosition(Vector3((-(Size / 2)) + (1.1 * (Index % Size)), 0, (Size / 2) - (1.1 * (Index / Size))));
+
+	VerticeRenderer* Mine_Vertex = GetComponentFromObject(gameObject, VerticeRenderer);
 	Mine_Vertex->m_RectIndex = Vector2(0, 0);
 }
 
@@ -99,7 +99,7 @@ void Mine::ShowMine() {
 		// 해당칸이 지뢰면
 		if (Mine_Check == true) {
 			//MessageBox(NULL, "Mine", to_string(Mine_Point).c_str(), MB_OK);
-			VerticeRenderer* Mine_Vertex = GetComponentFromObject(Mine_Object, VerticeRenderer);
+			VerticeRenderer* Mine_Vertex = GetComponentFromObject(gameObject, VerticeRenderer);
 			Mine_Vertex->m_RectIndex = Vector2(12, 0);
 		}
 		// 해당칸이 지뢰가 아니면
@@ -135,7 +135,7 @@ void Mine::ShowMine() {
 
 			// 해당칸 밝히기
 			//MessageBox(NULL, to_string(Mine_Near).c_str(), to_string(Mine_Point).c_str(), MB_OK);
-			VerticeRenderer* Mine_Vertex = GetComponentFromObject(Mine_Object, VerticeRenderer);
+			VerticeRenderer* Mine_Vertex = GetComponentFromObject(gameObject, VerticeRenderer);
 			Mine_Vertex->m_RectIndex = Vector2(Mine_Near + 1, 0);
 			Mine_Sweeper->AddFind();
 		}

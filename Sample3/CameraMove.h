@@ -18,10 +18,13 @@ class Camera;
 class CameraMove : public Component
 {
 protected:
+	class Minesweeper* Mine_Sweeper;
 	Camera*		m_Camera;
 	float		m_LerpT = 5.f;
 
 public:
+	CameraMove(Minesweeper* Sweeper);
+
 	void Start() override;
 	void Update() override;
 

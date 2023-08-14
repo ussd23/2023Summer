@@ -12,6 +12,7 @@
 #include "ComponentHeader.h"
 #include "CameraMove.h"
 #include "TopText.h"
-#include "ButtonTest.h"
 #include "MineSweeper.h"
 #include "Mine.h"
+#include "ResetButton.h"
+#include "ResetButtonText.h"

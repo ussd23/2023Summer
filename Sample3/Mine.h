@@ -4,7 +4,6 @@
 
 class Mine : public Component {
 protected:
-	GameObject* Mine_Object;
 	class Minesweeper* Mine_Sweeper;
 	int Mine_Point = 0;
 
@@ -14,8 +13,6 @@ protected:
 	bool Mine_Flag = false;
 
 public:
-	Mine(GameObject* Obj);
-
 	void Start() override;
 	void Update() override;
 	void OnMouseDown() override;

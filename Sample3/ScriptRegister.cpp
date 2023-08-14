@@ -1,11 +1,11 @@
 #include "ComponentHeader.h"
 #include "Scripts.h"
 
-void Sample3::ScriptRegister()
-{
+void Sample3::ScriptRegister() {
     ComponentRegist(CameraMove);
     ComponentRegist(TopText);
-    ComponentRegist(ButtonTest);
+    ComponentRegist(ResetButton);
+    ComponentRegist(ResetButtonText);
     ComponentRegist(Minesweeper);
     ComponentRegist(Mine);
 }

@@ -146,20 +146,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ButtonTest.cpp" />
+    <ClCompile Include="ResetButton.cpp" />
     <ClCompile Include="CameraMove.cpp" />
     <ClCompile Include="InitObject.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="MineSweeper.cpp" />
+    <ClCompile Include="ResetButtonText.cpp" />
     <ClCompile Include="ScriptRegister.cpp" />
     <ClCompile Include="TopText.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ButtonTest.h" />
+    <ClInclude Include="ResetButton.h" />
     <ClInclude Include="CameraMove.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="MineSweeper.h" />
+    <ClInclude Include="ResetButtonText.h" />
     <ClInclude Include="Sample3.h" />
     <ClInclude Include="Scripts.h" />
     <ClInclude Include="TopText.h" />

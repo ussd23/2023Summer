@@ -14,14 +14,18 @@ void Minesweeper::Update() {
 void Minesweeper::InitGame(int Size) {
 	MapSize = Size;
 
+	for (int i = Map.size() - 1; i >= Size * Size; i += -1) {
+		GameObject::Destroy(Map[i]);
+		Map.pop_back();
+	}
+
 	// 이전 칸 크기가 새로운 칸 보다 작으면 칸 추가
 	for (int i = Map.size(); i < Size * Size; i += 1) {
 		float Image_Size = 1;
 		float Image_Between = 0.1;
 
 		// 칸 생성
-		GameObject* Mine_Obj = new PlaneObject("Mine", Vector3((-Image_Size * (Size / 2)) + ((Image_Size + Image_Between) * (i % Size)), 0,
-			(Image_Size * (Size / 2)) - ((Image_Size + Image_Between) * (i / Size))), "Mine.png");
+		GameObject* Mine_Obj = new PlaneObject("Mine", Vector3(0, 0, 0), "Mine.png");
 
 		vector<Vertex> Mine_Vertex_Vector;
 		Mine_Vertex_Vector.push_back({ -Image_Size / 2, 0.0f, -Image_Size / 2, 0xffffffff, 0.0f, 1.0f });
@@ -37,7 +41,7 @@ void Minesweeper::InitGame(int Size) {
 
 		BoxCollider* Mine_Box = new BoxCollider(Vector3(0.8f, 0.8f, 0.8f));
 		AddComponentToObject(Mine_Obj, Mine_Box);
-		Mine* Mine_Info = new Mine(Mine_Obj);
+		Mine* Mine_Info = new Mine();
 		AddComponentToObject(Mine_Obj, Mine_Info);
 		MouseFunction* Mine_Mouse = new MouseFunction();
 		AddComponentToObject(Mine_Obj, Mine_Mouse);
@@ -164,6 +168,10 @@ void Minesweeper::SetStart(bool Start) {
 	IsStart = Start;
 }
 
+bool Minesweeper::GetFinish() {
+	return IsFinish;
+}
+
 void Minesweeper::AddFind() {
 	FindMine += 1;
 	if (FindMine >= Map.size() - SetMine) {
@@ -173,6 +181,10 @@ void Minesweeper::AddFind() {
 
 int Minesweeper::GetMapSize() {
 	return MapSize;
+}
+
+int Minesweeper::GetMineCount() {
+	return SetMine;
 }
 
 std::vector<GameObject*> Minesweeper::GetMap() {

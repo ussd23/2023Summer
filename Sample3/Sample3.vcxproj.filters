@@ -27,13 +27,16 @@
     <ClCompile Include="ScriptRegister.cpp">
       <Filter>1. Importants</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonTest.cpp">
+    <ClCompile Include="ResetButton.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Mine.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
     <ClCompile Include="MineSweeper.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="ResetButtonText.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,13 +53,16 @@
     <ClInclude Include="Sample3.h">
       <Filter>0. Core</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonTest.h">
+    <ClInclude Include="ResetButton.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Mine.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="MineSweeper.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="ResetButtonText.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
   </ItemGroup>
