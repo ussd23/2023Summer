@@ -11,14 +11,14 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
 
     m_WndClass =
     {
-        sizeof(WNDCLASSEX), CS_CLASSDC, DXFGame::MsgProc, 0L, 0L,
+        sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L,
         GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
         "DXF", NULL
     };
     RegisterClassEx(&m_WndClass);
 
-    m_hWnd = CreateWindow("DXF", DXFGame::m_Title.c_str(),
-        WS_OVERLAPPEDWINDOW, 100, 100, DXFGame::m_Resolution.x + 16, DXFGame::m_Resolution.y + 39,
+    m_hWnd = CreateWindow("DXF", m_Title.c_str(),
+        WS_OVERLAPPEDWINDOW, 100, 100, m_Resolution.x + 16, m_Resolution.y + 39,
         NULL, NULL, m_WndClass.hInstance, NULL);
 
     if (NULL == (m_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))

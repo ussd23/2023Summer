@@ -17,6 +17,9 @@ void PlayerMove::Awake()
 void PlayerMove::Start()
 {
     m_Transform = GetComponentFromObject(gameObject, Transform);
+
+    GameObject* obj = GameObject::Search("ter");
+    m_Land = GetComponentFromObject(obj, BoxCollider);
 }
 
 void PlayerMove::Update()
@@ -119,24 +122,41 @@ void PlayerMove::Update()
 
 void PlayerMove::OnTriggerStay(Collider* _collider)
 {
-    if (!m_isLanding)
+    if (_collider == m_Land)
     {
-        Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
-
-        if (rotation.x < -20.f || abs(rotation.z) > 20.f)
+        if (!m_isLanding)
         {
-            MessageBox(NULL, "ÆÄ±«µÊ", "DXF Flight", MB_OK);
-
-            m_RotationTorque = Vector3(0, 0, 0);
-            m_Speed = 0.f;
-
             Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
-            m_Transform->SetRotation(Functions::EulerToQuaternion(Vector3(0, rotation.y, 0)));
-        }
-    }
 
-    m_isLanding = true;
-    m_isTriggered = true;
+            if (rotation.x < -20.f || abs(rotation.z) > 20.f)
+            {
+                MessageBox(NULL, "ÆÄ±«µÊ", "DXF Flight", MB_OK);
+                Input::InputBufferReset();
+
+                m_RotationTorque = Vector3(0, 0, 0);
+                m_Speed = 0.f;
+
+                Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
+                m_Transform->SetPosition(Vector3(0, 1, 0));
+                m_Transform->SetRotation(Functions::EulerToQuaternion(Vector3(0, rotation.y, 0)));
+            }
+        }
+
+        m_isLanding = true;
+        m_isTriggered = true;
+    }
+    else
+    {
+        MessageBox(NULL, "ÆÄ±«µÊ", "DXF Flight", MB_OK);
+        Input::InputBufferReset();
+
+        m_RotationTorque = Vector3(0, 0, 0);
+        m_Speed = 0.f;
+
+        Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
+        m_Transform->SetPosition(Vector3(0, 1, 0));
+        m_Transform->SetRotation(Functions::EulerToQuaternion(Vector3(0, rotation.y, 0)));
+    }
 }
 
 void PlayerMove::OnTriggerExit(Collider* _collider)

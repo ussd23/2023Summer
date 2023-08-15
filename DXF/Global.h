@@ -102,6 +102,7 @@ public:
 
 public:
 	static void InputBufferReset();
+	static void InputBufferReset(bool p_Option);
 };
 
 class Time

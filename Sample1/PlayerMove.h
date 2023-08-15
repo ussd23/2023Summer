@@ -10,6 +10,7 @@ class PlayerMove : public Component
 protected:
 	Transform*			m_Transform;
 	Vector3				m_Direction;
+	BoxCollider*		m_Land;
 
 public:
 	static PlayerMove*	player;
