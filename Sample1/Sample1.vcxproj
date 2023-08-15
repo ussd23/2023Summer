@@ -150,6 +150,7 @@
     <ClCompile Include="InitObject.cpp" />
     <ClCompile Include="PlayerMove.cpp" />
     <ClCompile Include="ScriptRegister.cpp" />
+    <ClCompile Include="TopText.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
     <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Scripts.h" />
+    <ClInclude Include="TopText.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXF\DXF.vcxproj">

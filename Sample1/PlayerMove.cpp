@@ -5,6 +5,8 @@ PlayerMove* PlayerMove::player = nullptr;
 PlayerMove::PlayerMove(float p_Speed)
 {
     m_Speed = p_Speed;
+    m_RotationTorque = Vector3(0, 0, 0);
+    m_isLanding = true;
 }
 
 void PlayerMove::Awake()
@@ -15,6 +17,9 @@ void PlayerMove::Awake()
 void PlayerMove::Start()
 {
     m_Transform = GetComponentFromObject(gameObject, Transform);
+
+    GameObject* obj = GameObject::Search("ter");
+    m_Land = GetComponentFromObject(obj, BoxCollider);
 }
 
 void PlayerMove::Update()
@@ -26,17 +31,75 @@ void PlayerMove::Update()
 
     Vector3 temp = Vector3(0, 0, 0);
 
-    if (GetInputBuffer(KeyHold, 'A')) rotation.y -= (30 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'D')) rotation.y += (30 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'W')) m_Speed += (10 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'S')) m_Speed -= (10 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'R')) rotation.x += (30 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'F')) rotation.x -= (30 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'Q')) rotation.z -= (30 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'E')) rotation.z += (30 * Time::deltaTime);
+    if (m_RotationTorque.y < -0.01f) m_RotationTorque.y += Time::deltaTime;
+    else if (m_RotationTorque.y > 0.01f) m_RotationTorque.y -= Time::deltaTime;
+    else m_RotationTorque.y = 0;
+    if (m_RotationTorque.x < -0.01f) m_RotationTorque.x += Time::deltaTime;
+    else if (m_RotationTorque.x > 0.01f) m_RotationTorque.x -= Time::deltaTime;
+    else m_RotationTorque.x = 0;
+    if (m_RotationTorque.z < -0.01f) m_RotationTorque.z += Time::deltaTime;
+    else if (m_RotationTorque.z > 0.01f) m_RotationTorque.z -= Time::deltaTime;
+    else m_RotationTorque.z = 0;
+    if (m_Speed > 0.01f) m_Speed -= (5 * Time::deltaTime);
+    else if (m_Speed < -0.01f) m_Speed += (5 * Time::deltaTime);
+    else m_Speed = 0;
 
-    if (m_Speed < 0.f) m_Speed = 0.f;
-    else if (m_Speed > 30.f) m_Speed = 30.f;
+    if (GetInputBuffer(KeyHold, 'W')) m_Speed += (20 * Time::deltaTime);
+    if (GetInputBuffer(KeyHold, 'S')) m_Speed -= (20 * Time::deltaTime);
+    if (m_isLanding)
+    {
+        if (GetInputBuffer(KeyHold, 'A')) m_RotationTorque.y -= Time::deltaTime * ((abs(m_Speed) * 0.01f) + 1.0f);
+        if (GetInputBuffer(KeyHold, 'D')) m_RotationTorque.y += Time::deltaTime * ((abs(m_Speed) * 0.01f) + 1.0f);
+        if (GetInputBuffer(KeyHold, 'R')) m_RotationTorque.x += Time::deltaTime * ((m_Speed - 5.f) * 0.03f);
+        if (GetInputBuffer(KeyHold, 'F')) m_RotationTorque.x -= Time::deltaTime * ((m_Speed - 5.f) * 0.03f);
+    }
+    else
+    {
+        if (GetInputBuffer(KeyHold, 'A')) m_RotationTorque.y -= Time::deltaTime * (m_Speed * 0.01f + 1.0f);
+        if (GetInputBuffer(KeyHold, 'D')) m_RotationTorque.y += Time::deltaTime * (m_Speed * 0.01f + 1.0f);
+        if (GetInputBuffer(KeyHold, 'R')) m_RotationTorque.x += Time::deltaTime * (m_Speed * 0.015f + 0.5f);
+        if (GetInputBuffer(KeyHold, 'F')) m_RotationTorque.x -= Time::deltaTime * (m_Speed * 0.015f + 0.5f);
+        if (GetInputBuffer(KeyHold, 'Q')) m_RotationTorque.z -= Time::deltaTime * (m_Speed * 0.015f + 1.f);
+        if (GetInputBuffer(KeyHold, 'E')) m_RotationTorque.z += Time::deltaTime * (m_Speed * 0.015f + 1.f);
+    }
+
+    if (m_isLanding)
+    {
+        if (m_RotationTorque.x < 0) m_RotationTorque.x = 0.f;
+        if (rotation.x < 0) rotation.x = 0.f;
+        m_RotationTorque.z = 0.f;
+        rotation.z = 0.f;
+    }
+    else
+    {
+        rotation.x -= Time::deltaTime * (10.f - (m_Speed * m_AdditionTorque) * 0.2f);
+    }
+
+    if (m_RotationTorque.y < -0.5f) m_RotationTorque.y = -0.5f;
+    else if (m_RotationTorque.y > 0.5f) m_RotationTorque.y = 0.5f;
+    if (m_RotationTorque.x < -1.f) m_RotationTorque.x = -1.f;
+    else if (m_RotationTorque.x > 1.f) m_RotationTorque.x = 1.f;
+    if (m_RotationTorque.z < -1.f) m_RotationTorque.z = -1.f;
+    else if (m_RotationTorque.z > 1.f) m_RotationTorque.z = 1.f;
+    if (m_Speed < 10.f)
+    {
+        if (m_isLanding)
+        {
+            if (m_Speed < -5.f) m_Speed = -5.f;
+        }
+        else
+        {
+            m_Speed = 10.f;
+        }
+    }
+    else if (m_Speed > 50.f) m_Speed = 50.f;
+
+    rotation.y += m_RotationTorque.y;
+    rotation.x += m_RotationTorque.x;
+    rotation.z += m_RotationTorque.z;
+
+    if (rotation.x > 60.f) rotation.x = 60.f;
+    else if (rotation.x < -60.f) rotation.x = -60.f;
 
     Quaternion transrotation = Functions::EulerToQuaternion(rotation);
     Matrix rotationMatrix;
@@ -48,7 +111,10 @@ void PlayerMove::Update()
 
     m_Direction = pointOnSphere;
 
-    position += pointOnSphere * Time::deltaTime * m_Speed;
+    m_AdditionTorque = 1.f;
+    if (rotation.x < 0.f) m_AdditionTorque += rotation.x * -0.02f;
+    if (rotation.x > 0.f) m_AdditionTorque += rotation.x * -0.01f;
+    position += pointOnSphere * Time::deltaTime * m_Speed * m_AdditionTorque;
 
     m_Transform->SetPosition(position);
     m_Transform->SetRotation(Functions::EulerToQuaternion(rotation));
@@ -56,10 +122,45 @@ void PlayerMove::Update()
 
 void PlayerMove::OnTriggerStay(Collider* _collider)
 {
-    m_isTriggered = true;
+    if (_collider == m_Land)
+    {
+        if (!m_isLanding)
+        {
+            Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
+
+            if (rotation.x < -20.f || abs(rotation.z) > 20.f)
+            {
+                MessageBox(NULL, "ÆÄ±«µÊ", "DXF Flight", MB_OK);
+                Input::InputBufferReset();
+
+                m_RotationTorque = Vector3(0, 0, 0);
+                m_Speed = 0.f;
+
+                Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
+                m_Transform->SetPosition(Vector3(0, 1, 0));
+                m_Transform->SetRotation(Functions::EulerToQuaternion(Vector3(0, rotation.y, 0)));
+            }
+        }
+
+        m_isLanding = true;
+        m_isTriggered = true;
+    }
+    else
+    {
+        MessageBox(NULL, "ÆÄ±«µÊ", "DXF Flight", MB_OK);
+        Input::InputBufferReset();
+
+        m_RotationTorque = Vector3(0, 0, 0);
+        m_Speed = 0.f;
+
+        Vector3 rotation = Functions::QuaternionToEuler(m_Transform->GetRotation());
+        m_Transform->SetPosition(Vector3(0, 1, 0));
+        m_Transform->SetRotation(Functions::EulerToQuaternion(Vector3(0, rotation.y, 0)));
+    }
 }
 
 void PlayerMove::OnTriggerExit(Collider* _collider)
 {
+    m_isLanding = false;
     m_isTriggered = false;
 }

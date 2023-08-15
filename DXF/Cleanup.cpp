@@ -26,17 +26,17 @@ VOID DXFGame::Cleanup()
 
     GameObject::SafeDestroy();
 
-    if (DXFGame::m_pd3dDevice != NULL)
-        DXFGame::m_pd3dDevice->Release();
+    if (m_pd3dDevice != NULL)
+        m_pd3dDevice->Release();
 
-    if (DXFGame::m_pD3D != NULL)
-        DXFGame::m_pD3D->Release();
+    if (m_pD3D != NULL)
+        m_pD3D->Release();
 
-    if (DXFGame::m_defaultTexture != NULL)
-        DXFGame::m_defaultTexture->Release();
+    if (m_defaultTexture != NULL)
+        m_defaultTexture->Release();
 
-    if (DXFGame::m_pVB != NULL)
-        DXFGame::m_pVB->Release();
+    if (m_pVB != NULL)
+        m_pVB->Release();
 
     delete Var::Frustum;
     Var::Frustum = nullptr;

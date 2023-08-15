@@ -30,6 +30,8 @@ protected:
 	Vector3			m_Direction = Vector3(0.f, 0.f, 0.f);
 
 public:
+	Raycast() {}
+	Raycast(Vector3 p_StartPt, Vector3 p_Direction);
 	static Raycast ScreenToWorld(const Vector2& p_Position);
 	bool IsPicked(BoxCollider* p_Collider);
 	bool IsPicked(SphereCollider* p_Collider);

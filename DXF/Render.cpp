@@ -22,24 +22,24 @@ HRESULT DXFGame::SetupCamera()
     Vector3 eyePt = transform->GetWorldPosition();
 
     D3DXMatrixLookAtLH(&m_ViewMatrix, &eyePt, &camera->m_LookatPt, &camera->m_UpVec);
-    DXFGame::m_pd3dDevice->SetTransform(D3DTS_VIEW, &m_ViewMatrix);
+    m_pd3dDevice->SetTransform(D3DTS_VIEW, &m_ViewMatrix);
 
-    D3DXMatrixPerspectiveFovLH(&m_ProjMatrix, D3DX_PI * 0.25f - (camera->m_FovRate / (D3DX_PI * 5)), SCREENSIZEX / (float)SCREENSIZEY, 1.0f, 300.0f);
-    DXFGame::m_pd3dDevice->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
+    D3DXMatrixPerspectiveFovLH(&m_ProjMatrix, D3DX_PI * 0.25f - (camera->m_FovRate / (D3DX_PI * 5)), m_Resolution.x / m_Resolution.y, 1.0f, m_RenderDistance);
+    m_pd3dDevice->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
 
     return S_OK;
 }
 
 HRESULT DXFGame::Render()
 {
-    DXFGame::m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+    m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
         D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
-    SetRect(&Var::ScreenRect, 0, 0, SCREENSIZEX, SCREENSIZEY);
+    SetRect(&Var::ScreenRect, 0, 0, m_Resolution.x, m_Resolution.y);
 
     Var::CullingObjects = 0;
 
-    if (SUCCEEDED(DXFGame::m_pd3dDevice->BeginScene()))
+    if (SUCCEEDED(m_pd3dDevice->BeginScene()))
     {
         if (FAILED(SetupCamera())) return E_FAIL;
 
@@ -67,10 +67,10 @@ HRESULT DXFGame::Render()
             Var::RectTransformRenderList[i]->Render();
         }
 
-        DXFGame::m_pd3dDevice->EndScene();
+        m_pd3dDevice->EndScene();
     }
 
-    DXFGame::m_pd3dDevice->Present(NULL, NULL, NULL, NULL);
+    m_pd3dDevice->Present(NULL, NULL, NULL, NULL);
 
     return S_OK;
 }

@@ -92,7 +92,7 @@ void Sample::InitObject()
     }
 
     // Sprite (RectTransform)
-    gameObject = new SpriteObject("Sprite", Vector2(200, 100), Vector2(100, SCREENSIZEY - 50), "earthmap1k.jpg");
+    gameObject = new SpriteObject("Sprite", Vector2(200, 100), Vector2(100, DXFGame::m_Resolution.y - 50), "earthmap1k.jpg");
     SpriteRenderer* sprite = GetComponentFromObject(gameObject, SpriteRenderer);
     sprite->m_RectIndex = Vector2(0, 0);
     sprite->m_RectSize = Vector2(4, 4);
@@ -105,7 +105,7 @@ void Sample::InitObject()
     AddComponentToObject(gameObject, animator);
 
     // button
-    gameObject = new ButtonObject("btn", Vector2(200, 100), Vector2(300, SCREENSIZEY - 50), "earthmap1k.jpg");
+    gameObject = new ButtonObject("btn", Vector2(200, 100), Vector2(300, DXFGame::m_Resolution.y - 50), "earthmap1k.jpg");
     ButtonTest* test = new ButtonTest();
     AddComponentToObject(gameObject, test);
 
@@ -118,10 +118,10 @@ void Sample::InitObject()
     recttransform->AddChild(childrecttransform);
 
     // CheckBox
-    gameObject = new CheckBoxObject("CheckBox", Vector2(50, 50), Vector2(500, SCREENSIZEY - 50));
+    gameObject = new CheckBoxObject("CheckBox", Vector2(50, 50), Vector2(500, DXFGame::m_Resolution.y - 50));
 
     // viewbox
-    gameObject = new ViewBoxObject("viewbox", Vector2(150, 100), Vector2(700, SCREENSIZEY - 80));
+    gameObject = new ViewBoxObject("viewbox", Vector2(150, 100), Vector2(700, DXFGame::m_Resolution.y - 80));
     sprite = GetComponentFromObject(gameObject, SpriteRenderer);
     sprite->m_Color = 0xff606060;
 

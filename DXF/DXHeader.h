@@ -31,6 +31,7 @@
 #include <strsafe.h>
 #include <time.h>
 #pragma warning( default : 4996 )
+#include "StandardLibrary.h"
 
 using Vector2 = D3DXVECTOR2;
 using Vector3 = D3DXVECTOR3;
@@ -47,6 +48,11 @@ protected:
 	static Matrix16					m_ProjMatrix;
 
 public:
+	static HWND						m_hWnd;
+	static WNDCLASSEX				m_WndClass;
+	static string					m_Title;
+	static Vector2					m_Resolution;
+	static float					m_RenderDistance;
 	static LPDIRECT3D9				m_pD3D;
 	static LPDIRECT3DDEVICE9		m_pd3dDevice;
 	static D3DMATERIAL9				m_defaultMaterial;
@@ -56,7 +62,7 @@ public:
 
 public:
 	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-	static HRESULT InitD3D(HWND hWnd);
+	static HRESULT InitD3D(HINSTANCE hInst);
 
 	static HRESULT SetupCamera();
 	static HRESULT Render();

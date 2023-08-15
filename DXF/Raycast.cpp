@@ -5,6 +5,12 @@
 #include "Transform.h"
 #include "Camera.h"
 
+Raycast::Raycast(Vector3 p_StartPt, Vector3 p_Direction)
+{
+	m_StartPt = p_StartPt;
+	m_Direction = p_Direction;
+}
+
 Raycast Raycast::ScreenToWorld(const Vector2& p_Position)
 {
 	// ºäÆ÷Æ®

@@ -12,3 +12,4 @@
 #include "ComponentHeader.h"
 #include "CameraMove.h"
 #include "PlayerMove.h"
+#include "TopText.h"

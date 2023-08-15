@@ -6,25 +6,13 @@
 
 INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
-    UNREFERENCED_PARAMETER(hInst);
-    srand(time(NULL));
+    PuzzleBobble::m_Title = "DXF PuzzleBobble";
+    PuzzleBobble::m_Resolution = Vector2(600, 900);
 
-    WNDCLASSEX wc =
+    if (SUCCEEDED(PuzzleBobble::InitD3D(hInst)))
     {
-        sizeof(WNDCLASSEX), CS_CLASSDC, PuzzleBobble::MsgProc, 0L, 0L,
-        GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
-        "DXF", NULL
-    };
-    RegisterClassEx(&wc);
-
-    HWND hWnd = CreateWindow("DXF", "DXF PuzzleBobble",
-        WS_OVERLAPPEDWINDOW, 100, 100, SCREENSIZEX - 13, SCREENSIZEY + 39,
-        NULL, NULL, wc.hInstance, NULL);
-
-    if (SUCCEEDED(PuzzleBobble::InitD3D(hWnd)))
-    {
-        ShowWindow(hWnd, SW_SHOWDEFAULT);
-        UpdateWindow(hWnd);
+        ShowWindow(PuzzleBobble::m_hWnd, SW_SHOWDEFAULT);
+        UpdateWindow(PuzzleBobble::m_hWnd);
 
         PuzzleBobble::ComponentRegister();
         PuzzleBobble::ScriptRegister();
@@ -60,7 +48,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         }
     }
 
-    UnregisterClass("DXF", wc.hInstance);
+    UnregisterClass("DXF", PuzzleBobble::m_WndClass.hInstance);
     PuzzleBobble::Cleanup();
     return 0;
 }

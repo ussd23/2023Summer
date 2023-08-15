@@ -6,25 +6,13 @@
 
 INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
-    UNREFERENCED_PARAMETER(hInst);
-    srand(time(NULL));
+    Sample1::m_Title = "DXF Flight";
+    Sample1::m_Resolution = Vector2(1600, 900);
 
-    WNDCLASSEX wc =
+    if (SUCCEEDED(Sample1::InitD3D(hInst)))
     {
-        sizeof(WNDCLASSEX), CS_CLASSDC, Sample1::MsgProc, 0L, 0L,
-        GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
-        "DXF", NULL
-    };
-    RegisterClassEx(&wc);
-
-    HWND hWnd = CreateWindow("DXF", "DXF Sample",
-        WS_OVERLAPPEDWINDOW, 100, 100, SCREENSIZEX + 16, SCREENSIZEY + 39,
-        NULL, NULL, wc.hInstance, NULL);
-
-    if (SUCCEEDED(Sample1::InitD3D(hWnd)))
-    {
-        ShowWindow(hWnd, SW_SHOWDEFAULT);
-        UpdateWindow(hWnd);
+        ShowWindow(Sample1::m_hWnd, SW_SHOWDEFAULT);
+        UpdateWindow(Sample1::m_hWnd);
 
         Sample1::ComponentRegister();
         Sample1::ScriptRegister();
@@ -60,7 +48,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         }
     }
 
-    UnregisterClass("DXF", wc.hInstance);
+    UnregisterClass("DXF", Sample1::m_WndClass.hInstance);
     Sample1::Cleanup();
     return 0;
 }

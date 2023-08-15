@@ -4,6 +4,11 @@
 #include "GameObject.h"
 #include "ComponentHeader.h"
 
+HWND DXFGame::m_hWnd;
+WNDCLASSEX DXFGame::m_WndClass;
+string DXFGame::m_Title = "DXF Sample";
+Vector2 DXFGame::m_Resolution = Vector2(800, 600);
+float DXFGame::m_RenderDistance = 1000.0f;
 LPDIRECT3D9	DXFGame::m_pD3D;
 LPDIRECT3DDEVICE9 DXFGame::m_pd3dDevice;
 D3DMATERIAL9 DXFGame::m_defaultMaterial;

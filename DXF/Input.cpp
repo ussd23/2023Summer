@@ -15,3 +15,17 @@ void Input::InputBufferReset()
     }
     Key.clear();
 }
+
+void Input::InputBufferReset(bool p_Option)
+{
+    if (p_Option)
+    {
+        Mouse.clear();
+        Key.clear();
+        KeyHold.clear();
+    }
+    else
+    {
+        InputBufferReset();
+    }
+}
