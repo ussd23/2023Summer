@@ -1,10 +1,10 @@
 #include "Scripts.h"
 
-Controll* Controll::controll = nullptr;
+Controll* Controll::m_Controll = nullptr;
 
 void Controll::Awake()
 {
-    if (controll == nullptr) controll = this;
+    if (m_Controll == nullptr) m_Controll = this;
 }
 
 void Controll::Start()
@@ -18,8 +18,8 @@ void Controll::Update()
 
     Vector3 rotation = Functions::QuaternionToEuler(m_RectTransform->GetRotation());
 
-    if (GetInputBuffer(KeyHold, 'A')) rotation.z -= (90 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'D')) rotation.z += (90 * Time::deltaTime);
+    if (GetInputBuffer(KeyHold, 'A') && rotation.z > -70) rotation.z -= (90 * Time::deltaTime);
+    if (GetInputBuffer(KeyHold, 'D') && rotation.z < 70) rotation.z += (90 * Time::deltaTime);
 
     m_RectTransform->SetRotation(Functions::EulerToQuaternion(rotation));
 }

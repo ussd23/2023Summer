@@ -11,7 +11,7 @@ protected:
 	RectTransform* m_RectTransform;
 
 public:
-	static Controll* controll;
+	static Controll* m_Controll;
 
 public:
 	void Awake() override;

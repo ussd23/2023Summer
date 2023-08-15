@@ -45,6 +45,9 @@
     <ClCompile Include="Controll.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleManager.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts.h">
@@ -75,6 +78,9 @@
       <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Controll.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleManager.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
   </ItemGroup>

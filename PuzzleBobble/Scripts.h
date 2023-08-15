@@ -18,3 +18,4 @@
 #include "BtnText.h"
 #include "Bubble.h"
 #include "Controll.h"
+#include "BubbleManager.h"

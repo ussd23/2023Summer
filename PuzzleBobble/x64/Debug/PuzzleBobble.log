@@ -1,20 +1,14 @@
-﻿  BtnText.cpp
-  Bubble.cpp
-  ButtonTest.cpp
-  CameraMove.cpp
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\CameraMove.cpp(14,35): warning C4305: '*=': 'double'에서 'float'(으)로 잘립니다.
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\CameraMove.cpp(20,35): warning C4305: '/=': 'double'에서 'float'(으)로 잘립니다.
-  Controll.cpp
-  InitObject.cpp
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\InitObject.cpp(16,59): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\InitObject.cpp(28,39): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\InitObject.cpp(58,26): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\InitObject.cpp(61,38): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\InitObject.cpp(62,26): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-C:\코드백업\2023심화\2023Summer\PuzzleBobble\InitObject.cpp(64,21): warning C4305: '-=': 'double'에서 'float'(으)로 잘립니다.
-  ObjectMove.cpp
-  PlayerMove.cpp
-  ScriptRegister.cpp
-  TopText.cpp
-  코드를 생성하고 있습니다...
+﻿  Bubble.cpp
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(32,62): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(33,62): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(77,35): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(82,35): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(97,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(102,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(110,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(115,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(126,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(131,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(139,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\코드백업\2023심화\2023Summer\PuzzleBobble\Bubble.cpp(144,43): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   PuzzleBobble.vcxproj -> C:\코드백업\2023심화\2023Summer\x64\Debug\PuzzleBobble.exe

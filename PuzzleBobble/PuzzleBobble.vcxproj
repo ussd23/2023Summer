@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="BtnText.cpp" />
     <ClCompile Include="Bubble.cpp" />
+    <ClCompile Include="BubbleManager.cpp" />
     <ClCompile Include="ButtonTest.cpp" />
     <ClCompile Include="CameraMove.cpp" />
     <ClCompile Include="Controll.cpp" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="BtnText.h" />
     <ClInclude Include="Bubble.h" />
+    <ClInclude Include="BubbleManager.h" />
     <ClInclude Include="ButtonTest.h" />
     <ClInclude Include="CameraMove.h" />
     <ClInclude Include="Controll.h" />

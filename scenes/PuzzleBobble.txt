@@ -39,7 +39,8 @@
 						30,
 						31,
 						32,
-						33
+						33,
+						34
 					],
 					"m_Position" : 
 					{
@@ -73,7 +74,7 @@
 				"type" : "class RectTransform",
 				"values" : 
 				{
-					"m_ChildID" : [ 34 ],
+					"m_ChildID" : [ 35 ],
 					"m_Position" : 
 					{
 						"x" : 0.0,
@@ -165,6 +166,46 @@
 					"m_Position" : 
 					{
 						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class BubbleManager",
+				"values" : 
+				{
+					"m_AllBubble" : "†ßàm\u0001\u0002\u0000\u0000pñàm\u0001\u0002\u0000\u0000Ä£àm\u0001\u0002\u0000\u0000õàm\u0001\u0002\u0000\u0000–óàm\u0001\u0002\u0000\u0000\u0000ûàm\u0001\u0002\u0000\u00000§àm\u0001\u0002\u0000\u0000\u0000©àm\u0001\u0002\u0000\u0000p°àm\u0001\u0002\u0000\u0000–åàm\u0001\u0002\u0000\u0000 ¢àm\u0001\u0002\u0000\u0000–¢àm\u0001\u0002\u0000\u0000¿äàm\u0001\u0002\u0000\u0000‡éàm\u0001\u0002\u0000\u0000\u0010†àm\u0001\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000êèàm\u0001\u0002\u0000\u0000êàm\u0001\u0002\u0000\u0000∞ìàm\u0001\u0002\u0000\u0000Pùàm\u0001\u0002\u0000\u0000¿†àm\u0001\u0002\u0000\u0000¿ïàm\u0001\u0002\u0000\u0000êöàm\u0001\u0002\u0000\u0000PÀpg\u0001\u0002\u0000\u00000\u001däm\u0001\u0002\u0000\u0000‡\u001däm\u0001\u0002\u0000\u0000\u0014äm\u0001\u0002\u0000\u0000\u0010\u000eäm\u0001\u0002\u0000\u0000–\u0005äm\u0001\u0002\u0000\u0000†\u0015äm\u0001\u0002\u0000\u0000P\u0016äm\u0001\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "empty",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
 						"y" : -6.0999999046325684,
 						"z" : -8.0
 					},
@@ -195,9 +236,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
 					"m_isPassive" : false
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -245,9 +294,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -295,9 +352,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -345,9 +410,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -395,9 +468,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -445,9 +526,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -495,9 +584,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -545,9 +642,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -595,9 +700,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0007\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -645,9 +758,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -695,9 +816,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -745,9 +874,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -795,9 +932,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -845,9 +990,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -895,9 +1048,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -945,9 +1106,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -995,9 +1164,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1045,9 +1222,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1095,9 +1280,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1145,9 +1338,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1195,9 +1396,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1245,9 +1454,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1295,9 +1512,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1345,9 +1570,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0007\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1395,9 +1628,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1445,9 +1686,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1495,9 +1744,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1545,9 +1802,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1595,9 +1860,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1645,9 +1918,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1695,9 +1976,17 @@
 				"values" : 
 				{
 					"m_CheckTime" : 0.10000000149011612,
-					"m_Radius" : 1.2000000476837158,
+					"m_Radius" : 1.1000000238418579,
 					"m_isFixedChecking" : false,
-					"m_isPassive" : false
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
 				}
 			}
 		],
@@ -1711,7 +2000,7 @@
 				"type" : "class RectTransform",
 				"values" : 
 				{
-					"m_ChildID" : [ 35 ],
+					"m_ChildID" : [ 36 ],
 					"m_Position" : 
 					{
 						"x" : 311.0,
@@ -1734,24 +2023,6 @@
 						"x" : 0.0,
 						"y" : 0.0
 					}
-				}
-			},
-			{
-				"type" : "class SpriteRenderer",
-				"values" : 
-				{
-					"m_Color" : 4294967295,
-					"m_RectIndex" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0
-					},
-					"m_RectSize" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0
-					},
-					"m_TextureName" : "system\\default.png"
 				}
 			},
 			{
