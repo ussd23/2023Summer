@@ -210,7 +210,8 @@ void GameObject::PreUpdate()
 
 	if (transform != nullptr)
 	{
-		for (int i = 0; i < transform->GetChildCount(); ++i)
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			transform->GetChild(i)->gameObject->PreUpdate();
 		}
@@ -218,7 +219,8 @@ void GameObject::PreUpdate()
 
 	else if (recttransform != nullptr)
 	{
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			recttransform->GetChild(i)->gameObject->PreUpdate();
 		}
@@ -229,7 +231,6 @@ void GameObject::Update()
 {
 	if (!m_isActive) return;
 
-	int temp;
 	list<SPTR<Component>>::iterator iter = m_Components.begin();
 
 	while (iter != m_Components.end())
@@ -242,8 +243,8 @@ void GameObject::Update()
 
 	if (transform != nullptr)
 	{
-		temp = transform->GetChildCount();
-		for (int i = 0; i < temp; ++i)
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			transform->GetChild(i)->gameObject->Update();
 		}
@@ -251,8 +252,8 @@ void GameObject::Update()
 
 	else if (recttransform != nullptr)
 	{
-		temp = recttransform->GetChildCount();
-		for (int i = 0; i < temp; ++i)
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			recttransform->GetChild(i)->gameObject->Update();
 		}
@@ -275,7 +276,8 @@ void GameObject::LateUpdate()
 
 	if (transform != nullptr)
 	{
-		for (int i = 0; i < transform->GetChildCount(); ++i)
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			transform->GetChild(i)->gameObject->LateUpdate();
 		}
@@ -283,7 +285,8 @@ void GameObject::LateUpdate()
 
 	else if (recttransform != nullptr)
 	{
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			recttransform->GetChild(i)->gameObject->LateUpdate();
 		}
@@ -304,7 +307,8 @@ void GameObject::PreRender()
 		VerticeRenderer* vertice = GetComponentFromObject(this, VerticeRenderer);
 		if (vertice != nullptr) { vertice->PreRender(); }
 
-		for (int i = 0; i < transform->GetChildCount(); ++i)
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			transform->GetChild(i)->gameObject->PreRender();
 		}
@@ -317,7 +321,8 @@ void GameObject::PreRender()
 		SpriteRenderer* sprite = GetComponentFromObject(this, SpriteRenderer);
 		if (sprite != nullptr) { sprite->PreRender(); }
 
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
 			recttransform->GetChild(i)->gameObject->PreRender();
 		}
