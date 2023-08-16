@@ -131,7 +131,7 @@ void PlayerMove::OnTriggerStay(Collider* _collider)
             if (rotation.x < -20.f || abs(rotation.z) > 20.f)
             {
                 MessageBox(NULL, "ÆÄ±«µÊ", "DXF Flight", MB_OK);
-                Input::InputBufferReset();
+                Input::InputBufferReset(true);
 
                 m_RotationTorque = Vector3(0, 0, 0);
                 m_Speed = 0.f;
@@ -148,7 +148,7 @@ void PlayerMove::OnTriggerStay(Collider* _collider)
     else
     {
         MessageBox(NULL, "ÆÄ±«µÊ", "DXF Flight", MB_OK);
-        Input::InputBufferReset();
+        Input::InputBufferReset(true);
 
         m_RotationTorque = Vector3(0, 0, 0);
         m_Speed = 0.f;

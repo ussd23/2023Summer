@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="CameraMove.cpp" />
     <ClCompile Include="InitObject.cpp" />
+    <ClCompile Include="ObjectMove.cpp" />
     <ClCompile Include="PlayerMove.cpp" />
     <ClCompile Include="ScriptRegister.cpp" />
     <ClCompile Include="TopText.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraMove.h" />
+    <ClInclude Include="ObjectMove.h" />
     <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Scripts.h" />

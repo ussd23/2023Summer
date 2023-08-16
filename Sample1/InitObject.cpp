@@ -47,6 +47,8 @@ void Sample1::InitObject()
         transform->SetScale(Vector3(scale, scale, scale));
         SphereCollider* scollider = new SphereCollider(1.0f, true);
         AddComponentToObject(gameObject, scollider);
+        ObjectMove* omove = new ObjectMove();
+        AddComponentToObject(gameObject, omove);
     }
 
     gameObject = new MeshObject("Airplane", Vector3(0, 1, 0), "airplane 2.x");

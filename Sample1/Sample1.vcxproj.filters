@@ -30,6 +30,9 @@
     <ClCompile Include="TopText.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectMove.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts.h">
@@ -45,6 +48,9 @@
       <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="TopText.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMove.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
   </ItemGroup>
