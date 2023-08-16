@@ -9,7 +9,6 @@ struct IntVector2
 
 class Bubble : public Component
 {
-
 protected:
 	Transform*			m_Transform;
 	float				m_Speed;
@@ -19,7 +18,7 @@ protected:
 	GameObject*			m_Controll;
 	GameObject*			m_BubbleManager;
 	vector<Bubble*>		m_NearSameBubbles;
-
+	bool				m_GameOver = false;
 	
 public:
 	bool				m_isBullet = false;

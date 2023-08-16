@@ -9,16 +9,14 @@ void PuzzleBobble::InitObject()
 
     // MainCamera
     GameObject* gameObject = new CameraObject("MainCamera", Vector3(0, 0, -41), Vector3(0, 1, 0));
-    CameraMove* cmove = new CameraMove();
-    AddComponentToObject(gameObject, cmove);
 
     // 버블들 정보 관리자
     gameObject = new EmptyObject("empty", Vector3(0, 0, 0));
     BubbleManager* bubblemanager = new BubbleManager();
     AddComponentToObject(gameObject, bubblemanager);
 
-    // Sun (Player)
-    gameObject = new MeshObject("red", Vector3(0, -6.1, -8), "PuzzleBobble\\red.x");
+    // 탄환 버블
+    gameObject = new MeshObject("bubble", Vector3(0, -6.1, -8), "PuzzleBobble\\red.x");
     SphereCollider* scollider = new SphereCollider(1.1f);
     AddComponentToObject(gameObject, scollider);
     Bubble* bubble = new Bubble(1);
@@ -89,7 +87,7 @@ void PuzzleBobble::InitObject()
     }
 
     // 화살표
-    gameObject = new EmptyRectObject("empty", Vector2(0, 0), Vector2(SCREENSIZEX * 0.5 + 11, 750));
+    gameObject = new EmptyRectObject("empty", Vector2(0, 0), Vector2(SCREENSIZEX * 0.5 + 25, 750));
     Controll* controll = new Controll();
     AddComponentToObject(gameObject, controll);
 

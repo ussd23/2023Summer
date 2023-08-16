@@ -14,12 +14,15 @@ void Controll::Start()
 
 void Controll::Update()
 {
-    if (m_RectTransform == nullptr) return;
+    if (!m_GameOver)
+    {
+        if (m_RectTransform == nullptr) return;
 
-    Vector3 rotation = Functions::QuaternionToEuler(m_RectTransform->GetRotation());
+        Vector3 rotation = Functions::QuaternionToEuler(m_RectTransform->GetRotation());
 
-    if (GetInputBuffer(KeyHold, 'A') && rotation.z > -70) rotation.z -= (90 * Time::deltaTime);
-    if (GetInputBuffer(KeyHold, 'D') && rotation.z < 70) rotation.z += (90 * Time::deltaTime);
+        if (GetInputBuffer(KeyHold, 'A') && rotation.z > -70) rotation.z -= (90 * Time::deltaTime);
+        if (GetInputBuffer(KeyHold, 'D') && rotation.z < 70) rotation.z += (90 * Time::deltaTime);
 
-    m_RectTransform->SetRotation(Functions::EulerToQuaternion(rotation));
+        m_RectTransform->SetRotation(Functions::EulerToQuaternion(rotation));
+    }
 }

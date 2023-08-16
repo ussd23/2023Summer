@@ -48,9 +48,9 @@ class Transform : public Component
 protected:
     Transform*          m_Parent = nullptr;
     vector<Transform*>  m_Childs;
-    Vector3             m_WorldPosition;
-    Quaternion          m_WorldRotation;
-    Vector3             m_WorldScale;
+    Vector3             m_WorldPosition = Vector3(0, 0, 0);
+    Quaternion          m_WorldRotation = Quaternion(0, 0, 0, 0);
+    Vector3             m_WorldScale = Vector3(0, 0, 0);
     Vector3             m_Position;
     Quaternion          m_Rotation;
     Vector3             m_Scale;

@@ -3,10 +3,7 @@
 
 void PuzzleBobble::ScriptRegister()
 {
-    ComponentRegist(CameraMove);
-    ComponentRegist(ObjectMove);
-    ComponentRegist(PlayerMove);
-    ComponentRegist(TopText);
-    ComponentRegist(BtnText);
-    ComponentRegist(ButtonTest);
+    ComponentRegist(Bubble);
+    ComponentRegist(BubbleManager);
+    ComponentRegist(Controll);
 }

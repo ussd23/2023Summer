@@ -16,7 +16,7 @@ void Bubble::Start()
 
 void Bubble::Update()
 {
-    if (m_isBullet == true)
+    if (m_isBullet == true && !m_GameOver)
     {
         Vector3 position = m_Transform->GetPosition();
 
@@ -61,11 +61,11 @@ void Bubble::OnTriggerEnter(Collider* _collider)
     {
         //그리드 맞춰서 배치
         Transform* trans = GetComponentFromObject(_collider->gameObject, Transform);
-        Bubble* bubble = GetComponentFromObject(_collider->gameObject, Bubble);
+        Bubble* colbubble = GetComponentFromObject(_collider->gameObject, Bubble);
         BubbleManager* bubman = GetComponentFromObject(m_BubbleManager, BubbleManager);
 
         if (trans == nullptr) return; 
-        if (bubble == nullptr) return;
+        if (colbubble == nullptr) return;
         if (bubman == nullptr) return;
 
         Vector3 collpos = trans->GetPosition();
@@ -75,79 +75,88 @@ void Bubble::OnTriggerEnter(Collider* _collider)
         if (collpos.y >= thispos.y + 1)
         {
             thispos.y = collpos.y - 1.9;
-            m_PosInManager.y = bubble->m_PosInManager.y + 1;
+            m_PosInManager.y = colbubble->m_PosInManager.y + 1;
         }
         else if (collpos.y <= thispos.y - 1)
         {
             thispos.y = collpos.y + 1.9;
-            m_PosInManager.y = bubble->m_PosInManager.y - 1;
+            m_PosInManager.y = colbubble->m_PosInManager.y - 1;
         }
         else
         {
             thispos.y = collpos.y;
-            m_PosInManager.y = bubble->m_PosInManager.y;
+            m_PosInManager.y = colbubble->m_PosInManager.y;
         }
         //x좌표 위치 설정
         if (collpos.x >= thispos.x)
         {
-            if (bubble->m_PosInManager.y % 2 == 0)
+            if (colbubble->m_PosInManager.y % 2 == 0)
             {
-                if (m_PosInManager.y == bubble->m_PosInManager.y)
+                if (m_PosInManager.y == colbubble->m_PosInManager.y)
                 {
                     thispos.x = collpos.x - 2.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x - 1;
+                    m_PosInManager.x = colbubble->m_PosInManager.x - 1;
                 }
                 else
                 {
                     thispos.x = collpos.x - 1.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x - 1;
+                    m_PosInManager.x = colbubble->m_PosInManager.x - 1;
                 }
             }
             else
             {
-                if (m_PosInManager.y == bubble->m_PosInManager.y)
+                if (m_PosInManager.y == colbubble->m_PosInManager.y)
                 {
                     thispos.x = collpos.x - 2.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x - 1;
+                    m_PosInManager.x = colbubble->m_PosInManager.x - 1;
                 }
                 else
                 {
                     thispos.x = collpos.x - 1.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x;
+                    m_PosInManager.x = colbubble->m_PosInManager.x;
                 }
             }
         }
         else
         {
-            if (bubble->m_PosInManager.y % 2 == 1)
+            if (colbubble->m_PosInManager.y % 2 == 1)
             {
-                if (m_PosInManager.y == bubble->m_PosInManager.y)
+                if (m_PosInManager.y == colbubble->m_PosInManager.y)
                 {
                     thispos.x = collpos.x + 2.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x + 1;
+                    m_PosInManager.x = colbubble->m_PosInManager.x + 1;
                 }
                 else
                 {
                     thispos.x = collpos.x + 1.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x + 1;
+                    m_PosInManager.x = colbubble->m_PosInManager.x + 1;
                 }
             }
             else
             {
-                if (m_PosInManager.y == bubble->m_PosInManager.y)
+                if (m_PosInManager.y == colbubble->m_PosInManager.y)
                 {
                     thispos.x = collpos.x + 2.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x + 1;
+                    m_PosInManager.x = colbubble->m_PosInManager.x + 1;
                 }
                 else
                 {
                     thispos.x = collpos.x + 1.05;
-                    m_PosInManager.x = bubble->m_PosInManager.x;
+                    m_PosInManager.x = colbubble->m_PosInManager.x;
                 }
             }
         }
 
         m_Transform->SetPosition(thispos);
+
+        //게임오버
+        if (m_PosInManager.y == 8)
+        {
+            MessageBox(NULL, "아쉽네요", "게임오버", MB_OK);
+            m_GameOver = true;
+            Controll::m_Controll->m_GameOver = true;
+            return;
+        }
 
         //버블매니저의 m_AllBubble에 충돌대상과의 상대 위치를 따져서 자기 자신을 추가
         bubman->m_AllBubble[m_PosInManager.y][m_PosInManager.x] = this;
@@ -190,14 +199,60 @@ void Bubble::OnTriggerEnter(Collider* _collider)
 
             m_isBullet = false;
         }
+        //3개 이상이면 모두 파괴
         else
         {
             for (int i = 0; i < result.size(); i++)
             {
                 destroyobj = result[i]->gameObject;
 
-                GameObject::Destroy(destroyobj, 0);
+                GameObject::Destroy(destroyobj);
             }
+        }
+
+        int collor = (rand() % 4) + 1;
+        GameObject* GameObj;
+        SphereCollider* scollider;
+        Bubble* bubble;
+
+        switch (collor)
+        {
+        case 1:
+            //다음 탄환 생성
+            GameObj = new MeshObject("bubble", Vector3(0, -6.1, -8), "PuzzleBobble\\red.x");
+            scollider = new SphereCollider(1.1f);
+            AddComponentToObject(GameObj, scollider);
+            bubble = new Bubble(1);
+            AddComponentToObject(GameObj, bubble);
+            bubble->m_isBullet = true;
+            break;
+        case 2:
+            //다음 탄환 생성
+            GameObj = new MeshObject("bubble", Vector3(0, -6.1, -8), "PuzzleBobble\\green.x");
+            scollider = new SphereCollider(1.1f);
+            AddComponentToObject(GameObj, scollider);
+            bubble = new Bubble(2);
+            AddComponentToObject(GameObj, bubble);
+            bubble->m_isBullet = true;
+            break;
+        case 3:
+            //다음 탄환 생성
+            GameObj = new MeshObject("bubble", Vector3(0, -6.1, -8), "PuzzleBobble\\blue.x");
+            scollider = new SphereCollider(1.1f);
+            AddComponentToObject(GameObj, scollider);
+            bubble = new Bubble(3);
+            AddComponentToObject(GameObj, bubble);
+            bubble->m_isBullet = true;
+            break;
+        case 4:
+            //다음 탄환 생성
+            GameObj = new MeshObject("bubble", Vector3(0, -6.1, -8), "PuzzleBobble\\yellow.x");
+            scollider = new SphereCollider(1.1f);
+            AddComponentToObject(GameObj, scollider);
+            bubble = new Bubble(4);
+            AddComponentToObject(GameObj, bubble);
+            bubble->m_isBullet = true;
+            break;
         }
     }
 }

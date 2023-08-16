@@ -10,12 +10,6 @@
 
 // 컴포넌트 및 글로벌 변수 헤더
 #include "ComponentHeader.h"
-#include "CameraMove.h"
-#include "PlayerMove.h"
-#include "ObjectMove.h"
-#include "TopText.h"
-#include "ButtonTest.h"
-#include "BtnText.h"
 #include "Bubble.h"
 #include "Controll.h"
 #include "BubbleManager.h"

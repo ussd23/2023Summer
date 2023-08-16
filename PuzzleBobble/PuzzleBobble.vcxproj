@@ -146,31 +146,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BtnText.cpp" />
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleManager.cpp" />
-    <ClCompile Include="ButtonTest.cpp" />
-    <ClCompile Include="CameraMove.cpp" />
     <ClCompile Include="Controll.cpp" />
     <ClCompile Include="InitObject.cpp" />
-    <ClCompile Include="ObjectMove.cpp" />
-    <ClCompile Include="PlayerMove.cpp" />
     <ClCompile Include="ScriptRegister.cpp" />
-    <ClCompile Include="TopText.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BtnText.h" />
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="BubbleManager.h" />
-    <ClInclude Include="ButtonTest.h" />
-    <ClInclude Include="CameraMove.h" />
     <ClInclude Include="Controll.h" />
     <ClInclude Include="PuzzleBobble.h" />
-    <ClInclude Include="ObjectMove.h" />
-    <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="Scripts.h" />
-    <ClInclude Include="TopText.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXF\DXF.vcxproj">

@@ -229,6 +229,7 @@ void GameObject::Update()
 {
 	if (!m_isActive) return;
 
+	int temp;
 	list<SPTR<Component>>::iterator iter = m_Components.begin();
 
 	while (iter != m_Components.end())
@@ -241,7 +242,8 @@ void GameObject::Update()
 
 	if (transform != nullptr)
 	{
-		for (int i = 0; i < transform->GetChildCount(); ++i)
+		temp = transform->GetChildCount();
+		for (int i = 0; i < temp; ++i)
 		{
 			transform->GetChild(i)->gameObject->Update();
 		}
@@ -249,7 +251,8 @@ void GameObject::Update()
 
 	else if (recttransform != nullptr)
 	{
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
+		temp = recttransform->GetChildCount();
+		for (int i = 0; i < temp; ++i)
 		{
 			recttransform->GetChild(i)->gameObject->Update();
 		}

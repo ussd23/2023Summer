@@ -8,10 +8,11 @@ class Collider;
 class Controll : public Component
 {
 protected:
-	RectTransform* m_RectTransform;
+	RectTransform*		m_RectTransform;
 
 public:
-	static Controll* m_Controll;
+	static Controll*	m_Controll;
+	bool				m_GameOver = false;
 
 public:
 	void Awake() override;

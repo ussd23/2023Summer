@@ -12,18 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraMove.cpp">
-      <Filter>2. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectMove.cpp">
-      <Filter>2. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMove.cpp">
-      <Filter>2. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="TopText.cpp">
-      <Filter>2. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="winmain.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
@@ -32,12 +20,6 @@
     </ClCompile>
     <ClCompile Include="ScriptRegister.cpp">
       <Filter>1. Importants</Filter>
-    </ClCompile>
-    <ClCompile Include="BtnText.cpp">
-      <Filter>2. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonTest.cpp">
-      <Filter>2. Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Bubble.cpp">
       <Filter>2. Scripts</Filter>
@@ -53,26 +35,8 @@
     <ClInclude Include="Scripts.h">
       <Filter>1. Importants</Filter>
     </ClInclude>
-    <ClInclude Include="CameraMove.h">
-      <Filter>2. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectMove.h">
-      <Filter>2. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMove.h">
-      <Filter>2. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="TopText.h">
-      <Filter>2. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="PuzzleBobble.h">
       <Filter>0. Core</Filter>
-    </ClInclude>
-    <ClInclude Include="BtnText.h">
-      <Filter>2. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonTest.h">
-      <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Bubble.h">
       <Filter>2. Scripts</Filter>
