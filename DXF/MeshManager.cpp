@@ -68,6 +68,7 @@ MeshInfo* MeshManager::GetMesh(const string& p_Path)
         }
     }
     DXFGame::m_pVB->Unlock();
+    DXFGame::m_pVB->Release();
 
     meshinfo->farthestDistance = farthest;
 

@@ -113,4 +113,6 @@ void VerticeRenderer::Render()
     DXFGame::m_pd3dDevice->SetStreamSource(0, DXFGame::m_pVB, 0, sizeof(Vertex));
     DXFGame::m_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
     DXFGame::m_pd3dDevice->DrawPrimitive(m_Type, m_StartVertex, m_Count);
+
+    DXFGame::m_pVB->Release();
 }

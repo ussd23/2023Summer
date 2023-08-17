@@ -39,7 +39,7 @@ void Minesweeper::InitGame(int Size) {
 		Animator* Mine_Animator = new Animator(0, MAXINT, 100000000.f, true);
 		AddComponentToObject(Mine_Obj, Mine_Animator);
 
-		BoxCollider* Mine_Box = new BoxCollider(Vector3(0.8f, 0.8f, 0.8f));
+		BoxCollider* Mine_Box = new BoxCollider(Vector3(0.8f, 0.8f, 0.8f), true);
 		AddComponentToObject(Mine_Obj, Mine_Box);
 		Mine* Mine_Info = new Mine();
 		AddComponentToObject(Mine_Obj, Mine_Info);
