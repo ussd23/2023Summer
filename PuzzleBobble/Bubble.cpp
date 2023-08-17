@@ -59,6 +59,8 @@ void Bubble::OnTriggerEnter(Collider* _collider)
 {
     if (m_isBullet)
     {
+        m_isBullet = false;
+
         //그리드 맞춰서 배치
         Transform* trans = GetComponentFromObject(_collider->gameObject, Transform);
         Bubble* colbubble = GetComponentFromObject(_collider->gameObject, Bubble);
@@ -150,7 +152,7 @@ void Bubble::OnTriggerEnter(Collider* _collider)
         m_Transform->SetPosition(thispos);
 
         //게임오버
-        if (m_PosInManager.y == 8)
+        if (m_PosInManager.y == 7)
         {
             MessageBox(NULL, "아쉽네요", "게임오버", MB_OK);
             m_GameOver = true;
@@ -196,8 +198,6 @@ void Bubble::OnTriggerEnter(Collider* _collider)
             if (coll == nullptr) return;
 
             coll->m_isPassive = true;
-
-            m_isBullet = false;
         }
         //3개 이상이면 모두 파괴
         else

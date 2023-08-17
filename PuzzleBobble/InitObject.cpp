@@ -7,8 +7,18 @@ void PuzzleBobble::InitObject()
 
     //return;
 
+    // 화살표
+    GameObject* gameObject = new EmptyRectObject("empty", Vector2(0, 0), Vector2(PuzzleBobble::m_Resolution.x * 0.5 + 25, 750));
+    Controll* controll = new Controll();
+    AddComponentToObject(gameObject, controll);
+
+    GameObject* childObject = new SpriteObject("arrow", Vector2(50, 100), Vector2(-25, -150), "PuzzleBobble\\arrow.png");
+    RectTransform* parentrect = GetComponentFromObject(gameObject, RectTransform);
+    RectTransform* childrect = GetComponentFromObject(childObject, RectTransform);
+    childrect->SetParent(parentrect);
+
     // MainCamera
-    GameObject* gameObject = new CameraObject("MainCamera", Vector3(0, 0, -41), Vector3(0, 1, 0));
+    gameObject = new CameraObject("MainCamera", Vector3(0, 0, -41), Vector3(0, 1, 0));
 
     // 버블들 정보 관리자
     gameObject = new EmptyObject("empty", Vector3(0, 0, 0));
@@ -85,16 +95,6 @@ void PuzzleBobble::InitObject()
 
         pos.y -= 1.9;
     }
-
-    // 화살표
-    gameObject = new EmptyRectObject("empty", Vector2(0, 0), Vector2(SCREENSIZEX * 0.5 + 25, 750));
-    Controll* controll = new Controll();
-    AddComponentToObject(gameObject, controll);
-
-    GameObject* childObject = new SpriteObject("arrow", Vector2(50, 100), Vector2(-25, -150), "PuzzleBobble\\arrow.png");
-    RectTransform* parentrect = GetComponentFromObject(gameObject, RectTransform);
-    RectTransform* childrect = GetComponentFromObject(childObject, RectTransform);
-    childrect->SetParent(parentrect);
 
     SceneManager::SaveScene("PuzzleBobble");
 }

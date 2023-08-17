@@ -50,10 +50,6 @@ class MouseFunction;
 class Renderer;
 class Frustum;
 
-//퍼즐버블은 가로600
-//#define SCREENSIZEX 600
-#define SCREENSIZEX 1600
-#define SCREENSIZEY 900
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
 typedef class Variables
