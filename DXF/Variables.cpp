@@ -1,17 +1,17 @@
 #include "DXHeader.h"
 #include "Global.h"
 
-list<SPTR<GameObject>> Variables::Objects;
-list<GameObject*> Variables::ColliderObjects;
-GameObject* Variables::RootObject;
-Transform* Variables::RootTransform;
-GameObject* Variables::RootRectObject;
-RectTransform* Variables::RootRectTransform;
-vector<Component*> Variables::NewComponents;
-list<Component*> Variables::WaitComponents;
+list<SPTR<GameObject>> Var::Objects;
+list<GameObject*> Var::ColliderObjects;
+GameObject* Var::RootObject;
+Transform* Var::RootTransform;
+GameObject* Var::RootRectObject;
+RectTransform* Var::RootRectTransform;
+vector<Component*> Var::NewComponents;
+list<Component*> Var::WaitComponents;
 
-RECT Variables::ScreenRect;
-Frustum* Variables::Frustum;
-int Variables::CullingObjects;
-vector<Renderer*> Variables::TransformRenderList;
-vector<Renderer*> Variables::RectTransformRenderList;
+RECT Var::ScreenRect;
+Frustum* Var::Frustum;
+int Var::CullingObjects;
+vector<Renderer*> Var::TransformRenderList;
+vector<Renderer*> Var::RectTransformRenderList;

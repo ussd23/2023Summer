@@ -52,7 +52,7 @@ class Frustum;
 
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
-typedef class Variables
+typedef class Var
 {
 public:
 	static list<SPTR<GameObject>>	Objects;
@@ -69,7 +69,7 @@ public:
 	static int						CullingObjects;
 	static vector<Renderer*>		TransformRenderList;
 	static vector<Renderer*>		RectTransformRenderList;
-} Global, Var;
+} Global;
 
 enum MouseInput
 {
