@@ -50,6 +50,7 @@ protected:
 public:
 	static HWND						m_hWnd;
 	static WNDCLASSEX				m_WndClass;
+	static MSG						m_Msg;
 	static string					m_Title;
 	static Vector2					m_Resolution;
 	static float					m_RenderDistance;
@@ -71,5 +72,5 @@ public:
 	static void ComponentRegister();
 	static void Start();
 	static void Update();
-	static void Message(MSG* msg);
+	static void Message();
 };

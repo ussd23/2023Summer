@@ -6,6 +6,7 @@
 
 HWND DXFGame::m_hWnd;
 WNDCLASSEX DXFGame::m_WndClass;
+MSG DXFGame::m_Msg;
 string DXFGame::m_Title = "DXF Sample";
 Vector2 DXFGame::m_Resolution = Vector2(800, 600);
 float DXFGame::m_RenderDistance = 1000.0f;
@@ -72,11 +73,11 @@ void DXFGame::Update()
     if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
 }
 
-void DXFGame::Message(MSG* msg)
+void DXFGame::Message()
 {
-    if (PeekMessage(msg, NULL, 0U, 0U, PM_REMOVE))
+    if (PeekMessage(&m_Msg, NULL, 0U, 0U, PM_REMOVE))
     {
-        TranslateMessage(msg);
-        DispatchMessage(msg);
+        TranslateMessage(&m_Msg);
+        DispatchMessage(&m_Msg);
     }
 }

@@ -16,16 +16,14 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
         Sample1::InitObject();
 
-        MSG msg;
-        ZeroMemory(&msg, sizeof(msg));
-        while (msg.message != WM_QUIT)
+        while (Sample1::m_Msg.message != WM_QUIT)
         {
             // Frame Update
             Input::InputBufferReset();
             Time::TimeUpdate();
 
             // Message
-            Sample1::Message(&msg);
+            Sample1::Message();
 
             // Start
             Sample1::Start();

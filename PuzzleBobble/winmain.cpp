@@ -16,16 +16,14 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
         PuzzleBobble::InitObject();
 
-        MSG msg;
-        ZeroMemory(&msg, sizeof(msg));
-        while (msg.message != WM_QUIT)
+        while (PuzzleBobble::m_Msg.message != WM_QUIT)
         {
             // Frame Update
             Input::InputBufferReset();
             Time::TimeUpdate();
 
             // Message
-            PuzzleBobble::Message(&msg);
+            PuzzleBobble::Message();
 
             // Start
             PuzzleBobble::Start();
