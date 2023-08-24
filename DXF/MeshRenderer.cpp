@@ -1,54 +1,61 @@
 #include "ComponentHeader.h"
 
-MeshRenderer::MeshRenderer(string _modelname)
-{
-    modelname = _modelname;
-}
+MeshRenderer::MeshRenderer(const string& p_ModelName)
+    : m_ModelName(p_ModelName) {}
 
 void MeshRenderer::Start()
 {
-    transform = GetComponentFromObject(gameObject, Transform);
+    m_Transform = GetComponentFromObject(gameObject, Transform);
 
-    meshinfo = MeshManager::GetInstance()->GetMesh(modelname);
+    m_MeshInfo = MeshManager::GetInstance()->GetMesh(m_ModelName);
+}
+
+void MeshRenderer::PreRender()
+{
+    if (m_Transform == nullptr) return;
+    if (m_MeshInfo == nullptr) return;
+
+    Vector3 pos = m_Transform->GetWorldPosition();
+    Vector3 scale = m_Transform->GetWorldScale();
+
+    float maxscale = max(scale.x, max(scale.y, scale.z));
+
+    Vector3 sub = pos - Camera::main->m_Transform->GetWorldPosition();
+    m_Distance = D3DXVec3LengthSq(&sub) - m_MeshInfo->farthestDistance * maxscale;
+
+    if (Var::Frustum->isIn(pos, m_MeshInfo->farthestDistance * maxscale))
+    {
+        Var::TransformRenderList.push_back(this);
+    }
 }
 
 void MeshRenderer::Render()
 {
-    if (transform == nullptr) return;
-    if (meshinfo == nullptr) return;
-
-    Vector3 pos = transform->GetWorldPosition();
-    Vector3 rot = transform->GetWorldRotation();
-    Vector3 scale = transform->GetWorldScale();
+    Vector3 pos = m_Transform->GetWorldPosition();
+    Quaternion rot = m_Transform->GetWorldRotation();
+    Vector3 scale = m_Transform->GetWorldScale();
 
     Matrix16 matWorldPosition;
     D3DXMatrixTranslation(&matWorldPosition, pos.x, pos.y, pos.z);
 
-    Matrix16 matWorldRotationX;
-    D3DXMatrixRotationX(&matWorldRotationX, D3DXToRadian(rot.x));
-
-    Matrix16 matWorldRotationY;
-    D3DXMatrixRotationY(&matWorldRotationY, D3DXToRadian(rot.y));
-
-    Matrix16 matWorldRotationZ;
-    D3DXMatrixRotationZ(&matWorldRotationZ, D3DXToRadian(rot.z));
+    Matrix16 matWorldRotation;
+    D3DXMatrixRotationQuaternion(&matWorldRotation, &rot);
 
     Matrix16 matWorldScale;
     D3DXMatrixScaling(&matWorldScale, scale.x, scale.y, scale.z);
 
     Matrix16 matWorldSet;
     D3DXMatrixIdentity(&matWorldSet);
-    matWorldSet = matWorldScale * matWorldRotationX * matWorldRotationY * matWorldRotationZ * matWorldPosition;
-    g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
+    matWorldSet = matWorldScale * matWorldRotation * matWorldPosition;
+    DXFGame::m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
 
-    for (DWORD i = 0; i < meshinfo->dwNumMaterials; i++)
+    for (DWORD i = 0; i < m_MeshInfo->dwNumMaterials; i++)
     {
-        // mat
-        g_pd3dDevice->SetMaterial(&meshinfo->pMeshMaterials[i]);
-        g_pd3dDevice->SetTexture(0, meshinfo->pMeshTextures[i]);
-        // g_pd3dDevice->SetVertexShader()
+        DXFGame::m_pd3dDevice->SetMaterial(&m_MeshInfo->pMeshMaterials[i]);
+        DXFGame::m_pd3dDevice->SetTexture(0, m_MeshInfo->pMeshTextures[i]);
+        //DXFGame::m_pd3dDevice->SetVertexShader();
 
-        if (meshinfo->pMesh == NULL) return;
-        meshinfo->pMesh->DrawSubset(i);
+        if (m_MeshInfo->pMesh == NULL) return;
+        m_MeshInfo->pMesh->DrawSubset(i);
     }
 }

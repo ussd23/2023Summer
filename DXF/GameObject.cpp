@@ -8,22 +8,31 @@
 #include "TextRenderer.h"
 #include "VerticeRenderer.h"
 #include "SpriteRenderer.h"
-#include "Checkbox.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 
-vector<GameObject*> GameObject::safedestroy;
+#define AddObjectToScene(object, parent) { Var::Objects.push_back(object);\
+        Transform* obj = GetComponentFromObject(object, Transform);\
+        Transform* par = GetComponentFromObject(parent, Transform);\
+        if (par != nullptr && obj != nullptr) par->AddChild(obj);\
+        else { RectTransform* robj = GetComponentFromObject(object, RectTransform);\
+        RectTransform* rpar = GetComponentFromObject(parent, RectTransform);\
+        if (rpar != nullptr && robj != nullptr) rpar->AddChild(robj); } }
 
-bool GameObject::TransformCheck(const string& _key)
+map<GameObject*, float> GameObject::m_SafeDestroy;
+
+bool GameObject::TransformCheck(const string& p_Key)
 {
-	if (typeid(Transform).name() == _key || typeid(RectTransform).name() == _key)
+	if (typeid(Transform).name() == p_Key || typeid(RectTransform).name() == p_Key)
 	{
-		map<string, Component*>::iterator iter = componentsmap.find(typeid(Transform).name());
-		if (iter != componentsmap.end())
+		map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(Transform).name());
+		if (iter != m_ComponentsMap.end())
 		{
 			return false;
 		}
 
-		iter = componentsmap.find(typeid(RectTransform).name());
-		if (iter != componentsmap.end())
+		iter = m_ComponentsMap.find(typeid(RectTransform).name());
+		if (iter != m_ComponentsMap.end())
 		{
 			return false;
 		}
@@ -31,10 +40,32 @@ bool GameObject::TransformCheck(const string& _key)
 	return true;
 }
 
-GameObject::GameObject(string _name)
+bool GameObject::ColliderCheck(Component* p_Comp)
 {
-	name = _name;
+	BoxCollider* bcollider = dynamic_cast<BoxCollider*>(p_Comp);
+	SphereCollider* scollider = dynamic_cast<SphereCollider*>(p_Comp);
+
+	if (bcollider == nullptr && scollider == nullptr) return true;
+
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider).name());
+	if (iter != m_ComponentsMap.end())
+	{
+		return false;
+	}
+
+	iter = m_ComponentsMap.find(typeid(SphereCollider).name());
+	if (iter != m_ComponentsMap.end())
+	{
+		return false;
+	}
+
+	Var::ColliderObjects.push_back(this);
+
+	return true;
 }
+
+GameObject::GameObject(const string& p_Name)
+	: m_Name(p_Name) {}
 
 GameObject::~GameObject()
 {
@@ -65,112 +96,75 @@ GameObject::~GameObject()
 		}
 	}
 
-	components.clear();
+	m_Components.clear();
 
-	for (int i = 0; i < safedestroy.size(); ++i)
+	if (Var::RootObject == this) Var::RootObject = nullptr;
+	else if (Var::RootRectObject == this) Var::RootRectObject = nullptr;
+}
+
+Component* GameObject::GetComponent(const string& p_Key)
+{
+	string key = "class " + p_Key;
+
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
+	if (iter != m_ComponentsMap.end())
 	{
-		if (safedestroy[i] == this)
+		return iter->second;
+	}
+
+	return nullptr;
+}
+
+void GameObject::RemoveComponent(Component* p_Comp)
+{
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	while (iter != m_Components.end())
+	{
+		if (p_Comp == (*iter)())
 		{
-			safedestroy[i] = nullptr;
+			m_Components.erase(iter);
+			break;
+		}
+		++iter;
+	}
+
+	for (pair<string, Component*> pair : m_ComponentsMap)
+	{
+		if (pair.second == p_Comp)
+		{
+			m_ComponentsMap.erase(pair.first);
 			break;
 		}
 	}
-
-	if (g_RootObject == this) g_RootObject = nullptr;
-	else if (g_RootRectObject == this) g_RootRectObject = nullptr;
 }
 
 bool GameObject::isActive()
 {
-	if (active) return true;
+	if (m_isActive) return true;
 	else return false;
 }
 
-void GameObject::Update()
+void GameObject::SetActive(bool p_isActive)
 {
-	if (!active) return;
+	if (m_isActive == p_isActive) return;
 
-	list<SPTR<Component>>::iterator iter = components.begin();
+	m_isActive = p_isActive;
 
-	while (iter != components.end())
+	if (m_isActive)
 	{
-		(*iter++)->Update();
-	}
+		list<SPTR<Component>>::iterator iter = m_Components.begin();
 
-	Transform* transform = GetComponentFromObject(this, Transform);
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
-
-	if (transform != nullptr)
-	{
-		for (int i = 0; i < transform->GetChildCount(); ++i)
-		{
-			transform->GetChild(i)->gameObject->Update();
-		}
-	}
-
-	else if (recttransform != nullptr)
-	{
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
-		{
-			recttransform->GetChild(i)->gameObject->Update();
-		}
-	}
-}
-
-void GameObject::Render()
-{
-	if (!active) return;
-
-	Transform* transform = GetComponentFromObject(this, Transform);
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
-
-	if (transform != nullptr)
-	{
-		MeshRenderer* mesh = GetComponentFromObject(this, MeshRenderer);
-		if (mesh != nullptr) mesh->Render();
-		VerticeRenderer* vertice = GetComponentFromObject(this, VerticeRenderer);
-		if (vertice != nullptr) vertice->Render();
-
-		for (int i = 0; i < transform->GetChildCount(); ++i)
-		{
-			transform->GetChild(i)->gameObject->Render();
-		}
-	}
-
-	else if (recttransform != nullptr)
-	{
-		TextRenderer* text = GetComponentFromObject(this, TextRenderer);
-		if (text != nullptr) text->Render();
-		SpriteRenderer* sprite = GetComponentFromObject(this, SpriteRenderer);
-		if (sprite != nullptr) sprite->Render();
-
-		for (int i = 0; i < recttransform->GetChildCount(); ++i)
-		{
-			recttransform->GetChild(i)->gameObject->Render();
-		}
-	}
-}
-
-void GameObject::SetActive(bool _active)
-{
-	if (active == _active) return;
-
-	active = _active;
-
-	if (active)
-	{
-		list<SPTR<Component>>::iterator iter = components.begin();
-
-		while (iter != components.end())
+		while (iter != m_Components.end())
 		{
 			(*iter++)->OnEnabled();
 		}
 	}
 	else
 	{
-		list<SPTR<Component>>::iterator iter = components.begin();
+		list<SPTR<Component>>::iterator iter = m_Components.begin();
 
-		while (iter != components.end())
+		while (iter != m_Components.end())
 		{
 			(*iter++)->OnDisabled();
 		}
@@ -182,103 +176,226 @@ void GameObject::SetActive(bool _active)
 	{
 		for (int i = 0; i < transform->GetChildCount(); ++i)
 		{
-			transform->GetChild(i)->gameObject->SetActive(active);
+			transform->GetChild(i)->gameObject->SetActive(m_isActive);
 		}
 	}
 	else if (recttransform != nullptr)
 	{
 		for (int i = 0; i < recttransform->GetChildCount(); ++i)
 		{
-			recttransform->GetChild(i)->gameObject->SetActive(active);
+			recttransform->GetChild(i)->gameObject->SetActive(m_isActive);
 		}
 	}
 }
 
-void GameObject::ObjectInit(Component* comp)
+void GameObject::ObjectInit(Component* p_Comp)
 {
-	comp->gameObject = this;
-	g_NewComponents.push_back(comp);
+	p_Comp->gameObject = this;
+	Var::NewComponents.push_back(p_Comp);
 }
 
-Component* GameObject::GetComponent(const string& _key)
+void GameObject::PreUpdate()
 {
-	string key = "class " + _key;
+	if (!m_isActive) return;
 
-	map<string, Component*>::iterator iter = componentsmap.find(key);
-	if (iter != componentsmap.end())
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	while (iter != m_Components.end())
 	{
-		return iter->second;
+		(*iter++)->PreUpdate();
 	}
 
-	return nullptr;
-}
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
 
-void GameObject::RemoveComponent(Component* _ptr)
-{
-	list<SPTR<Component>>::iterator iter = components.begin();
-
-	while (iter != components.end())
+	if (transform != nullptr)
 	{
-		if (_ptr == (*iter)())
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
-			components.erase(iter);
+			transform->GetChild(i)->gameObject->PreUpdate();
 		}
-		++iter;
 	}
-	
-	for (pair<string, Component*> pair : componentsmap)
+
+	else if (recttransform != nullptr)
 	{
-		if (pair.second == _ptr)
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
 		{
-			componentsmap.erase(pair.first);
-			break;
+			recttransform->GetChild(i)->gameObject->PreUpdate();
 		}
 	}
 }
 
-void GameObject::Destroy(GameObject* _gameObject)
+void GameObject::Update()
 {
-	safedestroy.push_back(_gameObject);
+	if (!m_isActive) return;
+
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	while (iter != m_Components.end())
+	{
+		(*iter++)->Update();
+	}
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+	if (transform != nullptr)
+	{
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			transform->GetChild(i)->gameObject->Update();
+		}
+	}
+
+	else if (recttransform != nullptr)
+	{
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			recttransform->GetChild(i)->gameObject->Update();
+		}
+	}
+}
+
+void GameObject::LateUpdate()
+{
+	if (!m_isActive) return;
+
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	while (iter != m_Components.end())
+	{
+		(*iter++)->LateUpdate();
+	}
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+	if (transform != nullptr)
+	{
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			transform->GetChild(i)->gameObject->LateUpdate();
+		}
+	}
+
+	else if (recttransform != nullptr)
+	{
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			recttransform->GetChild(i)->gameObject->LateUpdate();
+		}
+	}
+}
+
+void GameObject::PreRender()
+{
+	if (!m_isActive) return;
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+	if (transform != nullptr)
+	{
+		MeshRenderer* mesh = GetComponentFromObject(this, MeshRenderer);
+		if (mesh != nullptr) { mesh->PreRender(); }
+		VerticeRenderer* vertice = GetComponentFromObject(this, VerticeRenderer);
+		if (vertice != nullptr) { vertice->PreRender(); }
+
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			transform->GetChild(i)->gameObject->PreRender();
+		}
+	}
+
+	else if (recttransform != nullptr)
+	{
+		TextRenderer* text = GetComponentFromObject(this, TextRenderer);
+		if (text != nullptr) { text->PreRender(); }
+		SpriteRenderer* sprite = GetComponentFromObject(this, SpriteRenderer);
+		if (sprite != nullptr) { sprite->PreRender(); }
+
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			recttransform->GetChild(i)->gameObject->PreRender();
+		}
+	}
+}
+
+void GameObject::Destroy(GameObject* p_GameObject)
+{
+	m_SafeDestroy.insert(make_pair(p_GameObject, 0.f));
+}
+
+void GameObject::Destroy(GameObject* p_GameObject, float p_Time)
+{
+	m_SafeDestroy.insert(make_pair(p_GameObject, p_Time));
 }
 
 void GameObject::SafeDestroy()
 {
-	if (safedestroy.size() == 0) return;
+	if (m_SafeDestroy.size() == 0) return;
 
-	while (safedestroy.size() > 0)
+	map<GameObject*, float>::iterator iter = m_SafeDestroy.begin();
+
+	while (iter != m_SafeDestroy.end())
 	{
-		if (safedestroy[0] == nullptr) return;
+		iter->second -= Time::deltaTime;
 
-		Erase(safedestroy[0]);
-		safedestroy.erase(safedestroy.begin());
-	}
-
-	safedestroy.clear();
-}
-
-void GameObject::Erase(GameObject* _gameObject)
-{
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
-
-	while (iter != g_Objects.end())
-	{
-		if (_gameObject == (*iter)())
+		if (iter->second <= 0.f)
 		{
-			*iter = nullptr;
-			g_Objects.erase(iter);
-			return;
+			Erase(iter->first);
+			iter = m_SafeDestroy.erase(iter);
+
+			continue;
 		}
+
 		++iter;
 	}
 }
 
-bool GameObject::Exists(GameObject* _gameObject)
+void GameObject::Erase(GameObject* p_GameObject)
 {
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 
-	while (iter != g_Objects.end())
+	while (iter != Var::Objects.end())
 	{
-		if (*iter++ == _gameObject)
+		if (p_GameObject == (*iter)())
+		{
+			*iter = nullptr;
+			Var::Objects.erase(iter);
+			return;
+		}
+		++iter;
+	}
+
+	list<GameObject*>::iterator iter2 = Var::ColliderObjects.begin();
+
+	while (iter2 != Var::ColliderObjects.end())
+	{
+		if (p_GameObject == *iter2)
+		{
+			Var::ColliderObjects.erase(iter2);
+			return;
+		}
+		++iter2;
+	}
+}
+
+bool GameObject::Exists(GameObject* p_GameObject)
+{
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
+
+	while (iter != Var::Objects.end())
+	{
+		if (*iter++ == p_GameObject)
 		{
 			return true;
 		}
@@ -286,13 +403,13 @@ bool GameObject::Exists(GameObject* _gameObject)
 	return false;
 }
 
-GameObject* GameObject::Search(const string& _name)
+GameObject* GameObject::Search(const string& p_Name)
 {
-	list<SPTR<GameObject>>::iterator iter = g_Objects.begin();
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 
-	while (iter != g_Objects.end())
+	while (iter != Var::Objects.end())
 	{
-		if ((*iter)->name == _name)
+		if ((*iter)->m_Name == p_Name)
 		{
 			return (*iter)();
 		}
@@ -301,7 +418,96 @@ GameObject* GameObject::Search(const string& _name)
 	return nullptr;
 }
 
-void GameObject::operator = (void* _ptr)
+int GameObject::ObjectID(Transform* p_Transform)
 {
-	if (_ptr == nullptr) GameObject::Destroy(this);
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
+
+	int index = -1;
+	while (iter != Var::Objects.end())
+	{
+		++index;
+		if ((*iter) == p_Transform->gameObject)
+		{
+			return index;
+		}
+		++iter;
+	}
+	return index;
+}
+
+int GameObject::ObjectID(RectTransform* p_RectTransform)
+{
+	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
+
+	int index = -1;
+	while (iter != Var::Objects.end())
+	{
+		++index;
+		if ((*iter) == p_RectTransform->gameObject)
+		{
+			return index;
+		}
+		++iter;
+	}
+	return index;
+}
+
+GameObject* GameObject::Instantiate(GameObject* p_GameObject)
+{
+	Json::Value value;
+	p_GameObject->JsonSerialize(value);
+	
+	GameObject* newObject = new GameObject;
+	newObject->JsonDeserialize(value);
+
+	GameObject* parent = nullptr;
+
+	Transform* transform = GetComponentFromObject(p_GameObject, Transform);
+	if (transform != nullptr)
+	{
+		parent = transform->GetParent()->gameObject;
+	}
+	RectTransform* recttransform = GetComponentFromObject(p_GameObject, RectTransform);
+	if (recttransform != nullptr)
+	{
+		parent = recttransform->GetParent()->gameObject;
+	}
+
+	if (parent != nullptr)
+	{
+		AddObjectToScene(newObject, parent);
+	}
+	else
+	{
+		delete newObject;
+		newObject = nullptr;
+	}
+
+	return newObject;
+}
+
+void GameObject::operator = (void* p_Ptr)
+{
+	if (p_Ptr == nullptr) GameObject::Destroy(this);
+}
+
+void GameObject::JsonSerialize(Json::Value& p_JsonValue)
+{
+	Serialize(m_Name);
+	Serialize(m_isActive);
+	vector<Component*> components;
+	for (SPTR<Component> c : m_Components) components.push_back(c());
+	ComponentSerialize(components);
+}
+
+void GameObject::JsonDeserialize(Json::Value p_JsonValue)
+{
+	Deserialize(m_Name);
+	Deserialize(m_isActive);
+	vector<Component*> components;
+	ComponentDeserialize(components);
+	for (Component* c : components)
+	{
+		AddComponent(c);
+	}
 }

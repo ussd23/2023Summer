@@ -2,37 +2,52 @@
 
 void Collider::Start()
 {
-	transform = GetComponentFromObject(gameObject, Transform);
+	m_Transform = GetComponentFromObject(gameObject, Transform);
+
+	m_PreSecond = (rand() / (float)RAND_MAX) * m_CheckTime;
 }
 
-void Collider::OnTrigger(Collider* _collider, bool _result)
+bool Collider::ColliderTimeCheck()
 {
-	map<Collider*, bool>::iterator iter = entering.find(_collider);
-	if (iter == entering.end())
+	if (!m_isFixedChecking) return true;
+
+	m_PreSecond += Time::deltaTime;
+	if (m_PreSecond < m_CheckTime)
 	{
-		entering.insert(make_pair(_collider, _result));
+		return false;
+	}
+	m_PreSecond -= m_CheckTime;
+	return true;
+}
+
+void Collider::OnTrigger(Collider* p_Collider, bool p_Result)
+{
+	map<Collider*, bool>::iterator iter = m_Entering.find(p_Collider);
+	if (iter == m_Entering.end())
+	{
+		m_Entering.insert(make_pair(p_Collider, p_Result));
 	}
 
-	if (_result != entering[_collider])
+	if (p_Result != m_Entering[p_Collider])
 	{
-		entering[_collider] = !entering[_collider];
+		m_Entering[p_Collider] = !m_Entering[p_Collider];
 
-		if (entering[_collider])
+		if (m_Entering[p_Collider])
 		{
-			list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+			list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 
-			while (iter != gameObject->components.end())
+			while (iter != gameObject->m_Components.end())
 			{
-				(*iter++)->OnTriggerEnter(_collider);
+				(*iter++)->OnTriggerEnter(p_Collider);
 			}
 		}
 		else
 		{
-			list<SPTR<Component>>::iterator iter = gameObject->components.begin();
+			list<SPTR<Component>>::iterator iter = gameObject->m_Components.begin();
 
-			while (iter != gameObject->components.end())
+			while (iter != gameObject->m_Components.end())
 			{
-				(*iter++)->OnTriggerExit(_collider);
+				(*iter++)->OnTriggerExit(p_Collider);
 			}
 		}
 	}
@@ -40,14 +55,14 @@ void Collider::OnTrigger(Collider* _collider, bool _result)
 
 void Collider::OnStay()
 {
-	map<Collider*, bool>::iterator iter = entering.begin();
-	while (iter != entering.end())
+	map<Collider*, bool>::iterator iter = m_Entering.begin();
+	while (iter != m_Entering.end())
 	{
 		if (iter->second)
 		{
-			list<SPTR<Component>>::iterator citer = gameObject->components.begin();
+			list<SPTR<Component>>::iterator citer = gameObject->m_Components.begin();
 
-			while (citer != gameObject->components.end())
+			while (citer != gameObject->m_Components.end())
 			{
 				(*citer++)->OnTriggerStay(iter->first);
 			}
@@ -56,21 +71,23 @@ void Collider::OnStay()
 	}
 }
 
-bool Collider::CollisionCheckBtoB(BoxCollider* _col1, BoxCollider* _col2)
+bool Collider::CollisionCheckBtoB(BoxCollider* p_Col1, BoxCollider* p_Col2)
 {
-	Vector3 pos1 = _col1->transform->GetWorldPosition();
-	Vector3 size = _col1->transform->GetWorldScale();
-	Vector3 size1 = _col1->size;
-	size1.x *= size.x / 2;
-	size1.y *= size.y / 2;
-	size1.z *= size.z / 2;
+	if (!p_Col1->gameObject->isActive() || !p_Col2->gameObject->isActive()) return false;
 
-	Vector3 pos2 = _col2->transform->GetWorldPosition();
-	size = _col2->transform->GetWorldScale();
-	Vector3 size2 = _col2->size;
-	size2.x *= size.x / 2;
-	size2.y *= size.y / 2;
-	size2.z *= size.z / 2;
+	Vector3 pos1 = p_Col1->m_Transform->GetWorldPosition();
+	Vector3 size = p_Col1->m_Transform->GetWorldScale();
+	Vector3 size1 = p_Col1->m_Size;
+	size1.x *= size.x * 0.5f;
+	size1.y *= size.y * 0.5f;
+	size1.z *= size.z * 0.5f;
+
+	Vector3 pos2 = p_Col2->m_Transform->GetWorldPosition();
+	size = p_Col2->m_Transform->GetWorldScale();
+	Vector3 size2 = p_Col2->m_Size;
+	size2.x *= size.x * 0.5f;
+	size2.y *= size.y * 0.5f;
+	size2.z *= size.z * 0.5f;
 
 	Vector3 col1min = pos1 - size1;
 	Vector3 col1max = pos1 + size1;
@@ -87,22 +104,24 @@ bool Collider::CollisionCheckBtoB(BoxCollider* _col1, BoxCollider* _col2)
 	return true;
 }
 
-bool Collider::CollisionCheckBtoS(BoxCollider* _col1, SphereCollider* _col2)
+bool Collider::CollisionCheckBtoS(BoxCollider* p_Col1, SphereCollider* p_Col2)
 {
-	Vector3 pos1 = _col1->transform->GetWorldPosition();
-	Vector3 size = _col1->transform->GetWorldScale();
-	Vector3 size1 = _col1->size;
-	size1.x *= size.x / 2;
-	size1.y *= size.y / 2;
-	size1.z *= size.z / 2;
+	if (!p_Col1->gameObject->isActive() || !p_Col2->gameObject->isActive()) return false;
+
+	Vector3 pos1 = p_Col1->m_Transform->GetWorldPosition();
+	Vector3 size = p_Col1->m_Transform->GetWorldScale();
+	Vector3 size1 = p_Col1->m_Size;
+	size1.x *= size.x * 0.5f;
+	size1.y *= size.y * 0.5f;
+	size1.z *= size.z * 0.5f;
 
 	Vector3 col1min = pos1 - size1;
 	Vector3 col1max = pos1 + size1;
 
-	Vector3 pos2 = _col2->transform->GetWorldPosition();
-	Vector3 scale = _col2->transform->GetWorldScale();
-	float rate = (scale.x + scale.y + scale.z) / 3.f;
-	float length = rate * _col2->radius;
+	Vector3 pos2 = p_Col2->m_Transform->GetWorldPosition();
+	Vector3 scale = p_Col2->m_Transform->GetWorldScale();
+	float rate = (scale.x + scale.y + scale.z) * 0.33333f;
+	float length = rate * p_Col2->m_Radius;
 
 	Vector3 closepoint;
 
@@ -118,18 +137,20 @@ bool Collider::CollisionCheckBtoS(BoxCollider* _col1, SphereCollider* _col2)
 	else if (pos2.z > pos1.z + size1.z)	closepoint.z = pos1.z + size1.z;
 	else closepoint.z = pos2.z;
 
-	return Functions::GetDistance(pos2, closepoint) < length;
+	return Functions::GetDistanceSquare(pos2, closepoint) < length * length;
 }
 
-bool Collider::CollisionCheckStoS(SphereCollider* _col1, SphereCollider* _col2)
+bool Collider::CollisionCheckStoS(SphereCollider* p_Col1, SphereCollider* p_Col2)
 {
-	float distance = Functions::GetDistance(_col1->transform->GetWorldPosition(), _col2->transform->GetWorldPosition());
+	if (!p_Col1->gameObject->isActive() || !p_Col2->gameObject->isActive()) return false;
 
-	Vector3 scale = _col1->transform->GetWorldScale();
-	float rate1 = (scale.x + scale.y + scale.z) / 3.f;
-	scale = _col2->transform->GetWorldScale();
-	float rate2 = (scale.x + scale.y + scale.z) / 3.f;
-	float limitlength = _col1->radius * rate1 + _col2->radius * rate2;
+	float distance = Functions::GetDistanceSquare(p_Col1->m_Transform->GetWorldPosition(), p_Col2->m_Transform->GetWorldPosition());
 
-	return limitlength > distance;
+	Vector3 scale = p_Col1->m_Transform->GetWorldScale();
+	float rate1 = (scale.x + scale.y + scale.z) * 0.33333f;
+	scale = p_Col2->m_Transform->GetWorldScale();
+	float rate2 = (scale.x + scale.y + scale.z) * 0.33333f;
+	float limitlength = p_Col1->m_Radius * rate1 + p_Col2->m_Radius * rate2;
+
+	return limitlength * limitlength > distance;
 }

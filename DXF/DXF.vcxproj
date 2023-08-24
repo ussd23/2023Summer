@@ -46,11 +46,11 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -71,6 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x64;$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x64;$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
@@ -136,28 +141,30 @@
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CallBack.cpp" />
-    <ClCompile Include="CallFunc.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Checkbox.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Cleanup.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContentBox.cpp" />
-    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GarbageCollector.cpp" />
     <ClCompile Include="InitD3D.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MouseFunction.cpp" />
     <ClCompile Include="MsgProc.cpp" />
+    <ClCompile Include="PrebuiltObjects.cpp" />
     <ClCompile Include="Raycast.cpp" />
     <ClCompile Include="RectTransform.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Scroll.cpp" />
+    <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -166,7 +173,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Variables.cpp" />
     <ClCompile Include="VerticeRenderer.cpp" />
     <ClCompile Include="ViewBox.cpp" />
   </ItemGroup>
@@ -174,37 +181,40 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CallBack.h" />
-    <ClInclude Include="CallFunc.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Checkbox.h" />
+    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ContentBox.h" />
     <ClInclude Include="CustomVertex.h" />
     <ClInclude Include="DXHeader.h" />
-    <ClInclude Include="EventManager.h" />
     <ClInclude Include="FontManager.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GarbageCollector.h" />
     <ClInclude Include="GetI.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="json-forwards.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MouseFunction.h" />
+    <ClInclude Include="PrebuiltObjects.h" />
     <ClInclude Include="Raycast.h" />
     <ClInclude Include="RectTransform.h" />
     <ClInclude Include="ComponentHeader.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Scroll.h" />
+    <ClInclude Include="Serializable.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="SPTR.h" />
     <ClInclude Include="StandardLibrary.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
-    <ClInclude Include="UI.h" />
     <ClInclude Include="VerticeRenderer.h" />
     <ClInclude Include="ViewBox.h" />
   </ItemGroup>

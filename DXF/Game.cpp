@@ -2,33 +2,72 @@
 #include "Global.h"
 #include "Functions.h"
 #include "GameObject.h"
+#include "ComponentHeader.h"
 
-UINT Time::pastTime = 0;
-int Time::sec = 0;
-int Time::frames = 0;
-int Time::passedFrames = 0;
-int Time::passedTime = 0;
+HWND DXFGame::m_hWnd;
+WNDCLASSEX DXFGame::m_WndClass;
+string DXFGame::m_Title = "DXF Sample";
+Vector2 DXFGame::m_Resolution = Vector2(800, 600);
+float DXFGame::m_RenderDistance = 1000.0f;
+LPDIRECT3D9	DXFGame::m_pD3D;
+LPDIRECT3DDEVICE9 DXFGame::m_pd3dDevice;
+D3DMATERIAL9 DXFGame::m_defaultMaterial;
+IDirect3DBaseTexture9* DXFGame::m_defaultTexture;
+LPDIRECT3DVERTEXBUFFER9 DXFGame::m_pVB;
+LPD3DXSPRITE DXFGame::m_pSprite;
+Matrix16 DXFGame::m_ViewMatrix;
+Matrix16 DXFGame::m_ProjMatrix;
 
-void DXFGame::InputBufferReset()
+void DXFGame::ComponentRegister()
 {
-    for (int i = MouseInput::LBUTTONDOWN; i < MouseInput::END; ++i)
-    {
-        if (GetInputBuffer(g_mouse, (MouseInput)i)) SetInputBuffer(g_mouse, (MouseInput)i, false);
-    }
-    g_key.clear();
+    ComponentRegist(Animator);
+    ComponentRegist(BoxCollider);
+    ComponentRegist(Button);
+    ComponentRegist(Camera);
+    ComponentRegist(CheckBox);
+    ComponentRegist(ContentBox);
+    ComponentRegist(MeshRenderer);
+    ComponentRegist(MouseFunction);
+    ComponentRegist(RectTransform);
+    ComponentRegist(SphereCollider);
+    ComponentRegist(SpriteRenderer);
+    ComponentRegist(TextRenderer);
+    ComponentRegist(Transform);
+    ComponentRegist(VerticeRenderer);
+    ComponentRegist(ViewBox);
 }
 
 void DXFGame::Start()
 {
-    for (int i = 0; i < g_NewComponents.size(); ++i)
+    for (int i = 0; i < Var::NewComponents.size(); ++i)
     {
-        g_NewComponents[i]->Start();
+        Var::NewComponents[i]->Awake();
+        Var::WaitComponents.push_back(Var::NewComponents[i]);
     }
-    g_NewComponents.clear();
+    Var::NewComponents.clear();
+
+    list<Component*>::iterator iter = Var::WaitComponents.begin();
+    while (iter != Var::WaitComponents.end())
+    {
+        if ((*iter)->gameObject->isActive())
+        {
+            (*iter)->Start();
+            iter = Var::WaitComponents.erase(iter);
+        }
+        else ++iter;
+    }
 }
 
 void DXFGame::Update()
 {
-    if (g_RootObject != nullptr) g_RootObject->Update();
-    if (g_RootRectObject != nullptr) g_RootRectObject->Update();
+    if (Var::RootObject != nullptr) Var::RootObject->PreUpdate();
+    if (Var::RootRectObject != nullptr) Var::RootRectObject->PreUpdate();
+
+    if (Var::RootObject != nullptr) Var::RootObject->Update();
+    if (Var::RootRectObject != nullptr) Var::RootRectObject->Update();
+
+    MouseFunction::UniqueCheck();
+
+    if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
+    if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
 }

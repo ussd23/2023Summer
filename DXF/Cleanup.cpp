@@ -1,6 +1,7 @@
 #include "DXHeader.h"
 #include "Functions.h"
 #include "Global.h"
+#include "Frustum.h"
 #include "MeshRenderer.h"
 #include "TextureManager.h"
 #include "MeshManager.h"
@@ -13,27 +14,30 @@ VOID DXFGame::Cleanup()
     MeshManager::GetInstance()->Cleanup();
     FontManager::GetInstance()->Cleanup();
 
-    if (g_RootObject != nullptr)
+    if (Var::RootObject != nullptr)
     {
-        GameObject::Destroy(g_RootObject);
+        GameObject::Destroy(Var::RootObject);
     }
 
-    if (g_RootRectObject != nullptr)
+    if (Var::RootRectObject != nullptr)
     {
-        GameObject::Destroy(g_RootRectObject);
+        GameObject::Destroy(Var::RootRectObject);
     }
 
     GameObject::SafeDestroy();
 
-    if (g_pd3dDevice != NULL)
-        g_pd3dDevice->Release();
+    if (m_pd3dDevice != NULL)
+        m_pd3dDevice->Release();
 
-    if (g_pD3D != NULL)
-        g_pD3D->Release();
+    if (m_pD3D != NULL)
+        m_pD3D->Release();
 
-    if (g_defaultTexture != NULL)
-        g_defaultTexture->Release();
+    if (m_defaultTexture != NULL)
+        m_defaultTexture->Release();
 
-    if (g_pVB != NULL)
-        g_pVB->Release();
+    if (m_pVB != NULL)
+        m_pVB->Release();
+
+    delete Var::Frustum;
+    Var::Frustum = nullptr;
 }

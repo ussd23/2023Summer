@@ -4,15 +4,16 @@
 // Desc: 버텍스 렌더를 위한 컴포넌트
 //
 //		[Variables]
-//		- transform: 오브젝트의 Transform 컴포넌트
-//		- texturename: 텍스쳐의 파일명
-//		- pTexture: 텍스쳐 인터페이스
-//		- vertices: 버텍스 정보
-//		- type: 기본 도형(primitive) 유형을 지정하는 enum
-//		- startvertex: 출력을 시작할 버텍스의 인덱스
-//		- count: 출력할 버텍스 단위의 수
-//		- rectsize: 텍스쳐 파일의 분할 개수
-//		- rectindex: 렌더링할 텍스쳐 파일의 인덱스
+//		- m_Transform: 오브젝트의 Transform 컴포넌트
+//		- m_TextureName: 텍스쳐의 파일명
+//		- m_Texture: 텍스쳐 인터페이스
+//		- m_Vertices: 버텍스 정보
+//		- m_FarthestDistance: 가장 먼 정점의 거리 (Frustum Culling에 사용)
+//		- m_Type: 기본 도형(primitive) 유형을 지정하는 enum
+//		- m_StartVertex: 출력을 시작할 버텍스의 인덱스
+//		- m_Count: 출력할 버텍스 단위의 수
+//		- m_RectSize: 텍스쳐 파일의 분할 개수
+//		- m_RectIndex: 렌더링할 텍스쳐 파일의 인덱스
 //
 //		[Functions]
 //		- Render: 렌더 실행
@@ -20,6 +21,7 @@
 
 #pragma once
 #include "Component.h"
+#include "Renderer.h"
 #include "DXHeader.h"
 #include "CustomVertex.h"
 #include "StandardLibrary.h"
@@ -27,27 +29,50 @@
 class Transform;
 class RectTransform;
 
-class VerticeRenderer : public Component
+class VerticeRenderer : public Renderer
 {
 protected:
-	Transform*				transform;
-	string					texturename;
-	LPDIRECT3DTEXTURE9		pTexture = NULL;
-	vector<Vertex>			vertices;
-	D3DPRIMITIVETYPE		type;
-	UINT					startvertex;
-	UINT					count;
+	Transform*				m_Transform;
+	string					m_TextureName;
+	LPDIRECT3DTEXTURE9		m_Texture = NULL;
+	float					m_FarthestDistance;
+	D3DPRIMITIVETYPE		m_Type;
+	UINT					m_StartVertex;
+	UINT					m_Count;
 
 public:
-	Vector2					rectsize;
-	Vector2					rectindex;
+	vector<Vertex>			m_Vertices;
+	Vector2					m_RectSize;
+	Vector2					m_RectIndex;
 
 public:
-	VerticeRenderer(vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(string, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	VerticeRenderer(string, Vector2, Vector2, vector<Vertex>, D3DPRIMITIVETYPE, UINT, UINT);
-	void Render();
+	VerticeRenderer(vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
+	VerticeRenderer(string p_TextureName, vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
+	VerticeRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex, vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
 
 	void Start() override;
+	void PreRender() override;
+	void Render() override;
+
+	SerializeFunction(VerticeRenderer)
+	{
+		Serialize(m_TextureName);
+		VectorSerialize(m_Vertices);
+		Serialize(m_Type);
+		Serialize(m_StartVertex);
+		Serialize(m_Count);
+		Serialize(m_RectSize);
+		Serialize(m_RectIndex);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_TextureName);
+		VectorDeserialize(m_Vertices);
+		Deserialize(m_Type);
+		Deserialize(m_StartVertex);
+		Deserialize(m_Count);
+		Deserialize(m_RectSize);
+		Deserialize(m_RectIndex);
+	}
 };
 

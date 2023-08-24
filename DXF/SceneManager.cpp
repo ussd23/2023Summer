@@ -1,237 +1,124 @@
 #include <fstream>
 #include "ComponentHeader.h"
 
-#define GetData(string, data, conversion) if (tempmap.find(#string) != tempmap.end()) data = conversion(object->find(key)->second.find(#string)->second);
-
-void SceneManager::SceneLoad(string _filepath)
+void SceneManager::SaveScene(string p_Name)
 {
-    ifstream file;
-    string path = "scenes\\" + _filepath;
-    file.open(path);
-    if (file.fail())
+    Json::StyledStreamWriter writer;
+
+    string path = "scenes\\" + p_Name + ".txt";
+    ofstream json_dir(path.c_str());
+
+    if (!json_dir.is_open())
     {
-        path = "..\\..\\scenes\\", _filepath;
-        file.open(path);
-        if (file.fail())
+        path = "..\\scenes\\" + p_Name + ".txt";
+        json_dir.open(path.c_str());
+        if (!json_dir.is_open())
         {
-            path = "..\\..\\scenes\\", _filepath;
-            file.open(path);
-            if (file.fail())
+            path = "..\\..\\scenes\\" + p_Name + ".txt";
+            json_dir.open(path.c_str());
+            if (!json_dir.is_open())
             {
+                string text = "Could not save scene: " + p_Name;
+                MessageBox(NULL, text.c_str(), "Scene Load Failed", MB_OK);
                 return;
             }
         }
     }
 
-    while (!file.eof())
+	Json::Value scene;
+
+    list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
+
+	while (iter != Var::Objects.end())
+	{
+		Json::Value result;
+        (*iter)()->JsonSerialize(result);
+
+		scene.append(result);
+        ++iter;
+	}
+	
+	writer.write(json_dir, scene);
+	
+    json_dir.close();
+}
+
+void SceneManager::LoadScene(string p_Name)
+{
+    string path = "scenes\\" + p_Name + ".txt";
+    ifstream json_dir(path.c_str());
+
+    if (!json_dir.is_open())
     {
-        vector<string> comp;
-        map<string, map<string, string>> object;
-        string line;
-
-        getline(file, line);
-        while (line.size() > 0 && line.back() == '\\')
+        path = "..\\scenes\\" + p_Name + ".txt";
+        json_dir.open(path.c_str());
+        if (!json_dir.is_open())
         {
-            line.erase(--line.end());
-            string templine;
-            getline(file, templine);
-            line += templine;
+            path = "..\\..\\scenes\\" + p_Name + ".txt";
+            json_dir.open(path.c_str());
+            if (!json_dir.is_open())
+            {
+                string text = "Could not find scene: " + p_Name;
+                MessageBox(NULL, text.c_str(), "Scene Load Failed", MB_OK);
+                return;
+            }
         }
-        if ('\0' == line[0]) continue;
-        if ('/' == line[0]) continue;
+    }
 
-        Parse(&comp, &object, line);
+    GameObject::Destroy(Var::RootObject);
+    GameObject::Destroy(Var::RootRectObject);
 
-        GameObject* gameObject = Initialize(&comp, &object);
+    vector<GameObject*> objects;
+    Json::Value scene;
+    Json::CharReaderBuilder builder;
+    JSONCPP_STRING errs;
+    if (Json::parseFromStream(builder, json_dir, &scene, &errs))
+    {
+        for (unsigned int i = 0; i < scene.size(); ++i)
+        {
+            GameObject* object = new GameObject;
 
-        Transform* transform = GetComponentFromObject(gameObject, Transform);
-        RectTransform* recttransform = GetComponentFromObject(gameObject, RectTransform);
+            object->JsonDeserialize(scene[i]);
+
+            objects.push_back(object);
+        }
+    }
+
+    if (objects.size() >= 1)
+    {
+        Var::RootObject = objects[0];
+        Var::RootTransform = dynamic_cast<Transform*>(objects[0]->GetComponent("Transform"));
+        Var::RootRectObject = objects[1];
+        Var::RootRectTransform = dynamic_cast<RectTransform*>(objects[1]->GetComponent("RectTransform"));
+    }
+
+    for (int i = 0; i < objects.size(); ++i)
+    {
+        Transform* transform = dynamic_cast<Transform*>(objects[i]->GetComponent("Transform"));
         if (transform != nullptr)
         {
-            AddObjectToScene(gameObject, g_RootTransform, transform);
+            vector<int> childID = transform->GetChildID();
+            for (int j = 0; j < childID.size(); ++j)
+            {
+                transform->AddChild(dynamic_cast<Transform*>(objects[childID[j]]->GetComponent("Transform")));
+            }
+
+            continue;
         }
-        else if (recttransform != nullptr)
+
+        RectTransform* recttransform = dynamic_cast<RectTransform*>(objects[i]->GetComponent("RectTransform"));
+        if (recttransform != nullptr)
         {
-            AddObjectToScene(gameObject, g_RootRectTransform, recttransform);
+            vector<int> childID = recttransform->GetChildID();
+            for (int j = 0; j < childID.size(); ++j)
+            {
+                recttransform->AddChild(dynamic_cast<RectTransform*>(objects[childID[j]]->GetComponent("RectTransform")));
+            }
         }
     }
 
-    file.close();
-}
-
-void SceneManager::Parse(vector<string>* comp, map<string, map<string, string>>* object, string line)
-{
-    string value;
-
-    while (0 != line.length())
+    for (int i = 0; i < objects.size(); ++i)
     {
-        for (int i = 0; i < line.length(); ++i)
-        {
-            if (',' == line[i])
-            {
-                value = line.substr(0, i);
-                comp->push_back(value);
-                line = line.substr(i + 1);
-                break;
-            }
-
-            else if ('{' == line[i])
-            {
-                value = line.substr(0, i);
-                comp->push_back(value);
-                line = Layer(value, object, line.substr(i + 1));
-                break;
-            }
-        }
+        Var::Objects.push_back(objects[i]);
     }
-}
-
-string SceneManager::Layer(string key, map<string, map<string, string>>* object, string line)
-{
-    int instant_key = 0;
-    bool intstant_sw = true;
-    string key2, value;
-    map<string, string> temp;
-
-    while (1)
-    {
-        for (int i = 0; i < line.length(); ++i)
-        {
-            if (':' == line[i])
-            {
-                key2 = line.substr(0, i);
-                line = line.substr(i + 1);
-                intstant_sw = false;
-                break;
-            }
-
-            else if (',' == line[i] || '}' == line[i])
-            {
-                value = line.substr(0, i);
-
-                if (intstant_sw)
-                {
-                    if ("Script" == key)
-                    {
-                        key2 = "Value";
-                    }
-                    else
-                    {
-                        key2 = to_string(++instant_key);
-                    }
-                }
-                else
-                {
-                    intstant_sw = true;
-                }
-
-                temp.insert(make_pair(key2, value));
-
-                if ('}' == line[i])
-                {
-                    object->insert(make_pair(key, temp));
-                    return line.substr(i + 1);
-                }
-
-                line = line.substr(i + 1);
-                break;
-            }
-        }
-    }
-}
-
-// 수정 필요
-GameObject* SceneManager::Initialize(vector<string>* comp, map<string, map<string, string>>* object)
-{
-    string objname = "";
-    map<string, string> tempmap;
-
-    GameObject* tempobj = new GameObject("");
-
-    for (int i = 0; i < comp->size(); i++)
-    {
-        string key = comp->at(i);
-        if (object->find(key) != object->end())
-        {
-            tempmap = object->find(key)->second;
-        }
-
-        if (key == "Name")
-        {
-            GetData(Value, objname);
-            tempobj->name = objname;
-        }
-
-        else if (key == "Transform")
-        {
-            Vector3 position;
-            Vector3 rotation;
-            Vector3 scale;
-
-            GetData(PosX, position.x, stof);
-            GetData(PosY, position.y, stof);
-            GetData(PosZ, position.z, stof);
-            GetData(RotX, rotation.x, stof);
-            GetData(RotY, rotation.y, stof);
-            GetData(RotZ, rotation.z, stof);
-            GetData(ScaX, scale.x, stof);
-            GetData(ScaY, scale.y, stof);
-            GetData(ScaZ, scale.z, stof);
-
-            Transform* tempcomp = new Transform(position, rotation, scale);
-            AddComponentToObject(tempobj, tempcomp);
-        }
-
-        else if (key == "RectTransform")
-        {
-
-        }
-
-        else if (key == "Camera")
-        {
-
-        }
-
-        else if (key == "MeshRenderer")
-        {
-
-        }
-
-        else if (key == "VerticeRenderer")
-        {
-
-        }
-
-        else if (key == "SpriteRenderer")
-        {
-
-        }
-
-        else if (key == "TextRenderer")
-        {
-
-        }
-
-        else if (key == "Animator")
-        {
-
-        }
-
-        else if (key == "MouseFunction")
-        {
-
-        }
-
-        else if (key == "BoxCollider")
-        {
-
-        }
-
-        else if (key == "SphereCollider")
-        {
-
-        }
-    }
-
-    return tempobj;
 }

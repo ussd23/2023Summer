@@ -6,11 +6,7 @@ class GameObject;
 class SceneManager
 {
 public:
-	static void SceneLoad(string);
-
-private:
-	static void Parse(vector<string>*, map<string, map<string, string>>*, string);
-	static string Layer(string, map<string, map<string, string>>*, string);
-	static GameObject* Initialize(vector<string>*, map<string, map<string, string>>*);
+	static void SaveScene(string p_Name);
+	static void LoadScene(string p_Name);
 };
 

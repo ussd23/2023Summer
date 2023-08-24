@@ -5,49 +5,55 @@
 #include "Transform.h"
 #include "Camera.h"
 
-Raycast Raycast::ScreenToWorld(const Vector2& _pos)
+Raycast::Raycast(Vector3 p_StartPt, Vector3 p_Direction)
+{
+	m_StartPt = p_StartPt;
+	m_Direction = p_Direction;
+}
+
+Raycast Raycast::ScreenToWorld(const Vector2& p_Position)
 {
 	// 뷰포트
 	D3DVIEWPORT9 viewport;
-	g_pd3dDevice->GetViewport(&viewport);
+	DXFGame::m_pd3dDevice->GetViewport(&viewport);
 
 	// 투영행렬
 	Matrix16 matProjection;
-	g_pd3dDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+	DXFGame::m_pd3dDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 
 	Raycast r;
 
 	// 방향벡터
 	// X = ((+2.0f * 마우스 X좌표) / 뷰포트 넓이 - 1.0f) / 1행 1열
-	r.vDirection.x = ((2.0f * _pos.x) / viewport.Width - 1.0f) / matProjection._11;
+	r.m_Direction.x = ((2.0f * p_Position.x) / viewport.Width - 1.0f) / matProjection._11;
 	// Y = ((-2.0f * 마우스 Y좌표) / 뷰포트 높이 + 1.0f) / 2행 2열
-	r.vDirection.y = ((-2.0f * _pos.y) / viewport.Height + 1.0f) / matProjection._22;
-	r.vDirection.z = 1.0f;
+	r.m_Direction.y = ((-2.0f * p_Position.y) / viewport.Height + 1.0f) / matProjection._22;
+	r.m_Direction.z = 1.0f;
 
 	// 뷰스페이스가 적용되기 전의 좌표가 필요하므로 뷰의 역행렬을 구함
 	Matrix16 matView, matInvView;
-	g_pd3dDevice->GetTransform(D3DTS_VIEW, &matView);
+	DXFGame::m_pd3dDevice->GetTransform(D3DTS_VIEW, &matView);
 	D3DXMatrixInverse(&matInvView, 0, &matView);
 
 	// 뷰의 역행렬로 ray의 출발점과 방향벡터를 변환 및 정규화
-	D3DXVec3TransformCoord(&r.vStartPt, &r.vStartPt, &matInvView);
-	D3DXVec3TransformNormal(&r.vDirection, &r.vDirection, &matInvView);
-	D3DXVec3Normalize(&r.vDirection, &r.vDirection);
+	D3DXVec3TransformCoord(&r.m_StartPt, &r.m_StartPt, &matInvView);
+	D3DXVec3TransformNormal(&r.m_Direction, &r.m_Direction, &matInvView);
+	D3DXVec3Normalize(&r.m_Direction, &r.m_Direction);
 
 	return r;
 }
 
-bool Raycast::IsPicked(BoxCollider* _collider)
+bool Raycast::IsPicked(BoxCollider* p_Collider)
 {
 	Raycast r = (*this);
 
-	Transform* transform = GetComponentFromObject(_collider->gameObject, Transform);
+	Transform* transform = GetComponentFromObject(p_Collider->gameObject, Transform);
 	Vector3 pos = transform->GetWorldPosition();
 	Vector3 scale = transform->GetWorldScale();
-	Vector3 size = _collider->size;
-	size.x *= scale.x / 2;
-	size.y *= scale.y / 2;
-	size.z *= scale.z / 2;
+	Vector3 size = p_Collider->m_Size;
+	size.x *= scale.x * 0.5f;
+	size.y *= scale.y * 0.5f;
+	size.z *= scale.z * 0.5f;
 
 	// 월드의 역행렬
 	Matrix16 matInvWorld;
@@ -57,8 +63,8 @@ bool Raycast::IsPicked(BoxCollider* _collider)
 	matInvWorld._43 = -pos.z;
 
 	// 카메라의 좌표 및 방향 벡터 변환
-	D3DXVec3TransformCoord(&r.vStartPt, &r.vStartPt, &matInvWorld);
-	D3DXVec3TransformNormal(&r.vDirection, &r.vDirection, &matInvWorld);
+	D3DXVec3TransformCoord(&r.m_StartPt, &r.m_StartPt, &matInvWorld);
+	D3DXVec3TransformNormal(&r.m_Direction, &r.m_Direction, &matInvWorld);
 
 	Vector3 vertex[8] = {
 		Vector3(pos.x - size.x, pos.y + size.y, pos.z + size.z),
@@ -91,14 +97,14 @@ bool Raycast::IsPicked(BoxCollider* _collider)
 	return false;
 }
 
-bool Raycast::IsPicked(SphereCollider* _collider)
+bool Raycast::IsPicked(SphereCollider* p_Collider)
 {
 	Raycast r = (*this);
 
-	Transform* transform = GetComponentFromObject(_collider->gameObject, Transform);
+	Transform* transform = GetComponentFromObject(p_Collider->gameObject, Transform);
 	Vector3 pos = transform->GetWorldPosition();
 	Vector3 scale = transform->GetWorldScale();
-	float rate = (scale.x + scale.y + scale.z) / 3.f;
+	float rate = (scale.x + scale.y + scale.z) * 0.33333f;
 
 	// 월드의 역행렬
 	Matrix16 matInvWorld;
@@ -108,13 +114,13 @@ bool Raycast::IsPicked(SphereCollider* _collider)
 	matInvWorld._43 = -pos.z;
 
 	// 카메라의 좌표 및 방향 벡터 변환
-	D3DXVec3TransformCoord(&r.vStartPt, &r.vStartPt, &matInvWorld);
-	D3DXVec3TransformNormal(&r.vDirection, &r.vDirection, &matInvWorld);
+	D3DXVec3TransformCoord(&r.m_StartPt, &r.m_StartPt, &matInvWorld);
+	D3DXVec3TransformNormal(&r.m_Direction, &r.m_Direction, &matInvWorld);
 
-	float vv = D3DXVec3Dot(&r.vDirection, &r.vDirection);
-	float qv = D3DXVec3Dot(&r.vStartPt, &r.vDirection);
-	float qq = D3DXVec3Dot(&r.vStartPt, &r.vStartPt);
-	float rr = (_collider->radius * rate) * (_collider->radius * rate);
+	float vv = D3DXVec3Dot(&r.m_Direction, &r.m_Direction);
+	float qv = D3DXVec3Dot(&r.m_StartPt, &r.m_Direction);
+	float qq = D3DXVec3Dot(&r.m_StartPt, &r.m_StartPt);
+	float rr = (p_Collider->m_Radius * rate) * (p_Collider->m_Radius * rate);
 
 	// =0: 1개점 교차
 	// >0: 2개점 교차
@@ -122,13 +128,13 @@ bool Raycast::IsPicked(SphereCollider* _collider)
 	return qv * qv - vv * (qq - rr) >= 0;
 }
 
-bool Raycast::IntersectTri(const Vector3& v0, const Vector3& v1, const Vector3& v2, Vector3& vposition)
+bool Raycast::IntersectTri(const Vector3& p_V0, const Vector3& p_V1, const Vector3& p_V2, Vector3& p_Result)
 {
 	// verteice 3개를 잇는 면이 충돌하는 지 판정
 	float u, v, t;
-	bool b = D3DXIntersectTri(&v0, &v1, &v2, &vStartPt, &vDirection, &u, &v, &t);
-	vposition = vStartPt + (t * vDirection);
-	//vposition = v0 + (u * (v1 - v0)) + (v * (v2 - v0));
+	bool b = D3DXIntersectTri(&p_V0, &p_V1, &p_V2, &m_StartPt, &m_Direction, &u, &v, &t);
+	p_Result = m_StartPt + (t * m_Direction);
+	//p_Result = p_Pos0 + (u * (p_V1 - p_V0)) + (v * (p_V2 - p_V0));
 
 	return b;
 }

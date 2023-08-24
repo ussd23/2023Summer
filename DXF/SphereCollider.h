@@ -4,7 +4,7 @@
 // Desc: 구형 Collider
 //
 //		[Variables]
-//		- radius: SphereCollider의 크기 (반지름)
+//		- m_Radius: SphereCollider의 크기 (반지름)
 //-----------------------------------------------------------------------------
 
 #pragma once
@@ -18,11 +18,29 @@ class Transform;
 class SphereCollider : public Collider
 {
 public:
-	float		radius;
+	float		m_Radius;
 
 public:
-	SphereCollider(float);
+	SphereCollider(const float& p_Radius);
+	SphereCollider(const float& p_Radius, bool p_isPassive);
+	SphereCollider(const float& p_Radius, bool p_isPassive, bool p_isFixedChecking);
+	SphereCollider(const float& p_Radius, bool p_isPassive, bool p_isFixedChecking, float p_CheckTime);
 
 	void Update() override;
+
+	SerializeFunction(SphereCollider)
+	{
+		Serialize(m_Radius);
+		Serialize(m_isPassive);
+		Serialize(m_isFixedChecking);
+		Serialize(m_CheckTime);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_Radius);
+		Deserialize(m_isPassive);
+		Deserialize(m_isFixedChecking);
+		Deserialize(m_CheckTime);
+	}
 };
 

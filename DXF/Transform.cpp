@@ -1,79 +1,185 @@
 #include "ComponentHeader.h"
 
-Transform::Transform(Vector3 _pos, Vector3 _rot, Vector3 _scale)
+void Transform::SetWorldPosition()
 {
-	position = _pos;
-	rotation = _rot;
-	scale = _scale;
-	parent = g_RootTransform;
+	if (m_Parent != nullptr)
+	{
+		Vector3 pscale = m_Parent->GetWorldScale();
+		Vector3 pos(pscale.x * m_Position.x, pscale.y * m_Position.y, pscale.z * m_Position.z);
+		Quaternion rot = m_Parent->GetWorldRotation();
+
+		Matrix rotationMatrix;
+		D3DXMatrixRotationQuaternion(&rotationMatrix, &rot);
+
+		Vector4 newPosition;
+		D3DXVec3Transform(&newPosition, &pos, &rotationMatrix);
+
+		pos = Vector3(newPosition.x, newPosition.y, newPosition.z);
+		m_WorldPosition = pos + m_Parent->GetWorldPosition();
+	}
+	else
+	{
+		m_WorldPosition = m_Position;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetWorldPosition();
+	}
+}
+
+void Transform::SetWorldRotation()
+{
+	if (m_Parent != nullptr)
+	{
+		Quaternion parentRotation = m_Parent->GetWorldRotation();
+		Matrix16 parentMatrix;
+		D3DXMatrixRotationQuaternion(&parentMatrix, &parentRotation);
+
+		Matrix16 rotationMatrix;
+		D3DXMatrixRotationQuaternion(&rotationMatrix, &m_Rotation);
+
+		Matrix16 combinedMatrix = parentMatrix * rotationMatrix;
+
+		Quaternion result;
+		D3DXQuaternionRotationMatrix(&result, &combinedMatrix);
+
+		m_WorldRotation = result;
+	}
+	else
+	{
+		m_WorldRotation = m_Rotation;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetWorldRotation();
+	}
+}
+
+void Transform::SetWorldScale()
+{
+	if (m_Parent != nullptr)
+	{
+		Vector3 pscale = m_Parent->GetWorldScale();
+		m_WorldScale = Vector3(m_Scale.x * pscale.x, m_Scale.y * pscale.y, m_Scale.z * pscale.z);
+	}
+	else
+	{
+		m_WorldScale = m_Scale;
+	}
+
+	for (int i = 0; i < m_Childs.size(); ++i)
+	{
+		m_Childs[i]->SetWorldScale();
+	}
+}
+
+Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
+{
+	m_Position = p_Position;
+	m_Rotation = Functions::EulerToQuaternion(p_Rotation);
+	m_Scale = p_Scale;
+	m_Parent = Var::RootTransform;
 }
 
 Vector3 Transform::GetWorldPosition()
 {
-	if (parent != nullptr)
-	{
-		Vector3 pscale = parent->GetWorldScale();
-		Vector3 pos(pscale.x * position.x, pscale.y * position.y, pscale.z * position.z);
-
-		return pos + parent->GetWorldPosition();
-	}
-	return position;
+	return m_WorldPosition;
 }
 
-Vector3 Transform::GetWorldRotation()
+Quaternion Transform::GetWorldRotation()
 {
-	if (parent != nullptr)
-	{
-		return rotation + parent->GetWorldRotation();
-	}
-	return rotation;
+	return m_WorldRotation;
 }
 
 Vector3 Transform::GetWorldScale()
 {
-	if (parent != nullptr)
-	{
-		Vector3 pscale = parent->GetWorldScale();
-		return Vector3(scale.x * pscale.x, scale.y * pscale.y, scale.z * pscale.z);
-	}
-	return scale;
+	return m_WorldScale;
+}
+
+Vector3 Transform::GetPosition()
+{
+	return m_Position;
+}
+
+Quaternion Transform::GetRotation()
+{
+	return m_Rotation;
+}
+
+Vector3 Transform::GetScale()
+{
+	return m_Scale;
+}
+
+void Transform::SetPosition(Vector3 p_Position)
+{
+	m_Position = p_Position;
+	SetWorldPosition();
+}
+
+void Transform::SetRotation(Quaternion p_Rotation)
+{
+	m_Rotation = p_Rotation;
+	SetWorldRotation();
+	SetWorldPosition();
+}
+
+void Transform::SetScale(Vector3 p_Scale)
+{
+	m_Scale = p_Scale;
+	SetWorldScale();
+	SetWorldPosition();
 }
 
 int Transform::GetChildCount()
 {
-	return childs.size();
+	return m_Childs.size();
 }
 
-Transform* Transform::GetChild(int _index)
+vector<int> Transform::GetChildID()
 {
-	return childs[_index];
+	return m_ChildID;
+}
+
+Transform* Transform::GetChild(int p_Index)
+{
+	return m_Childs[p_Index];
 }
 
 Transform* Transform::GetParent()
 {
-	return parent;
+	return m_Parent;
 }
 
-void Transform::AddChild(Transform* _child)
+void Transform::SetParent(Transform* p_Parent)
 {
-	_child->parent = this;
-	childs.push_back(_child);
+	p_Parent->AddChild(this);
 }
 
-void Transform::AddChildAsFirst(Transform* _child)
+void Transform::AddChild(Transform* p_Child)
 {
-	_child->parent = this;
-	childs.insert(childs.begin(), _child);
+	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
+	p_Child->m_Parent = this;
+	m_Childs.push_back(p_Child);
 }
 
-void Transform::RemoveChild(Transform* _child)
+void Transform::AddChildAsFirst(Transform* p_Child)
 {
-	for (int i = 0; i < childs.size(); ++i)
+	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
+	p_Child->m_Parent = this;
+	m_Childs.insert(m_Childs.begin(), p_Child);
+}
+
+void Transform::RemoveChild(Transform* p_Child)
+{
+	for (int i = 0; i < m_Childs.size(); ++i)
 	{
-		if (childs[i] == _child)
+		if (m_Childs[i] == p_Child)
 		{
-			_child->parent = nullptr;
-			childs.erase(childs.begin() + i);
+			p_Child->m_Parent = nullptr;
+			m_Childs.erase(m_Childs.begin() + i);
 			break;
 		}
 	}
@@ -81,12 +187,19 @@ void Transform::RemoveChild(Transform* _child)
 
 void Transform::SetAsFirstSibling()
 {
-	parent->RemoveChild(this);
-	parent->AddChildAsFirst(this);
+	m_Parent->RemoveChild(this);
+	m_Parent->AddChildAsFirst(this);
 }
 
 void Transform::SetAsLastSibling()
 {
-	parent->RemoveChild(this);
-	parent->AddChild(this);
+	m_Parent->RemoveChild(this);
+	m_Parent->AddChild(this);
+}
+
+void Transform::Start()
+{
+	SetWorldPosition();
+	SetWorldRotation();
+	SetWorldScale();
 }

@@ -4,16 +4,17 @@
 // Desc: 게임 오브젝트 클래스
 //
 //		[Variables]
-//		- active: Update와 Render를 실행할 지 여부
-//		- name: 해당 오브젝트의 이름 (string 기반 오브젝트 검색 등에 사용)
-//		- componentsmap: string 기반의 컴포넌트 목록
-//		- safedestroy: 삭제 대기 오브젝트 목록 (모든 Update와 Render가 완료된
+//		- m_isActive: Update와 Render를 실행할 지 여부
+//		- m_ComponentsMap: string 기반의 컴포넌트 목록
+//		- m_SafeDestroy: 삭제 대기 오브젝트 목록 (모든 Update와 Render가 완료된
 //					   후에 안전하게 삭제되도록 함)
-//		- components: 컴포넌트 목록 (타 클래스에서 접근하여 컴포넌트의 특정 함수를
+//		- m_Name: 해당 오브젝트의 이름 (string 기반 오브젝트 검색 등에 사용)
+//		- m_Components: 컴포넌트 목록 (타 클래스에서 접근하여 컴포넌트의 특정 함수를
 //					  실행할 수 있도록 함)
 //
 //		[Functions]
 //		- TransformCheck: Transform과 RectTransform이 동시에 존재하지 않도록 제한
+//		- ColliderCheck: Collider와 관련된 설정 확인
 //		- Erase: 오브젝트 삭제
 // 
 //		- AddComponent: 이미지 파일을 기반으로 텍스쳐 인터페이스를 검색하여 반환
@@ -23,9 +24,10 @@
 //		- SetActive: active 상태 설정 및 모든 컴포넌트의 OnEnable, OnDisable 실행
 //		- ObjectInit: 컴포넌트의 gameObject를 자신으로 설정
 //
-//		- Start: 모든 컴포넌트의 Start 일괄 실행
+//		- PreUpdate: Update 이전에 실행
 //		- Update: 모든 컴포넌트의 Update 일괄 실행 후 Child의 Update 실행
-//		- Render: Render 관련 컴포넌트의 Render 일괄 실행 후 Child의 Render 실행
+//		- LateUpdate: Update 이후에 실행
+//		- PreRender: Render 관련 컴포넌트의 Render 일괄 실행
 //
 //		- Destroy: 해당 오브젝트를 삭제 대기열에 올림
 //		- SafeDestroy: 모든 Update와 Render가 완료된 이후에 삭제 대기열에 있는
@@ -37,6 +39,9 @@
 
 #pragma once
 #include "StandardLibrary.h"
+#include "Functions.h"
+#include "Serializable.h"
+#include "SPTR.h"
 
 class Component;
 class Transform;
@@ -44,71 +49,86 @@ class RectTransform;
 class MeshRenderer;
 class VerticeRenderer;
 class TextRenderer;
-template<typename T> class SPTR;
 
-class GameObject
+class GameObject : public Serializable
 {
 protected:
-	bool							active = true;
-	map<string, Component*>			componentsmap;
-	static vector<GameObject*>		safedestroy;
+	bool							m_isActive = true;
+	map<string, Component*>			m_ComponentsMap;
+	static map<GameObject*, float>	m_SafeDestroy;
 
 public:
-	string							name;
-	list<SPTR<Component>>			components;
+	string							m_Name;
+	list<SPTR<Component>>			m_Components;
 
-private:
-	bool TransformCheck(const string&);
-	static void Erase(GameObject*);
+protected:
+	bool TransformCheck(const string& p_Key);
+	bool ColliderCheck(Component* p_Comp);
+	static void Erase(GameObject* p_Object);
 
 public:
-	GameObject(string);
+	GameObject(const string& p_Name);
 	virtual ~GameObject();
 
-	template <class T> void AddComponent(T* _comp);
-	Component* GetComponent(const string&);
+	template <class T> void AddComponent(T* p_Comp);
+	Component* GetComponent(const string& p_Key);
 	template <class T> T* GetComponent();
-	void RemoveComponent(Component*);
+	void RemoveComponent(Component* p_Comp);
 
 	bool isActive();
-	void SetActive(bool);
-	void ObjectInit(Component*);
+	void SetActive(bool p_isActive);
+	void ObjectInit(Component* p_Comp);
 
+	void PreUpdate();
 	void Update();
-	void Render();
+	void LateUpdate();
+	void PreRender();
 
-	static void Destroy(GameObject*);
+	static void Destroy(GameObject* p_GameObject);
+	static void Destroy(GameObject* p_GameObject, float p_Time);
 	static void SafeDestroy();
-	static bool Exists(GameObject*);
-	static GameObject* Search(const string&);
+	static bool Exists(GameObject* p_GameObject);
+	static GameObject* Search(const string& p_Name);
+	static int ObjectID(Transform* p_Transform);
+	static int ObjectID(RectTransform* p_RectTransform);
+	static GameObject* Instantiate(GameObject* p_GameObject);
 
-	void operator = (void*);
+	void operator = (void* p_Ptr);
+
+	SerializeFunction(GameObject);
+	DeserializeFunction();
 };
 
-template <class T> void GameObject::AddComponent(T* _comp)
+template <class T> void GameObject::AddComponent(T* p_Comp)
 {
-	string key = typeid(T).name();
+	string key = typeid(*p_Comp).name();
 
-	Component* comp = dynamic_cast<Component*>(_comp);
+	Component* comp = dynamic_cast<Component*>(p_Comp);
 	if (comp)
 	{
 		if (!TransformCheck(key))
 		{
-			delete _comp;
+			delete p_Comp;
 			return;
 		}
 
-		map<string, Component*>::iterator iter = componentsmap.find(key);
-		if (iter != componentsmap.end())
+		if (!ColliderCheck(comp))
 		{
-			delete _comp;
+			delete p_Comp;
+			return;
+		}
+
+		map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
+		if (iter != m_ComponentsMap.end())
+		{
+			delete p_Comp;
 			return;
 		}
 
 		ObjectInit(comp);
 
-		components.push_back(comp);
-		componentsmap.insert(make_pair(key, comp));
+		m_Components.push_back(comp);
+		m_ComponentsMap.insert(make_pair(key, comp));
 	}
 }
 
@@ -116,11 +136,11 @@ template <class T> T* GameObject::GetComponent()
 {
 	string key = typeid(T).name();
 
-	map<string, Component*>::iterator iter = componentsmap.find(key);
-	if (iter != componentsmap.end())
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(key);
+	if (iter != m_ComponentsMap.end())
 	{
 		return nullptr;
 	}
 
-	return componentsmap[key];
+	return m_ComponentsMap[key];
 }

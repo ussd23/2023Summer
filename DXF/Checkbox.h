@@ -6,21 +6,33 @@
 class SpriteRenderer;
 class MouseFunction;
 
-class Checkbox : public Component
+class CheckBox : public Component
 {
-private:
-	SpriteRenderer*			spr;
-	MouseFunction*			mouse;
-	string					texturename[2];
-	int						textureindex;
+protected:
+	SpriteRenderer*			m_Sprite;
+
+	string					m_DefaultTextureName;
+	string					m_CheckedTextureName;
+	bool					m_isChecked = false;
 
 public:
-	Checkbox();
-	Checkbox(Vector2, Vector2);
-	Checkbox(DWORD, Vector2, Vector2);
+	CheckBox(string p_DefaultTextureName, string p_CheckedTextureName);
 
 	void OnMouseDown() override;
 
 	void Start() override;
+
+	SerializeFunction(CheckBox)
+	{
+		Serialize(m_DefaultTextureName);
+		Serialize(m_CheckedTextureName);
+		Serialize(m_isChecked);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_DefaultTextureName);
+		Deserialize(m_CheckedTextureName);
+		Deserialize(m_isChecked);
+	}
 };
 

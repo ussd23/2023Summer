@@ -12,15 +12,19 @@ class MouseFunction;
 
 class Button : public Component
 {
-private:
-	SpriteRenderer* spr;
-	MouseFunction* mouse;
+protected:
+	SpriteRenderer*			m_Sprite;
+	DWORD					m_DefaultColor;
+	DWORD					m_PushedColor;
 
 public:
-	Button(string _texturename, DWORD _color, Vector2 _rectsize, Vector2 _rectindex);
+	Button(DWORD p_DefaultColor, DWORD p_PushedColor);
 
 	void OnMouseDown() override;
 	void OnMouseUp() override;
 
 	void Start() override;
+
+	SerializeFunction(Button) {}
+	DeserializeFunction() {}
 };

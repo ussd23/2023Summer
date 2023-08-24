@@ -2,10 +2,26 @@
 #include "Global.h"
 #include "Transform.h"
 #include "RectTransform.h"
+#include "Frustum.h"
 
-HRESULT DXFGame::InitD3D(HWND hWnd)
+HRESULT DXFGame::InitD3D(HINSTANCE hInst)
 {
-    if (NULL == (g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
+    UNREFERENCED_PARAMETER(hInst);
+    srand(time(NULL));
+
+    m_WndClass =
+    {
+        sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L,
+        GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
+        "DXF", NULL
+    };
+    RegisterClassEx(&m_WndClass);
+
+    m_hWnd = CreateWindow("DXF", m_Title.c_str(),
+        WS_OVERLAPPEDWINDOW, 100, 100, m_Resolution.x + 16, m_Resolution.y + 39,
+        NULL, NULL, m_WndClass.hInstance, NULL);
+
+    if (NULL == (m_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
         return E_FAIL;
 
     D3DPRESENT_PARAMETERS d3dpp;
@@ -15,31 +31,45 @@ HRESULT DXFGame::InitD3D(HWND hWnd)
     d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
     d3dpp.EnableAutoDepthStencil = TRUE;
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+    //d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
-    if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
-        D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-        &d3dpp, &g_pd3dDevice)))
+    if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
+        D3DCREATE_HARDWARE_VERTEXPROCESSING,
+        &d3dpp, &m_pd3dDevice)))
     {
-        return E_FAIL;
+        if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
+            D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+            &d3dpp, &m_pd3dDevice)))
+        {
+            return E_FAIL;
+        }
     }
 
-    g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
-    g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
-    g_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
-    g_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+    m_pd3dDevice->GetMaterial(&m_defaultMaterial);
+    m_pd3dDevice->GetTexture(0, &m_defaultTexture);
 
-    D3DXCreateSprite(g_pd3dDevice, &g_pSprite);
+    m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+    m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
+    m_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
+    m_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-    g_RootObject = new GameObject("RootObject");
-    g_RootTransform = new Transform(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
-    AddComponentToObject(g_RootObject, g_RootTransform);
+    D3DXCreateSprite(m_pd3dDevice, &m_pSprite);
 
-    g_RootRectObject = new GameObject("RootRectObject");
-    g_RootRectTransform = new RectTransform(Vector2(0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(0.f, 0.f));
-    AddComponentToObject(g_RootRectObject, g_RootRectTransform);
+    Var::Frustum = new Frustum();
 
-    g_Objects.push_back(g_RootObject);
-    g_Objects.push_back(g_RootRectObject);
+    Var::RootObject = new GameObject("RootObject");
+    Var::RootTransform = new Transform(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+    AddComponentToObject(Var::RootObject, Var::RootTransform);
+
+    Var::RootRectObject = new GameObject("RootRectObject");
+    Var::RootRectTransform = new RectTransform(Vector2(0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f), Vector2(0.f, 0.f));
+    AddComponentToObject(Var::RootRectObject, Var::RootRectTransform);
+
+    Var::Objects.push_back(Var::RootObject);
+    Var::Objects.push_back(Var::RootRectObject);
+
+    //locale krlocale("Korean");
+    //locale::global(krlocale);
 
     return S_OK;
 }

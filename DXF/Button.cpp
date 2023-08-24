@@ -1,27 +1,23 @@
 #include "ComponentHeader.h"
 
-Button::Button(string _texturename, DWORD _color, Vector2 _rectsize, Vector2 _rectindex)
-{
-    spr = new SpriteRenderer(_texturename, _color, _rectsize, _rectindex);
-    mouse = new MouseFunction();
-}
+Button::Button(DWORD p_DefaultColor, DWORD p_PushedColor)
+    : m_DefaultColor(p_DefaultColor), m_PushedColor(p_PushedColor) {}
 
 void Button::Start()
 {
-    AddComponentToObject(gameObject, spr);
-    AddComponentToObject(gameObject, mouse);
+    m_Sprite = GetComponentFromObject(gameObject, SpriteRenderer);
 }
 
 void Button::OnMouseDown()
 {
-    if (spr == nullptr) return;
+    if (m_Sprite == nullptr) return;
 
-    spr->color = 0xff808080;
+    m_Sprite->m_Color = 0xff808080;
 }
 
 void Button::OnMouseUp()
 {
-    if (spr == nullptr) return;
+    if (m_Sprite == nullptr) return;
 
-    spr->color = 0xffffffff;
+    m_Sprite->m_Color = 0xffffffff;
 }

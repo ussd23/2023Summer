@@ -1,0 +1,15 @@
+//-----------------------------------------------------------------------------
+// File: Scripts
+//
+// Desc: 스크립트 생성 시 이곳에 헤더 파일 추가 요함
+//-----------------------------------------------------------------------------
+
+#pragma once
+// 게임 헤더
+#include "PuzzleBobble.h"
+
+// 컴포넌트 및 글로벌 변수 헤더
+#include "ComponentHeader.h"
+#include "Bubble.h"
+#include "Controll.h"
+#include "BubbleManager.h"

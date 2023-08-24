@@ -1,45 +1,22 @@
 #include "ComponentHeader.h"
 
-Checkbox::Checkbox()
+CheckBox::CheckBox(string p_DefaultTextureName, string p_CheckedTextureName)
 {
-    texturename[0] = "CheckBoxOff.png";
-    texturename[1] = "CheckBoxOn.png";
-    textureindex = 0;
-
-    spr = new SpriteRenderer(texturename[0], Vector2(1, 1), Vector2(0, 0));
-    mouse = new MouseFunction();
+    m_DefaultTextureName = p_DefaultTextureName;
+    m_CheckedTextureName = p_CheckedTextureName;
 }
 
-Checkbox::Checkbox(Vector2 _rectsize, Vector2 _rectindex)
+void CheckBox::Start()
 {
-    texturename[0] = "CheckBoxOff.png";
-    texturename[1] = "CheckBoxOn.png";
-    textureindex = 0;
-
-    spr = new SpriteRenderer(texturename[0], _rectsize, _rectindex);
-    mouse = new MouseFunction();
+    m_Sprite = GetComponentFromObject(gameObject, SpriteRenderer);
 }
 
-Checkbox::Checkbox(DWORD _color, Vector2 _rectsize, Vector2 _rectindex)
+void CheckBox::OnMouseDown()
 {
-    texturename[0] = "CheckBoxOff.png";
-    texturename[1] = "CheckBoxOn.png";
-    textureindex = 0;
+    m_isChecked = !m_isChecked;
 
-    spr = new SpriteRenderer(texturename[0], _color, _rectsize, _rectindex);
-    mouse = new MouseFunction();
-}
+    if (m_Sprite == nullptr) return;
 
-void Checkbox::Start()
-{
-    AddComponentToObject(gameObject, spr);
-    AddComponentToObject(gameObject, mouse);
-}
-
-void Checkbox::OnMouseDown()
-{
-    if (textureindex == 0) textureindex = 1;
-    else textureindex = 0;
-
-    spr->ChangeSprite(texturename[textureindex]);
+    if (m_isChecked) m_Sprite->ChangeSprite(m_CheckedTextureName);
+    else m_Sprite->ChangeSprite(m_DefaultTextureName);
 }

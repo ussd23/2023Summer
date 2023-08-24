@@ -1,69 +1,63 @@
 #include "ComponentHeader.h"
 
-ViewBox::ViewBox()
-{
-    m_Spr = new SpriteRenderer("default.png", 0xff606060, Vector2(1, 1), Vector2(0, 0));
-    m_Mouse = new MouseFunction();
-}
-
-ViewBox::ViewBox(Vector2 _rectsize, Vector2 _rectindex)
-{
-    m_Spr = new SpriteRenderer("default.png", 0xff606060, _rectsize, _rectindex);
-    m_Mouse = new MouseFunction();
-}
-
-ViewBox::ViewBox(DWORD _color, Vector2 _rectsize, Vector2 _rectindex)
-{
-    m_Spr = new SpriteRenderer("default.png", _color, _rectsize, _rectindex);
-    m_Mouse = new MouseFunction();
-}
-
 void ViewBox::Start()
 {
-    AddComponentToObject(gameObject, m_Spr);
-    AddComponentToObject(gameObject, m_Mouse);
+    m_Rect = GetComponentFromObject(gameObject, RectTransform);
 
-    rect = GetComponentFromObject(gameObject, RectTransform);
-    child = rect->GetChild(0);
+    if (m_Rect != nullptr)
+    {
+        m_ChildRect = m_Rect->GetChild(0);
+    }
 }
 
 void ViewBox::Update()
 {
-    if (m_Isdown)
+    if (m_ChildRect == nullptr) return;
+
+    if (m_isDown)
     {
         Vector2 gap;
         Vector2 childLT, childRB, rectLT, rectRB;
 
-        childLT.x = child->GetScreenPosition().x - (child->size.x * 0.5);   //contentboxÁÂÃøº¯ ÁÂÇ¥
-        childLT.y = child->GetScreenPosition().y - (child->size.y * 0.5);   //contentbox»óÃøº¯ ÁÂÇ¥
+        Vector2 pos = m_Rect->GetScreenPosition();
+        Vector2 childPos = m_ChildRect->GetScreenPosition();
 
-        childRB.x = child->GetScreenPosition().x + (child->size.x * 0.5);   //contentbox¿ìÃøº¯ ÁÂÇ¥
-        childRB.y = child->GetScreenPosition().y + (child->size.y * 0.5);   //contentboxÇÏÃøº¯ ÁÂÇ¥
+        childLT.x = childPos.x - (m_ChildRect->m_Size.x * 0.5);   //contentboxÁÂÃøº¯ ÁÂÇ¥
+        childLT.y = childPos.y - (m_ChildRect->m_Size.y * 0.5);   //contentbox»óÃøº¯ ÁÂÇ¥
 
-        rectLT.x = rect->GetScreenPosition().x - (rect->size.x * 0.5);      //viewboxÁÂÃøº¯ ÁÂÇ¥
-        rectLT.y = rect->GetScreenPosition().y - (rect->size.y * 0.5);      //viewbox»óÃøº¯ ÁÂÇ¥
+        childRB.x = childPos.x + (m_ChildRect->m_Size.x * 0.5);   //contentbox¿ìÃøº¯ ÁÂÇ¥
+        childRB.y = childPos.y + (m_ChildRect->m_Size.y * 0.5);   //contentboxÇÏÃøº¯ ÁÂÇ¥
 
-        rectRB.x = rect->GetScreenPosition().x + (rect->size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
-        rectRB.y = rect->GetScreenPosition().y + (rect->size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
+        rectLT.x = pos.x - (m_Rect->m_Size.x * 0.5);      //viewboxÁÂÃøº¯ ÁÂÇ¥
+        rectLT.y = pos.y - (m_Rect->m_Size.y * 0.5);      //viewbox»óÃøº¯ ÁÂÇ¥
+
+        rectRB.x = pos.x + (m_Rect->m_Size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
+        rectRB.y = pos.y + (m_Rect->m_Size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
 
         //ÄÜÅÙÃ÷¹Ú½ºÀÇ ÁÂ/¿ìÃøº¯ÀÌ ºä¹Ú½ºÀÇ ÁÂ/¿ìÃøº¯ÀÇ ¹Û¿¡ ÀÖÀ¸¸é xÃàÀÌµ¿ °¡´É
         if (childLT.x < rectLT.x && childRB.x > rectRB.x)
         {
-            child->position.x = child->position.x + (g_mousepos.x - m_MousePrePos.x);
+            Vector2 temppos = m_ChildRect->GetPosition();
+            temppos.x = temppos.x + (Input::MousePosition.x - m_MousePrePos.x);
+            m_ChildRect->SetPosition(temppos);
         }
         //ÄÜÅÙÃ÷¹Ú½ºÀÇ ÁÂ/¿ìÃøº¯ÀÌ ºä¹Ú½ºÀÇ ÁÂ/¿ìÃøº¯°ú °°À¸¸é ÇØ´ç ¹æÇâÀ¸·ÎÀÇ ÀÌµ¿¸¸ Á¦ÇÑ
         else if (childLT.x == rectLT.x)
         {
-            if (g_mousepos.x < m_MousePrePos.x)
+            if (Input::MousePosition.x < m_MousePrePos.x)
             {
-                child->position.x = child->position.x + (g_mousepos.x - m_MousePrePos.x);
+                Vector2 temppos = m_ChildRect->GetPosition();
+                temppos.x = temppos.x + (Input::MousePosition.x - m_MousePrePos.x);
+                m_ChildRect->SetPosition(temppos);
             }
         }
         else if (childRB.x == rectRB.x)
         {
-            if (g_mousepos.x > m_MousePrePos.x)
+            if (Input::MousePosition.x > m_MousePrePos.x)
             {
-                child->position.x = child->position.x + (g_mousepos.x - m_MousePrePos.x);
+                Vector2 temppos = m_ChildRect->GetPosition();
+                temppos.x = temppos.x + (Input::MousePosition.x - m_MousePrePos.x);
+                m_ChildRect->SetPosition(temppos);
             }
         }
 
@@ -72,33 +66,43 @@ void ViewBox::Update()
         {
             gap.x = childLT.x - rectLT.x;
 
-            child->position.x = child->position.x - gap.x;
+            Vector2 temppos = m_ChildRect->GetPosition();
+            temppos.x -= gap.x;
+            m_ChildRect->SetPosition(temppos);
         }
         //ÄÜÅÙÃ÷¹Ú½ºÀÇ ÁÂÃøº¯ÀÌ ºä¹Ú½ºÀÇ ÁÂÃøº¯ÀÇ ¾È¿¡ ÀÖÀ¸¸é º¯ À§Ä¡ ¸ÂÃã
         if (childRB.x < rectRB.x)
         {
             gap.x = childRB.x - rectRB.x;
 
-            child->position.x = child->position.x - gap.x;
+            Vector2 temppos = m_ChildRect->GetPosition();
+            temppos.x -= gap.x;
+            m_ChildRect->SetPosition(temppos);
         }
 
         //yÃàµµ ¶È°°ÀÌ ÇØÁÜ
         if (childLT.y < rectLT.y && childRB.y > rectRB.y)
         {
-            child->position.y = child->position.y + (g_mousepos.y - m_MousePrePos.y);
+            Vector2 temppos = m_ChildRect->GetPosition();
+            temppos.y = temppos.y + (Input::MousePosition.y - m_MousePrePos.y);
+            m_ChildRect->SetPosition(temppos);
         }
         else if (childLT.y == rectLT.y)
         {
-            if (g_mousepos.y < m_MousePrePos.y)
+            if (Input::MousePosition.y < m_MousePrePos.y)
             {
-                child->position.y = child->position.y + (g_mousepos.y - m_MousePrePos.y);
+                Vector2 temppos = m_ChildRect->GetPosition();
+                temppos.y = temppos.y + (Input::MousePosition.y - m_MousePrePos.y);
+                m_ChildRect->SetPosition(temppos);
             }
         }
         else if (childRB.y == rectRB.y)
         {
-            if (g_mousepos.y > m_MousePrePos.y)
+            if (Input::MousePosition.y > m_MousePrePos.y)
             {
-                child->position.y = child->position.y + (g_mousepos.y - m_MousePrePos.y);
+                Vector2 temppos = m_ChildRect->GetPosition();
+                temppos.y = temppos.y + (Input::MousePosition.y - m_MousePrePos.y);
+                m_ChildRect->SetPosition(temppos);
             }
         }
 
@@ -106,33 +110,37 @@ void ViewBox::Update()
         {
             gap.y = childLT.y - rectLT.y;
 
-            child->position.y = child->position.y - gap.y;
+            Vector2 temppos = m_ChildRect->GetPosition();
+            temppos.y -= gap.y;
+            m_ChildRect->SetPosition(temppos);
         }
         if (childRB.y < rectRB.y)
         {
             gap.y = childRB.y - rectRB.y;
 
-            child->position.y = child->position.y - gap.y;
+            Vector2 temppos = m_ChildRect->GetPosition();
+            temppos.y -= gap.y;
+            m_ChildRect->SetPosition(temppos);
         }
 
-        m_MousePrePos = g_mousepos;
+        m_MousePrePos = Input::MousePosition;
     }
 }
 
 void ViewBox::OnMouseDown()
 {
-    m_Isdown = true;
-    m_MousePrePos = g_mousepos;
+    m_isDown = true;
+    m_MousePrePos = Input::MousePosition;
 }
 
 void ViewBox::OnMouseUp()
 {
-    m_Isdown = false;
+    m_isDown = false;
 }
 
 void ViewBox::OnMouseExit()
 {
-    m_Isdown = false;
+    m_isDown = false;
 }
 
 void ViewBox::OnWheelUp()
@@ -140,29 +148,36 @@ void ViewBox::OnWheelUp()
     Vector2 gap;
     Vector2 childLT, childRB, rectLT, rectRB;
 
-    childLT.x = child->GetScreenPosition().x - (child->size.x * 0.5);   //contentboxÁÂÃøº¯ ÁÂÇ¥
-    childLT.y = child->GetScreenPosition().y - (child->size.y * 0.5);   //contentbox»óÃøº¯ ÁÂÇ¥
+    Vector2 pos = m_Rect->GetScreenPosition();
+    Vector2 childPos = m_ChildRect->GetScreenPosition();
 
-    childRB.x = child->GetScreenPosition().x + (child->size.x * 0.5);   //contentbox¿ìÃøº¯ ÁÂÇ¥
-    childRB.y = child->GetScreenPosition().y + (child->size.y * 0.5);   //contentboxÇÏÃøº¯ ÁÂÇ¥
+    childLT.x = childPos.x - (m_ChildRect->m_Size.x * 0.5);   //contentboxÁÂÃøº¯ ÁÂÇ¥
+    childLT.y = childPos.y - (m_ChildRect->m_Size.y * 0.5);   //contentbox»óÃøº¯ ÁÂÇ¥
 
-    rectLT.x = rect->GetScreenPosition().x - (rect->size.x * 0.5);      //viewboxÁÂÃøº¯ ÁÂÇ¥
-    rectLT.y = rect->GetScreenPosition().y - (rect->size.y * 0.5);      //viewbox»óÃøº¯ ÁÂÇ¥
+    childRB.x = childPos.x + (m_ChildRect->m_Size.x * 0.5);   //contentbox¿ìÃøº¯ ÁÂÇ¥
+    childRB.y = childPos.y + (m_ChildRect->m_Size.y * 0.5);   //contentboxÇÏÃøº¯ ÁÂÇ¥
 
-    rectRB.x = rect->GetScreenPosition().x + (rect->size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
-    rectRB.y = rect->GetScreenPosition().y + (rect->size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
+    rectLT.x = pos.x - (m_Rect->m_Size.x * 0.5);      //viewboxÁÂÃøº¯ ÁÂÇ¥
+    rectLT.y = pos.y - (m_Rect->m_Size.y * 0.5);      //viewbox»óÃøº¯ ÁÂÇ¥
+
+    rectRB.x = pos.x + (m_Rect->m_Size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
+    rectRB.y = pos.y + (m_Rect->m_Size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
 
 
     if (childLT.y < rectLT.y)
     {
-        child->position.y += 5;
+        Vector2 temppos = m_ChildRect->GetPosition();
+        temppos.y += 5;
+        m_ChildRect->SetPosition(temppos);
     }
 
     if (childLT.y > rectLT.y)
     {
         gap.y = childLT.y - rectLT.y;
 
-        child->position.y = child->position.y - gap.y;
+        Vector2 temppos = m_ChildRect->GetPosition();
+        temppos.y -= gap.y;
+        m_ChildRect->SetPosition(temppos);
     }
 }
 
@@ -171,28 +186,35 @@ void ViewBox::OnWheelDown()
     Vector2 gap;
     Vector2 childLT, childRB, rectLT, rectRB;
 
-    childLT.x = child->GetScreenPosition().x - (child->size.x * 0.5);   //contentboxÁÂÃøº¯ ÁÂÇ¥
-    childLT.y = child->GetScreenPosition().y - (child->size.y * 0.5);   //contentbox»óÃøº¯ ÁÂÇ¥
+    Vector2 pos = m_Rect->GetScreenPosition();
+    Vector2 childPos = m_ChildRect->GetScreenPosition();
 
-    childRB.x = child->GetScreenPosition().x + (child->size.x * 0.5);   //contentbox¿ìÃøº¯ ÁÂÇ¥
-    childRB.y = child->GetScreenPosition().y + (child->size.y * 0.5);   //contentboxÇÏÃøº¯ ÁÂÇ¥
+    childLT.x = childPos.x - (m_ChildRect->m_Size.x * 0.5);   //contentboxÁÂÃøº¯ ÁÂÇ¥
+    childLT.y = childPos.y - (m_ChildRect->m_Size.y * 0.5);   //contentbox»óÃøº¯ ÁÂÇ¥
 
-    rectLT.x = rect->GetScreenPosition().x - (rect->size.x * 0.5);      //viewboxÁÂÃøº¯ ÁÂÇ¥
-    rectLT.y = rect->GetScreenPosition().y - (rect->size.y * 0.5);      //viewbox»óÃøº¯ ÁÂÇ¥
+    childRB.x = childPos.x + (m_ChildRect->m_Size.x * 0.5);   //contentbox¿ìÃøº¯ ÁÂÇ¥
+    childRB.y = childPos.y + (m_ChildRect->m_Size.y * 0.5);   //contentboxÇÏÃøº¯ ÁÂÇ¥
 
-    rectRB.x = rect->GetScreenPosition().x + (rect->size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
-    rectRB.y = rect->GetScreenPosition().y + (rect->size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
+    rectLT.x = pos.x - (m_Rect->m_Size.x * 0.5);      //viewboxÁÂÃøº¯ ÁÂÇ¥
+    rectLT.y = pos.y - (m_Rect->m_Size.y * 0.5);      //viewbox»óÃøº¯ ÁÂÇ¥
+
+    rectRB.x = pos.x + (m_Rect->m_Size.x * 0.5);      //viewbox¿ìÃøº¯ ÁÂÇ¥
+    rectRB.y = pos.y + (m_Rect->m_Size.y * 0.5);      //viewboxÇÏÃøº¯ ÁÂÇ¥
 
     if (childRB.y > rectRB.y)
     {
-        child->position.y -= 5;
+        Vector2 temppos = m_ChildRect->GetPosition();
+        temppos.y -= 5;
+        m_ChildRect->SetPosition(temppos);
     }
 
     if (childRB.y < rectRB.y)
     {
         gap.y = childRB.y - rectRB.y;
 
-        child->position.y = child->position.y - gap.y;
+        Vector2 temppos = m_ChildRect->GetPosition();
+        temppos.y -= gap.y;
+        m_ChildRect->SetPosition(temppos);
     }
 }
 

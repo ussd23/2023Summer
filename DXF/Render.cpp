@@ -2,10 +2,12 @@
 #include "Global.h"
 #include "Functions.h"
 #include "Time.h"
+#include "Frustum.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "RectTransform.h"
 #include "Camera.h"
+#include "Renderer.h"
 
 HRESULT DXFGame::SetupCamera()
 {
@@ -16,37 +18,59 @@ HRESULT DXFGame::SetupCamera()
         return E_FAIL;
     }
 
-    Matrix16 matView;
-    D3DXMatrixLookAtLH(&matView, &camera->vEyePt, &camera->vLookatPt, &camera->vUpVec);
-    g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
+    Transform* transform = GetComponentFromObject(camera->gameObject, Transform);
+    Vector3 eyePt = transform->GetWorldPosition();
 
-    Matrix16 matProj;
-    D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4 - (camera->fovRate / (D3DX_PI * 5)), SCREENSIZEX / (float)SCREENSIZEY, 1.0f, 100.0f);
-    g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
+    D3DXMatrixLookAtLH(&m_ViewMatrix, &eyePt, &camera->m_LookatPt, &camera->m_UpVec);
+    m_pd3dDevice->SetTransform(D3DTS_VIEW, &m_ViewMatrix);
+
+    D3DXMatrixPerspectiveFovLH(&m_ProjMatrix, D3DX_PI * 0.25f - (camera->m_FovRate / (D3DX_PI * 5)), m_Resolution.x / m_Resolution.y, 1.0f, m_RenderDistance);
+    m_pd3dDevice->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
 
     return S_OK;
 }
 
 HRESULT DXFGame::Render()
 {
-    g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+    m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
         D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
-    //* 카메라컬링
-    //* 오브젝트 컬링
-    //* 소팅
+    SetRect(&Var::ScreenRect, 0, 0, m_Resolution.x, m_Resolution.y);
 
-    if (SUCCEEDED(g_pd3dDevice->BeginScene()))
+    Var::CullingObjects = 0;
+
+    if (SUCCEEDED(m_pd3dDevice->BeginScene()))
     {
         if (FAILED(SetupCamera())) return E_FAIL;
 
-        if (g_RootObject != nullptr) g_RootObject->Render();
-        if (g_RootRectObject != nullptr) g_RootRectObject->Render();
+        // Frustum 생성
+        Matrix16 matViewProj = m_ViewMatrix * m_ProjMatrix;
+        if (Var::Frustum != nullptr) Var::Frustum->MakeFrustum(&matViewProj);
 
-        g_pd3dDevice->EndScene();
+        Var::TransformRenderList.clear();
+        Var::RectTransformRenderList.clear();
+
+        // Frustum Culling 적용
+        if (Var::RootObject != nullptr) Var::RootObject->PreRender();
+        if (Var::RootRectObject != nullptr) Var::RootRectObject->PreRender();
+
+        // Transform을 사용하는 오브젝트 정렬 및 렌더링 (카메라와 가까운 순)
+        sort(Var::TransformRenderList.begin(), Var::TransformRenderList.end(), Renderer::Compare);
+        for (int i = 0; i < Var::TransformRenderList.size(); ++i)
+        {
+            Var::TransformRenderList[i]->Render();
+        }
+
+        // RectTransform을 사용하는 오브젝트 렌더링 (Parent/Child 순)
+        for (int i = 0; i < Var::RectTransformRenderList.size(); ++i)
+        {
+            Var::RectTransformRenderList[i]->Render();
+        }
+
+        m_pd3dDevice->EndScene();
     }
 
-    g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
+    m_pd3dDevice->Present(NULL, NULL, NULL, NULL);
 
     return S_OK;
 }

@@ -1,0 +1,547 @@
+[
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : [ 3 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			}
+		],
+		"m_Name" : "RootObject",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 2, 4, 6, 8 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					}
+				}
+			}
+		],
+		"m_Name" : "RootRectObject",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 300.0,
+						"y" : 55.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 600.0,
+						"y" : 110.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 16,
+					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class TopText",
+				"values" : null
+			},
+			{
+				"type" : "class Minesweeper",
+				"values" : null
+			}
+		],
+		"m_Name" : "MineSweeper",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 20.0,
+						"z" : -10.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class Camera",
+				"values" : 
+				{
+					"m_LookatPt" : 
+					{
+						"x" : 0.0,
+						"y" : 1.0,
+						"z" : 0.0
+					}
+				}
+			},
+			{
+				"type" : "class CameraMove",
+				"values" : 
+				{
+					"m_LerpT" : 5.0
+				}
+			}
+		],
+		"m_Name" : "MainCamera",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 5 ],
+					"m_Position" : 
+					{
+						"x" : 50.0,
+						"y" : 850.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "Mine_Refresh.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class Button",
+				"values" : null
+			},
+			{
+				"type" : "class ResetButton",
+				"values" : null
+			}
+		],
+		"m_Name" : "Button",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 10.0,
+						"y" : 30.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 20,
+					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class ResetButtonText",
+				"values" : 
+				{
+					"m_Text" : "Easy"
+				}
+			}
+		],
+		"m_Name" : "Text",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 7 ],
+					"m_Position" : 
+					{
+						"x" : 150.0,
+						"y" : 850.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "Mine_Refresh.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class Button",
+				"values" : null
+			},
+			{
+				"type" : "class ResetButton",
+				"values" : null
+			}
+		],
+		"m_Name" : "Button",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 10.0,
+						"y" : 30.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 20,
+					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class ResetButtonText",
+				"values" : 
+				{
+					"m_Text" : "Normal"
+				}
+			}
+		],
+		"m_Name" : "Text",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 9 ],
+					"m_Position" : 
+					{
+						"x" : 250.0,
+						"y" : 850.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "Mine_Refresh.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class Button",
+				"values" : null
+			},
+			{
+				"type" : "class ResetButton",
+				"values" : null
+			}
+		],
+		"m_Name" : "Button",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 10.0,
+						"y" : 30.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 20,
+					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class ResetButtonText",
+				"values" : 
+				{
+					"m_Text" : "Hard"
+				}
+			}
+		],
+		"m_Name" : "Text",
+		"m_isActive" : true
+	}
+]

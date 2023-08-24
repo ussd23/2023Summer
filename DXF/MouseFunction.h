@@ -5,11 +5,14 @@
 //		 (OnMouse... 사용 시 필요)
 //
 //		[Variables]
-//		- entering: 마우스 오버가 되었는 지의 여부
-//		- transform: 오브젝트의 Transform 컴포넌트
-//		- bcollider: 오브젝트의 Boxcollider 컴포넌트
-//		- scollider: 오브젝트의 SphereCollider 컴포넌트
-//		- recttransform: 오브젝트의 Transform 컴포넌트 (collider 필요 없음)
+//		- m_isEntering: 마우스 오버가 되었는 지의 여부
+//		- m_Transform: 오브젝트의 Transform 컴포넌트
+//		- m_BoxCollider: 오브젝트의 Boxcollider 컴포넌트
+//		- m_SphereCollider: 오브젝트의 SphereCollider 컴포넌트
+//		- m_Recttransform: 오브젝트의 Transform 컴포넌트 (collider 필요 없음)
+// 
+//		- m_isUnique: 화면상 가장 위에 표시되는 오브젝트만 검사하는 설정
+//		  (RectTransform 사용 시에만 적용됨)
 //-----------------------------------------------------------------------------
 
 #pragma once
@@ -24,14 +27,34 @@ class SphereCollider;
 class MouseFunction : public Component
 {
 protected:
-	bool				entering = false;
-	Transform*			transform;
-	BoxCollider*		bcollider;
-	SphereCollider*		scollider;
-	RectTransform*		recttransform;
+	bool								m_Result;
+	bool								m_isEntering = false;
+	Transform*							m_Transform;
+	BoxCollider*						m_BoxCollider;
+	SphereCollider*						m_SphereCollider;
+	RectTransform*						m_RectTransform;
+
+	static map<MouseFunction*, bool*>	m_UniqueMouseFunctions;
 
 public:
+	bool								m_isUnique = false;
+
+public:
+	MouseFunction(const bool& p_isUnique);
+
 	void Start() override;
 	void Update() override;
+
+	void LateUpdate() override;
+	static void UniqueCheck();
+
+	SerializeFunction(MouseFunction)
+	{
+		Serialize(m_isUnique);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(m_isUnique);
+	}
 };
 

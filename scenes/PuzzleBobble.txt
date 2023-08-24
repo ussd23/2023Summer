@@ -1,0 +1,2083 @@
+[
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						32,
+						33,
+						34
+					],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			}
+		],
+		"m_Name" : "RootObject",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 35 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					}
+				}
+			}
+		],
+		"m_Name" : "RootRectObject",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : -41.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class Camera",
+				"values" : 
+				{
+					"m_LookatPt" : 
+					{
+						"x" : 0.0,
+						"y" : 1.0,
+						"z" : 0.0
+					}
+				}
+			}
+		],
+		"m_Name" : "MainCamera",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class BubbleManager",
+				"values" : 
+				{
+					"m_AllBubble" : "¿á∆x?\u0002\u0000\u0000∞Ö∆x?\u0002\u0000\u0000pà∆x?\u0002\u0000\u0000–â∆x?\u0002\u0000\u00000ã∆x?\u0002\u0000\u0000ç∆x?\u0002\u0000\u0000`D˘|?\u0002\u0000\u0000V˘|?\u0002\u0000\u0000\u0010E˘|?\u0002\u0000\u00000T˘|?\u0002\u0000\u0000–R˘|?\u0002\u0000\u0000¿E˘|?\u0002\u0000\u0000‡T˘|?\u0002\u0000\u0000‡I˘|?\u0002\u0000\u0000êU˘|?\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000Pc˘|?\u0002\u0000\u0000@V˘|?\u0002\u0000\u0000∞N˘|?\u0002\u0000\u0000–G˘|?\u0002\u0000\u0000Ä^˘|?\u0002\u0000\u0000\u0000Y˘|?\u0002\u0000\u0000∞Y˘|?\u0002\u0000\u0000 R˘|?\u0002\u0000\u00000I˘|?\u0002\u0000\u0000ê`˘|?\u0002\u0000\u0000\u0000N˘|?\u0002\u0000\u0000@a˘|?\u0002\u0000\u0000a˘|?\u0002\u0000\u0000ÄS˘|?\u0002\u0000\u0000\u0010,˚|?\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "empty",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : -6.0999999046325684,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : false
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -7.1999998092651367,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -5.1499996185302734,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -3.0999996662139893,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -1.0499997138977051,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 1.0000002384185791,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\blue.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 3.0500001907348633,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\blue.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 5.1000003814697266,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\yellow.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 7.1500005722045898,
+						"y" : 12.0,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\yellow.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0007\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -6.1500000953674316,
+						"y" : 10.100000381469727,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -4.0999999046325684,
+						"y" : 10.100000381469727,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -2.0499999523162842,
+						"y" : 10.100000381469727,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 4.7683716530855236e-08,
+						"y" : 10.100000381469727,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 2.0499999523162842,
+						"y" : 10.100000381469727,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\blue.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 4.0999999046325684,
+						"y" : 10.100000381469727,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\blue.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 6.1500000953674316,
+						"y" : 10.100000381469727,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\yellow.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0001\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -7.1999998092651367,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\blue.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -5.1499996185302734,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\blue.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -3.0999996662139893,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\yellow.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -1.0499997138977051,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\yellow.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 1.0000002384185791,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 3.0500001907348633,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 5.1000003814697266,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 7.1500005722045898,
+						"y" : 8.2000007629394531,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0007\u0000\u0000\u0000\u0002\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -6.1500000953674316,
+						"y" : 6.3000006675720215,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\blue.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 3,
+					"m_PosInManager" : "\u0000\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -4.0999999046325684,
+						"y" : 6.3000006675720215,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\yellow.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0001\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -2.0499999523162842,
+						"y" : 6.3000006675720215,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\yellow.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 4,
+					"m_PosInManager" : "\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 4.7683716530855236e-08,
+						"y" : 6.3000006675720215,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0003\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 2.0499999523162842,
+						"y" : 6.3000006675720215,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\red.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 1,
+					"m_PosInManager" : "\u0004\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 4.0999999046325684,
+						"y" : 6.3000006675720215,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0005\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class Transform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 6.1500000953674316,
+						"y" : 6.3000006675720215,
+						"z" : -8.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					}
+				}
+			},
+			{
+				"type" : "class MeshRenderer",
+				"values" : 
+				{
+					"m_ModelName" : "PuzzleBobble\\green.x"
+				}
+			},
+			{
+				"type" : "class SphereCollider",
+				"values" : 
+				{
+					"m_CheckTime" : 0.10000000149011612,
+					"m_Radius" : 1.1000000238418579,
+					"m_isFixedChecking" : false,
+					"m_isPassive" : true
+				}
+			},
+			{
+				"type" : "class Bubble",
+				"values" : 
+				{
+					"m_Code" : 2,
+					"m_PosInManager" : "\u0006\u0000\u0000\u0000\u0003\u0000\u0000\u0000"
+				}
+			}
+		],
+		"m_Name" : "bubble",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 36 ],
+					"m_Position" : 
+					{
+						"x" : 325.0,
+						"y" : 750.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					}
+				}
+			},
+			{
+				"type" : "class Controll",
+				"values" : null
+			}
+		],
+		"m_Name" : "empty",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : -25.0,
+						"y" : -150.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 50.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "PuzzleBobble\\arrow.png"
+				}
+			}
+		],
+		"m_Name" : "arrow",
+		"m_isActive" : true
+	}
+]

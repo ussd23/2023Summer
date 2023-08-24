@@ -9,10 +9,11 @@
 //			- pMeshMaterials: 사용되는 머티리얼 배열
 //			- pMeshTextures: 사용되는 텍스쳐 배열
 //			- dwNumMaterials: 머티리얼의 개수
+//			- farthestDistance: 가장 먼 정점의 거리 (Frustum Culling에 사용)
 //
 //		[Variables]
-//		- meshinfos: 메쉬 정보 목록
-//		- meshinfosmap: string 기반의 메쉬 정보 목록
+//		- m_MeshInfos: 메쉬 정보 목록
+//		- m_MeshInfosMap: string 기반의 메쉬 정보 목록
 //
 //		[Functions]
 //		- GetMesh: 3d 파일을 기반으로 메쉬 정보를 검색하여 반환
@@ -31,16 +32,17 @@ public:
 	D3DMATERIAL9*		pMeshMaterials = NULL;
 	LPDIRECT3DTEXTURE9* pMeshTextures = NULL;
 	DWORD               dwNumMaterials = 0L;
+	float				farthestDistance = 0.f;
 };
 
 class MeshManager : public GetI<MeshManager>
 {
 protected:
-	vector<MeshInfo*>		meshinfos;
-	map<string, MeshInfo*>	meshinfosmap;
+	vector<MeshInfo*>		m_MeshInfos;
+	map<string, MeshInfo*>	m_MeshInfosMap;
 
 public:
-	MeshInfo* GetMesh(const string&);
+	MeshInfo* GetMesh(const string& p_Path);
 	void Cleanup();
 };
 

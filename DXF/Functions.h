@@ -7,10 +7,9 @@
 //      - Lerp: 선형 보간 (두 값 사이의 중간값을 반환)
 //      - Inner: 2차원 범위 안에 해당 좌표가 속해있는 지의 여부 반환
 //      - WorldToScreen: 월드상 오브젝트의 위치를 화면상 좌표로 변환
-//      - GetDistance: 두 좌표 사이의 거리 반환
+//      - GetDistanceSquare: 두 좌표 사이의 거리의 제곱 반환
 //
 //      [Macro]
-//      - AddObjectToScene: 오브젝트를 처음 생성시 사용
 //      - AddComponentToObject: 오브젝트에 컴포넌트 추가
 //      - GetComponentFromObject: 오브젝트에서 특정 컴포넌트 반환 (해당 오브젝트
 //                                또는 컴포넌트가 없을 경우 nullptr 반환)
@@ -21,34 +20,37 @@
 
 #pragma once
 #include "DXHeader.h"
+#include "StandardLibrary.h"
 
 class GameObject;
 class Transform;
 
 namespace Functions
 {;
-template <typename T> T Lerp(T, T, float);
+template <typename T> T Lerp(T p_Start, T p_End, float p_LerpT);
 
-bool Inner(const RECT&, const Vector2&);
-Vector2 WorldToScreen(Transform*);
-float GetDistance(const Vector3&, const Vector3&);
+bool Inner(const RECT& p_Rect, const Vector2& p_Position);
+bool Inner(const RECT& p_Rect1, const RECT& p_Rect2);
+Vector2 WorldToScreen(Transform* p_Transform);
+float GetDistanceSquare(const Vector2& p_Point1, const Vector2& p_Point2);
+float GetDistanceSquare(const Vector3& p_Point1, const Vector3& p_Point2);
+float GetDistanceSquare(const Vector4& p_Point1, const Vector4& p_Point2);
 
-Vector3 SLerp(const Vector3*, const Vector3*, float);
-Vector3 D3DXQuaternionToRotation(Quaternion);
+Vector3 SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_LerpT);
+
+Quaternion EulerToQuaternion(Vector3 p_Euler);
+Vector3 QuaternionToEuler(Quaternion p_Quaternion);
 }
 
-template <typename T> T Functions::Lerp(T startValue, T endValue, float t)
+template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
 {
-    return startValue + t * (endValue - startValue);
+    return p_Start + p_LerpT * (p_End - p_Start);
 }
 
-#define AddObjectToScene(object, parent, transform) g_Objects.push_back(object);\
-        parent->AddChild(transform);
 #define AddComponentToObject(object, component) object->AddComponent(component)
 #define GetComponentFromObject(object, type) GameObject::Exists(object) ? dynamic_cast<type*>(object->GetComponent(#type)) : nullptr
+#define ComponentRegist(type) ComponentManager::RegisterComponent<type>(typeid(type).name())
 
-#define SetInputBuffer(object, type, value) if (object.find(type) == object.end()) object.insert(make_pair(type, value));\
-        else object[type] = value
-#define GetInputBuffer(object, type) (object.find(type) == object.end()) ? false : object[type]
-
-
+#define SetInputBuffer(object, type, value) if (Input::object.find(type) == Input::object.end()) Input::object.insert(make_pair(type, value));\
+        else Input::object[type] = value
+#define GetInputBuffer(object, type) (Input::object.find(type) == Input::object.end()) ? false : Input::object[type]
