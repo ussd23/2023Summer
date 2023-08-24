@@ -266,5 +266,9 @@
     <ClInclude Include="CallBack.h">
       <Filter>0. Core\Header</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DXF.rc" />
   </ItemGroup>
 </Project>

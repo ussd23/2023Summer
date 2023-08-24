@@ -68,3 +68,25 @@ LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
 
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
+
+INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam) {
+    switch (msg) {
+    case WM_INITDIALOG:
+        return TRUE;
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam)) {
+        case IDC_BUTTON1:
+            MessageBox(NULL, "Dialog", "Button1", MB_OK);
+            break;
+        }
+        return TRUE;
+
+    case WM_DESTROY:
+        DestroyWindow(hDlg);
+        hDlg = NULL;
+        return TRUE;
+    }
+
+    return FALSE;
+}

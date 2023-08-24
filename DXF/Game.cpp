@@ -5,6 +5,7 @@
 #include "ComponentHeader.h"
 
 HWND DXFGame::m_hWnd;
+HWND DXFGame::m_hDlg;
 WNDCLASSEX DXFGame::m_WndClass;
 MSG DXFGame::m_Msg;
 string DXFGame::m_Title = "DXF Sample";
