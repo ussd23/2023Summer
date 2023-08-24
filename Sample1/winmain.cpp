@@ -25,11 +25,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
             Time::TimeUpdate();
 
             // Message
-            if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
+            Sample1::Message(&msg);
 
             // Start
             Sample1::Start();
@@ -45,7 +41,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         }
     }
 
-    UnregisterClass("DXF", Sample1::m_WndClass.hInstance);
     Sample1::Cleanup();
     return 0;
 }

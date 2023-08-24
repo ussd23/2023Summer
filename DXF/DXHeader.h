@@ -71,4 +71,5 @@ public:
 	static void ComponentRegister();
 	static void Start();
 	static void Update();
+	static void Message(MSG* msg);
 };

@@ -10,6 +10,8 @@
 
 VOID DXFGame::Cleanup()
 {
+    UnregisterClass("DXF", m_WndClass.hInstance);
+
     TextureManager::GetInstance()->Cleanup();
     MeshManager::GetInstance()->Cleanup();
     FontManager::GetInstance()->Cleanup();

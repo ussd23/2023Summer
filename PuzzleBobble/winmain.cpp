@@ -25,11 +25,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
             Time::TimeUpdate();
 
             // Message
-            if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
+            PuzzleBobble::Message(&msg);
 
             // Start
             PuzzleBobble::Start();
@@ -45,7 +41,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         }
     }
 
-    UnregisterClass("DXF", PuzzleBobble::m_WndClass.hInstance);
     PuzzleBobble::Cleanup();
     return 0;
 }

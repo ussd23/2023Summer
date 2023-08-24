@@ -71,3 +71,12 @@ void DXFGame::Update()
     if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
 }
+
+void DXFGame::Message(MSG* msg)
+{
+    if (PeekMessage(msg, NULL, 0U, 0U, PM_REMOVE))
+    {
+        TranslateMessage(msg);
+        DispatchMessage(msg);
+    }
+}
