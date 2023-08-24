@@ -82,11 +82,11 @@ void VerticeRenderer::Render()
     }
     DXFGame::m_pVB->Unlock();
 
-    DXFGame::m_pd3dDevice->SetMaterial(&DXFGame::m_defaultMaterial);
+    DXFGame::m_pd3dDevice->SetMaterial(&DXFGame::m_DefaultMaterial);
     if (m_Texture != NULL) DXFGame::m_pd3dDevice->SetTexture(0, m_Texture);
     else
     {
-        DXFGame::m_pd3dDevice->SetTexture(0, DXFGame::m_defaultTexture);
+        DXFGame::m_pd3dDevice->SetTexture(0, DXFGame::m_DefaultTexture);
         DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
         DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
         DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);

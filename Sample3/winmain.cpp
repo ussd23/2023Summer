@@ -11,9 +11,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
     if (SUCCEEDED(Sample3::InitD3D(hInst)))
     {
-        ShowWindow(Sample3::m_hWnd, SW_SHOWDEFAULT);
-        UpdateWindow(Sample3::m_hWnd);
-
         Sample3::ComponentRegister();
         Sample3::ScriptRegister();
 

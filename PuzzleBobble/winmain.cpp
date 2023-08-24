@@ -11,9 +11,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
     if (SUCCEEDED(PuzzleBobble::InitD3D(hInst)))
     {
-        ShowWindow(PuzzleBobble::m_hWnd, SW_SHOWDEFAULT);
-        UpdateWindow(PuzzleBobble::m_hWnd);
-
         PuzzleBobble::ComponentRegister();
         PuzzleBobble::ScriptRegister();
 
