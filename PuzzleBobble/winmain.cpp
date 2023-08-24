@@ -11,28 +11,19 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
     if (SUCCEEDED(PuzzleBobble::InitD3D(hInst)))
     {
-        ShowWindow(PuzzleBobble::m_hWnd, SW_SHOWDEFAULT);
-        UpdateWindow(PuzzleBobble::m_hWnd);
-
         PuzzleBobble::ComponentRegister();
         PuzzleBobble::ScriptRegister();
 
         PuzzleBobble::InitObject();
 
-        MSG msg;
-        ZeroMemory(&msg, sizeof(msg));
-        while (msg.message != WM_QUIT)
+        while (PuzzleBobble::m_Msg.message != WM_QUIT)
         {
             // Frame Update
             Input::InputBufferReset();
             Time::TimeUpdate();
 
             // Message
-            if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
+            PuzzleBobble::Message();
 
             // Start
             PuzzleBobble::Start();
@@ -48,7 +39,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         }
     }
 
-    UnregisterClass("DXF", PuzzleBobble::m_WndClass.hInstance);
     PuzzleBobble::Cleanup();
     return 0;
 }

@@ -6,8 +6,8 @@
 //		[Variables]
 //		- m_pD3D: Direct3D 9 디바이스 생성을 위한 그래픽 API
 //		- m_pd3dDevice: 렌더링 디바이스
-//		- m_defaultMaterial: 머티리얼 기본값
-//		- m_defaultTexture: 텍스쳐 기본값
+//		- m_DefaultMaterial: 머티리얼 기본값
+//		- m_DefaultTexture: 텍스쳐 기본값
 //		- m_pVB: 버텍스 버퍼
 //
 //		[Functions]
@@ -50,13 +50,14 @@ protected:
 public:
 	static HWND						m_hWnd;
 	static WNDCLASSEX				m_WndClass;
+	static MSG						m_Msg;
 	static string					m_Title;
 	static Vector2					m_Resolution;
 	static float					m_RenderDistance;
 	static LPDIRECT3D9				m_pD3D;
 	static LPDIRECT3DDEVICE9		m_pd3dDevice;
-	static D3DMATERIAL9				m_defaultMaterial;
-	static IDirect3DBaseTexture9*	m_defaultTexture;
+	static D3DMATERIAL9				m_DefaultMaterial;
+	static IDirect3DBaseTexture9*	m_DefaultTexture;
 	static LPDIRECT3DVERTEXBUFFER9	m_pVB;
 	static LPD3DXSPRITE				m_pSprite;
 
@@ -71,4 +72,5 @@ public:
 	static void ComponentRegister();
 	static void Start();
 	static void Update();
+	static void Message();
 };

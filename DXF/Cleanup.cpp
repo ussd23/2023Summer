@@ -10,6 +10,8 @@
 
 VOID DXFGame::Cleanup()
 {
+    UnregisterClass("DXF", m_WndClass.hInstance);
+
     TextureManager::GetInstance()->Cleanup();
     MeshManager::GetInstance()->Cleanup();
     FontManager::GetInstance()->Cleanup();
@@ -32,8 +34,8 @@ VOID DXFGame::Cleanup()
     if (m_pD3D != NULL)
         m_pD3D->Release();
 
-    if (m_defaultTexture != NULL)
-        m_defaultTexture->Release();
+    if (m_DefaultTexture != NULL)
+        m_DefaultTexture->Release();
 
     if (m_pVB != NULL)
         m_pVB->Release();

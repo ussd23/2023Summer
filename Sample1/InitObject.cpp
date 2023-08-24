@@ -18,10 +18,13 @@ void Sample1::InitObject()
     Transform* transform = GetComponentFromObject(gameObject, Transform);
     transform->SetScale(Vector3(10000, 1, 10000));
     VerticeRenderer* vertice = GetComponentFromObject(gameObject, VerticeRenderer);
-    vertice->m_Vertices[0].tv = 100.f;
-    vertice->m_Vertices[2].tu = 100.f;
-    vertice->m_Vertices[2].tv = 100.f;
-    vertice->m_Vertices[3].tu = 100.f;
+
+    vector<Vertex> vec = vertice->GetVertices();
+    vec[0].tv = 100.f;
+    vec[2].tu = 100.f;
+    vec[2].tv = 100.f;
+    vec[3].tu = 100.f;
+    vertice->ChangeVertices(vec);
     BoxCollider* bcollider = new BoxCollider(Vector3(1, 1, 1), false);
     AddComponentToObject(gameObject, bcollider);
 

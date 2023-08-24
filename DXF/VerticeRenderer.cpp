@@ -17,6 +17,17 @@ VerticeRenderer::VerticeRenderer(string p_TextureName, Vector2 p_RectSize, Vecto
     m_Count = p_Count;
 }
 
+void VerticeRenderer::ChangeVertices(vector<Vertex> p_Vertices)
+{
+    m_Vertices = p_Vertices;
+    m_VerticeChanged = true;
+}
+
+vector<Vertex> VerticeRenderer::GetVertices()
+{
+    return m_Vertices;
+}
+
 void VerticeRenderer::Start()
 {
     m_Transform = GetComponentFromObject(gameObject, Transform);
@@ -61,32 +72,43 @@ void VerticeRenderer::PreRender()
 
 void VerticeRenderer::Render()
 {
-    if (FAILED(DXFGame::m_pd3dDevice->CreateVertexBuffer(m_Vertices.size() * sizeof(Vertex),
-        0, D3DFVF_CUSTOMVERTEX,
-        D3DPOOL_DEFAULT, &DXFGame::m_pVB, NULL)))
+    if (m_PastRectIndex != m_RectIndex ||
+        m_PastRectSize != m_RectSize ||
+        m_VerticeChanged)
     {
-        return;
+        if (m_pVB != NULL) m_pVB->Release();
+
+        if (FAILED(DXFGame::m_pd3dDevice->CreateVertexBuffer(m_Vertices.size() * sizeof(Vertex),
+            0, Vertex::FVF,
+            D3DPOOL_DEFAULT, &m_pVB, NULL)))
+        {
+            return;
+        }
+
+        Vector2 temp = Vector2(1 / m_RectSize.x, 1 / m_RectSize.y);
+
+        Vertex* pVertices;
+        if (FAILED(m_pVB->Lock(0, 0, (void**)&pVertices, 0)))
+            return;
+        for (DWORD i = 0; i < m_Vertices.size(); ++i)
+        {
+            Vertex vertex = m_Vertices[i];
+            vertex.tu = m_RectIndex.x * temp.x + (vertex.tu * temp.x);
+            vertex.tv = m_RectIndex.y * temp.y + (vertex.tv * temp.y);
+            pVertices[i] = vertex;
+        }
+        m_pVB->Unlock();
+
+        m_PastRectIndex = m_RectIndex;
+        m_PastRectSize = m_RectSize;
+        m_VerticeChanged = false;
     }
 
-    Vector2 temp = Vector2(1 / m_RectSize.x, 1 / m_RectSize.y);
-
-    Vertex* pVertices;
-    if (FAILED(DXFGame::m_pVB->Lock(0, 0, (void**)&pVertices, 0)))
-        return;
-    for (DWORD i = 0; i < m_Vertices.size(); ++i)
-    {
-        Vertex vertex = m_Vertices[i];
-        vertex.tu = m_RectIndex.x * temp.x + (vertex.tu * temp.x);
-        vertex.tv = m_RectIndex.y * temp.y + (vertex.tv * temp.y);
-        pVertices[i] = vertex;
-    }
-    DXFGame::m_pVB->Unlock();
-
-    DXFGame::m_pd3dDevice->SetMaterial(&DXFGame::m_defaultMaterial);
+    DXFGame::m_pd3dDevice->SetMaterial(&DXFGame::m_DefaultMaterial);
     if (m_Texture != NULL) DXFGame::m_pd3dDevice->SetTexture(0, m_Texture);
     else
     {
-        DXFGame::m_pd3dDevice->SetTexture(0, DXFGame::m_defaultTexture);
+        DXFGame::m_pd3dDevice->SetTexture(0, DXFGame::m_DefaultTexture);
         DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
         DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
         DXFGame::m_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
@@ -110,9 +132,12 @@ void VerticeRenderer::Render()
     D3DXMatrixIdentity(&matWorldSet);
     matWorldSet = matWorldScale * matWorldRotation * matWorldPosition;
     DXFGame::m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldSet);
-    DXFGame::m_pd3dDevice->SetStreamSource(0, DXFGame::m_pVB, 0, sizeof(Vertex));
-    DXFGame::m_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
+    DXFGame::m_pd3dDevice->SetStreamSource(0, m_pVB, 0, sizeof(Vertex));
+    DXFGame::m_pd3dDevice->SetFVF(Vertex::FVF);
     DXFGame::m_pd3dDevice->DrawPrimitive(m_Type, m_StartVertex, m_Count);
+}
 
-    DXFGame::m_pVB->Release();
+void VerticeRenderer::OnDestroy()
+{
+    if (m_pVB != NULL) m_pVB->Release();
 }

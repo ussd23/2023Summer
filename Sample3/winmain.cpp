@@ -11,28 +11,19 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 
     if (SUCCEEDED(Sample3::InitD3D(hInst)))
     {
-        ShowWindow(Sample3::m_hWnd, SW_SHOWDEFAULT);
-        UpdateWindow(Sample3::m_hWnd);
-
         Sample3::ComponentRegister();
         Sample3::ScriptRegister();
 
         Sample3::InitObject();
 
-        MSG msg;
-        ZeroMemory(&msg, sizeof(msg));
-        while (msg.message != WM_QUIT)
+        while (Sample3::m_Msg.message != WM_QUIT)
         {
             // Frame Update
             Input::InputBufferReset();
             Time::TimeUpdate();
 
             // Message
-            if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
+            Sample3::Message();
 
             // Start
             Sample3::Start();
@@ -48,7 +39,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
         }
     }
 
-    UnregisterClass("DXF", Sample3::m_WndClass.hInstance);
     Sample3::Cleanup();
     return 0;
 }

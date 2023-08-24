@@ -35,7 +35,7 @@ void Minesweeper::InitGame(int Size) {
 		VerticeRenderer* Mine_Vertex = GetComponentFromObject(Mine_Obj, VerticeRenderer);
 		Mine_Vertex->m_RectSize = Vector2(13, 1);
 		Mine_Vertex->m_RectIndex = Vector2(0, 0);
-		Mine_Vertex->m_Vertices = Mine_Vertex_Vector;
+		Mine_Vertex->ChangeVertices(Mine_Vertex_Vector);
 		Animator* Mine_Animator = new Animator(0, MAXINT, 100000000.f, true);
 		AddComponentToObject(Mine_Obj, Mine_Animator);
 

@@ -6,13 +6,14 @@
 
 HWND DXFGame::m_hWnd;
 WNDCLASSEX DXFGame::m_WndClass;
+MSG DXFGame::m_Msg;
 string DXFGame::m_Title = "DXF Sample";
 Vector2 DXFGame::m_Resolution = Vector2(800, 600);
 float DXFGame::m_RenderDistance = 1000.0f;
 LPDIRECT3D9	DXFGame::m_pD3D;
 LPDIRECT3DDEVICE9 DXFGame::m_pd3dDevice;
-D3DMATERIAL9 DXFGame::m_defaultMaterial;
-IDirect3DBaseTexture9* DXFGame::m_defaultTexture;
+D3DMATERIAL9 DXFGame::m_DefaultMaterial;
+IDirect3DBaseTexture9* DXFGame::m_DefaultTexture;
 LPDIRECT3DVERTEXBUFFER9 DXFGame::m_pVB;
 LPD3DXSPRITE DXFGame::m_pSprite;
 Matrix16 DXFGame::m_ViewMatrix;
@@ -70,4 +71,13 @@ void DXFGame::Update()
 
     if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
+}
+
+void DXFGame::Message()
+{
+    if (PeekMessage(&m_Msg, NULL, 0U, 0U, PM_REMOVE))
+    {
+        TranslateMessage(&m_Msg);
+        DispatchMessage(&m_Msg);
+    }
 }

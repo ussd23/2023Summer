@@ -45,8 +45,11 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
         }
     }
 
-    m_pd3dDevice->GetMaterial(&m_defaultMaterial);
-    m_pd3dDevice->GetTexture(0, &m_defaultTexture);
+    ShowWindow(m_hWnd, SW_SHOWDEFAULT);
+    UpdateWindow(m_hWnd);
+
+    m_pd3dDevice->GetMaterial(&m_DefaultMaterial);
+    m_pd3dDevice->GetTexture(0, &m_DefaultTexture);
 
     m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
     m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);

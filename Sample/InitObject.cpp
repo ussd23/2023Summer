@@ -29,7 +29,7 @@ void Sample::InitObject()
     VerticeRenderer* vertice = GetComponentFromObject(gameObject, VerticeRenderer);
     vertice->m_RectSize = Vector2(3, 3);
     vertice->m_RectIndex = Vector2(2, 0);
-    vertice->m_Vertices = vec;
+    vertice->ChangeVertices(vec);
     Animator* animator = new Animator(0, MAXINT, 1.f, true);
     AddComponentToObject(gameObject, animator);
 

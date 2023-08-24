@@ -39,9 +39,13 @@ protected:
 	D3DPRIMITIVETYPE		m_Type;
 	UINT					m_StartVertex;
 	UINT					m_Count;
+	LPDIRECT3DVERTEXBUFFER9 m_pVB;
+	vector<Vertex>			m_Vertices;
+	Vector2					m_PastRectSize;
+	Vector2					m_PastRectIndex;
+	float					m_VerticeChanged = false;
 
 public:
-	vector<Vertex>			m_Vertices;
 	Vector2					m_RectSize;
 	Vector2					m_RectIndex;
 
@@ -50,9 +54,13 @@ public:
 	VerticeRenderer(string p_TextureName, vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
 	VerticeRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex, vector<Vertex> p_Vertices, D3DPRIMITIVETYPE p_Type, UINT p_StartVertex, UINT p_Count);
 
+	void ChangeVertices(vector<Vertex> p_Vertices);
+	vector<Vertex> GetVertices();
+
 	void Start() override;
 	void PreRender() override;
 	void Render() override;
+	void OnDestroy() override;
 
 	SerializeFunction(VerticeRenderer)
 	{

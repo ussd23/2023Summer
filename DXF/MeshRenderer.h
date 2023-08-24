@@ -44,4 +44,3 @@ public:
 		Deserialize(m_ModelName);
 	}
 };
-
