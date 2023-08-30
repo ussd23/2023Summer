@@ -32,7 +32,6 @@
 #include <time.h>
 #pragma warning( default : 4996 )
 #include "StandardLibrary.h"
-#include "resource.h"
 
 using Vector2 = D3DXVECTOR2;
 using Vector3 = D3DXVECTOR3;

@@ -1,3 +1,4 @@
+#include "resource.h"
 #include "DXHeader.h"
 #include "Global.h"
 #include "Transform.h"
@@ -22,7 +23,7 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
         NULL, NULL, m_WndClass.hInstance, NULL);
 
     if (!IsWindow(m_hDlg)) {
-        m_hDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_DIALOG1), NULL, DlgProc);
+        m_hDlg = CreateDialog(hInst, MAKEINTRESOURCE(DEBUG_WINDOW), NULL, DlgProc);
         ShowWindow(m_hDlg, SW_SHOW);
     }
 

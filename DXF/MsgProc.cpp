@@ -1,3 +1,4 @@
+#include "resource.h"
 #include "DXHeader.h"
 #include "Functions.h"
 #include "Global.h"
