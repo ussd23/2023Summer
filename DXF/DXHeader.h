@@ -30,7 +30,8 @@
 #pragma warning( disable : 4996 )
 #include <strsafe.h>
 #include <time.h>
-#pragma warning( default : 4996 )
+#include <CommCtrl.h>
+#pragma comment(lib, "comctl32.lib")
 #include "StandardLibrary.h"
 
 using Vector2 = D3DXVECTOR2;
@@ -61,6 +62,11 @@ public:
 	static IDirect3DBaseTexture9*	m_DefaultTexture;
 	static LPDIRECT3DVERTEXBUFFER9	m_pVB;
 	static LPD3DXSPRITE				m_pSprite;
+	static bool						m_DebugMode;
+	static int						m_HTab;
+	static int						m_ITab;
+	static bool						m_DebugUpdate;
+	static float					m_DebugUpdateTerm;
 
 public:
 	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -75,4 +81,7 @@ public:
 	static void Start();
 	static void Update();
 	static void Message();
+
+	static void DebugUpdate();
+	static void DebugCheck();
 };

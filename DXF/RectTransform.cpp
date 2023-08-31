@@ -164,6 +164,8 @@ void RectTransform::AddChild(RectTransform* p_Child)
 	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
 	p_Child->m_Parent = this;
 	m_Childs.push_back(p_Child);
+
+	DXFGame::DebugUpdate();
 }
 
 void RectTransform::AddChildAsFirst(RectTransform* p_Child)
@@ -171,6 +173,8 @@ void RectTransform::AddChildAsFirst(RectTransform* p_Child)
 	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
 	p_Child->m_Parent = this;
 	m_Childs.insert(m_Childs.begin(), p_Child);
+
+	DXFGame::DebugUpdate();
 }
 
 void RectTransform::RemoveChild(RectTransform* p_Child)

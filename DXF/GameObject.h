@@ -84,6 +84,8 @@ public:
 	void LateUpdate();
 	void PreRender();
 
+	void DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem);
+
 	static void Destroy(GameObject* p_GameObject);
 	static void Destroy(GameObject* p_GameObject, float p_Time);
 	static void SafeDestroy();

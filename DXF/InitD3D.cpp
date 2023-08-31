@@ -22,9 +22,18 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
         WS_OVERLAPPEDWINDOW, 100, 100, m_Resolution.x + 16, m_Resolution.y + 39,
         NULL, NULL, m_WndClass.hInstance, NULL);
 
-    if (!IsWindow(m_hDlg)) {
+    if (m_DebugMode && !IsWindow(m_hDlg)) {
         m_hDlg = CreateDialog(hInst, MAKEINTRESOURCE(DEBUG_WINDOW), NULL, DlgProc);
         ShowWindow(m_hDlg, SW_SHOW);
+
+        HWND tab = GetDlgItem(m_hDlg, IDC_Hierarchy);
+        TCITEMA tItem;
+        tItem.mask = TCIF_TEXT;
+        tItem.pszText = const_cast<char*>("World");
+        TabCtrl_InsertItem(tab, 0, &tItem);
+
+        tItem.pszText = const_cast<char*>("Screen");
+        TabCtrl_InsertItem(tab, 1, &tItem);
     }
 
     if (NULL == (m_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))

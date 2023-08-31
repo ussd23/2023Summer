@@ -45,7 +45,7 @@ void Sample1::InitObject()
         Vector3 pos = Vector3((rand() - RAND_MAX / 2) * 0.25f, (rand() / (float)RAND_MAX) * 80 + 20, (rand() - RAND_MAX / 2) * 0.25f);
         float scale = (rand() / (float)RAND_MAX) * 20 + 5;
 
-        gameObject = new MeshObject("", pos, models[rand() % 9]);
+        gameObject = new MeshObject("CollisionObject", pos, models[rand() % 9]);
         transform = GetComponentFromObject(gameObject, Transform);
         transform->SetScale(Vector3(scale, scale, scale));
         SphereCollider* scollider = new SphereCollider(1.0f, true);

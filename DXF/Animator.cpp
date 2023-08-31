@@ -64,6 +64,8 @@ void Animator::Update()
 {
 	m_PassedTime += Time::deltaTime;
 
+	if (m_RefreshTime <= 0) return;
+
 	if (m_DynamicIndex.size() > 0)
 	{
 		while (true)

@@ -8,6 +8,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
     Sample1::m_Title = "DXF Flight";
     Sample1::m_Resolution = Vector2(1600, 900);
+    Sample1::m_DebugMode = true;
 
     if (SUCCEEDED(Sample1::InitD3D(hInst)))
     {

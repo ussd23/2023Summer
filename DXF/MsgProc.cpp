@@ -77,10 +77,28 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
 
     case WM_COMMAND:
         switch (LOWORD(wParam)) {
-        case IDC_BUTTON1:
+        case 0:
             MessageBox(NULL, "Dialog", "Button1", MB_OK);
             break;
         }
+        return TRUE;
+
+    case WM_NOTIFY:
+    {
+        LPNMHDR nmhdr;
+
+        if (wParam == IDC_Hierarchy)
+        {
+            nmhdr = (LPNMHDR)lParam;
+            if (nmhdr->code == TCN_SELCHANGE)
+            {
+                HWND tabctrl = GetDlgItem(m_hDlg, IDC_Hierarchy);
+                m_HTab = TabCtrl_GetCurFocus(tabctrl);
+
+                DebugUpdate();
+            }
+        }
+    }
         return TRUE;
 
     case WM_DESTROY:

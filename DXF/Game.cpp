@@ -19,6 +19,11 @@ LPDIRECT3DVERTEXBUFFER9 DXFGame::m_pVB;
 LPD3DXSPRITE DXFGame::m_pSprite;
 Matrix16 DXFGame::m_ViewMatrix;
 Matrix16 DXFGame::m_ProjMatrix;
+bool DXFGame::m_DebugMode = false;
+int DXFGame::m_HTab = 0;
+int DXFGame::m_ITab = 0;
+bool DXFGame::m_DebugUpdate = false;
+float DXFGame::m_DebugUpdateTerm = 0;
 
 void DXFGame::ComponentRegister()
 {
@@ -72,6 +77,8 @@ void DXFGame::Update()
 
     if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
+
+    DebugCheck();
 }
 
 void DXFGame::Message()

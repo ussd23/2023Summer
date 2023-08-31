@@ -329,6 +329,58 @@ void GameObject::PreRender()
 	}
 }
 
+void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
+{
+	TVINSERTSTRUCT ti;
+	ti.hParent = p_hTItem;
+	ti.hInsertAfter = TVI_LAST;
+	ti.item.mask = TVIF_TEXT;
+	string itemname = "¡¤ " + m_Name;
+	ti.item.pszText = const_cast<char*>(itemname.c_str());
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+	if (transform != nullptr)
+	{
+		HTREEITEM item = TVI_ROOT;
+		if (transform != Var::RootTransform)
+		{
+			if (transform->GetParent() == Var::RootTransform)
+			{
+				ti.hParent = TVI_ROOT;
+			}
+			item = TreeView_InsertItem(p_hWnd, &ti);
+		}
+
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			transform->GetChild(i)->gameObject->DebugInsert(p_hWnd, item);
+		}
+	}
+
+	else if (recttransform != nullptr)
+	{
+		HTREEITEM item = TVI_ROOT;
+
+		if (recttransform != Var::RootRectTransform)
+		{
+			if (recttransform->GetParent() == Var::RootRectTransform)
+			{
+				ti.hParent = TVI_ROOT;
+			}
+			item = TreeView_InsertItem(p_hWnd, &ti);
+		}
+
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			recttransform->GetChild(i)->gameObject->DebugInsert(p_hWnd, item);
+		}
+	}
+}
+
 void GameObject::Destroy(GameObject* p_GameObject)
 {
 	m_SafeDestroy.insert(make_pair(p_GameObject, 0.f));
@@ -363,6 +415,8 @@ void GameObject::SafeDestroy()
 
 void GameObject::Erase(GameObject* p_GameObject)
 {
+	DXFGame::DebugUpdate();
+
 	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 
 	while (iter != Var::Objects.end())

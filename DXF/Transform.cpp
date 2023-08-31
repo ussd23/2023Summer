@@ -163,6 +163,8 @@ void Transform::AddChild(Transform* p_Child)
 	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
 	p_Child->m_Parent = this;
 	m_Childs.push_back(p_Child);
+	
+	DXFGame::DebugUpdate();
 }
 
 void Transform::AddChildAsFirst(Transform* p_Child)
@@ -170,6 +172,8 @@ void Transform::AddChildAsFirst(Transform* p_Child)
 	if (p_Child->m_Parent != nullptr) p_Child->m_Parent->RemoveChild(p_Child);
 	p_Child->m_Parent = this;
 	m_Childs.insert(m_Childs.begin(), p_Child);
+
+	DXFGame::DebugUpdate();
 }
 
 void Transform::RemoveChild(Transform* p_Child)
