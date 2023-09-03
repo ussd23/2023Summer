@@ -14,4 +14,6 @@ RECT Var::ScreenRect;
 Frustum* Var::Frustum;
 int Var::CullingObjects;
 vector<Renderer*> Var::TransformRenderList;
-vector<Renderer*> Var::RectTransformRenderList;
+vector<Renderer*> Var::RectTransformRenderList; 
+vector<Renderer*> Var::StencilMaskRenderList; 
+vector<Renderer*> Var::StenciledObjectRenderList;

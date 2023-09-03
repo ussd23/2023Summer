@@ -6,7 +6,10 @@ void ViewBox::Start()
 
     if (m_Rect != nullptr)
     {
-        m_ChildRect = m_Rect->GetChild(0);
+        if (m_Rect->GetChildCount() != 0)
+        {
+            m_ChildRect = m_Rect->GetChild(0);
+        }
     }
 }
 

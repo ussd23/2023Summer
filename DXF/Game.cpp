@@ -18,6 +18,7 @@ LPDIRECT3DVERTEXBUFFER9 DXFGame::m_pVB;
 LPD3DXSPRITE DXFGame::m_pSprite;
 Matrix16 DXFGame::m_ViewMatrix;
 Matrix16 DXFGame::m_ProjMatrix;
+LPDIRECT3DSURFACE9 DXFGame::m_pStencilSurface;
 
 void DXFGame::ComponentRegister()
 {

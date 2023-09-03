@@ -67,6 +67,8 @@ public:
 	static int						CullingObjects;
 	static vector<Renderer*>		TransformRenderList;
 	static vector<Renderer*>		RectTransformRenderList;
+	static vector<Renderer*>		StencilMaskRenderList;
+	static vector<Renderer*>		StenciledObjectRenderList;
 } Global;
 
 enum MouseInput

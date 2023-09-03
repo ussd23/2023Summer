@@ -49,10 +49,44 @@ HRESULT DXFGame::Render()
 
         Var::TransformRenderList.clear();
         Var::RectTransformRenderList.clear();
+        Var::StencilMaskRenderList.clear();
+        Var::StenciledObjectRenderList.clear();
 
         // Frustum Culling 적용
         if (Var::RootObject != nullptr) Var::RootObject->PreRender();
         if (Var::RootRectObject != nullptr) Var::RootRectObject->PreRender();
+
+        // Enable stencil testing
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, TRUE);
+
+        // Set the stencil comparison function to always pass
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
+
+        // Increment the stencil value for each pixel drawn
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_INCR);
+
+        // Draw a shape that defines the masking area
+        // This could be a complex shape or object
+        // 스텐실 마스크 영역을 정의하는 오브젝트 렌더링(뷰박스)
+        for (int i = 0; i < Var::StencilMaskRenderList.size(); ++i)
+        {
+            Var::StencilMaskRenderList[i]->Render();
+        }
+
+        // Disable rendering to the stencil buffer
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, FALSE);
+
+        // Set the stencil comparison function to only pass when the stencil value is equal to the reference value (1 in this case)
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+
+        // Render objects that should only appear inside the masked area
+        for (int i = 0; i < Var::StenciledObjectRenderList.size(); ++i)
+        {
+            Var::StenciledObjectRenderList[i]->Render();
+        }
+
+        // Reset stencil states
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, FALSE);
 
         // Transform을 사용하는 오브젝트 정렬 및 렌더링 (카메라와 가까운 순)
         sort(Var::TransformRenderList.begin(), Var::TransformRenderList.end(), Renderer::Compare);

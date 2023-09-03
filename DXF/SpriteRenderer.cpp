@@ -37,13 +37,24 @@ void SpriteRenderer::PreRender()
     Vector2 pos = m_RectTransform->GetScreenPosition();
     Vector2 scale = m_RectTransform->GetScreenScale();
     Vector2 size = m_RectTransform->m_Size;
-
+    
     RECT rect;
     SetRect(&rect, pos.x - size.x * scale.x, pos.y - size.y * scale.y, pos.x + size.x * scale.x, pos.y + size.y * scale.y);
 
     if (Functions::Inner(rect, Var::ScreenRect))
     {
-        Var::RectTransformRenderList.push_back(this);
+        if (m_RectTransform->gameObject->m_Name.compare("viewbox") == 0)    //뷰박스를 스텐실 마스크영역으로 지정
+        {
+            Var::StencilMaskRenderList.push_back(this);
+        }
+        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("contentbox") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
+        {
+            Var::StenciledObjectRenderList.push_back(this);
+        }
+        else
+        {
+            Var::RectTransformRenderList.push_back(this);
+        }
     }
 }
 

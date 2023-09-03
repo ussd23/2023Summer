@@ -28,6 +28,9 @@ VOID DXFGame::Cleanup()
 
     GameObject::SafeDestroy();
 
+    if (m_pStencilSurface != NULL)
+        m_pStencilSurface->Release();
+
     if (m_pd3dDevice != NULL)
         m_pd3dDevice->Release();
 

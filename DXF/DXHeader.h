@@ -60,7 +60,7 @@ public:
 	static IDirect3DBaseTexture9*	m_DefaultTexture;
 	static LPDIRECT3DVERTEXBUFFER9	m_pVB;
 	static LPD3DXSPRITE				m_pSprite;
-
+	static LPDIRECT3DSURFACE9		m_pStencilSurface;
 public:
 	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static HRESULT InitD3D(HINSTANCE hInst);

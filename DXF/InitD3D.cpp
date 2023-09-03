@@ -50,11 +50,13 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
 
     m_pd3dDevice->GetMaterial(&m_DefaultMaterial);
     m_pd3dDevice->GetTexture(0, &m_DefaultTexture);
+    m_pd3dDevice->CreateDepthStencilSurface(800, 600, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, TRUE, &m_pStencilSurface, NULL);
 
     m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
     m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
     m_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
     m_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+    m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 1);
 
     D3DXCreateSprite(m_pd3dDevice, &m_pSprite);
 
