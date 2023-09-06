@@ -164,6 +164,7 @@
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Animator.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="ComponentHeader.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scroll.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Animator.h" />

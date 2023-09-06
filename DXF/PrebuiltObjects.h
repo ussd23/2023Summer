@@ -69,3 +69,9 @@ class ViewBoxObject : public GameObject
 public:
 	ViewBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
 };
+
+class ScrollBarObject : public GameObject
+{
+public:
+	ScrollBarObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
+};

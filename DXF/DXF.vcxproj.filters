@@ -138,6 +138,9 @@
     <ClCompile Include="ViewBox.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
+    <ClCompile Include="Scroll.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="CallBack.h">
       <Filter>0. Core\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Scroll.h">
+      <Filter>4. Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
