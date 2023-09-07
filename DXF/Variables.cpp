@@ -3,6 +3,7 @@
 
 list<SPTR<GameObject>> Var::Objects;
 list<GameObject*> Var::ColliderObjects;
+map<HTREEITEM, GameObject*> Var::DebugObjectMap;
 GameObject* Var::RootObject;
 Transform* Var::RootTransform;
 GameObject* Var::RootRectObject;

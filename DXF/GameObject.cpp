@@ -332,18 +332,20 @@ void GameObject::PreRender()
 void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
 {
 	TVINSERTSTRUCT ti;
+	ZeroMemory(&ti, sizeof(TVINSERTSTRUCT));
 	ti.hParent = p_hTItem;
 	ti.hInsertAfter = TVI_LAST;
-	ti.item.mask = TVIF_TEXT;
+	ti.item.mask = TVIF_TEXT | TVIF_PARAM;
 	string itemname = "¡¤ " + m_Name;
 	ti.item.pszText = const_cast<char*>(itemname.c_str());
 
 	Transform* transform = GetComponentFromObject(this, Transform);
 	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
 
+	HTREEITEM item = TVI_ROOT;
+
 	if (transform != nullptr)
 	{
-		HTREEITEM item = TVI_ROOT;
 		if (transform != Var::RootTransform)
 		{
 			if (transform->GetParent() == Var::RootTransform)
@@ -362,8 +364,6 @@ void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
 
 	else if (recttransform != nullptr)
 	{
-		HTREEITEM item = TVI_ROOT;
-
 		if (recttransform != Var::RootRectTransform)
 		{
 			if (recttransform->GetParent() == Var::RootRectTransform)
@@ -379,6 +379,20 @@ void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
 			recttransform->GetChild(i)->gameObject->DebugInsert(p_hWnd, item);
 		}
 	}
+
+	if (m_DebugExtended)
+	{
+		TV_ITEM tvItem;
+		ZeroMemory(&tvItem, sizeof(TV_ITEM));
+		tvItem.hItem = item;
+		tvItem.mask = TVIF_STATE;
+		tvItem.stateMask = TVIS_EXPANDED;
+		tvItem.state = TVIS_EXPANDED;
+
+		TreeView_SetItem(p_hWnd, &tvItem);
+	}
+
+	Var::DebugObjectMap.insert(make_pair(item, this));
 }
 
 void GameObject::Destroy(GameObject* p_GameObject)

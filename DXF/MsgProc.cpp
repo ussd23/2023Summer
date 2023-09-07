@@ -85,17 +85,48 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
 
     case WM_NOTIFY:
     {
-        LPNMHDR nmhdr;
+        LPNMHDR nmhdr = (LPNMHDR)lParam;
 
         if (wParam == IDC_Hierarchy)
         {
-            nmhdr = (LPNMHDR)lParam;
             if (nmhdr->code == TCN_SELCHANGE)
             {
                 HWND tabctrl = GetDlgItem(m_hDlg, IDC_Hierarchy);
                 m_HTab = TabCtrl_GetCurFocus(tabctrl);
 
                 DebugUpdate();
+            }
+        }
+        else if (wParam == IDC_HierarchyTree)
+        {
+            if (nmhdr->code == TVN_ITEMEXPANDED)
+            {
+                NM_TREEVIEW* pnmTreeView = (NM_TREEVIEW*)lParam;
+                HTREEITEM hItem = pnmTreeView->itemNew.hItem;
+                TVITEM item;
+                item.mask = TVIF_HANDLE;
+                item.hItem = pnmTreeView->itemNew.hItem;
+                HWND tree = GetDlgItem(m_hDlg, IDC_HierarchyTree);
+                TreeView_GetItem(tree, &item);
+
+                map<HTREEITEM, GameObject*>::iterator iter = Var::DebugObjectMap.find(hItem);
+
+                if (Var::DebugObjectMap.find(hItem) != Var::DebugObjectMap.end())
+                {
+                    GameObject* obj = iter->second;
+
+                    if (obj != nullptr)
+                    {
+                        if (item.state & TVIS_EXPANDED)
+                        {
+                            obj->m_DebugExtended = true;
+                        }
+                        else
+                        {
+                            obj->m_DebugExtended = false;
+                        }
+                    }
+                }
             }
         }
     }

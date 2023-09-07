@@ -58,6 +58,7 @@ protected:
 	static map<GameObject*, float>	m_SafeDestroy;
 
 public:
+	bool							m_DebugExtended = false;
 	string							m_Name;
 	list<SPTR<Component>>			m_Components;
 
