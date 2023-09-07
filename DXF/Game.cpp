@@ -78,7 +78,7 @@ void DXFGame::Update()
     if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
 
-    DebugCheck();
+    if (m_DebugMode) DebugCheck();
 }
 
 void DXFGame::Message()

@@ -7,6 +7,8 @@
 
 void DXFGame::DebugUpdate()
 {
+	if (!m_DebugMode) return;
+
 	if (!(m_DebugUpdate && m_DebugUpdateTerm > 0.1f))
 	{
 		m_DebugUpdate = true;
