@@ -6415,7 +6415,7 @@
 				"type" : "class RectTransform",
 				"values" : 
 				{
-					"m_ChildID" : [ 116 ],
+					"m_ChildID" : [ 116, 119 ],
 					"m_Position" : 
 					{
 						"x" : 700.0,
@@ -6637,6 +6637,71 @@
 			}
 		],
 		"m_Name" : "content Text",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 15.0,
+						"y" : 0.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\default.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class Scroll",
+				"values" : null
+			}
+		],
+		"m_Name" : "scrollbar",
 		"m_isActive" : true
 	}
 ]

@@ -47,7 +47,7 @@ void SpriteRenderer::PreRender()
         {
             Var::StencilMaskRenderList.push_back(this);
         }
-        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("contentbox") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
+        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("content Text") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
         {
             Var::StenciledObjectRenderList.push_back(this);
         }

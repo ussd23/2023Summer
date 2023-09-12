@@ -21,12 +21,8 @@ void Scroll::Start()
     gap.x = point2.x - point1.x;
 
     //뷰박스의 우측 끝에 스크롤이 위치하도록 설정
-    Vector2 temp = rect->GetPosition();
-
-    temp.x = temp.x - gap.x;
-    rect->SetPosition(temp);
+    rect->SetPosition(Vector2(rect->GetPosition().x - gap.x, 0));
 
     //뷰박스와 스크롤의 높이 동일하게 설정
     rect->m_Size.y = parentrect->m_Size.y;
-    rect->GetPosition().y = 0;
 }

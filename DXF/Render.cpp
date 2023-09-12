@@ -32,7 +32,7 @@ HRESULT DXFGame::SetupCamera()
 
 HRESULT DXFGame::Render()
 {
-    m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+    m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
         D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
     SetRect(&Var::ScreenRect, 0, 0, m_Resolution.x, m_Resolution.y);
@@ -56,28 +56,32 @@ HRESULT DXFGame::Render()
         if (Var::RootObject != nullptr) Var::RootObject->PreRender();
         if (Var::RootRectObject != nullptr) Var::RootRectObject->PreRender();
 
-        // Enable stencil testing
+        m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+        m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+        m_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+
+        // 1. stencil setting 
         m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, TRUE);
-
-        // Set the stencil comparison function to always pass
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
         m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 0x1);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
 
-        // Increment the stencil value for each pixel drawn
-        m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_INCR);
-
-        // Draw a shape that defines the masking area
-        // This could be a complex shape or object
         // 스텐실 마스크 영역을 정의하는 오브젝트 렌더링(뷰박스)
         for (int i = 0; i < Var::StencilMaskRenderList.size(); ++i)
         {
             Var::StencilMaskRenderList[i]->Render();
         }
 
-        // Disable rendering to the stencil buffer
-        m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, FALSE);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_LESSEQUAL);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 0x1);
+        m_pd3dDevice->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
 
-        // Set the stencil comparison function to only pass when the stencil value is equal to the reference value (1 in this case)
-        m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+        m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+        m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
         // Render objects that should only appear inside the masked area
         for (int i = 0; i < Var::StenciledObjectRenderList.size(); ++i)
@@ -87,6 +91,8 @@ HRESULT DXFGame::Render()
 
         // Reset stencil states
         m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, FALSE);
+        m_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+        m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);         // End the scene
 
         // Transform을 사용하는 오브젝트 정렬 및 렌더링 (카메라와 가까운 순)
         sort(Var::TransformRenderList.begin(), Var::TransformRenderList.end(), Renderer::Compare);
@@ -100,6 +106,7 @@ HRESULT DXFGame::Render()
         {
             Var::RectTransformRenderList[i]->Render();
         }
+
 
         m_pd3dDevice->EndScene();
     }

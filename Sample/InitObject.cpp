@@ -125,14 +125,9 @@ void Sample::InitObject()
     sprite = GetComponentFromObject(gameObject, SpriteRenderer);
     sprite->m_Color = 0xff606060;
 
-    // ScrollBar
-    childObject = new ScrollBarObject("scrollbar", Vector2(15, 0), Vector2(0, 0));
-    recttransform = GetComponentFromObject(gameObject, RectTransform);
-    childrecttransform = GetComponentFromObject(childObject, RectTransform);
-    recttransform->AddChild(childrecttransform);
-
     // contentbox
     childObject = new ContentBoxObject("contentbox", Vector2(200, 200), Vector2(0, 100));
+    recttransform = GetComponentFromObject(gameObject, RectTransform);
     childrecttransform = GetComponentFromObject(childObject, RectTransform);
     recttransform->AddChild(childrecttransform);
     sprite = GetComponentFromObject(childObject, SpriteRenderer);
@@ -149,6 +144,11 @@ void Sample::InitObject()
     AddComponentToObject(childChildObject, btext);
     childChildRecttransform = GetComponentFromObject(childChildObject, RectTransform);
     childrecttransform->AddChild(childChildRecttransform);
+
+    // ScrollBar
+    childObject = new ScrollBarObject("scrollbar", Vector2(15, 0), Vector2(0, 0));
+    childrecttransform = GetComponentFromObject(childObject, RectTransform);
+    recttransform->AddChild(childrecttransform);
 
     SceneManager::SaveScene("scene1");
 }
