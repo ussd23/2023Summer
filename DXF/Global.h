@@ -53,21 +53,22 @@ class Frustum;
 typedef class Var
 {
 public:
-	static list<SPTR<GameObject>>	Objects;
-	static list<GameObject*>		ColliderObjects;
-	static map<HTREEITEM, GameObject*> DebugObjectMap;
-	static GameObject*				RootObject;
-	static Transform*				RootTransform;
-	static GameObject*				RootRectObject;
-	static RectTransform*			RootRectTransform;
-	static vector<Component*>		NewComponents;
-	static list<Component*>			WaitComponents;
+	static list<SPTR<GameObject>>		Objects;
+	static list<GameObject*>			ColliderObjects;
+	static GameObject*					DebugSelected;
+	static map<HTREEITEM, GameObject*>	DebugObjectMap;
+	static GameObject*					RootObject;
+	static Transform*					RootTransform;
+	static GameObject*					RootRectObject;
+	static RectTransform*				RootRectTransform;
+	static vector<Component*>			NewComponents;
+	static list<Component*>				WaitComponents;
 
-	static RECT						ScreenRect;
-	static Frustum*					Frustum;
-	static int						CullingObjects;
-	static vector<Renderer*>		TransformRenderList;
-	static vector<Renderer*>		RectTransformRenderList;
+	static RECT							ScreenRect;
+	static Frustum*						Frustum;
+	static int							CullingObjects;
+	static vector<Renderer*>			TransformRenderList;
+	static vector<Renderer*>			RectTransformRenderList;
 } Global;
 
 enum MouseInput

@@ -84,4 +84,6 @@ public:
 
 	static void DebugUpdate();
 	static void DebugCheck();
+	static void ResetSelected();
+	static void ChangeSelected();
 };

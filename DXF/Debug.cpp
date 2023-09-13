@@ -19,6 +19,7 @@ void DXFGame::DebugUpdate()
 
 	HWND tree = GetDlgItem(m_hDlg, IDC_HierarchyTree);
 
+	Var::DebugObjectMap.clear();
 	TreeView_DeleteAllItems(tree);
 
 	if (m_HTab == 0)

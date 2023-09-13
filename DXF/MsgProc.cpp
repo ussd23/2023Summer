@@ -70,8 +70,10 @@ LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam) {
-    switch (msg) {
+INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    switch (msg)
+    {
     case WM_INITDIALOG:
         return TRUE;
 
@@ -94,6 +96,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 HWND tabctrl = GetDlgItem(m_hDlg, IDC_Hierarchy);
                 m_HTab = TabCtrl_GetCurFocus(tabctrl);
 
+                ResetSelected();
                 DebugUpdate();
             }
         }
@@ -128,6 +131,35 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                     }
                 }
             }
+
+            else if (nmhdr->code == TVN_SELCHANGED)
+            {
+                NM_TREEVIEW* pnmTreeView = (NM_TREEVIEW*)lParam;
+                HTREEITEM hItem = pnmTreeView->itemNew.hItem;
+                TVITEM item;
+                item.mask = TVIF_HANDLE;
+                item.hItem = pnmTreeView->itemNew.hItem;
+                HWND tree = GetDlgItem(m_hDlg, IDC_HierarchyTree);
+                TreeView_GetItem(tree, &item);
+
+                map<HTREEITEM, GameObject*>::iterator iter = Var::DebugObjectMap.find(hItem);
+
+                if (Var::DebugObjectMap.find(hItem) != Var::DebugObjectMap.end())
+                {
+                    GameObject* obj = iter->second;
+
+                    if (obj != nullptr)
+                    {
+                        Var::DebugSelected = obj;
+
+                        ChangeSelected();
+                    }
+                }
+                else
+                {
+                    ResetSelected();
+                }
+            }
         }
     }
         return TRUE;
@@ -139,4 +171,37 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
     }
 
     return FALSE;
+}
+
+void DXFGame::ResetSelected()
+{
+    Var::DebugSelected = nullptr;
+
+    HWND check = GetDlgItem(m_hDlg, IDC_Active);
+    SendMessage(check, BM_SETCHECK, BST_UNCHECKED, 0);
+
+    HWND edit = GetDlgItem(m_hDlg, IDC_Name);
+    SetWindowText(edit, "");
+}
+
+void DXFGame::ChangeSelected()
+{
+    if (Var::DebugSelected == nullptr)
+    {
+        ResetSelected();
+        return;
+    }
+
+    HWND check = GetDlgItem(m_hDlg, IDC_Active);
+    if (Var::DebugSelected->isActive())
+    {
+        SendMessage(check, BM_SETCHECK, BST_CHECKED, 0);
+    }
+    else
+    {
+        SendMessage(check, BM_SETCHECK, BST_UNCHECKED, 0);
+    }
+
+    HWND edit = GetDlgItem(m_hDlg, IDC_Name);
+    SetWindowText(edit, Var::DebugSelected->m_Name.c_str());
 }
