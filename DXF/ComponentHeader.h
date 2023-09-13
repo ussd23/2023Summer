@@ -38,3 +38,4 @@
 #include "ContentBox.h"
 #include "ViewBox.h"
 #include "Scroll.h"
+#include "ScrollBar.h"

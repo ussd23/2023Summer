@@ -37,6 +37,8 @@ void DXFGame::ComponentRegister()
     ComponentRegist(Transform);
     ComponentRegist(VerticeRenderer);
     ComponentRegist(ViewBox);
+    ComponentRegist(Scroll);
+    ComponentRegist(ScrollBar);
 }
 
 void DXFGame::Start()

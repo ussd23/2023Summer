@@ -141,6 +141,9 @@
     <ClCompile Include="Scroll.cpp">
       <Filter>4. Components</Filter>
     </ClCompile>
+    <ClCompile Include="ScrollBar.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -272,5 +275,6 @@
     <ClInclude Include="Scroll.h">
       <Filter>4. Components</Filter>
     </ClInclude>
+    <ClInclude Include="ScrollBar.h" />
   </ItemGroup>
 </Project>

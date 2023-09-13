@@ -70,6 +70,12 @@ public:
 	ViewBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
 };
 
+class ScrollObject : public GameObject
+{
+public:
+	ScrollObject(string p_Name, Vector2 p_Size, Vector2 p_Position, bool p_IsVertical);
+};
+
 class ScrollBarObject : public GameObject
 {
 public:

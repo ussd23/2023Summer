@@ -168,6 +168,25 @@ ViewBoxObject::ViewBoxObject(string p_Name, Vector2 p_Size, Vector2 p_Position)
 	Var::RootRectTransform->AddChild(recttransform);
 }
 
+ScrollObject::ScrollObject(string p_Name, Vector2 p_Size, Vector2 p_Position, bool p_IsVertical)
+	: GameObject(p_Name)
+{
+	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
+	AddComponent(recttransform);
+
+	SpriteRenderer* sprite = new SpriteRenderer("system\\default.png");
+	AddComponent(sprite);
+
+	MouseFunction* mouse = new MouseFunction(true);
+	AddComponent(mouse);
+
+	Scroll* scroll = new Scroll(p_IsVertical);
+	AddComponent(scroll);
+
+	Var::Objects.push_back(this);
+	Var::RootRectTransform->AddChild(recttransform);
+}
+
 ScrollBarObject::ScrollBarObject(string p_Name, Vector2 p_Size, Vector2 p_Position)
 	: GameObject(p_Name)
 {
@@ -180,7 +199,7 @@ ScrollBarObject::ScrollBarObject(string p_Name, Vector2 p_Size, Vector2 p_Positi
 	MouseFunction* mouse = new MouseFunction(true);
 	AddComponent(mouse);
 
-	Scroll* scrollBar = new Scroll();
+	ScrollBar* scrollBar = new ScrollBar();
 	AddComponent(scrollBar);
 
 	Var::Objects.push_back(this);

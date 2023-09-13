@@ -145,10 +145,25 @@ void Sample::InitObject()
     childChildRecttransform = GetComponentFromObject(childChildObject, RectTransform);
     childrecttransform->AddChild(childChildRecttransform);
 
-    // ScrollBar
-    childObject = new ScrollBarObject("scrollbar", Vector2(15, 0), Vector2(0, 0));
+    // VerticalScroll
+    childObject = new ScrollObject("VerticalScroll", Vector2(15, 0), Vector2(0, 0), true);
     childrecttransform = GetComponentFromObject(childObject, RectTransform);
     recttransform->AddChild(childrecttransform);
+
+    // VerticalScrollBar
+    childChildObject = new ScrollBarObject("VerticalScrollBar", Vector2(15, 0), Vector2(0, 0));
+    childChildRecttransform = GetComponentFromObject(childChildObject, RectTransform);
+    childrecttransform->AddChild(childChildRecttransform);
+
+    // HorizontalScroll
+    childObject = new ScrollObject("HorizontalScroll", Vector2(0, 15), Vector2(0, 0), false);
+    childrecttransform = GetComponentFromObject(childObject, RectTransform);
+    recttransform->AddChild(childrecttransform);
+
+    // HorizontalScrollBar
+    childChildObject = new ScrollBarObject("HorizontalScrollBar", Vector2(0, 15), Vector2(0, 0));
+    childChildRecttransform = GetComponentFromObject(childChildObject, RectTransform);
+    childrecttransform->AddChild(childChildRecttransform);
 
     SceneManager::SaveScene("scene1");
 }
