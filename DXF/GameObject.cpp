@@ -544,6 +544,33 @@ GameObject* GameObject::Instantiate(GameObject* p_GameObject)
 	if (parent != nullptr)
 	{
 		AddObjectToScene(newObject, parent);
+
+		if (transform != nullptr)
+		{
+			Transform* newTransform = GetComponentFromObject(newObject, Transform);
+
+			for (int i = 0; i < transform->GetChildCount(); ++i)
+			{
+				GameObject* child = transform->GetChild(i)->gameObject;
+				GameObject* newChild = Instantiate(child);
+				Transform* childTransform = GetComponentFromObject(newChild, Transform);
+				
+				newTransform->AddChild(childTransform);
+			}
+		}
+		if (recttransform != nullptr)
+		{
+			RectTransform* newRecttransform = GetComponentFromObject(newObject, RectTransform);
+
+			for (int i = 0; i < recttransform->GetChildCount(); ++i)
+			{
+				GameObject* child = recttransform->GetChild(i)->gameObject;
+				GameObject* newChild = Instantiate(child);
+				RectTransform* childRecttransform = GetComponentFromObject(newChild, RectTransform);
+
+				newRecttransform->AddChild(childRecttransform);
+			}
+		}
 	}
 	else
 	{
