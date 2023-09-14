@@ -229,7 +229,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                     }
                 }
             }
-
+            
             if (Var::DebugSelected != nullptr)
             {
                 EnableWindow(DebugHandles::GetHandle(IDC_Duplicate), true);

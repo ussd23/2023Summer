@@ -64,11 +64,10 @@ void Animator::Update()
 {
 	m_PassedTime += Time::deltaTime;
 
-	if (m_RefreshTime <= 0) return;
-
 	if (m_DynamicIndex.size() > 0)
 	{
-		while (true)
+		int repeat = 0;
+		while (repeat < m_DynamicIndex.size())
 		{
 			if (m_PassedTime < m_DynamicIndex[m_CurrentDynamicIndex].time) return;
 
@@ -98,12 +97,15 @@ void Animator::Update()
 				if (m_Sprite->m_RectIndex.y < 0) m_Sprite->m_RectIndex.y = 0;
 				else if (m_Sprite->m_RectIndex.y > m_Sprite->m_RectSize.y - 1) m_Sprite->m_RectIndex.y = m_Sprite->m_RectSize.y - 1;
 			}
+
+			++repeat;
 		}
 	}
 	else
 	{
 		while (true)
 		{
+			if (m_RefreshTime <= 0) return;
 			if (m_PassedTime < m_RefreshTime) return;
 
 			m_PassedTime -= m_RefreshTime;
