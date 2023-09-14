@@ -19,14 +19,14 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
     RegisterClassEx(&m_WndClass);
 
     m_hWnd = CreateWindow("DXF", m_Title.c_str(),
-        WS_OVERLAPPEDWINDOW, 100, 100, m_Resolution.x + 16, m_Resolution.y + 39,
+        WS_OVERLAPPEDWINDOW - WS_MAXIMIZEBOX, 100, 100, m_Resolution.x + 16, m_Resolution.y + 39,
         NULL, NULL, m_WndClass.hInstance, NULL);
 
     if (m_DebugMode && !IsWindow(m_hDlg)) {
         m_hDlg = CreateDialog(hInst, MAKEINTRESOURCE(DEBUG_WINDOW), NULL, DlgProc);
         ShowWindow(m_hDlg, SW_SHOW);
 
-        HWND tab = GetDlgItem(m_hDlg, IDC_Hierarchy);
+        HWND tab = DebugHandles::GetHandle(IDC_Hierarchy);
         TCITEMA tItem;
         tItem.mask = TCIF_TEXT;
         tItem.pszText = const_cast<char*>("World");

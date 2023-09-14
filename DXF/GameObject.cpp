@@ -382,16 +382,10 @@ void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
 
 	if (m_DebugExtended)
 	{
-		TV_ITEM tvItem;
-		ZeroMemory(&tvItem, sizeof(TV_ITEM));
-		tvItem.hItem = item;
-		tvItem.mask = TVIF_STATE;
-		tvItem.stateMask = TVIS_EXPANDED;
-		tvItem.state = TVIS_EXPANDED;
-
-		TreeView_SetItem(p_hWnd, &tvItem);
+		TreeView_Expand(p_hWnd, item, TVM_EXPAND);
 	}
 
+	if (this == Var::DebugSelected) Var::DebugHandle = item;
 	Var::DebugObjectMap.insert(make_pair(item, this));
 }
 
@@ -429,7 +423,7 @@ void GameObject::SafeDestroy()
 
 void GameObject::Erase(GameObject* p_GameObject)
 {
-	DXFGame::DebugUpdate();
+	if (DXFGame::m_DebugMode) DXFGame::DebugUpdate();
 
 	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 

@@ -5,10 +5,31 @@
 #include "GameObject.h"
 #include "ComponentHeader.h"
 
+map<int, HWND> DebugHandles::m_HandlesMap;
+
+HWND DebugHandles::GetHandle(int p_Resource)
+{
+    map<int, HWND>::iterator iter = m_HandlesMap.find(p_Resource);
+    if (iter != m_HandlesMap.end())
+    {
+        return iter->second;
+    }
+    
+    HWND handle = NULL;
+    handle = GetDlgItem(DXFGame::m_hDlg, p_Resource);
+    if (handle != NULL)
+    {
+        m_HandlesMap.insert(make_pair(p_Resource, handle));
+        return handle;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
 void DXFGame::DebugUpdate()
 {
-	if (!m_DebugMode) return;
-
 	if (!(m_DebugUpdate && m_DebugUpdateTerm > 0.1f))
 	{
 		m_DebugUpdate = true;
@@ -17,7 +38,7 @@ void DXFGame::DebugUpdate()
 	m_DebugUpdate = false;
 	m_DebugUpdateTerm = 0;
 
-	HWND tree = GetDlgItem(m_hDlg, IDC_HierarchyTree);
+	HWND tree = DebugHandles::GetHandle(IDC_HierarchyTree);
 
 	Var::DebugObjectMap.clear();
 	TreeView_DeleteAllItems(tree);
@@ -31,7 +52,11 @@ void DXFGame::DebugUpdate()
 		Var::RootRectObject->DebugInsert(tree, TVI_ROOT);
 	}
 
-    if (!GameObject::Exists(Var::DebugSelected))
+    if (GameObject::Exists(Var::DebugSelected))
+    {
+        TreeView_SelectItem(tree, Var::DebugHandle);
+    }
+    else
     {
         ResetSelected();
     }
@@ -77,7 +102,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 GameObject* gameObject = new EmptyRectObject("New Empty Object", size, pos);
             }
         }
-            break;
+        break;
         case IDC_Duplicate:
         {
             if (Var::DebugSelected != nullptr)
@@ -85,7 +110,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 GameObject::Instantiate(Var::DebugSelected);
             }
         }
-            break;
+        break;
         case IDC_Destroy:
         {
             if (Var::DebugSelected != nullptr)
@@ -93,13 +118,12 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 GameObject::Destroy(Var::DebugSelected);
             }
         }
-            break;
+        break;
         case IDC_Active:
         {
-            if (HIWORD(wParam) == BN_CLICKED)
+            if (HIWORD(wParam) == BN_CLICKED && Var::DebugSelected != nullptr)
             {
-                HWND hCheckBox = GetDlgItem(m_hDlg, IDC_Active);
-                BOOL isChecked = SendMessage(hCheckBox, BM_GETCHECK, 0, 0);
+                BOOL isChecked = SendMessage(DebugHandles::GetHandle(IDC_Active), BM_GETCHECK, 0, 0);
                 if (isChecked == BST_CHECKED)
                 {
                     Var::DebugSelected->SetActive(true);
@@ -111,8 +135,30 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
             }
         }
         break;
+        case IDC_Name:
+        {
+            if (HIWORD(wParam) == EN_CHANGE && Var::DebugSelected != nullptr)
+            {
+                BOOL isChecked = SendMessage(DebugHandles::GetHandle(IDC_Name), LB_GETCURSEL, 0, 0);
+                if (isChecked >= 0)
+                {
+                    char buf[256];
+                    GetDlgItemText(m_hDlg, IDC_Name, buf, 255);
+                    Var::DebugSelected->m_Name = buf;
+
+                    TV_ITEM tvItem;
+                    ZeroMemory(&tvItem, sizeof(TV_ITEM));
+                    tvItem.hItem = Var::DebugHandle;
+                    tvItem.mask = TVIF_TEXT;
+                    string itemname = "¡¤ " + string(buf);
+                    tvItem.pszText = const_cast<char*>(itemname.c_str());
+                    TreeView_SetItem(DebugHandles::GetHandle(IDC_HierarchyTree), &tvItem);
+                }
+            }
         }
-        return TRUE;
+        break;
+        }
+    return TRUE;
 
     case WM_NOTIFY:
     {
@@ -122,8 +168,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
         {
             if (nmhdr->code == TCN_SELCHANGE)
             {
-                HWND tabctrl = GetDlgItem(m_hDlg, IDC_Hierarchy);
-                m_HTab = TabCtrl_GetCurFocus(tabctrl);
+                m_HTab = TabCtrl_GetCurFocus(DebugHandles::GetHandle(IDC_Hierarchy));
 
                 ResetSelected();
                 DebugUpdate();
@@ -138,8 +183,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 TVITEM item;
                 item.mask = TVIF_HANDLE;
                 item.hItem = pnmTreeView->itemNew.hItem;
-                HWND tree = GetDlgItem(m_hDlg, IDC_HierarchyTree);
-                TreeView_GetItem(tree, &item);
+                TreeView_GetItem(DebugHandles::GetHandle(IDC_HierarchyTree), &item);
 
                 map<HTREEITEM, GameObject*>::iterator iter = Var::DebugObjectMap.find(hItem);
 
@@ -168,8 +212,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 TVITEM item;
                 item.mask = TVIF_HANDLE;
                 item.hItem = pnmTreeView->itemNew.hItem;
-                HWND tree = GetDlgItem(m_hDlg, IDC_HierarchyTree);
-                TreeView_GetItem(tree, &item);
+                TreeView_GetItem(DebugHandles::GetHandle(IDC_HierarchyTree), &item);
 
                 map<HTREEITEM, GameObject*>::iterator iter = Var::DebugObjectMap.find(hItem);
 
@@ -179,11 +222,27 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
 
                     if (obj != nullptr)
                     {
+                        Var::DebugHandle = iter->first;
                         Var::DebugSelected = obj;
 
                         ChangeSelected();
                     }
                 }
+            }
+
+            if (Var::DebugSelected != nullptr)
+            {
+                EnableWindow(DebugHandles::GetHandle(IDC_Duplicate), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_Destroy), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_Active), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_Name), true);
+            }
+            else
+            {
+                EnableWindow(DebugHandles::GetHandle(IDC_Duplicate), false);
+                EnableWindow(DebugHandles::GetHandle(IDC_Destroy), false);
+                EnableWindow(DebugHandles::GetHandle(IDC_Active), false);
+                EnableWindow(DebugHandles::GetHandle(IDC_Name), false);
             }
         }
     }
@@ -200,13 +259,11 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
 
 void DXFGame::ResetSelected()
 {
+    Var::DebugHandle = NULL;
     Var::DebugSelected = nullptr;
 
-    HWND check = GetDlgItem(m_hDlg, IDC_Active);
-    SendMessage(check, BM_SETCHECK, BST_UNCHECKED, 0);
-
-    HWND edit = GetDlgItem(m_hDlg, IDC_Name);
-    SetWindowText(edit, "");
+    SendMessage(DebugHandles::GetHandle(IDC_Active), BM_SETCHECK, BST_UNCHECKED, 0);
+    SetWindowText(DebugHandles::GetHandle(IDC_Name), "");
 }
 
 void DXFGame::ChangeSelected()
@@ -217,16 +274,14 @@ void DXFGame::ChangeSelected()
         return;
     }
 
-    HWND check = GetDlgItem(m_hDlg, IDC_Active);
     if (Var::DebugSelected->isActive())
     {
-        SendMessage(check, BM_SETCHECK, BST_CHECKED, 0);
+        SendMessage(DebugHandles::GetHandle(IDC_Active), BM_SETCHECK, BST_CHECKED, 0);
     }
     else
     {
-        SendMessage(check, BM_SETCHECK, BST_UNCHECKED, 0);
+        SendMessage(DebugHandles::GetHandle(IDC_Active), BM_SETCHECK, BST_UNCHECKED, 0);
     }
 
-    HWND edit = GetDlgItem(m_hDlg, IDC_Name);
-    SetWindowText(edit, Var::DebugSelected->m_Name.c_str());
+    SetWindowText(DebugHandles::GetHandle(IDC_Name), Var::DebugSelected->m_Name.c_str());
 }

@@ -55,6 +55,7 @@ typedef class Var
 public:
 	static list<SPTR<GameObject>>		Objects;
 	static list<GameObject*>			ColliderObjects;
+	static HTREEITEM					DebugHandle;
 	static GameObject*					DebugSelected;
 	static map<HTREEITEM, GameObject*>	DebugObjectMap;
 	static GameObject*					RootObject;
@@ -121,4 +122,13 @@ public:
 
 public:
 	static void TimeUpdate();
+};
+
+class DebugHandles
+{
+protected:
+	static map<int, HWND>	m_HandlesMap;
+
+public:
+	static HWND GetHandle(int p_Resource);
 };
