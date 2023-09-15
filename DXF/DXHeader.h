@@ -58,6 +58,7 @@ public:
 	static float					m_RenderDistance;
 	static LPDIRECT3D9				m_pD3D;
 	static LPDIRECT3DDEVICE9		m_pd3dDevice;
+	static D3DPRESENT_PARAMETERS	m_d3dpp;
 	static D3DMATERIAL9				m_DefaultMaterial;
 	static IDirect3DBaseTexture9*	m_DefaultTexture;
 	static LPDIRECT3DVERTEXBUFFER9	m_pVB;

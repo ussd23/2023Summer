@@ -3,6 +3,7 @@
 #include "Functions.h"
 #include "Global.h"
 #include "Raycast.h"
+#include "FontManager.h"
 
 LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -59,7 +60,11 @@ LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
         return 0;
 
     case WM_SIZE:
-        SetWindowPos(hWnd, NULL, 0, 0, m_Resolution.x + 16, m_Resolution.y + 39, SWP_NOMOVE | SWP_NOZORDER);
+        if (wParam != SIZE_MINIMIZED)
+        {
+            m_Resolution.x = LOWORD(lParam);
+            m_Resolution.y = HIWORD(lParam);
+        }
         return 0;
 
     case WM_DESTROY:

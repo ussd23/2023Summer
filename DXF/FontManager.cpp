@@ -32,3 +32,19 @@ void FontManager::Cleanup()
         m_Fonts[i]->Release();
     }
 }
+
+void FontManager::OnLost()
+{
+    for (int i = 0; i < m_Fonts.size(); ++i)
+    {
+        m_Fonts[i]->OnLostDevice();
+    }
+}
+
+void FontManager::OnReset()
+{
+    for (int i = 0; i < m_Fonts.size(); ++i)
+    {
+        m_Fonts[i]->OnResetDevice();
+    }
+}

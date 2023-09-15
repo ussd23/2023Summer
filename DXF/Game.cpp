@@ -13,6 +13,7 @@ Vector2 DXFGame::m_Resolution = Vector2(800, 600);
 float DXFGame::m_RenderDistance = 1000.0f;
 LPDIRECT3D9	DXFGame::m_pD3D;
 LPDIRECT3DDEVICE9 DXFGame::m_pd3dDevice;
+D3DPRESENT_PARAMETERS DXFGame::m_d3dpp;
 D3DMATERIAL9 DXFGame::m_DefaultMaterial;
 IDirect3DBaseTexture9* DXFGame::m_DefaultTexture;
 LPDIRECT3DVERTEXBUFFER9 DXFGame::m_pVB;
@@ -83,9 +84,40 @@ void DXFGame::Update()
 
 void DXFGame::Message()
 {
+    Vector2 resolution = m_Resolution;
+
     if (PeekMessage(&m_Msg, NULL, 0U, 0U, PM_REMOVE))
     {
         TranslateMessage(&m_Msg);
         DispatchMessage(&m_Msg);
+    }
+
+    if (resolution != m_Resolution)
+    {
+        if (m_DefaultTexture != NULL) m_DefaultTexture->Release();
+        if (m_pVB != NULL)
+        {
+            m_pVB->Release();
+            m_pVB = NULL;
+        }
+
+        if (m_pSprite != nullptr) m_pSprite->OnLostDevice();
+        FontManager::GetInstance()->OnLost();
+
+        m_d3dpp.BackBufferWidth = m_Resolution.x;
+        m_d3dpp.BackBufferHeight = m_Resolution.y;
+
+        m_pd3dDevice->Reset(&m_d3dpp);
+
+        m_pd3dDevice->GetMaterial(&m_DefaultMaterial);
+        m_pd3dDevice->GetTexture(0, &m_DefaultTexture);
+        m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+        m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
+        m_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
+        m_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+        if (m_pSprite != nullptr) m_pSprite->OnResetDevice();
+        FontManager::GetInstance()->OnReset();
+        MeshManager::GetInstance()->OnReset();
     }
 }

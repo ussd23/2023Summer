@@ -44,5 +44,7 @@ protected:
 public:
 	MeshInfo* GetMesh(const string& p_Path);
 	void Cleanup();
+
+	void OnReset();
 };
 

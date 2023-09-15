@@ -14,6 +14,7 @@ void MeshRenderer::PreRender()
 {
     if (m_Transform == nullptr) return;
     if (m_MeshInfo == nullptr) return;
+    if (m_MeshInfo->pMesh == NULL) return;
 
     Vector3 pos = m_Transform->GetWorldPosition();
     Vector3 scale = m_Transform->GetWorldScale();
@@ -55,7 +56,6 @@ void MeshRenderer::Render()
         DXFGame::m_pd3dDevice->SetTexture(0, m_MeshInfo->pMeshTextures[i]);
         //DXFGame::m_pd3dDevice->SetVertexShader();
 
-        if (m_MeshInfo->pMesh == NULL) return;
         m_MeshInfo->pMesh->DrawSubset(i);
     }
 }

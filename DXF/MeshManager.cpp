@@ -100,3 +100,35 @@ void MeshManager::Cleanup()
         delete m_MeshInfos[i];
     }
 }
+
+void MeshManager::OnReset()
+{
+    map<string, MeshInfo*>::iterator iter = m_MeshInfosMap.begin();
+    while (iter != m_MeshInfosMap.end())
+    {
+        string key = iter->first;
+
+        if (iter->second->pMesh != NULL) iter->second->pMesh->Release();
+
+        LPD3DXMESH pMesh = NULL;
+
+        string path = "resources\\" + key;
+        if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, DXFGame::m_pd3dDevice, NULL, NULL, NULL, NULL, &pMesh)))
+        {
+            path = "..\\resources\\" + key;
+            if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, DXFGame::m_pd3dDevice, NULL, NULL, NULL, NULL, &pMesh)))
+            {
+                path = "..\\..\\resources\\", key;
+                if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, DXFGame::m_pd3dDevice, NULL, NULL, NULL, NULL, &pMesh)))
+                {
+                    string text = "Could not find mesh file: " + key;
+                    MessageBox(NULL, text.c_str(), "Mesh Load Failed", MB_OK);
+                }
+            }
+        }
+
+        if (iter->second->pMesh != NULL) iter->second->pMesh = pMesh;
+
+        ++iter;
+    }
+}
