@@ -12,11 +12,11 @@ public:
 
 	SerializeFunction(BubbleManager)
 	{
-		Serialize(m_AllBubble);
+		//Serialize(m_AllBubble);
 	}
 	DeserializeFunction()
 	{
-		Deserialize(m_AllBubble);
+		//Deserialize(m_AllBubble);
 	}
 
 

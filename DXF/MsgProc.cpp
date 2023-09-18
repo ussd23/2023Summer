@@ -67,8 +67,8 @@ LRESULT WINAPI DXFGame::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
             
             if (m_Resolution.x < 120 || m_Resolution.y < 120)
             {
-                m_Resolution.x = 120;
-                m_Resolution.y = 120;
+                if (m_Resolution.x < 120) m_Resolution.x = 120;
+                if (m_Resolution.y < 120) m_Resolution.y = 120;
                 SetWindowPos(hWnd, NULL, 0, 0, m_Resolution.x + 16, m_Resolution.y + 39, SWP_NOMOVE | SWP_NOZORDER);
             }
         }
