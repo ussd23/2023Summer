@@ -8,7 +8,12 @@ class MouseFunction;
 
 class ScrollBar : public Component
 {
+protected:
+	Vector2 m_MovableRange[2];
+	float normal;
+
 public:
+	void Awake() override;
 	void Start() override;
 
 	SerializeFunction(ScrollBar)

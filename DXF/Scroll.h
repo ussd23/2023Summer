@@ -14,6 +14,7 @@ protected:
 public:
 	Scroll(bool p_IsVertical);
 
+	void Awake() override;
 	void Start() override;
 
 	bool GetIsVertical();

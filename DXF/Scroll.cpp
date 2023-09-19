@@ -5,6 +5,24 @@ Scroll::Scroll(bool p_IsVertical)
     m_IsVertical = p_IsVertical;
 }
 
+void Scroll::Awake()
+{
+    RectTransform* rect = GetComponentFromObject(gameObject, RectTransform);
+    if (rect == nullptr) return;
+
+    RectTransform* parentrect = rect->GetParent();
+    if (parentrect == nullptr) return;
+
+    if (m_IsVertical)
+    {
+        rect->m_Size.y = parentrect->m_Size.y;
+    }
+    else
+    {
+        rect->m_Size.x = parentrect->m_Size.x - 15;
+    }
+}
+
 void Scroll::Start()
 {
     AdjustPosition();
@@ -62,4 +80,3 @@ void Scroll::AdjustPosition()
         rect->m_Size.x = parentrect->m_Size.x - 15;
     }
 }
-

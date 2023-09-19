@@ -275,6 +275,8 @@
     <ClInclude Include="Scroll.h">
       <Filter>4. Components</Filter>
     </ClInclude>
-    <ClInclude Include="ScrollBar.h" />
+    <ClInclude Include="ScrollBar.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

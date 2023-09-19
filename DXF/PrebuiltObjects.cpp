@@ -174,7 +174,7 @@ ScrollObject::ScrollObject(string p_Name, Vector2 p_Size, Vector2 p_Position, bo
 	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
 	AddComponent(recttransform);
 
-	SpriteRenderer* sprite = new SpriteRenderer("system\\default.png");
+	SpriteRenderer* sprite = new SpriteRenderer("system\\Scroll.png");
 	AddComponent(sprite);
 
 	MouseFunction* mouse = new MouseFunction(true);
@@ -193,7 +193,7 @@ ScrollBarObject::ScrollBarObject(string p_Name, Vector2 p_Size, Vector2 p_Positi
 	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
 	AddComponent(recttransform);
 
-	SpriteRenderer* sprite = new SpriteRenderer("system\\default.png");
+	SpriteRenderer* sprite = new SpriteRenderer("system\\ScrollBar.png");
 	AddComponent(sprite);
 
 	MouseFunction* mouse = new MouseFunction(true);
