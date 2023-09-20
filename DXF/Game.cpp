@@ -21,10 +21,12 @@ LPD3DXSPRITE DXFGame::m_pSprite;
 Matrix16 DXFGame::m_ViewMatrix;
 Matrix16 DXFGame::m_ProjMatrix;
 bool DXFGame::m_DebugMode = false;
+HFONT DXFGame::m_hFont;
 int DXFGame::m_HTab = 0;
 int DXFGame::m_ITab = 0;
 bool DXFGame::m_DebugUpdate = false;
 float DXFGame::m_DebugUpdateTerm = 0;
+float DXFGame::m_HandleUpdateTerm = 0;
 
 void DXFGame::ComponentRegister()
 {
@@ -88,8 +90,12 @@ void DXFGame::Message()
 
     if (PeekMessage(&m_Msg, NULL, 0U, 0U, PM_REMOVE))
     {
-        TranslateMessage(&m_Msg);
-        DispatchMessage(&m_Msg);
+        if (!(m_Msg.message == WM_KEYDOWN && m_Msg.lParam & (1 << 30)) &&
+            !(m_Msg.hwnd == m_hDlg && m_Msg.message == WM_MOUSEMOVE))
+        {
+            TranslateMessage(&m_Msg);
+            DispatchMessage(&m_Msg);
+        }
     }
 
     if (resolution != m_Resolution)

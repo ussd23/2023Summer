@@ -5,6 +5,15 @@
 #include "GameObject.h"
 #include "ComponentHeader.h"
 
+#define EDIT_POSITION_X_KEY 360
+#define EDIT_POSITION_X_VALUE 460
+#define EDIT_POSITION_Y 90
+#define EDIT_WIDTH_KEY 96
+#define EDIT_WIDTH_VALUE 200
+#define EDIT_HEIGHT 18
+#define EDIT_INTERVAL_WIDTH 20
+#define EDIT_INTERVAL_HEIGHT 22
+
 map<int, HWND> DebugHandles::m_HandlesMap;
 
 HWND DebugHandles::GetHandle(int p_Resource)
@@ -69,12 +78,75 @@ void DXFGame::DebugCheck()
 		m_DebugUpdateTerm += Time::deltaTime;
 		DebugUpdate();
 	}
+
+    if (Var::DebugComponent != nullptr)
+    {
+        UpdateHandles();
+    }
 }
 
 INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch (msg)
     {
+    case WM_MOUSEWHEEL:
+        if (Var::DebugComponent != nullptr)
+        {
+            int currentIndex = Var::DebugInspectorIndex;
+
+            if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+            {
+                if (Var::DebugInspectorIndex < 0) ++Var::DebugInspectorIndex;
+            }
+
+            if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
+            {
+                if (Var::DebugInspectorIndex > -Var::DebugInspectorMaxIndex + 22) --Var::DebugInspectorIndex;
+            }
+
+            if (currentIndex == Var::DebugInspectorIndex) return TRUE;
+
+            vector<pair<HWND, Vector2>>::iterator iter = Var::DebugHandleStatics.begin();
+            while (iter != Var::DebugHandleStatics.end())
+            {
+                if (iter->second.y + Var::DebugInspectorIndex >= 0 &&
+                    iter->second.y + Var::DebugInspectorIndex < 22)
+                {
+                    ShowWindow(iter->first, SW_SHOW);
+                    SetWindowPos(iter->first, NULL,
+                        EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * iter->second.x, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * (iter->second.y + Var::DebugInspectorIndex),
+                        0, 0, SWP_NOSIZE | SWP_NOZORDER);
+                    RedrawWindow(iter->first, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
+                }
+                else
+                {
+                    ShowWindow(iter->first, SW_HIDE);
+                }
+
+                ++iter;
+            }
+
+            iter = Var::DebugHandleEdits.begin();
+            while (iter != Var::DebugHandleEdits.end())
+            {
+                if (iter->second.y + Var::DebugInspectorIndex >= 0 &&
+                    iter->second.y + Var::DebugInspectorIndex < 22)
+                {
+                    ShowWindow(iter->first, SW_SHOW);
+                    SetWindowPos(iter->first, NULL,
+                        EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * iter->second.x, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * (iter->second.y + Var::DebugInspectorIndex),
+                        0, 0, SWP_NOSIZE | SWP_NOZORDER);
+                    RedrawWindow(iter->first, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
+                }
+                else
+                {
+                    ShowWindow(iter->first, SW_HIDE);
+                }
+
+                ++iter;
+            }
+        }
+    return TRUE;
     case WM_COMMAND:
         switch (LOWORD(wParam))
         {
@@ -171,11 +243,15 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 m_HTab = TabCtrl_GetCurFocus(DebugHandles::GetHandle(IDC_Hierarchy));
 
                 ResetSelected();
+                ResetHandles();
                 DebugUpdate();
             }
         }
+
         else if (wParam == IDC_HierarchyTree)
         {
+            GameObject* pastObject = Var::DebugSelected;
+
             if (nmhdr->code == TVN_ITEMEXPANDED)
             {
                 NM_TREEVIEW* pnmTreeView = (NM_TREEVIEW*)lParam;
@@ -229,20 +305,52 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                     }
                 }
             }
-            
-            if (Var::DebugSelected != nullptr)
-            {
-                EnableWindow(DebugHandles::GetHandle(IDC_Duplicate), true);
-                EnableWindow(DebugHandles::GetHandle(IDC_Destroy), true);
-                EnableWindow(DebugHandles::GetHandle(IDC_Active), true);
-                EnableWindow(DebugHandles::GetHandle(IDC_Name), true);
-            }
-            else
+
+            if (Var::DebugSelected == nullptr)
             {
                 EnableWindow(DebugHandles::GetHandle(IDC_Duplicate), false);
                 EnableWindow(DebugHandles::GetHandle(IDC_Destroy), false);
                 EnableWindow(DebugHandles::GetHandle(IDC_Active), false);
                 EnableWindow(DebugHandles::GetHandle(IDC_Name), false);
+
+                ResetComponent();
+            }
+
+            else if (pastObject != Var::DebugSelected)
+            {
+                EnableWindow(DebugHandles::GetHandle(IDC_Duplicate), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_Destroy), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_Active), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_Name), true);
+
+                ResetComponent();
+
+                HWND tab = DebugHandles::GetHandle(IDC_Inspector);
+
+                list<SPTR<Component>>::iterator iter = Var::DebugSelected->m_Components.begin();
+
+                for (int i = 0; iter != Var::DebugSelected->m_Components.end(); ++i)
+                {
+                    Component* comp = (*iter++)();
+                    string str = typeid(*comp).name();
+
+                    TCITEMA tItem;
+                    tItem.mask = TCIF_TEXT;
+                    tItem.pszText = const_cast<char*>(str.substr(6).c_str());
+                    TabCtrl_InsertItem(tab, i, &tItem);
+                }
+
+                UpdateComponent(0);
+            }
+        }
+
+        else if (wParam == IDC_Inspector)
+        {
+            if (nmhdr->code == TCN_SELCHANGE)
+            {
+                int tab = TabCtrl_GetCurFocus(DebugHandles::GetHandle(IDC_Inspector));
+
+                UpdateComponent(tab);
             }
         }
     }
@@ -284,4 +392,197 @@ void DXFGame::ChangeSelected()
     }
 
     SetWindowText(DebugHandles::GetHandle(IDC_Name), Var::DebugSelected->m_Name.c_str());
+}
+
+void DXFGame::UpdateComponent(int p_Index)
+{
+    ResetHandles();
+
+    if (Var::DebugSelected == nullptr) return;
+
+    Var::DebugComponent = Var::DebugSelected->GetComponent(p_Index);
+
+    if (Var::DebugComponent == nullptr) return;
+
+    Var::DebugJson.clear();
+    Var::DebugComponent->JsonSerialize(Var::DebugJson);
+
+    int gridX = 0;
+    int gridY = 0;
+
+    CreateDebugHandles(Var::DebugJson, gridX, gridY, false, false);
+    m_HandleUpdateTerm = 0;
+    Var::DebugInspectorMaxIndex = gridY;
+}
+
+void DXFGame::ResetComponent()
+{
+    HWND tab = DebugHandles::GetHandle(IDC_Inspector);
+
+    int tabCount = TabCtrl_GetItemCount(tab);
+    for (int i = tabCount - 1; i >= 0; --i)
+    {
+        TabCtrl_DeleteItem(tab, i);
+    }
+
+    Var::DebugComponent = nullptr;
+}
+
+void DXFGame::CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate)
+{
+    if (p_isArray)
+    {
+        for (unsigned int i = 0; i < p_JsonValue.size(); ++i)
+        {
+            Json::Value value = p_JsonValue[i];
+
+            if (!p_isUpdate)
+            {
+                stringstream ss;
+                ss << "[" << i << "]";
+                HWND hwndEdit = CreateWindow("STATIC", ss.str().c_str(), WS_VISIBLE | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
+                    EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                    EDIT_WIDTH_KEY, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
+                SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
+                RedrawWindow(hwndEdit, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
+                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+
+                Var::DebugHandleStatics.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
+            }
+
+            InnerCreateDebugHandles(value, p_GridX, p_GridY, p_isArray, p_isUpdate);
+        }
+    }
+    else
+    {
+        for (string member : p_JsonValue.getMemberNames())
+        {
+            if (member == "m_ChildID") continue;
+
+            Json::Value value = p_JsonValue[member];
+
+            if (!p_isUpdate)
+            {
+                HWND hwndEdit = CreateWindow("STATIC", member.c_str(), WS_VISIBLE | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
+                    EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                    EDIT_WIDTH_KEY, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
+                SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
+                RedrawWindow(hwndEdit, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
+                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+
+                Var::DebugHandleStatics.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
+            }
+
+            InnerCreateDebugHandles(value, p_GridX, p_GridY, p_isArray, p_isUpdate);
+        }
+    }
+}
+
+void DXFGame::InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate)
+{
+    if (p_JsonValue.isObject())
+    {
+        CreateDebugHandles(p_JsonValue, ++p_GridX, p_isArray ? p_GridY : ++p_GridY, false, p_isUpdate);
+        --p_GridX;
+    }
+    else if (p_JsonValue.isArray())
+    {
+        CreateDebugHandles(p_JsonValue, ++p_GridX, p_isArray ? p_GridY : ++p_GridY, true, p_isUpdate);
+        --p_GridX;
+    }
+    else
+    {
+        if (p_JsonValue.isNull())
+        {
+            if (!p_isUpdate)
+            {
+                HWND hwndEdit = CreateWindow("EDIT", "", WS_VISIBLE | WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
+                    EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                    EDIT_WIDTH_VALUE - EDIT_INTERVAL_WIDTH * p_GridX, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
+                SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
+                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+
+                Var::DebugHandleEdits.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
+            }
+            else
+            {
+                Var::DebugValue.push_back("");
+            }
+        }
+        else
+        {
+            if (!p_isUpdate)
+            {
+                HWND hwndEdit = CreateWindow("EDIT", p_JsonValue.asString().c_str(), WS_VISIBLE | WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
+                    EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                    EDIT_WIDTH_VALUE - EDIT_INTERVAL_WIDTH * p_GridX, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
+                SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
+                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+
+                Var::DebugHandleEdits.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
+            }
+            else
+            {
+                Var::DebugValue.push_back(p_JsonValue.asString());
+            }
+        }
+
+        ++p_GridY;
+    }
+}
+
+void DXFGame::ResetHandles()
+{
+    vector<pair<HWND, Vector2>>::iterator iter = Var::DebugHandleStatics.begin();
+    while (iter != Var::DebugHandleStatics.end())
+    {
+        DestroyWindow(iter++->first);
+    }
+    Var::DebugHandleStatics.clear();
+
+    iter = Var::DebugHandleEdits.begin();
+    while (iter != Var::DebugHandleEdits.end())
+    {
+        DestroyWindow(iter++->first);
+    }
+    Var::DebugHandleEdits.clear();
+
+    Var::DebugInspectorIndex = 0;
+    Var::DebugInspectorMaxIndex = 0;
+}
+
+void DXFGame::UpdateHandles()
+{
+    m_HandleUpdateTerm += Time::deltaTime;
+    if (m_HandleUpdateTerm < 0.1f)
+    {
+        return;
+    }
+    m_HandleUpdateTerm = 0;
+
+    if (Var::DebugHandleStatics.size() > 0)
+    {
+        Var::DebugJson.clear();
+        Var::DebugComponent->JsonSerialize(Var::DebugJson);
+
+        Var::DebugValue.clear();
+        int gridX = 0;
+        int gridY = 0;
+
+        CreateDebugHandles(Var::DebugJson, gridX, gridY, false, true);
+
+        vector<pair<HWND, Vector2>>::iterator iter = Var::DebugHandleEdits.begin();
+        for (int i = 0; iter != Var::DebugHandleEdits.end(); ++i)
+        {
+            TCHAR buffer[256];
+            GetWindowText(iter->first, buffer, 255);
+
+            if (string(buffer) != Var::DebugValue[i])
+            {
+                SetWindowText(iter->first, Var::DebugValue[i].c_str());
+            }
+
+            ++iter;
+        }
+    }
 }

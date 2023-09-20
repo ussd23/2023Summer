@@ -34,6 +34,14 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
 
         tItem.pszText = const_cast<char*>("Screen");
         TabCtrl_InsertItem(tab, 1, &tItem);
+
+        m_hFont = CreateFont(12, 0, 0, 0, 0, 0, 0, 0,
+            ANSI_CHARSET,
+            OUT_DEFAULT_PRECIS,
+            CLIP_DEFAULT_PRECIS,
+            DEFAULT_QUALITY,
+            DEFAULT_PITCH | FF_DONTCARE,
+            "MS Shell Dlg");
     }
 
     if (NULL == (m_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))

@@ -73,6 +73,7 @@ public:
 
 	template <class T> void AddComponent(T* p_Comp);
 	Component* GetComponent(const string& p_Key);
+	Component* GetComponent(int p_Index);
 	template <class T> T* GetComponent();
 	void RemoveComponent(Component* p_Comp);
 

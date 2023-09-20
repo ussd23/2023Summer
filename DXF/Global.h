@@ -57,7 +57,14 @@ public:
 	static list<GameObject*>			ColliderObjects;
 	static HTREEITEM					DebugHandle;
 	static GameObject*					DebugSelected;
+	static Component*					DebugComponent;
+	static Json::Value					DebugJson;
 	static map<HTREEITEM, GameObject*>	DebugObjectMap;
+	static vector<pair<HWND, Vector2>>	DebugHandleStatics;
+	static vector<pair<HWND, Vector2>>	DebugHandleEdits;
+	static vector<string>				DebugValue;
+	static int							DebugInspectorIndex;
+	static int							DebugInspectorMaxIndex;
 	static GameObject*					RootObject;
 	static Transform*					RootTransform;
 	static GameObject*					RootRectObject;

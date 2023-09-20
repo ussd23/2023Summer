@@ -115,6 +115,18 @@ Component* GameObject::GetComponent(const string& p_Key)
 	return nullptr;
 }
 
+Component* GameObject::GetComponent(int p_Index)
+{
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	for (int i = 0; iter != m_Components.end(); ++i, ++iter)
+	{
+		if (i == p_Index) return (*iter)();
+	}
+
+	return nullptr;
+}
+
 void GameObject::RemoveComponent(Component* p_Comp)
 {
 	list<SPTR<Component>>::iterator iter = m_Components.begin();
