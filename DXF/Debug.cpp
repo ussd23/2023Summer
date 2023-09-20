@@ -6,13 +6,15 @@
 #include "ComponentHeader.h"
 
 #define EDIT_POSITION_X_KEY 360
-#define EDIT_POSITION_X_VALUE 460
-#define EDIT_POSITION_Y 90
-#define EDIT_WIDTH_KEY 96
-#define EDIT_WIDTH_VALUE 200
+#define EDIT_POSITION_X_VALUE 440
+#define EDIT_POSITION_Y_KEY 69
+#define EDIT_POSITION_Y_VALUE 67
+#define EDIT_WIDTH_KEY 78
+#define EDIT_WIDTH_VALUE 220
 #define EDIT_HEIGHT 18
 #define EDIT_INTERVAL_WIDTH 20
 #define EDIT_INTERVAL_HEIGHT 22
+#define EDIT_HEIGHT_LIMIT 23
 
 map<int, HWND> DebugHandles::m_HandlesMap;
 
@@ -101,7 +103,7 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
 
             if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
             {
-                if (Var::DebugInspectorIndex > -Var::DebugInspectorMaxIndex + 22) --Var::DebugInspectorIndex;
+                if (Var::DebugInspectorIndex > -Var::DebugInspectorMaxIndex + EDIT_HEIGHT_LIMIT) --Var::DebugInspectorIndex;
             }
 
             if (currentIndex == Var::DebugInspectorIndex) return TRUE;
@@ -110,11 +112,11 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
             while (iter != Var::DebugHandleStatics.end())
             {
                 if (iter->second.y + Var::DebugInspectorIndex >= 0 &&
-                    iter->second.y + Var::DebugInspectorIndex < 22)
+                    iter->second.y + Var::DebugInspectorIndex < EDIT_HEIGHT_LIMIT)
                 {
                     ShowWindow(iter->first, SW_SHOW);
                     SetWindowPos(iter->first, NULL,
-                        EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * iter->second.x, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * (iter->second.y + Var::DebugInspectorIndex),
+                        EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * iter->second.x, EDIT_POSITION_Y_KEY + EDIT_INTERVAL_HEIGHT * (iter->second.y + Var::DebugInspectorIndex),
                         0, 0, SWP_NOSIZE | SWP_NOZORDER);
                     RedrawWindow(iter->first, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
                 }
@@ -130,11 +132,11 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
             while (iter != Var::DebugHandleEdits.end())
             {
                 if (iter->second.y + Var::DebugInspectorIndex >= 0 &&
-                    iter->second.y + Var::DebugInspectorIndex < 22)
+                    iter->second.y + Var::DebugInspectorIndex < EDIT_HEIGHT_LIMIT)
                 {
                     ShowWindow(iter->first, SW_SHOW);
                     SetWindowPos(iter->first, NULL,
-                        EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * iter->second.x, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * (iter->second.y + Var::DebugInspectorIndex),
+                        EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * iter->second.x, EDIT_POSITION_Y_VALUE + EDIT_INTERVAL_HEIGHT * (iter->second.y + Var::DebugInspectorIndex),
                         0, 0, SWP_NOSIZE | SWP_NOZORDER);
                     RedrawWindow(iter->first, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
                 }
@@ -240,7 +242,10 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
         {
             if (nmhdr->code == TCN_SELCHANGE)
             {
-                m_HTab = TabCtrl_GetCurFocus(DebugHandles::GetHandle(IDC_Hierarchy));
+                HWND handle = DebugHandles::GetHandle(IDC_Hierarchy);
+
+                SetFocus(handle);
+                m_HTab = TabCtrl_GetCurFocus(handle);
 
                 ResetSelected();
                 ResetHandles();
@@ -348,7 +353,10 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
         {
             if (nmhdr->code == TCN_SELCHANGE)
             {
-                int tab = TabCtrl_GetCurFocus(DebugHandles::GetHandle(IDC_Inspector));
+                HWND handle = DebugHandles::GetHandle(IDC_Inspector);
+
+                SetFocus(handle);
+                int tab = TabCtrl_GetCurFocus(handle);
 
                 UpdateComponent(tab);
             }
@@ -440,12 +448,12 @@ void DXFGame::CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_
             {
                 stringstream ss;
                 ss << "[" << i << "]";
-                HWND hwndEdit = CreateWindow("STATIC", ss.str().c_str(), WS_VISIBLE | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
-                    EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                HWND hwndEdit = CreateWindow("STATIC", ss.str().c_str(), WS_VISIBLE | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL | SS_ENDELLIPSIS,
+                    EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y_KEY + EDIT_INTERVAL_HEIGHT * p_GridY,
                     EDIT_WIDTH_KEY, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
                 SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
                 RedrawWindow(hwndEdit, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
-                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+                if (p_GridY >= EDIT_HEIGHT_LIMIT) ShowWindow(hwndEdit, SW_HIDE);
 
                 Var::DebugHandleStatics.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
             }
@@ -463,12 +471,12 @@ void DXFGame::CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_
 
             if (!p_isUpdate)
             {
-                HWND hwndEdit = CreateWindow("STATIC", member.c_str(), WS_VISIBLE | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
-                    EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                HWND hwndEdit = CreateWindow("STATIC", member.c_str(), WS_VISIBLE | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL | SS_ENDELLIPSIS,
+                    EDIT_POSITION_X_KEY + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y_KEY + EDIT_INTERVAL_HEIGHT * p_GridY,
                     EDIT_WIDTH_KEY, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
                 SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
                 RedrawWindow(hwndEdit, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME | RDW_ALLCHILDREN);
-                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+                if (p_GridY >= EDIT_HEIGHT_LIMIT) ShowWindow(hwndEdit, SW_HIDE);
 
                 Var::DebugHandleStatics.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
             }
@@ -497,10 +505,11 @@ void DXFGame::InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, in
             if (!p_isUpdate)
             {
                 HWND hwndEdit = CreateWindow("EDIT", "", WS_VISIBLE | WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
-                    EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                    EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y_VALUE + EDIT_INTERVAL_HEIGHT * p_GridY,
                     EDIT_WIDTH_VALUE - EDIT_INTERVAL_WIDTH * p_GridX, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
+                EnableWindow(hwndEdit, FALSE);
                 SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
-                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+                if (p_GridY >= EDIT_HEIGHT_LIMIT) ShowWindow(hwndEdit, SW_HIDE);
 
                 Var::DebugHandleEdits.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
             }
@@ -514,10 +523,10 @@ void DXFGame::InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, in
             if (!p_isUpdate)
             {
                 HWND hwndEdit = CreateWindow("EDIT", p_JsonValue.asString().c_str(), WS_VISIBLE | WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
-                    EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y + EDIT_INTERVAL_HEIGHT * p_GridY,
+                    EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y_VALUE + EDIT_INTERVAL_HEIGHT * p_GridY,
                     EDIT_WIDTH_VALUE - EDIT_INTERVAL_WIDTH * p_GridX, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
                 SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
-                if (p_GridY >= 22) ShowWindow(hwndEdit, SW_HIDE);
+                if (p_GridY >= EDIT_HEIGHT_LIMIT) ShowWindow(hwndEdit, SW_HIDE);
 
                 Var::DebugHandleEdits.push_back(make_pair(hwndEdit, Vector2(p_GridX, p_GridY)));
             }
