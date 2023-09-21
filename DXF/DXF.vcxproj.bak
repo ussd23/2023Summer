@@ -165,8 +165,6 @@
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Scroll.cpp" />
-    <ClCompile Include="ScrollBar.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Animator.cpp" />
@@ -210,8 +208,6 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Scroll.h" />
-    <ClInclude Include="ScrollBar.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Animator.h" />

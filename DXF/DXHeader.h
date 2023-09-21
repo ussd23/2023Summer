@@ -71,6 +71,7 @@ public:
 	static bool						m_DebugUpdate;
 	static float					m_DebugUpdateTerm;
 	static float					m_HandleUpdateTerm;
+	static LPDIRECT3DSURFACE9		m_pStencilSurface;
 
 public:
 	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

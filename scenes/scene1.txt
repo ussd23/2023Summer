@@ -6127,7 +6127,7 @@
 					"m_Position" : 
 					{
 						"x" : 100.0,
-						"y" : 850.0
+						"y" : 670.0
 					},
 					"m_Rotation" : 
 					{
@@ -6226,7 +6226,7 @@
 					"m_Position" : 
 					{
 						"x" : 300.0,
-						"y" : 850.0
+						"y" : 670.0
 					},
 					"m_Rotation" : 
 					{
@@ -6349,7 +6349,7 @@
 					"m_Position" : 
 					{
 						"x" : 500.0,
-						"y" : 850.0
+						"y" : 670.0
 					},
 					"m_Rotation" : 
 					{
@@ -6415,11 +6415,11 @@
 				"type" : "class RectTransform",
 				"values" : 
 				{
-					"m_ChildID" : [ 116 ],
+					"m_ChildID" : [ 116, 119, 121 ],
 					"m_Position" : 
 					{
 						"x" : 700.0,
-						"y" : 820.0
+						"y" : 640.0
 					},
 					"m_Rotation" : 
 					{
@@ -6637,6 +6637,272 @@
 			}
 		],
 		"m_Name" : "content Text",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 120 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 15.0,
+						"y" : 0.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\Scroll.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class Scroll",
+				"values" : 
+				{
+					"m_IsVertical" : true
+				}
+			}
+		],
+		"m_Name" : "VerticalScroll",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 15.0,
+						"y" : 0.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\ScrollBar.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class ScrollBar",
+				"values" : null
+			}
+		],
+		"m_Name" : "VerticalScrollBar",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 122 ],
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 0.0,
+						"y" : 15.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\Scroll.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class Scroll",
+				"values" : 
+				{
+					"m_IsVertical" : false
+				}
+			}
+		],
+		"m_Name" : "HorizontalScroll",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 0.0,
+						"y" : 15.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\ScrollBar.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class ScrollBar",
+				"values" : null
+			}
+		],
+		"m_Name" : "HorizontalScrollBar",
 		"m_isActive" : true
 	}
 ]
