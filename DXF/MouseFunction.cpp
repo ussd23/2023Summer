@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-map<MouseFunction*, bool*> MouseFunction::m_UniqueMouseFunctions;
+vector<pair< MouseFunction*, bool* >> MouseFunction::m_UniqueMouseFunctions;
 
 MouseFunction::MouseFunction(const bool& p_isUnique)
 	: m_isUnique(p_isUnique) {}
@@ -46,7 +46,7 @@ void MouseFunction::Update()
 
 		if (m_Result && m_isUnique)
 		{
-			m_UniqueMouseFunctions.insert(make_pair(this, &m_Result));
+			m_UniqueMouseFunctions.push_back(make_pair(this, &m_Result));
 		}
 	}
 }
@@ -150,7 +150,7 @@ void MouseFunction::UniqueCheck()
 
 	bool* last = nullptr;
 
-	for (map<MouseFunction*, bool*>::iterator iter = m_UniqueMouseFunctions.begin(); iter != m_UniqueMouseFunctions.end(); ++iter)
+	for (vector<pair<MouseFunction*, bool*>>::iterator iter = m_UniqueMouseFunctions.begin(); iter != m_UniqueMouseFunctions.end(); ++iter)
 	{
 		last = iter->second;
 		*(iter->second) = false;

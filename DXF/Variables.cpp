@@ -17,3 +17,7 @@ vector<Renderer*> Var::TransformRenderList;
 vector<Renderer*> Var::RectTransformRenderList; 
 vector<Renderer*> Var::StencilMaskRenderList; 
 vector<Renderer*> Var::StenciledObjectRenderList;
+
+
+bool DebugModeCls::ISStencil = false;
+bool DebugModeCls::ISStencil2 = false;

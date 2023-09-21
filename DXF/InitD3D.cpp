@@ -28,9 +28,9 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
     ZeroMemory(&d3dpp, sizeof(d3dpp));
     d3dpp.Windowed = TRUE;
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-    d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+    d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
     d3dpp.EnableAutoDepthStencil = TRUE;
-    d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+    d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;// D3DFMT_D16;
     //d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
     if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,

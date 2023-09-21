@@ -122,3 +122,12 @@ public:
 public:
 	static void TimeUpdate();
 };
+
+
+class DebugModeCls
+{
+public:
+	static bool ISStencil;
+	static bool ISStencil2;
+};
+

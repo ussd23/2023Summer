@@ -51,6 +51,14 @@ void SpriteRenderer::PreRender()
         {
             Var::StenciledObjectRenderList.push_back(this);
         }
+        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("content Sprite") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
+        {
+            Var::StenciledObjectRenderList.push_back(this);
+        }
+        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("HorizontalScrollBar") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
+        {
+            Var::StenciledObjectRenderList.push_back(this);
+        }
         else
         {
             Var::RectTransformRenderList.push_back(this);
@@ -63,14 +71,14 @@ void SpriteRenderer::Render()
     Vector2 temp = Vector2(m_TextureSize.right / m_RectSize.x, m_TextureSize.bottom / m_RectSize.y);
     RECT rect;
     SetRect(&rect, m_RectIndex.x * temp.x, m_RectIndex.y * temp.y, (m_RectIndex.x + 1) * temp.x, (m_RectIndex.y + 1) * temp.y);
-    
+
     Vector2 pos = m_RectTransform->GetScreenPosition();
     Quaternion rot = m_RectTransform->GetScreenRotation();
     Vector2 scale = m_RectTransform->GetScreenScale();
     Vector2 size = m_RectTransform->m_Size;
 
-	Matrix matScreenPosition;
-	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
+    Matrix matScreenPosition;
+    D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
 
     Matrix16 matScreenRotation;
     D3DXMatrixRotationQuaternion(&matScreenRotation, &rot);
@@ -81,9 +89,55 @@ void SpriteRenderer::Render()
     Matrix16 matScreenSet;
     D3DXMatrixIdentity(&matScreenSet);
     matScreenSet = matScreenScale * matScreenRotation * matScreenPosition;
-	DXFGame::m_pSprite->SetTransform(&matScreenSet);
+    DXFGame::m_pSprite->SetTransform(&matScreenSet);
     DXFGame::m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+
+    if (m_RectTransform->gameObject->m_Name.compare("viewbox") == 0)
+    {
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, true);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 0x1);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILWRITEMASK, 0xffffffff);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
+
+        // disable writes to the depth and back buffers
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, false);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ZERO);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+    }
+    else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("contentbox") == 0)
+    {
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
+
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        DXFGame::m_pd3dDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
+    }
+    else if (m_RectTransform->gameObject->m_Name.compare("contentbox") == 0)
+    {
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, true);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
+
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        DXFGame::m_pd3dDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
+    }
+
     DXFGame::m_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
+
     DXFGame::m_pSprite->End();
 }
 
