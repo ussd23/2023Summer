@@ -70,6 +70,7 @@ void DXFGame::DebugUpdate()
     else
     {
         ResetSelected();
+        ResetComponent();
     }
 }
 
@@ -81,9 +82,17 @@ void DXFGame::DebugCheck()
 		DebugUpdate();
 	}
 
-    if (Var::DebugComponent != nullptr)
+    if (GameObject::Exists(Var::DebugSelected))
     {
-        UpdateHandles();
+        if (Var::DebugComponent != nullptr)
+        {
+            UpdateHandles();
+        }
+    }
+    else
+    {
+        ResetSelected();
+        ResetComponent();
     }
 }
 
@@ -338,10 +347,11 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 {
                     Component* comp = (*iter++)();
                     string str = typeid(*comp).name();
+                    str = str.substr(6);
 
                     TCITEMA tItem;
                     tItem.mask = TCIF_TEXT;
-                    tItem.pszText = const_cast<char*>(str.substr(6).c_str());
+                    tItem.pszText = const_cast<char*>(str.c_str());
                     TabCtrl_InsertItem(tab, i, &tItem);
                 }
 

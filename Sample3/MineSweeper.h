@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "DXHeader.h"
+#include "Mine.h"
 #include <random>
 
 class Minesweeper : public Component {
@@ -38,7 +39,26 @@ public:
 	// Ä­ ¹ÝÈ¯
 	std::vector<class GameObject*> GetMap();
 
-	SerializeFunction(Minesweeper) {}
-	DeserializeFunction() {}
+	SerializeFunction(Minesweeper)
+	{
+		if (!IsStart) return;
+
+		vector<string> cheat;
+
+		for (int i = 0; i < MapSize; ++i)
+		{
+			stringstream ss;
+			for (int j = 0; j < MapSize; ++j)
+			{
+				Mine* mine = GetComponentFromObject(Map[i * MapSize + j], Mine);
+				ss << mine->GetMine() << " ";
+			}
+			cheat.push_back(ss.str());
+		}
+		VectorSerialize(cheat);
+	}
+	DeserializeFunction()
+	{
+	}
 };
 

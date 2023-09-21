@@ -34,7 +34,7 @@ protected:
 	SphereCollider*						m_SphereCollider;
 	RectTransform*						m_RectTransform;
 
-	static map<MouseFunction*, bool*>	m_UniqueMouseFunctions;
+	static vector<pair<MouseFunction*, bool*>>	m_UniqueMouseFunctions;
 
 public:
 	bool								m_isUnique = false;
