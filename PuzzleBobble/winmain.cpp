@@ -8,6 +8,7 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
     PuzzleBobble::m_Title = "DXF PuzzleBobble";
     PuzzleBobble::m_Resolution = Vector2(600, 900);
+    PuzzleBobble::m_DebugMode = true;
 
     if (SUCCEEDED(PuzzleBobble::InitD3D(hInst)))
     {

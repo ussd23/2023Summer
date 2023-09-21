@@ -30,8 +30,10 @@
 #pragma warning( disable : 4996 )
 #include <strsafe.h>
 #include <time.h>
-#pragma warning( default : 4996 )
+#include <CommCtrl.h>
+#pragma comment(lib, "comctl32.lib")
 #include "StandardLibrary.h"
+#include "json.h"
 
 using Vector2 = D3DXVECTOR2;
 using Vector3 = D3DXVECTOR3;
@@ -49,6 +51,7 @@ protected:
 
 public:
 	static HWND						m_hWnd;
+	static HWND						m_hDlg;
 	static WNDCLASSEX				m_WndClass;
 	static MSG						m_Msg;
 	static string					m_Title;
@@ -56,13 +59,23 @@ public:
 	static float					m_RenderDistance;
 	static LPDIRECT3D9				m_pD3D;
 	static LPDIRECT3DDEVICE9		m_pd3dDevice;
+	static D3DPRESENT_PARAMETERS	m_d3dpp;
 	static D3DMATERIAL9				m_DefaultMaterial;
 	static IDirect3DBaseTexture9*	m_DefaultTexture;
 	static LPDIRECT3DVERTEXBUFFER9	m_pVB;
 	static LPD3DXSPRITE				m_pSprite;
+	static bool						m_DebugMode;
+	static HFONT					m_hFont;
+	static int						m_HTab;
+	static int						m_ITab;
+	static bool						m_DebugUpdate;
+	static float					m_DebugUpdateTerm;
+	static float					m_HandleUpdateTerm;
 	static LPDIRECT3DSURFACE9		m_pStencilSurface;
+
 public:
 	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	static INT_PTR WINAPI DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam);
 	static HRESULT InitD3D(HINSTANCE hInst);
 
 	static HRESULT SetupCamera();
@@ -73,4 +86,15 @@ public:
 	static void Start();
 	static void Update();
 	static void Message();
+
+	static void DebugUpdate();
+	static void DebugCheck();
+	static void ResetSelected();
+	static void ChangeSelected();
+	static void UpdateComponent(int p_Index);
+	static void ResetComponent();
+	static void CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate);
+	static void InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate);
+	static void ResetHandles();
+	static void UpdateHandles();
 };

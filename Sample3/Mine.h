@@ -33,6 +33,12 @@ public:
 	// Ä­ °ø°³
 	void ShowMine();
 
-	SerializeFunction(Mine) {}
-	DeserializeFunction() {}
+	SerializeFunction(Mine)
+	{
+		Serialize(Mine_Check);
+	}
+	DeserializeFunction()
+	{
+		Deserialize(Mine_Check);
+	}
 };

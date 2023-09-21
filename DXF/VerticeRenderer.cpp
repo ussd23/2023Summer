@@ -80,7 +80,7 @@ void VerticeRenderer::Render()
 
         if (FAILED(DXFGame::m_pd3dDevice->CreateVertexBuffer(m_Vertices.size() * sizeof(Vertex),
             0, Vertex::FVF,
-            D3DPOOL_DEFAULT, &m_pVB, NULL)))
+            D3DPOOL_MANAGED, &m_pVB, NULL)))
         {
             return;
         }

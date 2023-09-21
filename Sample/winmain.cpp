@@ -7,6 +7,7 @@
 INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
     Sample::m_Resolution = Vector2(1280, 720);
+    Sample::m_DebugMode = true;
 
     if (SUCCEEDED(Sample::InitD3D(hInst)))
     {

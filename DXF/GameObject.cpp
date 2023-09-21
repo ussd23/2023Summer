@@ -115,6 +115,18 @@ Component* GameObject::GetComponent(const string& p_Key)
 	return nullptr;
 }
 
+Component* GameObject::GetComponent(int p_Index)
+{
+	list<SPTR<Component>>::iterator iter = m_Components.begin();
+
+	for (int i = 0; iter != m_Components.end(); ++i, ++iter)
+	{
+		if (i == p_Index) return (*iter)();
+	}
+
+	return nullptr;
+}
+
 void GameObject::RemoveComponent(Component* p_Comp)
 {
 	list<SPTR<Component>>::iterator iter = m_Components.begin();
@@ -329,6 +341,66 @@ void GameObject::PreRender()
 	}
 }
 
+void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
+{
+	TVINSERTSTRUCT ti;
+	ZeroMemory(&ti, sizeof(TVINSERTSTRUCT));
+	ti.hParent = p_hTItem;
+	ti.hInsertAfter = TVI_LAST;
+	ti.item.mask = TVIF_TEXT | TVIF_PARAM;
+	string itemname = "¡¤ " + m_Name;
+	ti.item.pszText = const_cast<char*>(itemname.c_str());
+
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+
+	HTREEITEM item = TVI_ROOT;
+
+	if (transform != nullptr)
+	{
+		if (transform != Var::RootTransform)
+		{
+			if (transform->GetParent() == Var::RootTransform)
+			{
+				ti.hParent = TVI_ROOT;
+			}
+			item = TreeView_InsertItem(p_hWnd, &ti);
+		}
+
+		int count = transform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			transform->GetChild(i)->gameObject->DebugInsert(p_hWnd, item);
+		}
+	}
+
+	else if (recttransform != nullptr)
+	{
+		if (recttransform != Var::RootRectTransform)
+		{
+			if (recttransform->GetParent() == Var::RootRectTransform)
+			{
+				ti.hParent = TVI_ROOT;
+			}
+			item = TreeView_InsertItem(p_hWnd, &ti);
+		}
+
+		int count = recttransform->GetChildCount();
+		for (int i = 0; i < count; ++i)
+		{
+			recttransform->GetChild(i)->gameObject->DebugInsert(p_hWnd, item);
+		}
+	}
+
+	if (m_DebugExtended)
+	{
+		TreeView_Expand(p_hWnd, item, TVM_EXPAND);
+	}
+
+	if (this == Var::DebugSelected) Var::DebugHandle = item;
+	Var::DebugObjectMap.insert(make_pair(item, this));
+}
+
 void GameObject::Destroy(GameObject* p_GameObject)
 {
 	m_SafeDestroy.insert(make_pair(p_GameObject, 0.f));
@@ -363,6 +435,8 @@ void GameObject::SafeDestroy()
 
 void GameObject::Erase(GameObject* p_GameObject)
 {
+	if (DXFGame::m_DebugMode) DXFGame::DebugUpdate();
+
 	list<SPTR<GameObject>>::iterator iter = Var::Objects.begin();
 
 	while (iter != Var::Objects.end())
@@ -476,6 +550,33 @@ GameObject* GameObject::Instantiate(GameObject* p_GameObject)
 	if (parent != nullptr)
 	{
 		AddObjectToScene(newObject, parent);
+
+		if (transform != nullptr)
+		{
+			Transform* newTransform = GetComponentFromObject(newObject, Transform);
+
+			for (int i = 0; i < transform->GetChildCount(); ++i)
+			{
+				GameObject* child = transform->GetChild(i)->gameObject;
+				GameObject* newChild = Instantiate(child);
+				Transform* childTransform = GetComponentFromObject(newChild, Transform);
+				
+				newTransform->AddChild(childTransform);
+			}
+		}
+		if (recttransform != nullptr)
+		{
+			RectTransform* newRecttransform = GetComponentFromObject(newObject, RectTransform);
+
+			for (int i = 0; i < recttransform->GetChildCount(); ++i)
+			{
+				GameObject* child = recttransform->GetChild(i)->gameObject;
+				GameObject* newChild = Instantiate(child);
+				RectTransform* childRecttransform = GetComponentFromObject(newChild, RectTransform);
+
+				newRecttransform->AddChild(childRecttransform);
+			}
+		}
 	}
 	else
 	{

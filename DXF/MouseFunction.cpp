@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-vector<pair< MouseFunction*, bool* >> MouseFunction::m_UniqueMouseFunctions;
+vector<pair<MouseFunction*, bool*>> MouseFunction::m_UniqueMouseFunctions;
 
 MouseFunction::MouseFunction(const bool& p_isUnique)
 	: m_isUnique(p_isUnique) {}

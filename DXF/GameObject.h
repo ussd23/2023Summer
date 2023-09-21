@@ -58,6 +58,7 @@ protected:
 	static map<GameObject*, float>	m_SafeDestroy;
 
 public:
+	bool							m_DebugExtended = false;
 	string							m_Name;
 	list<SPTR<Component>>			m_Components;
 
@@ -72,6 +73,7 @@ public:
 
 	template <class T> void AddComponent(T* p_Comp);
 	Component* GetComponent(const string& p_Key);
+	Component* GetComponent(int p_Index);
 	template <class T> T* GetComponent();
 	void RemoveComponent(Component* p_Comp);
 
@@ -83,6 +85,8 @@ public:
 	void Update();
 	void LateUpdate();
 	void PreRender();
+
+	void DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem);
 
 	static void Destroy(GameObject* p_GameObject);
 	static void Destroy(GameObject* p_GameObject, float p_Time);

@@ -37,7 +37,7 @@ void SpriteRenderer::PreRender()
     Vector2 pos = m_RectTransform->GetScreenPosition();
     Vector2 scale = m_RectTransform->GetScreenScale();
     Vector2 size = m_RectTransform->m_Size;
-    
+
     RECT rect;
     SetRect(&rect, pos.x - size.x * scale.x, pos.y - size.y * scale.y, pos.x + size.x * scale.x, pos.y + size.y * scale.y);
 
@@ -71,14 +71,14 @@ void SpriteRenderer::Render()
     Vector2 temp = Vector2(m_TextureSize.right / m_RectSize.x, m_TextureSize.bottom / m_RectSize.y);
     RECT rect;
     SetRect(&rect, m_RectIndex.x * temp.x, m_RectIndex.y * temp.y, (m_RectIndex.x + 1) * temp.x, (m_RectIndex.y + 1) * temp.y);
-
+    
     Vector2 pos = m_RectTransform->GetScreenPosition();
     Quaternion rot = m_RectTransform->GetScreenRotation();
     Vector2 scale = m_RectTransform->GetScreenScale();
     Vector2 size = m_RectTransform->m_Size;
 
-    Matrix matScreenPosition;
-    D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
+	Matrix matScreenPosition;
+	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
 
     Matrix16 matScreenRotation;
     D3DXMatrixRotationQuaternion(&matScreenRotation, &rot);
@@ -89,7 +89,7 @@ void SpriteRenderer::Render()
     Matrix16 matScreenSet;
     D3DXMatrixIdentity(&matScreenSet);
     matScreenSet = matScreenScale * matScreenRotation * matScreenPosition;
-    DXFGame::m_pSprite->SetTransform(&matScreenSet);
+	DXFGame::m_pSprite->SetTransform(&matScreenSet);
     DXFGame::m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
     if (m_RectTransform->gameObject->m_Name.compare("viewbox") == 0)
@@ -137,7 +137,6 @@ void SpriteRenderer::Render()
     }
 
     DXFGame::m_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
-
     DXFGame::m_pSprite->End();
 }
 

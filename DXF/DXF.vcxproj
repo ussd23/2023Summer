@@ -147,6 +147,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContentBox.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Functions.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="RectTransform.h" />
     <ClInclude Include="ComponentHeader.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scroll.h" />
     <ClInclude Include="ScrollBar.h" />
@@ -221,6 +223,9 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="VerticeRenderer.h" />
     <ClInclude Include="ViewBox.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DXF.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

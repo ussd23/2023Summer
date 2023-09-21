@@ -18,6 +18,12 @@ public:
         RefUp();
     }
 
+    SPTR(SPTR&& other)
+    {
+        ptr = other.ptr;
+        RefUp();
+    }
+
     SPTR(const SPTR& other)
     {
         ptr = other.ptr;

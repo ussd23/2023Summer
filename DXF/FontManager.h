@@ -26,5 +26,8 @@ protected:
 public:
 	LPD3DXFONT GetFont(const string& p_FontName, const int& p_Size);
 	void Cleanup();
+
+	void OnLost();
+	void OnReset();
 };
 
