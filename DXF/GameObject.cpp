@@ -413,6 +413,7 @@ void GameObject::Destroy(GameObject* p_GameObject, float p_Time)
 
 void GameObject::SafeDestroy()
 {
+	if (Time::paused) return;
 	if (m_SafeDestroy.size() == 0) return;
 
 	map<GameObject*, float>::iterator iter = m_SafeDestroy.begin();

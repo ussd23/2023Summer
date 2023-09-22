@@ -9,6 +9,8 @@ int Time::passedTime = 0;
 FLOAT Time::deltaTime = 0;
 int	  Time::framePerSec = 0;
 float Time::avgFrame = 0;
+float Time::speed = 1;
+bool Time::paused = false;
 
 void Time::TimeUpdate()
 {
@@ -22,6 +24,9 @@ void Time::TimeUpdate()
     if (sec == 0) sec = time;
 
     deltaTime = (iTime - pastTime) * 0.001f;
+    
+    if (paused) deltaTime = 0;
+    else deltaTime *= speed;
 
     if (sec != time)
     {

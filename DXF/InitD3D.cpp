@@ -22,7 +22,8 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
         WS_OVERLAPPEDWINDOW, 100, 100, m_Resolution.x + 16, m_Resolution.y + 39,
         NULL, NULL, m_WndClass.hInstance, NULL);
 
-    if (m_DebugMode && !IsWindow(m_hDlg)) {
+    if (m_DebugMode && !IsWindow(m_hDlg))
+    {
         m_hDlg = CreateDialog(hInst, MAKEINTRESOURCE(DEBUG_WINDOW), NULL, DlgProc);
         ShowWindow(m_hDlg, SW_SHOW);
 
@@ -53,7 +54,7 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
     m_d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
     m_d3dpp.EnableAutoDepthStencil = TRUE;
     m_d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
-    //m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+    if (!m_VSync) m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
     if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
         D3DCREATE_HARDWARE_VERTEXPROCESSING,
@@ -72,13 +73,13 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
 
     m_pd3dDevice->GetMaterial(&m_DefaultMaterial);
     m_pd3dDevice->GetTexture(0, &m_DefaultTexture);
-    m_pd3dDevice->CreateDepthStencilSurface(800, 600, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, TRUE, &m_pStencilSurface, NULL);
+    //m_pd3dDevice->CreateDepthStencilSurface(800, 600, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, TRUE, &m_pStencilSurface, NULL);
 
     m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
     m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
     m_pd3dDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE);
     m_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-    m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 1);
+    //m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 1);
 
     D3DXCreateSprite(m_pd3dDevice, &m_pSprite);
 

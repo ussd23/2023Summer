@@ -11,6 +11,7 @@ MSG DXFGame::m_Msg;
 string DXFGame::m_Title = "DXF Sample";
 Vector2 DXFGame::m_Resolution = Vector2(800, 600);
 float DXFGame::m_RenderDistance = 1000.0f;
+bool DXFGame::m_VSync = true;
 LPDIRECT3D9	DXFGame::m_pD3D;
 LPDIRECT3DDEVICE9 DXFGame::m_pd3dDevice;
 D3DPRESENT_PARAMETERS DXFGame::m_d3dpp;
@@ -52,6 +53,8 @@ void DXFGame::ComponentRegister()
 
 void DXFGame::Start()
 {
+    if (Time::paused) return;
+
     for (int i = 0; i < Var::NewComponents.size(); ++i)
     {
         Var::NewComponents[i]->Awake();
@@ -73,6 +76,13 @@ void DXFGame::Start()
 
 void DXFGame::Update()
 {
+    if (m_DebugMode && GetInputBuffer(Key, 'P'))
+    {
+        Time::paused = !Time::paused;
+    }
+
+    if (Time::paused) return;
+
     if (Var::RootObject != nullptr) Var::RootObject->PreUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->PreUpdate();
 
@@ -128,5 +138,17 @@ void DXFGame::Message()
         if (m_pSprite != nullptr) m_pSprite->OnResetDevice();
         FontManager::GetInstance()->OnReset();
         MeshManager::GetInstance()->OnReset();
+    }
+
+    if (m_DebugMode)
+    {
+        stringstream ss;
+        ss << "[Debug Mode";
+        if (Time::paused) ss << " (Paused)";
+        ss << fixed << setprecision(2) << " / " << Time::framePerSec << " fps";
+        if (m_VSync) ss << " (VSync Enabled)";
+        ss << "] " << m_Title;
+
+        SetWindowText(m_hWnd, ss.str().c_str());
     }
 }

@@ -57,6 +57,7 @@ public:
 	static string					m_Title;
 	static Vector2					m_Resolution;
 	static float					m_RenderDistance;
+	static bool						m_VSync;
 	static LPDIRECT3D9				m_pD3D;
 	static LPDIRECT3DDEVICE9		m_pd3dDevice;
 	static D3DPRESENT_PARAMETERS	m_d3dpp;

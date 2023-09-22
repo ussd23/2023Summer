@@ -128,6 +128,8 @@ public:
 	static FLOAT				deltaTime;
 	static int					framePerSec;
 	static float				avgFrame;
+	static float				speed;
+	static bool					paused;
 
 public:
 	static void TimeUpdate();
