@@ -5,15 +5,13 @@
 #define DEBUG_WINDOW                    101
 #define IDC_Hierarchy                   1001
 #define IDC_HierarchyTree               1002
-#define IDC_SCROLLBAR1                  1029
 #define IDC_Create                      1101
 #define IDC_Duplicate                   1102
 #define IDC_Destroy                     1103
+#define IDC_Pause                       1104
 #define IDC_Inspector                   2001
 #define IDC_Active                      2002
 #define IDC_Name                        2003
-#define IDC_Add                         2101
-#define IDC_Delete                      2102
 
 // Next default values for new objects
 // 

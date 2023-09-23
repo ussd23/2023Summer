@@ -62,6 +62,11 @@ void DXFGame::DebugUpdate()
 	{
 		Var::RootRectObject->DebugInsert(tree, TVI_ROOT);
 	}
+    else if (m_HTab == 2)
+    {
+        if (Var::RootObject != nullptr) Var::RootObject->DebugInsert(tree, TVI_ROOT);
+        if (Var::RootRectObject != nullptr) Var::RootRectObject->DebugInsert(tree, TVI_ROOT);
+    }
 
     if (GameObject::Exists(Var::DebugSelected))
     {
@@ -199,6 +204,20 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
             if (Var::DebugSelected != nullptr)
             {
                 GameObject::Destroy(Var::DebugSelected);
+            }
+        }
+        break;
+        case IDC_Pause:
+        {
+            Time::paused = !Time::paused;
+
+            if (Time::paused)
+            {
+                SetWindowText(DebugHandles::GetHandle(IDC_Pause), "¢º Play");
+            }
+            else
+            {
+                SetWindowText(DebugHandles::GetHandle(IDC_Pause), "ll Pause");
             }
         }
         break;

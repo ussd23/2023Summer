@@ -358,13 +358,20 @@ void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
 
 	if (transform != nullptr)
 	{
-		if (transform != Var::RootTransform)
+		if (DXFGame::m_HTab == 2)
 		{
-			if (transform->GetParent() == Var::RootTransform)
-			{
-				ti.hParent = TVI_ROOT;
-			}
 			item = TreeView_InsertItem(p_hWnd, &ti);
+		}
+		else
+		{
+			if (transform != Var::RootTransform)
+			{
+				if (transform->GetParent() == Var::RootTransform)
+				{
+					ti.hParent = TVI_ROOT;
+				}
+				item = TreeView_InsertItem(p_hWnd, &ti);
+			}
 		}
 
 		int count = transform->GetChildCount();
@@ -376,13 +383,20 @@ void GameObject::DebugInsert(HWND p_hWnd, HTREEITEM p_hTItem)
 
 	else if (recttransform != nullptr)
 	{
-		if (recttransform != Var::RootRectTransform)
+		if (DXFGame::m_HTab == 2)
 		{
-			if (recttransform->GetParent() == Var::RootRectTransform)
-			{
-				ti.hParent = TVI_ROOT;
-			}
 			item = TreeView_InsertItem(p_hWnd, &ti);
+		}
+		else
+		{
+			if (recttransform != Var::RootRectTransform)
+			{
+				if (recttransform->GetParent() == Var::RootRectTransform)
+				{
+					ti.hParent = TVI_ROOT;
+				}
+				item = TreeView_InsertItem(p_hWnd, &ti);
+			}
 		}
 
 		int count = recttransform->GetChildCount();
