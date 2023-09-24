@@ -3,6 +3,8 @@
 // DXF.rc에서 사용되고 있습니다.
 //
 #define DEBUG_WINDOW                    101
+#define IDI_Icon                        201
+#define IDI_Icon_Debug                  202
 #define IDC_Hierarchy                   1001
 #define IDC_HierarchyTree               1002
 #define IDC_Create                      1101
@@ -17,7 +19,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        103
+#define _APS_NEXT_RESOURCE_VALUE        109
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1030
 #define _APS_NEXT_SYMED_VALUE           101

@@ -13,7 +13,7 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
     m_WndClass =
     {
         sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L,
-        GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
+        GetModuleHandle(NULL), NULL, LoadCursor(NULL, IDC_ARROW), NULL, NULL,
         "DXF", NULL
     };
     RegisterClassEx(&m_WndClass);
@@ -46,7 +46,15 @@ HRESULT DXFGame::InitD3D(HINSTANCE hInst)
             DEFAULT_QUALITY,
             DEFAULT_PITCH | FF_DONTCARE,
             "MS Shell Dlg");
+
+        HICON hIcon = LoadIcon(m_WndClass.hInstance, MAKEINTRESOURCE(IDI_Icon_Debug));
+        SendMessage(m_hDlg, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+        SendMessage(m_hDlg, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
     }
+
+    HICON hIcon = LoadIcon(m_WndClass.hInstance, MAKEINTRESOURCE(IDI_Icon));
+    SendMessage(m_hWnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+    SendMessage(m_hWnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
 
     if (NULL == (m_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
         return E_FAIL;

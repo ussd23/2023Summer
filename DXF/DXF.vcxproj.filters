@@ -22,6 +22,9 @@
     <Filter Include="0. Core\External Sources">
       <UniqueIdentifier>{80eac979-b5da-46d2-9efd-b59afefaa6cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{2e824940-163c-4c78-8344-943487f331a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InitD3D.cpp">
@@ -143,8 +146,8 @@
     </ClCompile>
     <ClCompile Include="ScrollBar.cpp">
       <Filter>4. Components</Filter>
-	</ClCompile>
-	<ClCompile Include="Debug.cpp">
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -281,9 +284,21 @@
     <ClInclude Include="ScrollBar.h">
       <Filter>4. Components</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="DXF.rc" />
+    <Image Include="icon.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="icon_debug.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DXF.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

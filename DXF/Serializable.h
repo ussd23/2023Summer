@@ -104,7 +104,8 @@ template <typename T> void Serializable::InnerVectorSerialzeFunction(Json::Value
     for (int i = 0; i < p_Value.size(); ++i)
     {
         Json::Value result;
-        InnerSerialzeFunction(result, &p_Value[i]);
+        T value = p_Value[i];
+        InnerSerialzeFunction(result, &value);
 
         p_JsonValue.append(result);
     }

@@ -76,11 +76,6 @@ void DXFGame::Start()
 
 void DXFGame::Update()
 {
-    if (m_DebugMode && GetInputBuffer(Key, 'P'))
-    {
-        Time::paused = !Time::paused;
-    }
-
     if (Time::paused) return;
 
     if (Var::RootObject != nullptr) Var::RootObject->PreUpdate();
