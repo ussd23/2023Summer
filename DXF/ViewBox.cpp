@@ -145,6 +145,7 @@ void ViewBox::MoveContentBox()
     else if (normal.y < 0)
     {
         normal.y = 0;
+        //컨텐츠박스 크기 아래로 연장
     }
 
     //최종 조정된 위치를 콘텐츠박스에 적용
@@ -321,6 +322,7 @@ void ViewBox::OnWheelDown()
 
     if (normal.y < 0)
     {
+        //컨텐츠박스 크기 아래로 연장
         normal.y = 0;
         Vector2 temp = DisNormalizePosition(normal, m_ContentMinRange, m_ContentMaxRange);
         m_ContentRect->SetPosition(temp);
