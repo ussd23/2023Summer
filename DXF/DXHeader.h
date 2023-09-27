@@ -94,8 +94,8 @@ public:
 	static void ChangeSelected();
 	static void UpdateComponent(int p_Index);
 	static void ResetComponent();
-	static void CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate);
-	static void InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate);
+	static void CreateDebugHandles(Json::Value* p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate);
+	static void InnerCreateDebugHandles(Json::Value* p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate);
 	static void ResetHandles();
 	static void UpdateHandles();
 };

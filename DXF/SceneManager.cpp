@@ -19,7 +19,7 @@ void SceneManager::SaveScene(string p_Name)
             if (!json_dir.is_open())
             {
                 string text = "Could not save scene: " + p_Name;
-                MessageBox(NULL, text.c_str(), "Scene Load Failed", MB_OK);
+                MessageBox(NULL, text.c_str(), "Scene Save Failed", MB_OK);
                 return;
             }
         }

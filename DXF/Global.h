@@ -62,7 +62,7 @@ public:
 	static map<HTREEITEM, GameObject*>	DebugObjectMap;
 	static vector<pair<HWND, Vector2>>	DebugHandleStatics;
 	static vector<pair<HWND, Vector2>>	DebugHandleEdits;
-	static vector<string>				DebugValue;
+	static vector<Json::Value*>			DebugValue;
 	static int							DebugInspectorIndex;
 	static int							DebugInspectorMaxIndex;
 	static GameObject*					RootObject;

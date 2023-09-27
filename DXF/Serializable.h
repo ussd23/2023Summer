@@ -113,6 +113,7 @@ template <typename T> void Serializable::InnerVectorSerialzeFunction(Json::Value
 
 template <typename T> void Serializable::InnerVectorDeserialzeFunction(Json::Value& p_JsonValue, vector<T>& p_Value)
 {
+    p_Value.clear();
     for (unsigned int i = 0; i < p_JsonValue.size(); ++i)
     {
         T value;
@@ -146,6 +147,7 @@ template <typename T, typename> void Serializable::InnerSuperVectorSerialzeFunct
 
 template <typename T, typename> void Serializable::InnerSuperVectorDeserialzeFunction(Json::Value& p_JsonValue, vector<T>& p_Value)
 {
+    p_Value.clear();
     for (unsigned int i = 0; i < p_JsonValue.size(); ++i)
     {
         T value;
@@ -180,6 +182,7 @@ template <typename T, typename> void Serializable::InnerSuperVectorSerialzePtrFu
 
 template <typename T, typename> void Serializable::InnerSuperVectorDeserialzePtrFunction(Json::Value& p_JsonValue, vector<T*>& p_Value)
 {
+    p_Value.clear();
     for (unsigned int i = 0; i < p_JsonValue.size(); ++i)
     {
         T* value = new T;

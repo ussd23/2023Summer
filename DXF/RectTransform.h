@@ -68,6 +68,7 @@ protected:
 public:
     RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_Scale, Vector2 p_Size);
 
+    void ScreenUpdate();
     Vector2 GetScreenPosition();
     Quaternion GetScreenRotation();
     Vector2 GetScreenScale();

@@ -10,7 +10,7 @@ Json::Value Var::DebugJson;
 map<HTREEITEM, GameObject*> Var::DebugObjectMap;
 vector<pair<HWND, Vector2>> Var::DebugHandleStatics;
 vector<pair<HWND, Vector2>> Var::DebugHandleEdits;
-vector<string> Var::DebugValue;
+vector<Json::Value*> Var::DebugValue;
 int Var::DebugInspectorIndex = 0;
 int Var::DebugInspectorMaxIndex = 0;
 GameObject* Var::RootObject;

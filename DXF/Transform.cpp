@@ -83,6 +83,13 @@ Transform::Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale)
 	m_Parent = Var::RootTransform;
 }
 
+void Transform::WorldUpdate()
+{
+	SetWorldPosition();
+	SetWorldRotation();
+	SetWorldScale();
+}
+
 Vector3 Transform::GetWorldPosition()
 {
 	return m_WorldPosition;
@@ -203,7 +210,5 @@ void Transform::SetAsLastSibling()
 
 void Transform::Start()
 {
-	SetWorldPosition();
-	SetWorldRotation();
-	SetWorldScale();
+	WorldUpdate();
 }

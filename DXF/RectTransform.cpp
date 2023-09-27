@@ -84,6 +84,13 @@ RectTransform::RectTransform(Vector2 p_Position, Vector3 p_Rotation, Vector2 p_S
 	m_Parent = Var::RootRectTransform;
 }
 
+void RectTransform::ScreenUpdate()
+{
+	SetScreenPosition();
+	SetScreenRotation();
+	SetScreenScale();
+}
+
 Vector2 RectTransform::GetScreenPosition()
 {
 	return m_ScreenPosition;
@@ -204,7 +211,5 @@ void RectTransform::SetAsLastSibling()
 
 void RectTransform::Start()
 {
-	SetScreenPosition();
-	SetScreenRotation();
-	SetScreenScale();
+	ScreenUpdate();
 }

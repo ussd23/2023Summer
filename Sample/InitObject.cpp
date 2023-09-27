@@ -114,6 +114,7 @@ void Sample::InitObject()
     BtnText* btext = new BtnText();
     AddComponentToObject(gameObject, btext);
     RectTransform* recttransform = GetComponentFromObject(gameObject, RectTransform);
+    recttransform->SetRotation(Functions::EulerToQuaternion(Vector3(0, 0, 0)));
     RectTransform* childrecttransform = GetComponentFromObject(childObject, RectTransform);
     recttransform->AddChild(childrecttransform);
 

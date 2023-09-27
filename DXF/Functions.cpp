@@ -136,3 +136,32 @@ Vector3 Functions::QuaternionToEuler(Quaternion p_Quaternion)
     Vector3 vec = Vector3(x, y, z);
     return vec;
 }
+
+void CreateJsonFile(string p_Path, Json::Value p_JsonValue)
+{
+    Json::StyledStreamWriter writer;
+    string path = "scenes\\" + p_Path + ".txt";
+    ofstream json_dir(path.c_str());
+
+    if (!json_dir.is_open())
+    {
+        path = "..\\scenes\\" + p_Path + ".txt";
+        json_dir.open(path.c_str());
+        if (!json_dir.is_open())
+        {
+            path = "..\\..\\scenes\\" + p_Path + ".txt";
+            json_dir.open(path.c_str());
+            if (!json_dir.is_open())
+            {
+                string text = "Could not save json file: " + p_Path;
+                MessageBox(NULL, text.c_str(), "Json File Create Failed", MB_OK);
+                return;
+            }
+        }
+    }
+
+    writer.write(json_dir, p_JsonValue);
+
+    json_dir.close();
+
+}

@@ -40,6 +40,8 @@ Vector3 SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_Ler
 
 Quaternion EulerToQuaternion(Vector3 p_Euler);
 Vector3 QuaternionToEuler(Quaternion p_Quaternion);
+
+void CreateJsonFile(string p_Path, Json::Value p_JsonValue);
 }
 
 template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)

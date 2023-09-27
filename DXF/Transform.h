@@ -64,6 +64,7 @@ protected:
 public:
     Transform(Vector3 p_Position, Vector3 p_Rotation, Vector3 p_Scale);
 
+    void WorldUpdate();
     Vector3 GetWorldPosition();
     Quaternion GetWorldRotation();
     Vector3 GetWorldScale();

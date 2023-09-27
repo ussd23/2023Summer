@@ -1,0 +1,253 @@
+#include "Serializable.h"
+
+#define CATCH catch (const Json::LogicError& e) { MessageBox(NULL, e.what(), "JsonError", MB_OK); }
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, int* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, int* p_Value)
+{
+	int _int = *p_Value;
+	try { _int = p_JsonValue.asInt(); } CATCH;
+	*p_Value = _int;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned int* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned int* p_Value)
+{
+	unsigned int _uint = *p_Value;
+	try { _uint = p_JsonValue.asUInt(); } CATCH;
+	*p_Value = _uint;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, long* p_Value)
+{
+	p_JsonValue = (int)*p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, long* p_Value)
+{
+	int _int = *p_Value;
+	try { _int = p_JsonValue.asInt(); } CATCH;
+	*p_Value = (long)_int;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned long* p_Value)
+{
+	p_JsonValue = (unsigned int)*p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned long* p_Value)
+{
+	unsigned int _uint = *p_Value;
+	try { _uint = p_JsonValue.asUInt(); } CATCH;
+	*p_Value = (unsigned long)_uint;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, long long* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, long long* p_Value)
+{
+	long long _longlong = *p_Value;
+	try { _longlong = p_JsonValue.asInt64(); } CATCH;
+	*p_Value = _longlong;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, unsigned long long* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, unsigned long long* p_Value)
+{
+	unsigned long long _ulonglong = *p_Value;
+	try { _ulonglong = p_JsonValue.asUInt64(); } CATCH;
+	*p_Value = _ulonglong;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, float* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, float* p_Value)
+{
+	float _float = *p_Value;
+	try { _float = p_JsonValue.asFloat(); } CATCH;
+	*p_Value = _float;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, double* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, double* p_Value)
+{
+	double _double = *p_Value;
+	try { _double = p_JsonValue.asDouble(); } CATCH;
+	*p_Value = _double;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, bool* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, bool* p_Value)
+{
+	bool _bool = *p_Value;
+	try { _bool = p_JsonValue.asBool(); } CATCH;
+	*p_Value = _bool;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, string* p_Value)
+{
+	p_JsonValue = *p_Value;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, string* p_Value)
+{
+	string _string = *p_Value;
+	try { _string = p_JsonValue.asString(); } CATCH;
+	*p_Value = _string;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, Vector2* p_Value)
+{
+	p_JsonValue["x"] = p_Value->x;
+	p_JsonValue["y"] = p_Value->y;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, Vector2* p_Value)
+{
+	float _float = p_Value->x;
+	try { _float = p_JsonValue["x"].asFloat(); } CATCH;
+	p_Value->x = _float;
+
+	_float = p_Value->y;
+	try { _float = p_JsonValue["y"].asFloat(); } CATCH;
+	p_Value->y = _float;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, Vector3* p_Value)
+{
+	p_JsonValue["x"] = p_Value->x;
+	p_JsonValue["y"] = p_Value->y;
+	p_JsonValue["z"] = p_Value->z;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, Vector3* p_Value)
+{
+	float _float = p_Value->x;
+	try { _float = p_JsonValue["x"].asFloat(); } CATCH;
+	p_Value->x = _float;
+
+	_float = p_Value->y;
+	try { _float = p_JsonValue["y"].asFloat(); } CATCH;
+	p_Value->y = _float;
+
+	_float = p_Value->z;
+	try { _float = p_JsonValue["z"].asFloat(); } CATCH;
+	p_Value->z = _float;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, Vector4* p_Value)
+{
+	p_JsonValue["x"] = p_Value->x;
+	p_JsonValue["y"] = p_Value->y;
+	p_JsonValue["z"] = p_Value->z;
+	p_JsonValue["w"] = p_Value->w;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, Vector4* p_Value)
+{
+	float _float = p_Value->x;
+	try { _float = p_JsonValue["x"].asFloat(); } CATCH;
+	p_Value->x = _float;
+
+	_float = p_Value->y;
+	try { _float = p_JsonValue["y"].asFloat(); } CATCH;
+	p_Value->y = _float;
+
+	_float = p_Value->z;
+	try { _float = p_JsonValue["z"].asFloat(); } CATCH;
+	p_Value->z = _float;
+
+	_float = p_Value->w;
+	try { _float = p_JsonValue["w"].asFloat(); } CATCH;
+	p_Value->w = _float;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, Quaternion* p_Value)
+{
+	p_JsonValue["x"] = p_Value->x;
+	p_JsonValue["y"] = p_Value->y;
+	p_JsonValue["z"] = p_Value->z;
+	p_JsonValue["w"] = p_Value->w;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, Quaternion* p_Value)
+{
+	float _float = p_Value->x;
+	try { _float = p_JsonValue["x"].asFloat(); } CATCH;
+	p_Value->x = _float;
+
+	_float = p_Value->y;
+	try { _float = p_JsonValue["y"].asFloat(); } CATCH;
+	p_Value->y = _float;
+
+	_float = p_Value->z;
+	try { _float = p_JsonValue["z"].asFloat(); } CATCH;
+	p_Value->z = _float;
+
+	_float = p_Value->w;
+	try { _float = p_JsonValue["w"].asFloat(); } CATCH;
+	p_Value->w = _float;
+}
+
+void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, Vertex* p_Value)
+{
+	p_JsonValue["x"] = p_Value->x;
+	p_JsonValue["y"] = p_Value->y;
+	p_JsonValue["z"] = p_Value->z;
+	p_JsonValue["tu"] = p_Value->tu;
+	p_JsonValue["tv"] = p_Value->tv;
+	p_JsonValue["color"] = (unsigned int)p_Value->color;
+}
+
+void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, Vertex* p_Value)
+{
+	float _float = p_Value->x;
+	try { _float = p_JsonValue["x"].asFloat(); } CATCH;
+	p_Value->x = _float;
+
+	_float = p_Value->y;
+	try { _float = p_JsonValue["y"].asFloat(); } CATCH;
+	p_Value->y = _float;
+
+	_float = p_Value->z;
+	try { _float = p_JsonValue["z"].asFloat(); } CATCH;
+	p_Value->z = _float;
+
+	_float = p_Value->tu;
+	try { _float = p_JsonValue["tu"].asFloat(); } CATCH;
+	p_Value->tu = _float;
+
+	_float = p_Value->tv;
+	try { _float = p_JsonValue["tv"].asFloat(); } CATCH;
+	p_Value->tv = _float;
+
+	unsigned int _uint = p_Value->color;
+	try { _uint = p_JsonValue.asUInt(); } CATCH;
+	p_Value->color = (unsigned long)_uint;
+}

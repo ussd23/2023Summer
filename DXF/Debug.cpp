@@ -447,7 +447,7 @@ void DXFGame::UpdateComponent(int p_Index)
     int gridX = 0;
     int gridY = 0;
 
-    CreateDebugHandles(Var::DebugJson, gridX, gridY, false, false);
+    CreateDebugHandles(&Var::DebugJson, gridX, gridY, false, false);
     m_HandleUpdateTerm = 0;
     Var::DebugInspectorMaxIndex = gridY;
 }
@@ -465,13 +465,13 @@ void DXFGame::ResetComponent()
     Var::DebugComponent = nullptr;
 }
 
-void DXFGame::CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate)
+void DXFGame::CreateDebugHandles(Json::Value* p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate)
 {
     if (p_isArray)
     {
-        for (unsigned int i = 0; i < p_JsonValue.size(); ++i)
+        for (unsigned int i = 0; i < p_JsonValue->size(); ++i)
         {
-            Json::Value value = p_JsonValue[i];
+            Json::Value* value = &(*p_JsonValue)[i];
 
             if (!p_isUpdate)
             {
@@ -492,11 +492,11 @@ void DXFGame::CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_
     }
     else
     {
-        for (string member : p_JsonValue.getMemberNames())
+        for (string member : p_JsonValue->getMemberNames())
         {
             if (member == "m_ChildID") continue;
 
-            Json::Value value = p_JsonValue[member];
+            Json::Value* value = &(*p_JsonValue)[member];
 
             if (!p_isUpdate)
             {
@@ -515,21 +515,21 @@ void DXFGame::CreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_
     }
 }
 
-void DXFGame::InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate)
+void DXFGame::InnerCreateDebugHandles(Json::Value* p_JsonValue, int& p_GridX, int& p_GridY, bool p_isArray, bool p_isUpdate)
 {
-    if (p_JsonValue.isObject())
+    if (p_JsonValue->isObject())
     {
         CreateDebugHandles(p_JsonValue, ++p_GridX, p_isArray ? p_GridY : ++p_GridY, false, p_isUpdate);
         --p_GridX;
     }
-    else if (p_JsonValue.isArray())
+    else if (p_JsonValue->isArray())
     {
         CreateDebugHandles(p_JsonValue, ++p_GridX, p_isArray ? p_GridY : ++p_GridY, true, p_isUpdate);
         --p_GridX;
     }
     else
     {
-        if (p_JsonValue.isNull())
+        if (p_JsonValue->isNull())
         {
             if (!p_isUpdate)
             {
@@ -544,14 +544,14 @@ void DXFGame::InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, in
             }
             else
             {
-                Var::DebugValue.push_back("");
+                Var::DebugValue.push_back(p_JsonValue);
             }
         }
         else
         {
             if (!p_isUpdate)
             {
-                HWND hwndEdit = CreateWindow("EDIT", p_JsonValue.asString().c_str(), WS_VISIBLE | WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
+                HWND hwndEdit = CreateWindow("EDIT", p_JsonValue->asString().c_str(), WS_VISIBLE | WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | ES_AUTOHSCROLL,
                     EDIT_POSITION_X_VALUE + EDIT_INTERVAL_WIDTH * p_GridX, EDIT_POSITION_Y_VALUE + EDIT_INTERVAL_HEIGHT * p_GridY,
                     EDIT_WIDTH_VALUE - EDIT_INTERVAL_WIDTH * p_GridX, EDIT_HEIGHT, m_hDlg, NULL, m_WndClass.hInstance, NULL);
                 SendMessage(hwndEdit, WM_SETFONT, (WPARAM)m_hFont, TRUE);
@@ -561,7 +561,7 @@ void DXFGame::InnerCreateDebugHandles(Json::Value& p_JsonValue, int& p_GridX, in
             }
             else
             {
-                Var::DebugValue.push_back(p_JsonValue.asString());
+                Var::DebugValue.push_back(p_JsonValue);
             }
         }
 
@@ -607,7 +607,11 @@ void DXFGame::UpdateHandles()
         int gridX = 0;
         int gridY = 0;
 
-        CreateDebugHandles(Var::DebugJson, gridX, gridY, false, true);
+        CreateDebugHandles(&Var::DebugJson, gridX, gridY, false, true);
+
+        HWND handle = GetFocus();
+
+        bool deserialize = false;
 
         vector<pair<HWND, Vector2>>::iterator iter = Var::DebugHandleEdits.begin();
         for (int i = 0; iter != Var::DebugHandleEdits.end(); ++i)
@@ -615,12 +619,60 @@ void DXFGame::UpdateHandles()
             TCHAR buffer[256];
             GetWindowText(iter->first, buffer, 255);
 
-            if (string(buffer) != Var::DebugValue[i])
+            if (iter->first == handle)
             {
-                SetWindowText(iter->first, Var::DebugValue[i].c_str());
+                if (string(buffer) != Var::DebugValue[i]->asString())
+                {
+                    string str = string(buffer);
+
+                    if (!str.empty())
+                    {
+                        switch (Var::DebugValue[i]->type())
+                        {
+                        case Json::ValueType::intValue:
+                            try { *Var::DebugValue[i] = atoi(str.c_str()); }
+                            catch (const std::invalid_argument& e) {}
+                            break;
+                        case Json::ValueType::booleanValue:
+                            *Var::DebugValue[i] = (str == "true" || str == "1");
+                            break;
+                        case Json::ValueType::realValue:
+                            try { *Var::DebugValue[i] = stod(str.c_str()); }
+                            catch (const std::invalid_argument& e) { }
+                            break;
+                        case Json::ValueType::stringValue:
+                            *Var::DebugValue[i] = str;
+                            break;
+                        }
+
+                        deserialize = true;
+                    }
+                }
+            }
+            else
+            {
+                string str = Var::DebugValue[i]->asString();
+                if (string(buffer) != str)
+                {
+                    SetWindowText(iter->first, str.c_str());
+                }
             }
 
             ++iter;
+        }
+
+        if (deserialize)
+        {
+            Var::DebugComponent->JsonDeserialize(Var::DebugJson);
+            string id = typeid(*Var::DebugComponent).name();
+            if (id == "class Transform")
+            {
+                dynamic_cast<Transform*>(Var::DebugComponent)->WorldUpdate();
+            }
+            else if (id == "class RectTransform")
+            {
+                dynamic_cast<RectTransform*>(Var::DebugComponent)->ScreenUpdate();
+            }
         }
     }
 }
