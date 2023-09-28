@@ -22,9 +22,5 @@ public:
 	{
 		Serialize(m_Text);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_Text);
-	}
 };
 

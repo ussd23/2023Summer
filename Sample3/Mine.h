@@ -37,8 +37,4 @@ public:
 	{
 		Serialize(Mine_Check);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(Mine_Check);
-	}
 };

@@ -97,21 +97,16 @@ public:
 
     SerializeFunction(RectTransform)
     {
-        m_ChildID.clear();
-        for (int i = 0; i < m_Childs.size(); ++i) m_ChildID.push_back(GameObject::ObjectID(m_Childs[i]));
+        if (p_Mode)
+        {
+            m_ChildID.clear();
+            for (int i = 0; i < m_Childs.size(); ++i) m_ChildID.push_back(GameObject::ObjectID(m_Childs[i]));
+        }
         VectorSerialize(m_ChildID);
         Serialize(m_Position);
         Serialize(m_Rotation);
         Serialize(m_Scale);
         Serialize(m_Size);
-    }
-    DeserializeFunction()
-    {
-        VectorDeserialize(m_ChildID);
-        Deserialize(m_Position);
-        Deserialize(m_Rotation);
-        Deserialize(m_Scale);
-        Deserialize(m_Size);
     }
 };
 

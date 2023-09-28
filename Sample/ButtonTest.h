@@ -14,6 +14,5 @@ public:
 	void AddCallFN(/*ButtonTest& p_classtarget, void(*m_CallFN)()*/);
 
 	SerializeFunction(ButtonTest) {}
-	DeserializeFunction() {}
 };
 

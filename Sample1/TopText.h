@@ -17,6 +17,5 @@ public:
 	void Update() override;
 
 	SerializeFunction(TopText) {}
-	DeserializeFunction() {}
 };
 

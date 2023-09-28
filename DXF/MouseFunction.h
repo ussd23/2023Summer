@@ -52,9 +52,5 @@ public:
 	{
 		Serialize(m_isUnique);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_isUnique);
-	}
 };
 

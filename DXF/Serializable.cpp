@@ -177,3 +177,13 @@ void Serializable::InnerDeserialzeFunction(Json::Value& p_JsonValue, Vertex* p_V
 	p_Value->tu = p_JsonValue["tu"].asFloat();
 	p_Value->tv = p_JsonValue["tv"].asFloat();
 }
+
+void Serializable::JsonSerialize(Json::Value& p_JsonValue)
+{
+	JsonFunction(p_JsonValue, true);
+}
+
+void Serializable::JsonDeserialize(Json::Value& p_JsonValue)
+{
+	JsonFunction(p_JsonValue, false);
+}

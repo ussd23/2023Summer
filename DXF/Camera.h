@@ -37,8 +37,4 @@ public:
 	{
 		Serialize(m_LookatPt);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_LookatPt);
-	}
 };

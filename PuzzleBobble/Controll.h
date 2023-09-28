@@ -20,5 +20,4 @@ public:
 	void Update() override;
 
 	SerializeFunction(Controll) {}
-	DeserializeFunction() {}
 };

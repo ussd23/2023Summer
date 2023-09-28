@@ -46,5 +46,4 @@ public:
 	Vector2 GetScrollBarMaxRange();
 
 	SerializeFunction(ViewBox) {}
-	DeserializeFunction() {}
 };

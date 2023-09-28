@@ -26,10 +26,5 @@ public:
 
 	void MoveScrollBar();
 
-	SerializeFunction(ScrollBar)
-	{
-	}
-	DeserializeFunction()
-	{
-	}
+	SerializeFunction(ScrollBar) {}
 };

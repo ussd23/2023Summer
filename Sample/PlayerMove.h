@@ -42,9 +42,5 @@ public:
 	{
 		Serialize(m_Speed);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_Speed);
-	}
 };
 

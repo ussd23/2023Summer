@@ -55,11 +55,4 @@ public:
 		Serialize(m_RectSize);
 		Serialize(m_RectIndex);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_TextureName);
-		Deserialize(m_Color);
-		Deserialize(m_RectSize);
-		Deserialize(m_RectIndex);
-	}
 };

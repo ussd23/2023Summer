@@ -41,7 +41,7 @@ public:
 
 	SerializeFunction(Minesweeper)
 	{
-		if (!IsStart) return;
+		if (!IsStart || !p_Mode) return;
 
 		vector<string> cheat;
 
@@ -56,9 +56,6 @@ public:
 			cheat.push_back(ss.str());
 		}
 		VectorSerialize(cheat);
-	}
-	DeserializeFunction()
-	{
 	}
 };
 

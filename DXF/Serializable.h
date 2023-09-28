@@ -9,27 +9,25 @@ class Serializable;
 
 #define SerializeFunction(type) \
 type() = default;\
-void JsonSerialize(Json::Value& p_JsonValue) override
-#define DeserializeFunction() \
-void JsonDeserialize(Json::Value p_JsonValue) override
+void JsonFunction(Json::Value& p_JsonValue, const bool& p_Mode) override
 
-#define Serialize(value) InnerSerialzeFunction(p_JsonValue[#value], &value);
-#define Deserialize(value) InnerDeserialzeFunction(p_JsonValue[#value], &value);
-#define VectorSerialize(value) InnerVectorSerialzeFunction(p_JsonValue[#value], value);
-#define VectorDeserialize(value) InnerVectorDeserialzeFunction(p_JsonValue[#value], value);
+#define Serialize(value) if (p_Mode) InnerSerialzeFunction(p_JsonValue[#value], &value);\
+else InnerDeserialzeFunction(p_JsonValue[#value], &value);
+#define VectorSerialize(value) if (p_Mode) InnerVectorSerialzeFunction(p_JsonValue[#value], value);\
+else InnerVectorDeserialzeFunction(p_JsonValue[#value], value);
 
-#define SuperSerialize(value) InnerSuperSerialzeFunction(p_JsonValue[#value], value);
-#define SuperDeserialize(value) InnerSuperDeserialzeFunction(p_JsonValue[#value], value);
-#define SuperVectorSerialize(value) InnerSuperVectorSerialzeFunction(p_JsonValue[#value], value);
-#define SuperVectorDeserialize(value) InnerSuperVectorDeserialzeFunction(p_JsonValue[#value], value);
+#define SuperSerialize(value) if (p_Mode) InnerSuperSerialzeFunction(p_JsonValue[#value], value);\
+else InnerSuperDeserialzeFunction(p_JsonValue[#value], value);
+#define SuperVectorSerialize(value) if (p_Mode) InnerSuperVectorSerialzeFunction(p_JsonValue[#value], value);\
+else InnerSuperVectorDeserialzeFunction(p_JsonValue[#value], value);
 
-#define SuperSerializePtr(value) InnerSuperSerialzePtrFunction(p_JsonValue[#value], value);
-#define SuperDeserializePtr(value) InnerSuperDeserialzePtrFunction(p_JsonValue[#value], value);
-#define SuperVectorSerializePtr(value) InnerSuperVectorSerialzePtrFunction(p_JsonValue[#value], value);
-#define SuperVectorDeserializePtr(value) InnerSuperVectorDeserialzePtrFunction(p_JsonValue[#value], value);
+#define SuperSerializePtr(value) if (p_Mode) InnerSuperSerialzePtrFunction(p_JsonValue[#value], value);\
+else InnerSuperDeserialzePtrFunction(p_JsonValue[#value], value);
+#define SuperVectorSerializePtr(value) if (p_Mode) InnerSuperVectorSerialzePtrFunction(p_JsonValue[#value], value);\
+else InnerSuperVectorDeserialzePtrFunction(p_JsonValue[#value], value);
 
-#define ComponentSerialize(value) ComponentSerialzeFunction(p_JsonValue[#value], value);
-#define ComponentDeserialize(value) ComponentDeserialzeFunction(p_JsonValue[#value], value);
+#define ComponentSerialize(value) if (p_Mode) ComponentSerialzeFunction(p_JsonValue[#value], value);\
+else ComponentDeserialzeFunction(p_JsonValue[#value], value);
 
 class Serializable
 {
@@ -85,8 +83,9 @@ protected:
     template <typename T, typename = std::enable_if_t<std::is_base_of_v<Serializable, T>>> void ComponentDeserialzeFunction(Json::Value& p_JsonValue, vector<T*>& p_Value);
 
 public:
-    virtual void JsonSerialize(Json::Value& p_JsonValue) = 0;
-    virtual void JsonDeserialize(Json::Value p_JsonValue) = 0;
+    void JsonSerialize(Json::Value& p_JsonValue);
+    void JsonDeserialize(Json::Value& p_JsonValue);
+    virtual void JsonFunction(Json::Value& p_JsonValue, const bool& p_Mode) = 0;
 };
 
 template <typename T> void Serializable::InnerSerialzeFunction(Json::Value& p_JsonValue, T* p_Value)

@@ -42,11 +42,5 @@ public:
 		Serialize(m_Code);
 		Serialize(m_PosInManager);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_Code);
-		Deserialize(m_PosInManager);
-	}
-
 };
 

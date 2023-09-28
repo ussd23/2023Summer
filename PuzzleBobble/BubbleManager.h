@@ -10,15 +10,6 @@ public:
 public:
 	void Awake() override;
 
-	SerializeFunction(BubbleManager)
-	{
-		//Serialize(m_AllBubble);
-	}
-	DeserializeFunction()
-	{
-		//Deserialize(m_AllBubble);
-	}
-
-
+	SerializeFunction(BubbleManager) {}
 };
 

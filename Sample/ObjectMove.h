@@ -30,6 +30,5 @@ public:
 	void Update() override;
 
 	SerializeFunction(ObjectMove) {}
-	DeserializeFunction() {}
 };
 

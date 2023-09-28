@@ -99,8 +99,8 @@ public:
 
 	void operator = (void* p_Ptr);
 
-	SerializeFunction(GameObject);
-	DeserializeFunction();
+	GameObject() = default;
+	void JsonFunction(Json::Value& p_JsonValue, const bool& p_Mode) override;
 };
 
 template <class T> void GameObject::AddComponent(T* p_Comp)

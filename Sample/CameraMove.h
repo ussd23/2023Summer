@@ -29,9 +29,5 @@ public:
 	{
 		Serialize(m_LerpT);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_LerpT);
-	}
 };
 

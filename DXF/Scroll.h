@@ -25,8 +25,4 @@ public:
 	{
 		Serialize(m_IsVertical);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_IsVertical);
-	}
 };

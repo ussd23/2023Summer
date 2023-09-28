@@ -45,11 +45,6 @@ public:
 		Serialize(index);
 		Serialize(time);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(index);
-		Deserialize(time);
-	}
 };
 
 class Animator : public Component
@@ -85,13 +80,5 @@ public:
 		Serialize(m_RefreshTime);
 		Serialize(m_isVertical);
 		SuperVectorSerialize(m_DynamicIndex);
-	}
-	DeserializeFunction()
-	{
-		Deserialize(m_IndexMin);
-		Deserialize(m_IndexMax);
-		Deserialize(m_RefreshTime);
-		Deserialize(m_isVertical);
-		SuperVectorDeserialize(m_DynamicIndex);
 	}
 };

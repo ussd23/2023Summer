@@ -607,23 +607,20 @@ void GameObject::operator = (void* p_Ptr)
 	if (p_Ptr == nullptr) GameObject::Destroy(this);
 }
 
-void GameObject::JsonSerialize(Json::Value& p_JsonValue)
+void GameObject::JsonFunction(Json::Value& p_JsonValue, const bool& p_Mode)
 {
 	Serialize(m_Name);
 	Serialize(m_isActive);
-	vector<Component*> components;
-	for (SPTR<Component> c : m_Components) components.push_back(c());
-	ComponentSerialize(components);
-}
-
-void GameObject::JsonDeserialize(Json::Value p_JsonValue)
-{
-	Deserialize(m_Name);
-	Deserialize(m_isActive);
-	vector<Component*> components;
-	ComponentDeserialize(components);
-	for (Component* c : components)
+	if (p_Mode)
 	{
-		AddComponent(c);
+		vector<Component*> components;
+		for (SPTR<Component> c : m_Components) components.push_back(c());
+		ComponentSerialize(components);
+	}
+	else
+	{
+		vector<Component*> components;
+		ComponentSerialize(components);
+		for (Component* c : components) AddComponent(c);
 	}
 }

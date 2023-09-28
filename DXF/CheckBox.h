@@ -28,11 +28,5 @@ public:
 		Serialize(m_CheckedTextureName);
 		Serialize(m_isChecked);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_DefaultTextureName);
-		Deserialize(m_CheckedTextureName);
-		Deserialize(m_isChecked);
-	}
 };
 

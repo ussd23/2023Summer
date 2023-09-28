@@ -72,15 +72,5 @@ public:
 		Serialize(m_RectSize);
 		Serialize(m_RectIndex);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_TextureName);
-		VectorDeserialize(m_Vertices);
-		Deserialize(m_Type);
-		Deserialize(m_StartVertex);
-		Deserialize(m_Count);
-		Deserialize(m_RectSize);
-		Deserialize(m_RectIndex);
-	}
 };
 

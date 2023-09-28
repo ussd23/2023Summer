@@ -35,12 +35,5 @@ public:
 		Serialize(m_isFixedChecking);
 		Serialize(m_CheckTime);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_Radius);
-		Deserialize(m_isPassive);
-		Deserialize(m_isFixedChecking);
-		Deserialize(m_CheckTime);
-	}
 };
 

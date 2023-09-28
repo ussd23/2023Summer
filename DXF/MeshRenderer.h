@@ -39,8 +39,4 @@ public:
 	{
 		Serialize(m_ModelName);
 	}
-	DeserializeFunction()
-	{
-		Deserialize(m_ModelName);
-	}
 };

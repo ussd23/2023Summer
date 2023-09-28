@@ -9,6 +9,5 @@ public:
 	void Start() override;
 
 	SerializeFunction(ContentBox) {}
-	DeserializeFunction() {}
 };
 
