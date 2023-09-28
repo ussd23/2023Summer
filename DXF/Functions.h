@@ -46,6 +46,7 @@ void CreateJsonFile(string p_Path, Json::Value p_JsonValue);
 
 template <typename T> T Functions::Lerp(T p_Start, T p_End, float p_LerpT)
 {
+    if (p_LerpT > 1) p_LerpT = 1;
     return p_Start + p_LerpT * (p_End - p_Start);
 }
 
