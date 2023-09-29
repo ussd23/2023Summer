@@ -18,8 +18,6 @@ private:
 	RectTransform*		m_VScrollBarRect;
 	RectTransform*		m_HScrollRect;
 	RectTransform*		m_HScrollBarRect;
-	Vector2				m_PreContentPos;
-	Vector2				m_PreScrollBarPos;
 	Vector2				m_ContentMinRange;
 	Vector2				m_ContentMaxRange;
 	Vector2				m_ScrollBarMinRange;
@@ -45,6 +43,9 @@ public:
 	Vector2 GetScrollBarMinRange();
 	Vector2 GetScrollBarMaxRange();
 	void AdjustScrollBarSize();
+
+	void ExtendContentBoxSize();
+	Vector2 GetContentBoxSize();
 
 	SerializeFunction(ViewBox) {}
 	DeserializeFunction() {}

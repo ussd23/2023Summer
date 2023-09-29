@@ -16,7 +16,6 @@ void ViewBox::Start()
                 m_ContentRect = ChildRect;
                 ContentBox* tempcont = GetComponentFromObject(m_ContentRect->gameObject, ContentBox);
                 tempcont->InitContPos();
-                m_PreContentPos = m_ContentRect->GetPosition();
             }
             else if (ChildRect->gameObject->m_Name.compare("VerticalScroll") == 0)
             {
@@ -37,7 +36,6 @@ void ViewBox::Start()
                 if (ChildRect->gameObject->m_Name.compare("VerticalScrollBar") == 0)
                 {
                     m_VScrollBarRect = ChildRect;
-                    m_PreScrollBarPos.y = m_VScrollBarRect->GetPosition().y;
                 }
             }
         }
@@ -51,7 +49,6 @@ void ViewBox::Start()
                 if (ChildRect->gameObject->m_Name.compare("HorizontalScrollBar") == 0)
                 {
                     m_HScrollBarRect = ChildRect;
-                    m_PreScrollBarPos.x = m_HScrollBarRect->GetPosition().x;
                 }
             }
         }
@@ -63,8 +60,6 @@ void ViewBox::Start()
 
 void ViewBox::Update()
 {
-    if (m_ContentRect == nullptr) return;
-
     if (m_isDown)
     {
         MoveContentBox();
@@ -76,6 +71,8 @@ void ViewBox::Update()
 
 void ViewBox::MoveContentBox()
 {
+    if (m_ContentRect == nullptr) return;
+
     Vector2 contPos = m_ContentRect->GetPosition();
 
     Vector2 normal = NormalizePosition(contPos, m_ContentMinRange, m_ContentMaxRange);
@@ -117,6 +114,7 @@ void ViewBox::MoveContentBox()
         {
             contPos.y = contPos.y + (Input::MousePosition.y - m_MousePrePos.y);
         }
+
     }
     //어느쪽도 아니라면 자유롭게 움직일 수 있게 함
     else
@@ -146,8 +144,22 @@ void ViewBox::MoveContentBox()
     //조정된 위치가 상향 가동 한계를 넘으면 위치를 한계치로 설정
     else if (normal.y < 0)
     {
-        normal.y = 0;
-        //컨텐츠박스 크기 아래로 연장
+        //컨텐츠박스 높이가 700 미만이면 아래로 덧붙이듯이 연장
+        if (m_ContentRect->m_Size.y < 700)
+        {
+            ExtendContentBoxSize();
+
+            //콘텐츠박스 크기 변경 과정에서 콘텐츠박스의 크기와 위치도 바뀌므로 조정된 위치와 가동영역으로 다시 한번 정규화
+            contPos = m_ContentRect->GetPosition();
+            contPos.x = contPos.x + (Input::MousePosition.x - m_MousePrePos.x);
+
+            normal = NormalizePosition(contPos, m_ContentMinRange, m_ContentMaxRange);
+        }
+        else
+        {
+            normal.y = 0;
+        }
+
     }
 
     //최종 조정된 위치를 콘텐츠박스에 적용
@@ -161,13 +173,30 @@ void ViewBox::MoveContentBox()
 //스크롤바의 위치 변경에 맞춰 콘텐츠 박스 위치 조정
 void ViewBox::UpdateContentBox()
 {
-    Vector2 contPos = m_ContentRect->GetPosition();
-    Vector2 vscbPos = m_VScrollBarRect->GetPosition();
-    Vector2 hscbPos = m_HScrollBarRect->GetPosition();
-
     Vector2 tempPos;
-    tempPos.x = hscbPos.x;
-    tempPos.y = vscbPos.y;
+
+    if (m_ContentRect == nullptr) return;
+    Vector2 contPos = m_ContentRect->GetPosition();
+
+    if (m_VScrollBarRect != nullptr) 
+    {
+        Vector2 vscbPos = m_VScrollBarRect->GetPosition();
+        tempPos.y = vscbPos.y;
+    }
+    else
+    {
+        tempPos.y = 0;
+    }
+
+    if (m_HScrollBarRect != nullptr) 
+    {
+        Vector2 hscbPos = m_HScrollBarRect->GetPosition();
+        tempPos.x = hscbPos.x;
+    }
+    else
+    {
+        tempPos.x = 0;
+    }
 
     Vector2 normal = NormalizePosition(tempPos, m_ScrollBarMinRange, m_ScrollBarMaxRange);
     normal.x = 1 - normal.x;
@@ -181,20 +210,28 @@ void ViewBox::UpdateContentBox()
 //콘텐츠박스의 위치 변경에 맞춰 스크롤바 위치 조정
 void ViewBox::UpdateScrollBar()
 {
+    if (m_ContentRect == nullptr) return;
     Vector2 contPos = m_ContentRect->GetPosition();
-    Vector2 vscbPos = m_VScrollBarRect->GetPosition();
-    Vector2 hscbPos = m_HScrollBarRect->GetPosition();
 
     Vector2 normal = NormalizePosition(contPos, m_ContentMinRange, m_ContentMaxRange);
     normal.x = 1 - normal.x;
     normal.y = 1 - normal.y;
 
     Vector2 tempPos = DisNormalizePosition(normal, m_ScrollBarMinRange, m_ScrollBarMaxRange);
-    vscbPos.y = tempPos.y;
-    hscbPos.x = tempPos.x;
 
-    m_VScrollBarRect->SetPosition(vscbPos);
-    m_HScrollBarRect->SetPosition(hscbPos);
+    if (m_VScrollBarRect != nullptr)
+    {
+        Vector2 vscbPos = m_VScrollBarRect->GetPosition();
+        vscbPos.y = tempPos.y;
+        m_VScrollBarRect->SetPosition(vscbPos);
+    }
+
+    if (m_HScrollBarRect != nullptr)
+    {
+        Vector2 hscbPos = m_HScrollBarRect->GetPosition();
+        hscbPos.x = tempPos.x;
+        m_HScrollBarRect->SetPosition(hscbPos);
+    }
 }
 
 //스크롤바의 가동 영역을 구함
@@ -221,7 +258,7 @@ void ViewBox::CalcContentMovableRange()
     //뷰박스와 콘텐츠박스의 높이, 길이 계산
     //높이와 길이를 모두 절반으로 나눠서 그 차이를 구하고
     //뷰박스의 위치 기준 +- 구한 차이값이 가동 영역
-    if (m_ContentRect != nullptr)
+    if (m_ContentRect != nullptr && m_Rect != nullptr)
     {
         m_ContentMaxRange.x = (m_ContentRect->m_Size.x - m_Rect->m_Size.x) * 0.5;
         m_ContentMaxRange.y = (m_ContentRect->m_Size.y - m_Rect->m_Size.y) * 0.5;
@@ -263,18 +300,62 @@ Vector2 ViewBox::GetScrollBarMaxRange()
 
 void ViewBox::AdjustScrollBarSize()
 {
-    Vector2 contrect = m_ContentRect->m_Size;
+    if (m_Rect == nullptr) return;
     Vector2 viewrect = m_Rect->m_Size;
 
+    if (m_ContentRect == nullptr) return;
+    Vector2 contrect = m_ContentRect->m_Size;
+
+    //뷰박스가 콘텐츠 박스의 몇%를 보여주고 있는지 구함
     Vector2 temp;
     temp.x = viewrect.x / contrect.x;
     temp.y = viewrect.y / contrect.y;
 
-    m_HScrollBarRect->m_Size.x = m_HScrollRect->m_Size.x * temp.x;
-    m_HScrollBarRect->m_Size.y = m_HScrollRect->m_Size.y;
-    
-    m_VScrollBarRect->m_Size.x = m_VScrollRect->m_Size.x;
-    m_VScrollBarRect->m_Size.y = m_VScrollRect->m_Size.y * temp.y;
+    //너무 작아지면 안되므로 크기 하한선 설정
+    if (temp.x < 0.1) temp.x = 0.1;
+    if (temp.y < 0.1) temp.y = 0.1;
+
+    //가로 스크롤바가 존재할때
+    if (m_HScrollBarRect != nullptr)
+    {
+        //스크롤바가 비활성화 상태일때 콘텐츠박스의 크기가 뷰박스를 넘어서면 활성화
+        if (m_HScrollBarRect->gameObject->isActive() == false && temp.x < 1)
+        {
+            m_HScrollBarRect->gameObject->SetActive(true);
+            m_HScrollRect->gameObject->SetActive(true);
+        }
+
+        //100% 다 보여주고 있으면 스크롤바가 필요 없으므로 스크롤과 스크롤바 비활성화
+        if (temp.x >= 1)
+        {
+            m_HScrollBarRect->gameObject->SetActive(false);
+            m_HScrollRect->gameObject->SetActive(false);
+        }
+
+        m_HScrollBarRect->m_Size.x = m_HScrollRect->m_Size.x * temp.x;
+        m_HScrollBarRect->m_Size.y = m_HScrollRect->m_Size.y;
+    }
+
+    //세로 스크롤바가 존재할때
+    if (m_VScrollBarRect != nullptr)
+    {
+        //스크롤바가 비활성화 상태일때 콘텐츠박스의 크기가 뷰박스를 넘어서면 활성화
+        if (m_VScrollBarRect->gameObject->isActive() == false && temp.y < 1)
+        {
+            m_VScrollBarRect->gameObject->SetActive(true);
+            m_VScrollBarRect->gameObject->SetActive(true);
+        }
+
+        //100% 다 보여주고 있으면 스크롤바가 필요 없으므로 스크롤과 스크롤바 비활성화
+        if (temp.y >= 1)
+        {
+            m_VScrollBarRect->gameObject->SetActive(false);
+            m_VScrollRect->gameObject->SetActive(false);
+        }
+
+        m_VScrollBarRect->m_Size.x = m_VScrollRect->m_Size.x;
+        m_VScrollBarRect->m_Size.y = m_VScrollRect->m_Size.y * temp.y;
+    }
 
     //사이즈가 변했으므로 가동 영역 다시 계산
     CalcScrollMovableRange();
@@ -282,10 +363,38 @@ void ViewBox::AdjustScrollBarSize()
     UpdateScrollBar();
 }
 
-//뷰박스의 크기와 콘텐츠박스의 크기의 차이에 따라 스크롤바 크기 조정(0.1~1)
-//스크롤바 크기가 1이되면 스크롤 비활성화
+//콘텐츠박스 사이즈 늘리고 늘린 길이의 절반만큼 내림
+void ViewBox::ExtendContentBoxSize()
+{
+    if (m_ContentRect == nullptr) return;
+    Vector2 temppos = m_ContentRect->GetPosition();
+    Vector2 tempChildpos;
 
-//콘텐츠박스에 가동 최고점에 도달하면 사이즈 늘리고 늘린 길이의 절반만큼 내리는 기능 추가
+    int test = 50;
+
+    //밑으로 이어 붙이는 식으로 늘리는 것이기 때문에 콘텐츠 박스의 위치 수정
+    m_ContentRect->m_Size.y += test;
+    temppos.y += test * 0.5;
+    m_ContentRect->SetPosition(temppos);
+
+    //콘텐츠 박스에 포함된 오브젝트들의 위치도 같이 수정
+    for (int i = 0; i < m_ContentRect->GetChildCount(); i++)
+    {
+        tempChildpos = m_ContentRect->GetChild(i)->GetPosition();
+        tempChildpos.y -= test * 0.5;
+        m_ContentRect->GetChild(i)->SetPosition(tempChildpos);
+    }
+
+    //콘텐츠박스 크기가 변했으므로 콘텐츠박스 가동영역 다시 구하고
+    CalcContentMovableRange();
+    //스크롤바도 같이 재조정
+    AdjustScrollBarSize();
+}
+
+Vector2 ViewBox::GetContentBoxSize()
+{
+    return m_ContentRect->m_Size;
+}
 
 void ViewBox::OnMouseDown()
 {
@@ -305,6 +414,8 @@ void ViewBox::OnMouseExit()
 
 void ViewBox::OnWheelUp()
 {
+    if (m_ContentRect == nullptr) return;
+
     Vector2 contPos = m_ContentRect->GetPosition();
 
     Vector2 normal = NormalizePosition(contPos, m_ContentMinRange, m_ContentMaxRange);
@@ -330,6 +441,8 @@ void ViewBox::OnWheelUp()
 
 void ViewBox::OnWheelDown()
 {
+    if (m_ContentRect == nullptr) return;
+    
     Vector2 contPos = m_ContentRect->GetPosition();
 
     Vector2 normal = NormalizePosition(contPos, m_ContentMinRange, m_ContentMaxRange);
@@ -344,8 +457,22 @@ void ViewBox::OnWheelDown()
 
     if (normal.y < 0)
     {
-        //컨텐츠박스 크기 아래로 연장
-        normal.y = 0;
+        //컨텐츠박스 높이가 700 미만이면 아래로 덧붙이듯이 연장
+        if (m_ContentRect->m_Size.y < 700)
+        {
+            ExtendContentBoxSize();
+
+            //콘텐츠박스 크기 변경 과정에서 콘텐츠박스의 크기와 위치도 바뀌므로 조정된 위치와 가동영역으로 다시 한번 정규화
+            contPos = m_ContentRect->GetPosition();
+            contPos.y -= 5;
+
+            normal = NormalizePosition(contPos, m_ContentMinRange, m_ContentMaxRange);
+        }
+        else
+        {
+            normal.y = 0;
+        }
+
         Vector2 temp = DisNormalizePosition(normal, m_ContentMinRange, m_ContentMaxRange);
         m_ContentRect->SetPosition(temp);
     }
