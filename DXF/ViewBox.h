@@ -44,6 +44,7 @@ public:
 	Vector2 DisNormalizePosition(Vector2 p_Normal, Vector2 p_MinPos, Vector2 p_MaxPos);
 	Vector2 GetScrollBarMinRange();
 	Vector2 GetScrollBarMaxRange();
+	void AdjustScrollBarSize();
 
 	SerializeFunction(ViewBox) {}
 	DeserializeFunction() {}

@@ -14,6 +14,8 @@ void ViewBox::Start()
             if (ChildRect->gameObject->m_Name.compare("contentbox") == 0)
             {
                 m_ContentRect = ChildRect;
+                ContentBox* tempcont = GetComponentFromObject(m_ContentRect->gameObject, ContentBox);
+                tempcont->InitContPos();
                 m_PreContentPos = m_ContentRect->GetPosition();
             }
             else if (ChildRect->gameObject->m_Name.compare("VerticalScroll") == 0)
@@ -54,8 +56,8 @@ void ViewBox::Start()
             }
         }
 
-        CalcScrollMovableRange();
         CalcContentMovableRange();
+        AdjustScrollBarSize();
     }
 }
 
@@ -218,7 +220,6 @@ void ViewBox::CalcContentMovableRange()
     //뷰박스와 콘텐츠박스의 높이, 길이 계산
     //높이와 길이를 모두 절반으로 나눠서 그 차이를 구하고
     //뷰박스의 위치 기준 +- 구한 차이값이 가동 영역
-    //위에 만들어놓은 콘텐츠박스 이동 막는것도 이거 사용하도록 개편
     if (m_ContentRect != nullptr)
     {
         m_ContentMaxRange.x = (m_ContentRect->m_Size.x - m_Rect->m_Size.x) * 0.5;
@@ -257,6 +258,27 @@ Vector2 ViewBox::GetScrollBarMinRange()
 Vector2 ViewBox::GetScrollBarMaxRange()
 {
     return m_ScrollBarMaxRange;
+}
+
+void ViewBox::AdjustScrollBarSize()
+{
+    Vector2 contrect = m_ContentRect->m_Size;
+    Vector2 viewrect = m_Rect->m_Size;
+
+    Vector2 temp;
+    temp.x = viewrect.x / contrect.x;
+    temp.y = viewrect.y / contrect.y;
+
+    m_HScrollBarRect->m_Size.x = m_HScrollRect->m_Size.x * temp.x;
+    m_HScrollBarRect->m_Size.y = m_HScrollRect->m_Size.y;
+    
+    m_VScrollBarRect->m_Size.x = m_VScrollRect->m_Size.x;
+    m_VScrollBarRect->m_Size.y = m_VScrollRect->m_Size.y * temp.y;
+
+    //사이즈가 변했으므로 가동 영역 다시 계산
+    CalcScrollMovableRange();
+    //가동 영역이 변했으므로 현재 위치 다시 계산
+    UpdateScrollBar();
 }
 
 //뷰박스의 크기와 콘텐츠박스의 크기의 차이에 따라 스크롤바 크기 조정(0.1~1)

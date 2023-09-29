@@ -10,13 +10,12 @@ class ScrollBar : public Component
 {
 protected:
 	Vector2				m_MousePrePos;
-	bool					m_isDown = false;
+	bool				m_isDown = false;
 	RectTransform*		m_Rect;
 	ViewBox*			m_ParentView;
 	Scroll*				m_ParentScroll;
 
 public:
-	void Awake() override;
 	void Start() override;
 	void Update() override;
 

@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-void ContentBox::Start()
+void ContentBox::InitContPos()
 {
     //시작할때 콘텐츠박스의 좌상단 꼭지점을 뷰박스의 좌상단 꼭지점에 맞춤
     RectTransform* rect = GetComponentFromObject(gameObject, RectTransform);

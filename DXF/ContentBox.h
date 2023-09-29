@@ -6,7 +6,7 @@
 class ContentBox : public Component
 {
 public:
-	void Start() override;
+	void InitContPos();
 
 	SerializeFunction(ContentBox) {}
 	DeserializeFunction() {}

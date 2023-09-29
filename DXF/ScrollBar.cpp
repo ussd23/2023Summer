@@ -1,6 +1,6 @@
 #include "ComponentHeader.h"
 
-void ScrollBar::Awake()
+void ScrollBar::Start()
 {
     m_Rect = GetComponentFromObject(gameObject, RectTransform);
     if (m_Rect == nullptr) return;
@@ -16,24 +16,6 @@ void ScrollBar::Awake()
 
     m_ParentView = GetComponentFromObject(parentparentrect->gameObject, ViewBox);
     if (m_ParentView == nullptr) return;
-
-
-    if (m_ParentScroll->GetIsVertical())
-    {
-        //scroll과 ScrollBar의 높이 조정
-        m_Rect->m_Size.y = parentrect->m_Size.y * 0.3;
-    }
-    else
-    {
-        //scroll과 ScrollBar의 길이 조정
-        m_Rect->m_Size.x = parentrect->m_Size.x * 0.3;
-    }
-
-}
-
-void ScrollBar::Start()
-{
-    m_ParentView->UpdateScrollBar();
 }
 
 void ScrollBar::Update()
