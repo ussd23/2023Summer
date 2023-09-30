@@ -66,6 +66,7 @@ public:
 	virtual void OnTriggerExit(Collider* p_Collider) {};
 	virtual void OnTriggerStay(Collider* p_Collider) {};
 
+	virtual void OnEditorUpdate() {};
 	virtual void OnEnabled() {};
 	virtual void OnDisabled() {};
 	virtual void OnDestroy() {};

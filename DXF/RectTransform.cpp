@@ -213,3 +213,8 @@ void RectTransform::Start()
 {
 	ScreenUpdate();
 }
+
+void RectTransform::OnEditorUpdate()
+{
+	ScreenUpdate();
+}

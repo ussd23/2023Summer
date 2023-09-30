@@ -90,6 +90,7 @@ public:
     void SetAsLastSibling();
 
     void Start() override;
+    void OnEditorUpdate() override;
 
     SerializeFunction(Transform)
     {

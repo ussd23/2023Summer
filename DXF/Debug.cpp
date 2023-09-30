@@ -664,15 +664,7 @@ void DXFGame::UpdateHandles()
         if (deserialize)
         {
             Var::DebugComponent->JsonDeserialize(Var::DebugJson);
-            string id = typeid(*Var::DebugComponent).name();
-            if (id == "class Transform")
-            {
-                dynamic_cast<Transform*>(Var::DebugComponent)->WorldUpdate();
-            }
-            else if (id == "class RectTransform")
-            {
-                dynamic_cast<RectTransform*>(Var::DebugComponent)->ScreenUpdate();
-            }
+            Var::DebugComponent->OnEditorUpdate();
         }
     }
 }

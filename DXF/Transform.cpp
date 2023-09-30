@@ -212,3 +212,8 @@ void Transform::Start()
 {
 	WorldUpdate();
 }
+
+void Transform::OnEditorUpdate()
+{
+	WorldUpdate();
+}
