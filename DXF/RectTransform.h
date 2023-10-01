@@ -105,7 +105,17 @@ public:
         }
         VectorSerialize(m_ChildID);
         Serialize(m_Position);
-        Serialize(m_Rotation);
+        if (p_Mode)
+        {
+            Vector3 m_RotationEuler = Functions::QuaternionToEuler(m_Rotation);
+            Serialize(m_RotationEuler);
+        }
+        else
+        {
+            Vector3 m_RotationEuler;
+            Serialize(m_RotationEuler);
+            m_Rotation = Functions::EulerToQuaternion(m_RotationEuler);
+        }
         Serialize(m_Scale);
         Serialize(m_Size);
     }
