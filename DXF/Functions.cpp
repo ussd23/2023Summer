@@ -137,7 +137,7 @@ Vector3 Functions::QuaternionToEuler(Quaternion p_Quaternion)
     return vec;
 }
 
-void CreateJsonFile(string p_Path, Json::Value p_JsonValue)
+void Functions::CreateJsonFile(string p_Path, Json::Value p_JsonValue)
 {
     Json::StyledStreamWriter writer;
     string path = "scenes\\" + p_Path + ".txt";
@@ -163,5 +163,4 @@ void CreateJsonFile(string p_Path, Json::Value p_JsonValue)
     writer.write(json_dir, p_JsonValue);
 
     json_dir.close();
-
 }
