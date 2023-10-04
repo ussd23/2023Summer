@@ -13,6 +13,12 @@ void Scroll::Awake()
     RectTransform* parentrect = rect->GetParent();
     if (parentrect == nullptr) return;
 
+    m_ScrollBarRect = rect->GetChild(0);
+    if (m_ScrollBarRect == nullptr) return;
+
+    m_ParentView = GetComponentFromObject(rect->GetParent()->gameObject, ViewBox);
+    if (m_ParentView == nullptr) return;
+
     if (m_IsVertical)
     {
         rect->m_Size.y = parentrect->m_Size.y;
@@ -26,6 +32,106 @@ void Scroll::Awake()
 void Scroll::Start()
 {
     AdjustPosition();
+}
+
+void Scroll::OnMouseDown()
+{
+    //스크롤바 위치와 클릭 위치에 따라 방향 결정하고 스크롤바 이동
+    //단 스크롤바 이동시 고정치 * 스크롤바 크기만큼 이동
+    RectTransform* rect = GetComponentFromObject(gameObject, RectTransform);
+    if (rect == nullptr) return;
+
+    m_isDown = true;
+    m_ClickTime = GetTickCount64();
+
+    Vector2 barPos = m_ScrollBarRect->GetPosition();
+    Vector2 barScreenPos = m_ScrollBarRect->GetScreenPosition();
+
+    Vector2 percent;
+    percent.x = m_ScrollBarRect->m_Size.x / rect->m_Size.x;
+    percent.y = m_ScrollBarRect->m_Size.y / rect->m_Size.y;
+
+
+    if (m_IsVertical)
+    {
+        if (barScreenPos.y > Input::MousePosition.y)
+        {
+            barPos.y -= 15 * percent.y;
+        }
+        else
+        {
+            barPos.y += 15 * percent.y;
+        }
+    }
+    else
+    {
+        if (barScreenPos.x > Input::MousePosition.x)
+        {
+            barPos.x -= 15 * percent.x;
+        }
+        else
+        {
+            barPos.x += 15 * percent.x;
+        }
+    }
+    m_ScrollBarRect->SetPosition(barPos);
+    m_ParentView->UpdateContentBox();
+}
+
+void Scroll::OnMouseHold()
+{
+    //스크롤바 위치와 마우스 위치에 따라 방향 결정하고 스크롤바 이동
+    //단 스크롤바 이동시 고정치 * 스크롤바 크기만큼의 속도로 이동
+    RectTransform* rect = GetComponentFromObject(gameObject, RectTransform);
+    if (rect == nullptr) return;
+
+    Vector2 barPos = m_ScrollBarRect->GetPosition();
+    Vector2 barScreenPos = m_ScrollBarRect->GetScreenPosition();
+
+    Vector2 percent;
+    percent.x = m_ScrollBarRect->m_Size.x / rect->m_Size.x;
+    percent.y = m_ScrollBarRect->m_Size.y / rect->m_Size.y;
+
+    if (m_isDown)
+    {
+        if (GetTickCount64() > m_ClickTime + 200)
+        {
+            if (m_IsVertical)
+            {
+                if (barScreenPos.y > Input::MousePosition.y)
+                {
+                    barPos.y -= 10 * percent.y;
+                }
+                else
+                {
+                    barPos.y += 10 * percent.y;
+                }
+            }
+            else
+            {
+                if (barScreenPos.x > Input::MousePosition.x)
+                {
+                    barPos.x -= 10 * percent.x;
+                }
+                else
+                {
+                    barPos.x += 10 * percent.x;
+                }
+            }
+            m_ScrollBarRect->SetPosition(barPos);
+            m_ParentView->UpdateContentBox();
+        }
+    }
+}
+
+void Scroll::OnMouseUp()
+{
+    m_isDown = false;
+}
+
+void Scroll::OnMouseExit()
+{
+    m_isDown = false;
 }
 
 bool Scroll::GetIsVertical()

@@ -3,9 +3,9 @@
 
 void Sample::InitObject()
 {
-    //SceneManager::LoadScene("scene1");
+    SceneManager::LoadScene("scene1");
 
-    //return;
+    return;
 
     // Text (RectTransform)
     GameObject* gameObject = new TextObject("Text", Vector2(600, 110), Vector2(300, 55), "맑은 고딕", 16, "");

@@ -34,7 +34,10 @@ HRESULT DXFGame::Render()
 {
     if (m_pd3dDevice->TestCooperativeLevel() != D3D_OK) return E_FAIL;
 
-    m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
+    //스탠실 현재 작동하지 않는 관계로 주석처리
+    //m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
+    //    D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
+    m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
         D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
 
     SetRect(&Var::ScreenRect, 0, 0, m_Resolution.x, m_Resolution.y);
@@ -58,15 +61,16 @@ HRESULT DXFGame::Render()
         if (Var::RootObject != nullptr) Var::RootObject->PreRender();
         if (Var::RootRectObject != nullptr) Var::RootRectObject->PreRender();
 
-        // Turn on the zbuffer
-        m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, true);
-        // Turn on ambient lighting 
-        m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
+        //스탠실 현재 작동하지 않는 관계로 주석처리
+        //// Turn on the zbuffer
+        //m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, true);
+        //// Turn on ambient lighting 
+        //m_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
 
-        // 초기화
-        m_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
-        m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, false);
-        m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+        //// 초기화
+        //m_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+        //m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, false);
+        //m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
         // Transform을 사용하는 오브젝트 정렬 및 렌더링 (카메라와 가까운 순)
         sort(Var::TransformRenderList.begin(), Var::TransformRenderList.end(), Renderer::Compare);

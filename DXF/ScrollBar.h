@@ -20,8 +20,6 @@ public:
 	void Update() override;
 
 	void OnMouseDown() override;
-	void OnMouseUp() override;
-	void OnMouseExit() override;
 
 	void MoveScrollBar();
 

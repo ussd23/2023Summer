@@ -43,26 +43,28 @@ void SpriteRenderer::PreRender()
 
     if (Functions::Inner(rect, Var::ScreenRect))
     {
-        if (m_RectTransform->gameObject->m_Name.compare("viewbox") == 0)    //뷰박스를 스텐실 마스크영역으로 지정
-        {
-            Var::StencilMaskRenderList.push_back(this);
-        }
-        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("content Text") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
-        {
-            Var::StenciledObjectRenderList.push_back(this);
-        }
-        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("content Sprite") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
-        {
-            Var::StenciledObjectRenderList.push_back(this);
-        }
-        else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("HorizontalScrollBar") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
-        {
-            Var::StenciledObjectRenderList.push_back(this);
-        }
-        else
-        {
-            Var::RectTransformRenderList.push_back(this);
-        }
+        //스탠실 현재 작동하지 않는 관계로 주석처리
+        //if (m_RectTransform->gameObject->m_Name.compare("viewbox") == 0)    //뷰박스를 스텐실 마스크영역으로 지정
+        //{
+        //    Var::StencilMaskRenderList.push_back(this);
+        //}
+        //else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("content Text") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
+        //{
+        //    Var::StenciledObjectRenderList.push_back(this);
+        //}
+        //else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("content Sprite") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
+        //{
+        //    Var::StenciledObjectRenderList.push_back(this);
+        //}
+        //else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("HorizontalScrollBar") == 0)   //콘텐츠박스의 자식 오브젝트라면 스텐실이 적용되는 오브젝트로 지정
+        //{
+        //    Var::StenciledObjectRenderList.push_back(this);
+        //}
+        //else
+        //{
+        //    Var::RectTransformRenderList.push_back(this);
+        //}
+        Var::RectTransformRenderList.push_back(this);
     }
 }
 
@@ -92,49 +94,50 @@ void SpriteRenderer::Render()
 	DXFGame::m_pSprite->SetTransform(&matScreenSet);
     DXFGame::m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-    if (m_RectTransform->gameObject->m_Name.compare("viewbox") == 0)
-    {
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, true);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 0x1);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILWRITEMASK, 0xffffffff);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
+    //스탠실 현재 작동하지 않는 관계로 주석처리
+    //if (m_RectTransform->gameObject->m_Name.compare("viewbox") == 0)
+    //{
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, true);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILREF, 0x1);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILWRITEMASK, 0xffffffff);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
 
-        // disable writes to the depth and back buffers
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, false);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ZERO);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-    }
-    else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("contentbox") == 0)
-    {
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+    //    // disable writes to the depth and back buffers
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, false);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ZERO);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+    //}
+    //else if (m_RectTransform->GetParent()->gameObject->m_Name.compare("contentbox") == 0)
+    //{
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
 
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-        DXFGame::m_pd3dDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
-    }
-    else if (m_RectTransform->gameObject->m_Name.compare("contentbox") == 0)
-    {
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+    //    DXFGame::m_pd3dDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
+    //}
+    //else if (m_RectTransform->gameObject->m_Name.compare("contentbox") == 0)
+    //{
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
 
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, true);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_STENCILENABLE, true);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
-        DXFGame::m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-        DXFGame::m_pd3dDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
-    }
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCCOLOR);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+    //    DXFGame::m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+    //    DXFGame::m_pd3dDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
+    //}
 
     DXFGame::m_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
     DXFGame::m_pSprite->End();

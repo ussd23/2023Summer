@@ -28,8 +28,6 @@ public:
 	void Update() override;
 
 	void OnMouseDown() override;
-	void OnMouseUp() override;
-	void OnMouseExit() override;
 	void OnWheelUp() override;
 	void OnWheelDown() override;
 
@@ -44,7 +42,8 @@ public:
 	Vector2 GetScrollBarMaxRange();
 	void AdjustScrollBarSize();
 
-	void ExtendContentBoxSize();
+	void ExtendContentBoxSizeX();
+	void ExtendContentBoxSizeY();
 	Vector2 GetContentBoxSize();
 
 	SerializeFunction(ViewBox) {}
