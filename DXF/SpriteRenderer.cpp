@@ -137,6 +137,9 @@ void SpriteRenderer::Render()
     //    DXFGame::m_pd3dDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
     //}
 
+    DXFGame::m_pd3dDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+    DXFGame::m_pd3dDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+    
     DXFGame::m_pSprite->Draw(m_Texture, &rect, NULL, NULL, m_Color);
     DXFGame::m_pSprite->End();
 }

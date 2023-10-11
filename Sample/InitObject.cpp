@@ -106,6 +106,8 @@ void Sample::InitObject()
 
     // button
     gameObject = new ButtonObject("btn", Vector2(200, 100), Vector2(300, DXFGame::m_Resolution.y - 50), "earthmap1k.jpg");
+    sprite = GetComponentFromObject(gameObject, SpriteRenderer);
+    sprite->m_RectSize = Vector2(1, 0.25);
     ButtonTest* test = new ButtonTest();
     AddComponentToObject(gameObject, test);
 
