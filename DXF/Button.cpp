@@ -12,12 +12,24 @@ void Button::OnMouseDown()
 {
     if (m_Sprite == nullptr) return;
 
-    m_Sprite->m_Color = 0xff808080;
+    m_Sprite->m_Color = m_DefaultColor;
+
+    m_IsClicked = true;
 }
 
 void Button::OnMouseUp()
 {
-    if (m_Sprite == nullptr) return;
+    if (m_IsClicked)
+    {
+        if (m_Sprite == nullptr) return;
 
-    m_Sprite->m_Color = 0xffffffff;
+        m_Sprite->m_Color = m_PushedColor;
+
+        for (int i = 0; i < m_CallFNList.size(); i++)
+        {
+            m_CallFNList[i]->Interpret();
+        }
+
+        m_IsClicked = false;
+    }
 }

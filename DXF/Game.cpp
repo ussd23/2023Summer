@@ -48,6 +48,8 @@ void DXFGame::ComponentRegister()
     ComponentRegist(ViewBox);
     ComponentRegist(Scroll);
     ComponentRegist(ScrollBar);
+    ComponentRegist(DropDown);
+    ComponentRegist(DropDownOption);
 }
 
 void DXFGame::Start()

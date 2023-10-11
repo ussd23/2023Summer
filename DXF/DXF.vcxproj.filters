@@ -143,9 +143,15 @@
     </ClCompile>
     <ClCompile Include="ScrollBar.cpp">
       <Filter>4. Components</Filter>
-	</ClCompile>
-	<ClCompile Include="Debug.cpp">
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
       <Filter>0. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="DropDown.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DropDownOption.cpp">
+      <Filter>4. Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +288,10 @@
       <Filter>4. Components</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="DropDown.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDownOption.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DXF.rc" />

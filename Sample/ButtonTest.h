@@ -4,12 +4,13 @@
 class ButtonTest : public Component
 {
 private:
-	vector<CCallBackBase*> m_CallFNList;
+	Button*			m_Button;
 
 public:
+	void Start() override;
+
 	void func1();
 	void func2();
-	void OnMouseUp() override;
 
 	void AddCallFN(/*ButtonTest& p_classtarget, void(*m_CallFN)()*/);
 

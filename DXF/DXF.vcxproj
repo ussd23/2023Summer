@@ -148,6 +148,8 @@
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContentBox.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="DropDown.cpp" />
+    <ClCompile Include="DropDownOption.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Functions.cpp" />
@@ -191,6 +193,8 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ContentBox.h" />
     <ClInclude Include="CustomVertex.h" />
+    <ClInclude Include="DropDown.h" />
+    <ClInclude Include="DropDownOption.h" />
     <ClInclude Include="DXHeader.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Frustum.h" />

@@ -11,7 +11,7 @@ class ViewBox : public Component
 {
 private:
 	Vector2				m_MousePrePos;
-	bool				m_isDown = false;
+	bool					m_isDown = false;
 	RectTransform*		m_Rect;
 	RectTransform*		m_ContentRect;
 	RectTransform*		m_VScrollRect;
