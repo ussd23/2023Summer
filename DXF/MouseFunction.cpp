@@ -13,7 +13,7 @@ void MouseFunction::Start()
 	m_SphereCollider = GetComponentFromObject(gameObject, SphereCollider);
 }
 
-void MouseFunction::Update()
+void MouseFunction::PreUpdate()
 {
 	m_Result = false;
 
@@ -51,7 +51,7 @@ void MouseFunction::Update()
 	}
 }
 
-void MouseFunction::LateUpdate()
+void MouseFunction::Update()
 {
 	if (m_Result != m_isEntering)
 	{

@@ -43,9 +43,9 @@ public:
 	MouseFunction(const bool& p_isUnique);
 
 	void Start() override;
+	void PreUpdate() override;
 	void Update() override;
 
-	void LateUpdate() override;
 	static void UniqueCheck();
 
 	SerializeFunction(MouseFunction)

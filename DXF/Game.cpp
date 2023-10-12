@@ -81,10 +81,10 @@ void DXFGame::Update()
     if (Var::RootObject != nullptr) Var::RootObject->PreUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->PreUpdate();
 
+    MouseFunction::UniqueCheck();
+
     if (Var::RootObject != nullptr) Var::RootObject->Update();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->Update();
-
-    MouseFunction::UniqueCheck();
 
     if (Var::RootObject != nullptr) Var::RootObject->LateUpdate();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->LateUpdate();
