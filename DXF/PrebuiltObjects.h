@@ -81,3 +81,15 @@ class ScrollBarObject : public GameObject
 public:
 	ScrollBarObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
 };
+
+class DropDownObject : public GameObject
+{
+public:
+	DropDownObject(string p_Name, Vector2 p_Size, Vector2 p_Position);
+}; 
+
+class DropDownOptionObject: public GameObject
+{
+public:
+	DropDownOptionObject(string p_Name, string p_FontName, int p_FontSize, string p_Text);
+};

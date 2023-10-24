@@ -149,6 +149,8 @@
     <ClCompile Include="BtnText.cpp" />
     <ClCompile Include="ButtonTest.cpp" />
     <ClCompile Include="CameraMove.cpp" />
+    <ClCompile Include="DropDownTest.cpp" />
+    <ClCompile Include="DropDownText.cpp" />
     <ClCompile Include="InitObject.cpp" />
     <ClCompile Include="ObjectMove.cpp" />
     <ClCompile Include="PlayerMove.cpp" />
@@ -160,6 +162,8 @@
     <ClInclude Include="BtnText.h" />
     <ClInclude Include="ButtonTest.h" />
     <ClInclude Include="CameraMove.h" />
+    <ClInclude Include="DropDownTest.h" />
+    <ClInclude Include="DropDownText.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="ObjectMove.h" />
     <ClInclude Include="PlayerMove.h" />

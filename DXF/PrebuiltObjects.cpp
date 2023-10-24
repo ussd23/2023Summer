@@ -205,3 +205,41 @@ ScrollBarObject::ScrollBarObject(string p_Name, Vector2 p_Size, Vector2 p_Positi
 	Var::Objects.push_back(this);
 	Var::RootRectTransform->AddChild(recttransform);
 }
+
+DropDownObject::DropDownObject(string p_Name, Vector2 p_Size, Vector2 p_Position)
+	: GameObject(p_Name)
+{
+	RectTransform* recttransform = new RectTransform(p_Position, Vector3(0, 0, 0), Vector2(1, 1), p_Size);
+	AddComponent(recttransform);
+
+	SpriteRenderer* sprite = new SpriteRenderer("system\\DropDownNormal.png");
+	AddComponent(sprite);
+
+	MouseFunction* mouse = new MouseFunction(true);
+	AddComponent(mouse);
+
+	DropDown* dropdown = new DropDown();
+	AddComponent(dropdown);
+
+	Var::Objects.push_back(this);
+	Var::RootRectTransform->AddChild(recttransform);
+}
+
+DropDownOptionObject::DropDownOptionObject(string p_Name, string p_FontName, int p_FontSize, string p_Text)
+	: GameObject(p_Name)
+{
+	RectTransform* recttransform = new RectTransform(Vector2(0, 0), Vector3(0, 0, 0), Vector2(1, 1), Vector2(1, 1));
+	AddComponent(recttransform);
+
+	TextRenderer* text = new TextRenderer(p_FontName, p_FontSize, p_Text);
+	AddComponent(text);
+
+	MouseFunction* mouse = new MouseFunction(true);
+	AddComponent(mouse);
+
+	DropDownOption* dropdownoption = new DropDownOption();
+	AddComponent(dropdownoption);
+
+	Var::Objects.push_back(this);
+	Var::RootRectTransform->AddChild(recttransform);
+}

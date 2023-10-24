@@ -148,7 +148,7 @@
 				"type" : "class RectTransform",
 				"values" : 
 				{
-					"m_ChildID" : [ 2, 111, 112, 114, 115 ],
+					"m_ChildID" : [ 2, 111, 112, 114, 115, 123 ],
 					"m_Position" : 
 					{
 						"x" : 0.0,
@@ -6903,6 +6903,129 @@
 			}
 		],
 		"m_Name" : "HorizontalScrollBar",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : [ 124 ],
+					"m_Position" : 
+					{
+						"x" : 1100.0,
+						"y" : 50.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 150.0,
+						"y" : 50.0
+					}
+				}
+			},
+			{
+				"type" : "class SpriteRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_RectIndex" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0
+					},
+					"m_RectSize" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_TextureName" : "system\\DropDownNormal.png"
+				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : true
+				}
+			},
+			{
+				"type" : "class DropDown",
+				"values" : null
+			},
+			{
+				"type" : "class DropDownTest",
+				"values" : null
+			},
+			{
+				"type" : "class DropDownText",
+				"values" : 
+				{
+					"m_Text" : ""
+				}
+			}
+		],
+		"m_Name" : "DropDown",
+		"m_isActive" : true
+	},
+	{
+		"components" : 
+		[
+			{
+				"type" : "class RectTransform",
+				"values" : 
+				{
+					"m_ChildID" : null,
+					"m_Position" : 
+					{
+						"x" : 10.0,
+						"y" : 30.0
+					},
+					"m_Rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"m_Scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0
+					},
+					"m_Size" : 
+					{
+						"x" : 100.0,
+						"y" : 100.0
+					}
+				}
+			},
+			{
+				"type" : "class TextRenderer",
+				"values" : 
+				{
+					"m_Color" : 4294967295,
+					"m_FontName" : "¸¼Àº °íµñ",
+					"m_FontSize" : 28,
+					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			}
+		],
+		"m_Name" : "DropDownText",
 		"m_isActive" : true
 	}
 ]

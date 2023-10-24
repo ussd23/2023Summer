@@ -23,6 +23,7 @@ public:
 	void Start() override;
 
 	void OnMouseDown() override;
+	void OnMouseExit() override;
 	void OnMouseUp() override;
 
 	SerializeFunction(Button) {}

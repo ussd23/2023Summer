@@ -39,6 +39,12 @@
     <ClCompile Include="ButtonTest.cpp">
       <Filter>2. Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="DropDownTest.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="DropDownText.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts.h">
@@ -63,6 +69,12 @@
       <Filter>2. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="ButtonTest.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDownTest.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDownText.h">
       <Filter>2. Scripts</Filter>
     </ClInclude>
   </ItemGroup>

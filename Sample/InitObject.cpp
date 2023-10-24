@@ -3,9 +3,9 @@
 
 void Sample::InitObject()
 {
-    SceneManager::LoadScene("scene1");
+    //SceneManager::LoadScene("scene1");
 
-    return;
+    //return;
 
     // Text (RectTransform)
     GameObject* gameObject = new TextObject("Text", Vector2(600, 110), Vector2(300, 55), "맑은 고딕", 16, "");
@@ -164,6 +164,19 @@ void Sample::InitObject()
     childChildObject = new ScrollBarObject("HorizontalScrollBar", Vector2(0, 15), Vector2(0, 0));
     childChildRecttransform = GetComponentFromObject(childChildObject, RectTransform);
     childrecttransform->AddChild(childChildRecttransform);
+
+    // DropDown
+    gameObject = new DropDownObject("DropDown", Vector2(150, 50), Vector2(1100, 50));
+    DropDownTest* dtest = new DropDownTest();
+    AddComponentToObject(gameObject, dtest);
+
+    // DropDown text
+    childObject = new TextObject("DropDownText", Vector2(100, 100), Vector2(10, 30), "맑은 고딕", 28, "");
+    DropDownText* dtext = new DropDownText();
+    AddComponentToObject(gameObject, dtext);
+    recttransform = GetComponentFromObject(gameObject, RectTransform);
+    childrecttransform = GetComponentFromObject(childObject, RectTransform);
+    recttransform->AddChild(childrecttransform);
 
     SceneManager::SaveScene("scene1");
 }
