@@ -9,4 +9,6 @@ void Sample::ScriptRegister()
     ComponentRegist(TopText);
     ComponentRegist(BtnText);
     ComponentRegist(ButtonTest);
+    ComponentRegist(DropDownTest);
+    ComponentRegist(DropDownText);
 }

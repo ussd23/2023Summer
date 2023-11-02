@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="1. Importants">
+      <UniqueIdentifier>{eaac96a8-459a-4872-861b-0fc910672ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2. Scripts">
+      <UniqueIdentifier>{47381f70-829c-40c5-aa67-686514ad36e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0. Core">
+      <UniqueIdentifier>{04dcec64-0a7b-4c35-855f-e0320a08e65d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CameraMove.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectMove.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMove.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="TopText.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="winmain.cpp">
+      <Filter>0. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="InitObject.cpp">
+      <Filter>1. Importants</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptRegister.cpp">
+      <Filter>1. Importants</Filter>
+    </ClCompile>
+    <ClCompile Include="BtnText.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonTest.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="DropDownTest.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="DropDownText.cpp">
+      <Filter>2. Scripts</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scripts.h">
+      <Filter>1. Importants</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMove.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMove.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMove.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="TopText.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample_UI.h">
+      <Filter>0. Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BtnText.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonTest.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDownTest.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDownText.h">
+      <Filter>2. Scripts</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
