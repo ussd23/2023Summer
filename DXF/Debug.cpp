@@ -221,6 +221,23 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
             }
         }
         break;
+        case IDC_AddComp:
+        {
+
+        }
+        break;
+        case IDC_RemoveComp:
+        {
+            if (Var::DebugSelected != nullptr && Var::DebugComponent != nullptr)
+            {
+                Var::DebugSelected->RemoveComponent(Var::DebugComponent);
+
+                ResetSelected();
+                ResetHandles();
+                DebugUpdate();
+            }
+        }
+        break;
         case IDC_Active:
         {
             if (HIWORD(wParam) == BN_CLICKED && Var::DebugSelected != nullptr)
@@ -345,6 +362,8 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 EnableWindow(DebugHandles::GetHandle(IDC_Destroy), false);
                 EnableWindow(DebugHandles::GetHandle(IDC_Active), false);
                 EnableWindow(DebugHandles::GetHandle(IDC_Name), false);
+                EnableWindow(DebugHandles::GetHandle(IDC_AddComp), false);
+                EnableWindow(DebugHandles::GetHandle(IDC_RemoveComp), false);
 
                 ResetComponent();
             }
@@ -355,6 +374,8 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                 EnableWindow(DebugHandles::GetHandle(IDC_Destroy), true);
                 EnableWindow(DebugHandles::GetHandle(IDC_Active), true);
                 EnableWindow(DebugHandles::GetHandle(IDC_Name), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_AddComp), true);
+                EnableWindow(DebugHandles::GetHandle(IDC_RemoveComp), true);
 
                 ResetComponent();
 

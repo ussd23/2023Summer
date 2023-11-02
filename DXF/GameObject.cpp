@@ -131,6 +131,9 @@ void GameObject::RemoveComponent(Component* p_Comp)
 {
 	list<SPTR<Component>>::iterator iter = m_Components.begin();
 
+	string id = typeid(*p_Comp).name();
+	if (typeid(Transform).name() == id || typeid(RectTransform).name() == id) return;
+
 	while (iter != m_Components.end())
 	{
 		if (p_Comp == (*iter)())
