@@ -112,7 +112,7 @@ void Sample::InitObject()
     // button text
     childObject = new TextObject("Text", Vector2(100, 100), Vector2(10, 30), "맑은 고딕", 28, "");
     BtnText* btext = new BtnText();
-    AddComponentToObject(gameObject, btext);
+    AddComponentToObject(childObject, btext);
     RectTransform* recttransform = GetComponentFromObject(gameObject, RectTransform);
     RectTransform* childrecttransform = GetComponentFromObject(childObject, RectTransform);
     recttransform->AddChild(childrecttransform);
@@ -171,9 +171,9 @@ void Sample::InitObject()
     AddComponentToObject(gameObject, dtest);
 
     // DropDown text
-    childObject = new TextObject("DropDownText", Vector2(100, 100), Vector2(10, 30), "맑은 고딕", 28, "");
+    childObject = new TextObject("DropDownText", Vector2(130, 100), Vector2(0, 30), "맑은 고딕", 28, "");
     DropDownText* dtext = new DropDownText();
-    AddComponentToObject(gameObject, dtext);
+    AddComponentToObject(childObject, dtext);
     recttransform = GetComponentFromObject(gameObject, RectTransform);
     childrecttransform = GetComponentFromObject(childObject, RectTransform);
     recttransform->AddChild(childrecttransform);

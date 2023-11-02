@@ -4,7 +4,12 @@ void DropDownText::Start()
 {
     m_Text = "";
     m_TextRender = GetComponentFromObject(gameObject, TextRenderer);
-    m_DropDown = GetComponentFromObject(gameObject, DropDown);
+
+    RectTransform* thisrect = GetComponentFromObject(gameObject, RectTransform);
+    RectTransform* parentrect = thisrect->GetParent();
+    m_DropDown = GetComponentFromObject(parentrect->gameObject, DropDown);
+
+    if (m_TextRender != nullptr) m_TextRender->m_Color = D3DCOLOR(0xff000000);
 }
 
 void DropDownText::Update()

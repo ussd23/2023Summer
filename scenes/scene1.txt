@@ -6279,13 +6279,6 @@
 			{
 				"type" : "class ButtonTest",
 				"values" : null
-			},
-			{
-				"type" : "class BtnText",
-				"values" : 
-				{
-					"m_Text" : ""
-				}
 			}
 		],
 		"m_Name" : "btn",
@@ -6331,6 +6324,13 @@
 					"m_FontName" : "¸¼Àº °íµñ",
 					"m_FontSize" : 28,
 					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class BtnText",
+				"values" : 
+				{
 					"m_Text" : ""
 				}
 			}
@@ -6969,13 +6969,6 @@
 			{
 				"type" : "class DropDownTest",
 				"values" : null
-			},
-			{
-				"type" : "class DropDownText",
-				"values" : 
-				{
-					"m_Text" : ""
-				}
 			}
 		],
 		"m_Name" : "DropDown",
@@ -6991,7 +6984,7 @@
 					"m_ChildID" : null,
 					"m_Position" : 
 					{
-						"x" : 10.0,
+						"x" : 0.0,
 						"y" : 30.0
 					},
 					"m_Rotation" : 
@@ -7008,7 +7001,7 @@
 					},
 					"m_Size" : 
 					{
-						"x" : 100.0,
+						"x" : 130.0,
 						"y" : 100.0
 					}
 				}
@@ -7021,6 +7014,13 @@
 					"m_FontName" : "¸¼Àº °íµñ",
 					"m_FontSize" : 28,
 					"m_Format" : 0,
+					"m_Text" : ""
+				}
+			},
+			{
+				"type" : "class DropDownText",
+				"values" : 
+				{
 					"m_Text" : ""
 				}
 			}

@@ -232,6 +232,7 @@ DropDownOptionObject::DropDownOptionObject(string p_Name, string p_FontName, int
 	AddComponent(recttransform);
 
 	TextRenderer* text = new TextRenderer(p_FontName, p_FontSize, p_Text);
+	text->m_Color = RGB(0, 0, 0);
 	AddComponent(text);
 
 	MouseFunction* mouse = new MouseFunction(true);

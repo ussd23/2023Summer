@@ -12,6 +12,8 @@ void DropDownTest::Start()
     RectTransform* childrecttransform = GetComponentFromObject(childObject, RectTransform);
     recttransform->AddChild(childrecttransform);
 
+    DropDownOption* func = GetComponentFromObject(childObject, DropDownOption);
+    func->m_CallFNList.push_back(SetProc(this, &DropDownTest::func1));
     m_DropDown->m_Options.push_back(childObject);
 
     // DropDownOption2
@@ -19,8 +21,19 @@ void DropDownTest::Start()
     childrecttransform = GetComponentFromObject(childObject, RectTransform);
     recttransform->AddChild(childrecttransform);
 
+    func = GetComponentFromObject(childObject, DropDownOption);
+    func->m_CallFNList.push_back(SetProc(this, &DropDownTest::func2));
     m_DropDown->m_Options.push_back(childObject);
 
     m_DropDown->SetChildRect();
 }
 
+void DropDownTest::func1()
+{
+    MessageBox(NULL, "Option1 ½ÇÇàµÊ", "Option1", MB_OK);
+}
+
+void DropDownTest::func2()
+{
+    MessageBox(NULL, "Option2 ½ÇÇàµÊ2", "Option2", MB_OK);
+}

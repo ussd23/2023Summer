@@ -8,6 +8,12 @@ void DropDownOption::Start()
     m_DropDown = GetComponentFromObject(parentrect->gameObject, DropDown);
     m_TextRender = GetComponentFromObject(gameObject, TextRenderer);
 
+    if (m_TextRender != nullptr) 
+    {
+        m_TextRender->m_Color = D3DCOLOR(0xff000000);
+        m_Text = m_TextRender->m_Text;
+    }
+
     gameObject->SetActive(false);
 }
 
@@ -34,6 +40,8 @@ void DropDownOption::OnMouseExit()
 
 void DropDownOption::OnMouseUp()
 {
+    if (m_DropDown == nullptr) return;
+
     if (m_IsClicked)
     {
         for (int i = 0; i < m_CallFNList.size(); i++)
@@ -41,10 +49,8 @@ void DropDownOption::OnMouseUp()
             m_CallFNList[i]->Interpret();
         }
 
-        if (m_DropDown != nullptr)
-        {
-            m_DropDown->SetCurText(m_Text);
-            m_DropDown->SetToNormal();
-        }
+        m_DropDown->SetCurText(m_Text);
+        m_DropDown->SetToNormal();
+        m_IsClicked = false;
     }
 }

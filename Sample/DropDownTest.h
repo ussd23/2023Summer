@@ -9,6 +9,9 @@ private:
 public:
 	void Start() override;
 
+	void func1();
+	void func2();
+
 	SerializeFunction(DropDownTest) {}
 	DeserializeFunction() {}
 };
