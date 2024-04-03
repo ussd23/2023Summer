@@ -39,15 +39,36 @@ void SphereCollider::Update()
 			BoxCollider* bcollider = GetComponentFromObject(obj, BoxCollider);
 			SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
 
+			// 이미 충돌체크된 경우 충돌연산을 반복하지 않음
+			map<pair<GameObject*, GameObject*>, bool>::iterator var = Var::CollidedObjectsPair.find(make_pair(gameObject, obj));
+			if (var != Var::CollidedObjectsPair.end())
+			{
+				bool result = var->second;
+				if (bcollider != nullptr && bcollider->m_Transform != nullptr)
+				{
+					OnTrigger(bcollider, result);
+				}
+				else if (scollider != nullptr && scollider->m_Transform != nullptr)
+				{
+					OnTrigger(scollider, result);
+				}
+
+				continue;
+			}
+
 			if (bcollider != nullptr && bcollider->m_Transform != nullptr)
 			{
 				bool result = CollisionCheckBtoS(bcollider, this);
 				OnTrigger(bcollider, result);
+
+				Var::CollidedObjectsPair.insert(make_pair(make_pair(gameObject, obj), result));
 			}
 			else if (scollider != nullptr && scollider->m_Transform != nullptr)
 			{
 				bool result = CollisionCheckStoS(this, scollider);
 				OnTrigger(scollider, result);
+
+				Var::CollidedObjectsPair.insert(make_pair(make_pair(gameObject, obj), result));
 			}
 		}
 	}
