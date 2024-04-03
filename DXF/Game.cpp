@@ -82,6 +82,7 @@ void DXFGame::Update()
     if (Var::RootRectObject != nullptr) Var::RootRectObject->PreUpdate();
 
     MouseFunction::UniqueCheck();
+    Var::CollidedObjectsPair.clear();
 
     if (Var::RootObject != nullptr) Var::RootObject->Update();
     if (Var::RootRectObject != nullptr) Var::RootRectObject->Update();

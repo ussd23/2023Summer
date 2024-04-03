@@ -3,6 +3,7 @@
 
 list<SPTR<GameObject>> Var::Objects;
 list<GameObject*> Var::ColliderObjects;
+map<pair<GameObject*, GameObject*>, bool> Var::CollidedObjectsPair;
 HTREEITEM Var::DebugHandle = NULL;
 GameObject* Var::DebugSelected = nullptr;
 Component* Var::DebugComponent = nullptr;
