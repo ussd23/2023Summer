@@ -71,37 +71,75 @@ void Collider::OnStay()
 	}
 }
 
+bool Collider::GetSeparatingPlane(Vector3 p_RPos, Vector3 p_Plane, BoxCollider* p_Col1, BoxCollider* p_Col2)
+{
+	Vector3 vDot[6];
+	vDot[0] = p_Col1->m_AxisX * p_Col1->m_HalfSize.x;
+	vDot[1] = p_Col1->m_AxisY * p_Col1->m_HalfSize.y;
+	vDot[2] = p_Col1->m_AxisZ * p_Col1->m_HalfSize.z;
+	vDot[3] = p_Col2->m_AxisX * p_Col2->m_HalfSize.x;
+	vDot[4] = p_Col2->m_AxisY * p_Col2->m_HalfSize.y;
+	vDot[5] = p_Col2->m_AxisZ * p_Col2->m_HalfSize.z;
+
+	return (fabs(D3DXVec3Dot(&p_RPos, &p_Plane)) >
+			(fabs(D3DXVec3Dot(&vDot[0], &p_Plane)) +
+			fabs(D3DXVec3Dot(&vDot[1], &p_Plane)) +
+			fabs(D3DXVec3Dot(&vDot[2], &p_Plane)) +
+			fabs(D3DXVec3Dot(&vDot[3], &p_Plane)) +
+			fabs(D3DXVec3Dot(&vDot[4], &p_Plane)) +
+			fabs(D3DXVec3Dot(&vDot[5], &p_Plane))));
+}
+
 bool Collider::CollisionCheckBtoB(BoxCollider* p_Col1, BoxCollider* p_Col2)
 {
 	if (!p_Col1->gameObject->isActive() || !p_Col2->gameObject->isActive()) return false;
 
 	Vector3 pos1 = p_Col1->m_Transform->GetWorldPosition();
-	Vector3 size = p_Col1->m_Transform->GetWorldScale();
-	Vector3 size1 = p_Col1->m_Size;
-	size1.x *= size.x * 0.5f;
-	size1.y *= size.y * 0.5f;
-	size1.z *= size.z * 0.5f;
-
 	Vector3 pos2 = p_Col2->m_Transform->GetWorldPosition();
-	size = p_Col2->m_Transform->GetWorldScale();
-	Vector3 size2 = p_Col2->m_Size;
-	size2.x *= size.x * 0.5f;
-	size2.y *= size.y * 0.5f;
-	size2.z *= size.z * 0.5f;
 
-	Vector3 col1min = pos1 - size1;
-	Vector3 col1max = pos1 + size1;
-	Vector3 col2min = pos2 - size2;
-	Vector3 col2max = pos2 + size2;
+	Vector3 rPos;
+	rPos = pos2 - pos1;
 
-	if (col1max.x < col2min.x || col1min.x > col2max.x)
-		return false;
-	if (col1max.y < col2min.y || col1min.y > col2max.y)
-		return false;
-	if (col1max.z < col2min.z || col1min.z > col2max.z)
-		return false;
+	Vector3 vCross[9];
+	D3DXVec3Cross(&vCross[0], &p_Col1->m_AxisX, &p_Col2->m_AxisX);
+	D3DXVec3Cross(&vCross[1], &p_Col1->m_AxisX, &p_Col2->m_AxisY);
+	D3DXVec3Cross(&vCross[2], &p_Col1->m_AxisX, &p_Col2->m_AxisZ);
+	D3DXVec3Cross(&vCross[3], &p_Col1->m_AxisY, &p_Col2->m_AxisX);
+	D3DXVec3Cross(&vCross[4], &p_Col1->m_AxisY, &p_Col2->m_AxisY);
+	D3DXVec3Cross(&vCross[5], &p_Col1->m_AxisY, &p_Col2->m_AxisZ);
+	D3DXVec3Cross(&vCross[6], &p_Col1->m_AxisZ, &p_Col2->m_AxisX);
+	D3DXVec3Cross(&vCross[7], &p_Col1->m_AxisZ, &p_Col2->m_AxisY);
+	D3DXVec3Cross(&vCross[8], &p_Col1->m_AxisZ, &p_Col2->m_AxisZ);
 
-	return true;
+	return !(GetSeparatingPlane(rPos, p_Col1->m_AxisX, p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, p_Col1->m_AxisY, p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, p_Col1->m_AxisZ, p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, p_Col2->m_AxisX, p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, p_Col2->m_AxisY, p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, p_Col2->m_AxisZ, p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[0], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[1], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[2], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[3], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[4], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[5], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[6], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[7], p_Col1, p_Col1) ||
+		GetSeparatingPlane(rPos, vCross[8], p_Col1, p_Col1));
+
+	//Vector3 col1min = pos1 - size1;
+	//Vector3 col1max = pos1 + size1;
+	//Vector3 col2min = pos2 - size2;
+	//Vector3 col2max = pos2 + size2;
+
+	//if (col1max.x < col2min.x || col1min.x > col2max.x)
+	//	return false;
+	//if (col1max.y < col2min.y || col1min.y > col2max.y)
+	//	return false;
+	//if (col1max.z < col2min.z || col1min.z > col2max.z)
+	//	return false;
+
+	//return true;
 }
 
 bool Collider::CollisionCheckBtoS(BoxCollider* p_Col1, SphereCollider* p_Col2)
@@ -109,6 +147,7 @@ bool Collider::CollisionCheckBtoS(BoxCollider* p_Col1, SphereCollider* p_Col2)
 	if (!p_Col1->gameObject->isActive() || !p_Col2->gameObject->isActive()) return false;
 
 	Vector3 pos1 = p_Col1->m_Transform->GetWorldPosition();
+	Vector3 rot1 = Functions::QuaternionToEuler(p_Col1->m_Transform->GetWorldRotation());
 	Vector3 size = p_Col1->m_Transform->GetWorldScale();
 	Vector3 size1 = p_Col1->m_Size;
 	size1.x *= size.x * 0.5f;
@@ -119,6 +158,8 @@ bool Collider::CollisionCheckBtoS(BoxCollider* p_Col1, SphereCollider* p_Col2)
 	Vector3 col1max = pos1 + size1;
 
 	Vector3 pos2 = p_Col2->m_Transform->GetWorldPosition();
+	Quaternion rot2 = Functions::EulerToQuaternion(-rot1);
+	pos2 = Functions::VectorRotate(rot2, pos2 - pos1) + pos1;
 	Vector3 scale = p_Col2->m_Transform->GetWorldScale();
 	float rate = (scale.x + scale.y + scale.z) * 0.33333f;
 	float length = rate * p_Col2->m_Radius;

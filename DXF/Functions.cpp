@@ -137,6 +137,17 @@ Vector3 Functions::QuaternionToEuler(Quaternion p_Quaternion)
     return vec;
 }
 
+Vector3 Functions::VectorRotate(Quaternion p_Quaternion, Vector3 p_Vector)
+{
+    Matrix rotationMatrix;
+    D3DXMatrixRotationQuaternion(&rotationMatrix, &p_Quaternion);
+
+    Vector4 newPosition;
+    D3DXVec3Transform(&newPosition, &p_Vector, &rotationMatrix);
+
+    return Vector3(newPosition.x, newPosition.y, newPosition.z);
+}
+
 void Functions::CreateJsonFile(string p_Path, Json::Value p_JsonValue)
 {
     Json::StyledStreamWriter writer;

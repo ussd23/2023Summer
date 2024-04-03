@@ -35,12 +35,11 @@ void Sample::InitObject()
 
     // Sun (Player)
     gameObject = new MeshObject("Sun", Vector3(0, 1, 0), "sun.x");
-    PlayerMove* pmove = new PlayerMove(20.f);
-    AddComponentToObject(gameObject, pmove);
     SphereCollider* scollider = new SphereCollider(1.0f);
     AddComponentToObject(gameObject, scollider);
     mouse = new MouseFunction();
     AddComponentToObject(gameObject, mouse);
+    gameObject->SetActive(false);
 
     // Child
     GameObject* childObject = new MeshObject("Sun", Vector3(0, 0, 5), "sun.x");
@@ -62,10 +61,10 @@ void Sample::InitObject()
     gameObject = new MeshObject("Airplane", Vector3(-10, 1, 5), "airplane 2.x");
     transform = GetComponentFromObject(gameObject, Transform);
     transform->SetScale(Vector3(0.6f, 0.6f, 0.6f));
-    bcollider = new BoxCollider(Vector3(8.0f, 8.0f, 8.0f));
+    bcollider = new BoxCollider(Vector3(8.0f, 1.0f, 800.0f));
     AddComponentToObject(gameObject, bcollider);
-    omove = new ObjectMove();
-    AddComponentToObject(gameObject, omove);
+    PlayerMove* pmove = new PlayerMove(20.f);
+    AddComponentToObject(gameObject, pmove);
 
     // Earth (Object)
     gameObject = new MeshObject("Earth", Vector3(5, 2.5f, -10), "earth.x");
@@ -88,7 +87,7 @@ void Sample::InitObject()
     // Instantiate Test
     for (int i = 0; i < 100; ++i)
     {
-        GameObject::Instantiate(gameObject);
+        //GameObject::Instantiate(gameObject);
     }
 
     // Sprite (RectTransform)

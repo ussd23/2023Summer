@@ -17,6 +17,19 @@ BoxCollider::BoxCollider(const Vector3& p_Size, bool p_isPassive, bool p_isFixed
 	m_CheckTime = p_CheckTime;
 }
 
+void BoxCollider::PreUpdate()
+{
+	Quaternion rot = m_Transform->GetWorldRotation();
+	Vector3 size = m_Transform->GetWorldScale();
+	m_HalfSize = m_Size;
+	m_HalfSize.x *= size.x * 0.5f;
+	m_HalfSize.y *= size.y * 0.5f;
+	m_HalfSize.z *= size.z * 0.5f;
+	m_AxisX = Functions::VectorRotate(rot, Vector3(1, 0, 0));
+	m_AxisY = Functions::VectorRotate(rot, Vector3(0, 1, 0));
+	m_AxisZ = Functions::VectorRotate(rot, Vector3(0, 0, 1));
+}
+
 void BoxCollider::Update()
 {
 	if (m_isPassive) return;

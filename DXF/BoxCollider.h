@@ -26,6 +26,7 @@ public:
 	BoxCollider(const Vector3& p_Size, bool p_isPassive, bool p_isFixedChecking);
 	BoxCollider(const Vector3& p_Size, bool p_isPassive, bool p_isFixedChecking, float p_CheckTime);
 
+	void PreUpdate() override;
 	void Update() override;
 
 	SerializeFunction(BoxCollider)
@@ -34,6 +35,13 @@ public:
 		Serialize(m_isPassive);
 		Serialize(m_isFixedChecking);
 		Serialize(m_CheckTime);
+
+
+		Serialize(m_AxisX);
+		Serialize(m_AxisY);
+		Serialize(m_AxisZ);
+
+		Serialize(m_HalfSize);
 	}
 };
 

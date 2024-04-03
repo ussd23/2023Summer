@@ -39,9 +39,14 @@ public:
 	bool						m_isPassive = false;
 	bool						m_isFixedChecking = false;
 	float						m_CheckTime = 0.1f;
+	Vector3						m_HalfSize;
+	Vector3						m_AxisX;
+	Vector3						m_AxisY;
+	Vector3						m_AxisZ;
 
 protected:
 	bool ColliderTimeCheck();
+	static bool GetSeparatingPlane(Vector3 p_RPos, Vector3 p_Plane, BoxCollider* p_Col1, BoxCollider* p_Col2);
 
 public:
 	void OnTrigger(Collider* p_Collider, bool p_Result);
