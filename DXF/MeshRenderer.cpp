@@ -53,7 +53,14 @@ void MeshRenderer::Render()
     for (DWORD i = 0; i < m_MeshInfo->dwNumMaterials; i++)
     {
         DXFGame::m_pd3dDevice->SetMaterial(&m_MeshInfo->pMeshMaterials[i]);
-        DXFGame::m_pd3dDevice->SetTexture(0, m_MeshInfo->pMeshTextures[i]);
+        if (Var::DebugSelected == gameObject)
+        {
+            DXFGame::m_pd3dDevice->SetTexture(0, TextureManager::GetInstance()->GetTexture("system\\red.png"));
+        }
+        else
+        {
+            DXFGame::m_pd3dDevice->SetTexture(0, m_MeshInfo->pMeshTextures[i]);
+        }
         //DXFGame::m_pd3dDevice->SetVertexShader();
 
         m_MeshInfo->pMesh->DrawSubset(i);
