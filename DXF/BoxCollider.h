@@ -35,13 +35,6 @@ public:
 		Serialize(m_isPassive);
 		Serialize(m_isFixedChecking);
 		Serialize(m_CheckTime);
-
-
-		Serialize(m_AxisX);
-		Serialize(m_AxisY);
-		Serialize(m_AxisZ);
-
-		Serialize(m_HalfSize);
 	}
 };
 
