@@ -517,7 +517,7 @@
 					{
 						"x" : 8.0,
 						"y" : 1.0,
-						"z" : 800.0
+						"z" : 8.0
 					},
 					"m_isFixedChecking" : false,
 					"m_isPassive" : false

@@ -111,21 +111,21 @@ bool Collider::CollisionCheckBtoB(BoxCollider* p_Col1, BoxCollider* p_Col2)
 	D3DXVec3Cross(&vCross[7], &p_Col1->m_AxisZ, &p_Col2->m_AxisY);
 	D3DXVec3Cross(&vCross[8], &p_Col1->m_AxisZ, &p_Col2->m_AxisZ);
 
-	return !(GetSeparatingPlane(rPos, p_Col1->m_AxisX, p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, p_Col1->m_AxisY, p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, p_Col1->m_AxisZ, p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, p_Col2->m_AxisX, p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, p_Col2->m_AxisY, p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, p_Col2->m_AxisZ, p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[0], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[1], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[2], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[3], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[4], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[5], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[6], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[7], p_Col1, p_Col1) ||
-		GetSeparatingPlane(rPos, vCross[8], p_Col1, p_Col1));
+	return !(GetSeparatingPlane(rPos, p_Col1->m_AxisX, p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, p_Col1->m_AxisY, p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, p_Col1->m_AxisZ, p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, p_Col2->m_AxisX, p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, p_Col2->m_AxisY, p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, p_Col2->m_AxisZ, p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[0], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[1], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[2], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[3], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[4], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[5], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[6], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[7], p_Col1, p_Col2) ||
+		GetSeparatingPlane(rPos, vCross[8], p_Col1, p_Col2));
 
 	//Vector3 col1min = pos1 - size1;
 	//Vector3 col1max = pos1 + size1;

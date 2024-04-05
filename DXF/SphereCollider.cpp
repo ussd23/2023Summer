@@ -40,7 +40,7 @@ void SphereCollider::Update()
 			SphereCollider* scollider = GetComponentFromObject(obj, SphereCollider);
 
 			// 이미 충돌체크된 경우 충돌연산을 반복하지 않음
-			map<pair<GameObject*, GameObject*>, bool>::iterator var = Var::CollidedObjectsPair.find(make_pair(gameObject, obj));
+			map<pair<GameObject*, GameObject*>, bool>::iterator var = Var::CollidedObjectsPair.find(make_pair(obj, gameObject));
 			if (var != Var::CollidedObjectsPair.end())
 			{
 				bool result = var->second;

@@ -61,7 +61,7 @@ void Sample::InitObject()
     gameObject = new MeshObject("Airplane", Vector3(-10, 1, 5), "airplane 2.x");
     transform = GetComponentFromObject(gameObject, Transform);
     transform->SetScale(Vector3(0.6f, 0.6f, 0.6f));
-    bcollider = new BoxCollider(Vector3(8.0f, 1.0f, 800.0f));
+    bcollider = new BoxCollider(Vector3(8.0f, 1.0f, 8.0f));
     AddComponentToObject(gameObject, bcollider);
     PlayerMove* pmove = new PlayerMove(20.f);
     AddComponentToObject(gameObject, pmove);
