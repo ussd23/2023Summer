@@ -481,6 +481,13 @@
 				{
 					"m_Speed" : 20.0
 				}
+			},
+			{
+				"type" : "class MouseFunction",
+				"values" : 
+				{
+					"m_isUnique" : false
+				}
 			}
 		],
 		"m_Name" : "Airplane",

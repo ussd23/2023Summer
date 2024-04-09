@@ -49,6 +49,7 @@ bool Raycast::IsPicked(BoxCollider* p_Collider)
 
 	Transform* transform = GetComponentFromObject(p_Collider->gameObject, Transform);
 	Vector3 pos = transform->GetWorldPosition();
+	Quaternion rot = transform->GetWorldRotation();
 	Vector3 scale = transform->GetWorldScale();
 	Vector3 size = p_Collider->m_Size;
 	size.x *= scale.x * 0.5f;
@@ -67,14 +68,14 @@ bool Raycast::IsPicked(BoxCollider* p_Collider)
 	D3DXVec3TransformNormal(&r.m_Direction, &r.m_Direction, &matInvWorld);
 
 	Vector3 vertex[8] = {
-		Vector3(pos.x - size.x, pos.y + size.y, pos.z + size.z),
-		Vector3(pos.x + size.x, pos.y + size.y, pos.z + size.z),
-		Vector3(pos.x + size.x, pos.y - size.y, pos.z + size.z),
-		Vector3(pos.x - size.x, pos.y - size.y, pos.z + size.z),
-		Vector3(pos.x - size.x, pos.y + size.y, pos.z - size.z),
-		Vector3(pos.x + size.x, pos.y + size.y, pos.z - size.z),
-		Vector3(pos.x + size.x, pos.y - size.y, pos.z - size.z),
-		Vector3(pos.x - size.x, pos.y - size.y, pos.z - size.z)
+		Functions::VectorRotate(rot, Vector3(-size.x,  size.y,  size.z)) + pos,
+		Functions::VectorRotate(rot, Vector3( size.x,  size.y,  size.z)) + pos,
+		Functions::VectorRotate(rot, Vector3( size.x, -size.y,  size.z)) + pos,
+		Functions::VectorRotate(rot, Vector3(-size.x, -size.y,  size.z)) + pos,
+		Functions::VectorRotate(rot, Vector3(-size.x,  size.y, -size.z)) + pos,
+		Functions::VectorRotate(rot, Vector3( size.x,  size.y, -size.z)) + pos,
+		Functions::VectorRotate(rot, Vector3( size.x, -size.y, -size.z)) + pos,
+		Functions::VectorRotate(rot, Vector3(-size.x, -size.y, -size.z)) + pos
 	};
 
 	Vector3 casted;

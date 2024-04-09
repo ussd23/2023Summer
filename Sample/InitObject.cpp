@@ -65,6 +65,8 @@ void Sample::InitObject()
     AddComponentToObject(gameObject, bcollider);
     PlayerMove* pmove = new PlayerMove(20.f);
     AddComponentToObject(gameObject, pmove);
+    mouse = new MouseFunction();
+    AddComponentToObject(gameObject, mouse);
 
     // Earth (Object)
     gameObject = new MeshObject("Earth", Vector3(5, 2.5f, -10), "earth.x");
