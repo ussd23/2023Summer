@@ -142,5 +142,6 @@ protected:
 	static map<int, HWND>	m_HandlesMap;
 
 public:
+	static HWND m_Popup;
 	static HWND GetHandle(int p_Resource);
 };

@@ -16,6 +16,7 @@
 #define EDIT_INTERVAL_HEIGHT 22
 #define EDIT_HEIGHT_LIMIT 23
 
+HWND DebugHandles::m_Popup;
 map<int, HWND> DebugHandles::m_HandlesMap;
 
 HWND DebugHandles::GetHandle(int p_Resource)
@@ -217,13 +218,26 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
             }
             else
             {
-                SetWindowText(DebugHandles::GetHandle(IDC_Pause), "ll Pause");
+                SetWindowText(DebugHandles::GetHandle(IDC_Pause), "бс Pause");
             }
         }
         break;
         case IDC_AddComp:
         {
+            if (DebugHandles::m_Popup != NULL) break;
 
+            DebugHandles::m_Popup = CreateDialog(DXFGame::m_WndClass.hInstance, MAKEINTRESOURCE(ADD_COMPONENT), DXFGame::m_hDlg, DlgProc);
+            ShowWindow(DebugHandles::m_Popup, SW_SHOW);
+
+            HWND combo = GetDlgItem(DebugHandles::m_Popup, IDC_Combo);
+            
+            map<string, FactoryFunction>::iterator iter = ComponentManager::m_ComponentMap.begin();
+
+            while (iter != ComponentManager::m_ComponentMap.end())
+            {
+                string str = iter++->first.substr(6);
+                SendMessage(combo, CB_ADDSTRING, 0, (LPARAM)str.c_str());
+            }
         }
         break;
         case IDC_RemoveComp:
@@ -274,6 +288,38 @@ INT_PTR WINAPI DXFGame::DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lPara
                     TreeView_SetItem(DebugHandles::GetHandle(IDC_HierarchyTree), &tvItem);
                 }
             }
+        }
+        break;
+        case IDC_AddConfirm:
+        {
+            if (Var::DebugSelected == nullptr) break;
+
+            char buf[256];
+            GetDlgItemText(DebugHandles::m_Popup, IDC_Combo, buf, 255);
+
+            if (Var::DebugSelected->GetComponent(string(buf)) == nullptr)
+            {
+                string str = "class ";
+                str += buf;
+                Component* comp = ComponentManager::CreateComponent(str);
+                if (comp != nullptr)
+                {
+                    Var::DebugSelected->AddComponent(comp);
+
+                    DestroyWindow(DebugHandles::m_Popup);
+                    DebugHandles::m_Popup = NULL;
+
+                    ResetSelected();
+                    ResetHandles();
+                    DebugUpdate();
+                }
+            }
+        }
+        break;
+        case IDC_Cancel:
+        {
+            DestroyWindow(DebugHandles::m_Popup);
+            DebugHandles::m_Popup = NULL;
         }
         break;
         }
