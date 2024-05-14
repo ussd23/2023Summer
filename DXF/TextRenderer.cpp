@@ -28,9 +28,10 @@ void TextRenderer::PreRender()
     if (m_Font == NULL) return;
 
     Vector2 pos = m_RectTransform->GetScreenPosition();
+    Vector2 scale = m_RectTransform->GetScreenScale();
     Vector2 size = m_RectTransform->m_Size;
 
-    SetRect(&m_Rect, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, pos.x + size.x * 0.5f, pos.y + size.y * 0.5f);
+    SetRect(&m_Rect, pos.x - size.x * scale.x * 0.5f, pos.y - size.y * scale.y * 0.5f, pos.x + size.x * scale.x * 0.5f, pos.y + size.y * scale.y * 0.5f);
 
     if (Functions::Inner(m_Rect, Var::ScreenRect))
     {

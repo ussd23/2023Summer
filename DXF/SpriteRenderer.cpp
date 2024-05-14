@@ -83,9 +83,9 @@ void SpriteRenderer::Render()
     Vector2 size = m_RectTransform->m_Size;
 
 	Matrix matScreenPosition;
-	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
+	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * scale.x * 0.5f, pos.y - size.y * scale.y * 0.5f, 0);
     
-    Vector2 pivot(size.x * m_RotatePivot.x, size.y * m_RotatePivot.y);
+    Vector2 pivot(size.x * scale.x * m_RotatePivot.x, size.y * scale.y * m_RotatePivot.y);
     Matrix matScreenRotation;
     D3DXMatrixTransformation2D(&matScreenRotation, NULL, 0, NULL, &pivot, D3DXToRadian(rot.z), NULL);
 
