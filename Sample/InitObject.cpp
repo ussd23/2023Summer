@@ -89,7 +89,7 @@ void Sample::InitObject()
     // Instantiate Test
     for (int i = 0; i < 100; ++i)
     {
-        //GameObject::Instantiate(gameObject);
+        GameObject::Instantiate(gameObject);
     }
 
     // Sprite (RectTransform)

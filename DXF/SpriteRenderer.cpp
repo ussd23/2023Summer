@@ -69,20 +69,21 @@ void SpriteRenderer::PreRender()
 
 void SpriteRenderer::Render()
 {
-    Vector2 temp = Vector2(m_TextureSize.right / m_RectSize.x, m_TextureSize.bottom / m_RectSize.y);
+    Vector2 temp(m_TextureSize.right / m_RectSize.x, m_TextureSize.bottom / m_RectSize.y);
     RECT rect;
     SetRect(&rect, m_RectIndex.x * temp.x, m_RectIndex.y * temp.y, (m_RectIndex.x + 1) * temp.x, (m_RectIndex.y + 1) * temp.y);
     
     Vector2 pos = m_RectTransform->GetScreenPosition();
-    Quaternion rot = m_RectTransform->GetScreenRotation();
+    Vector3 rot = Functions::QuaternionToEuler(m_RectTransform->GetScreenRotation());
     Vector2 scale = m_RectTransform->GetScreenScale();
     Vector2 size = m_RectTransform->m_Size;
 
 	Matrix matScreenPosition;
 	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
-
-    Matrix16 matScreenRotation;
-    D3DXMatrixRotationQuaternion(&matScreenRotation, &rot);
+    
+    Vector2 pivot(size.x * 0.5f, size.y * 0.5f);
+    Matrix matScreenRotation;
+    D3DXMatrixTransformation2D(&matScreenRotation, NULL, 0, NULL, &pivot, D3DXToRadian(rot.z), NULL);
 
     Matrix matScreenScale;
     D3DXMatrixScaling(&matScreenScale, (size.x / temp.x) * scale.x, (size.y / temp.y) * scale.y, 0);
