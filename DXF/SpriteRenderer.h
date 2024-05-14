@@ -11,6 +11,7 @@
 //		- m_Color: 텍스쳐의 색상
 //		- m_RectSize: 텍스쳐 파일의 분할 개수
 //		- m_RectIndex: 렌더링할 텍스쳐 파일의 인덱스
+//		- m_RotatePivot: 렌더링할 텍스쳐를 회전할 피벗 (0 ~ 1 내의 범위)
 //
 //		[Functions]
 //		- Render: 렌더 실행
@@ -36,11 +37,13 @@ public:
 	DWORD					m_Color;
 	Vector2					m_RectSize;
 	Vector2					m_RectIndex;
+	Vector2					m_RotatePivot;
 
 public:
 	SpriteRenderer(string p_TextureName);
 	SpriteRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex);
 	SpriteRenderer(string p_TextureName, DWORD p_Color, Vector2 p_RectSize, Vector2 p_RectIndex);
+	SpriteRenderer(string p_TextureName, DWORD p_Color, Vector2 p_RectSize, Vector2 p_RectIndex, Vector2 p_RotatePivot);
 
 	void Start() override;
 	void PreRender() override;
@@ -54,5 +57,6 @@ public:
 		Serialize(m_Color);
 		Serialize(m_RectSize);
 		Serialize(m_RectIndex);
+		Serialize(m_RotatePivot);
 	}
 };

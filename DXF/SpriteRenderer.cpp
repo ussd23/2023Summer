@@ -1,17 +1,21 @@
 #include "ComponentHeader.h"
 
 SpriteRenderer::SpriteRenderer(string p_TextureName)
-    : SpriteRenderer(p_TextureName, 0xffffffff, Vector2(1, 1), Vector2(0, 0)) {}
+    : SpriteRenderer(p_TextureName, 0xffffffff, Vector2(1, 1), Vector2(0, 0), Vector2(0.5f, 0.5f)) {}
 
 SpriteRenderer::SpriteRenderer(string p_TextureName, Vector2 p_RectSize, Vector2 p_RectIndex)
-    : SpriteRenderer(p_TextureName, 0xffffffff, p_RectSize, p_RectIndex) {}
+    : SpriteRenderer(p_TextureName, 0xffffffff, p_RectSize, p_RectIndex, Vector2(0.5f, 0.5f)) {}
 
 SpriteRenderer::SpriteRenderer(string p_TextureName, DWORD p_Color, Vector2 p_RectSize, Vector2 p_RectIndex)
+    : SpriteRenderer(p_TextureName, p_Color, p_RectSize, p_RectIndex, Vector2(0.5f, 0.5f)) {}
+
+SpriteRenderer::SpriteRenderer(string p_TextureName, DWORD p_Color, Vector2 p_RectSize, Vector2 p_RectIndex, Vector2 p_RotatePivot)
 {
     m_TextureName = p_TextureName;
     m_Color = p_Color;
     m_RectSize = p_RectSize;
     m_RectIndex = p_RectIndex;
+    m_RotatePivot = p_RotatePivot;
 }
 
 void SpriteRenderer::Start()
@@ -81,7 +85,7 @@ void SpriteRenderer::Render()
 	Matrix matScreenPosition;
 	D3DXMatrixTranslation(&matScreenPosition, pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0);
     
-    Vector2 pivot(size.x * 0.5f, size.y * 0.5f);
+    Vector2 pivot(size.x * m_RotatePivot.x, size.y * m_RotatePivot.y);
     Matrix matScreenRotation;
     D3DXMatrixTransformation2D(&matScreenRotation, NULL, 0, NULL, &pivot, D3DXToRadian(rot.z), NULL);
 

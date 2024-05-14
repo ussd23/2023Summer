@@ -6054,6 +6054,11 @@
 						"x" : 4.0,
 						"y" : 4.0
 					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
+					},
 					"m_TextureName" : "earthmap1k.jpg"
 				}
 			},
@@ -6151,6 +6156,11 @@
 					{
 						"x" : 1.0,
 						"y" : 0.25
+					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
 					},
 					"m_TextureName" : "earthmap1k.jpg"
 				}
@@ -6273,6 +6283,11 @@
 						"x" : 1.0,
 						"y" : 1.0
 					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
+					},
 					"m_TextureName" : "system\\CheckBoxOff.png"
 				}
 			},
@@ -6342,6 +6357,11 @@
 						"x" : 1.0,
 						"y" : 1.0
 					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
+					},
 					"m_TextureName" : "system\\default.png"
 				}
 			},
@@ -6406,6 +6426,11 @@
 						"x" : 1.0,
 						"y" : 1.0
 					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
+					},
 					"m_TextureName" : "system\\default.png"
 				}
 			},
@@ -6462,6 +6487,11 @@
 					{
 						"x" : 1.0,
 						"y" : 1.0
+					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
 					},
 					"m_TextureName" : "earthmap1k.jpg"
 				}
@@ -6569,6 +6599,11 @@
 						"x" : 1.0,
 						"y" : 1.0
 					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
+					},
 					"m_TextureName" : "system\\Scroll.png"
 				}
 			},
@@ -6636,6 +6671,11 @@
 						"x" : 1.0,
 						"y" : 1.0
 					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
+					},
 					"m_TextureName" : "system\\ScrollBar.png"
 				}
 			},
@@ -6699,6 +6739,11 @@
 					{
 						"x" : 1.0,
 						"y" : 1.0
+					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
 					},
 					"m_TextureName" : "system\\Scroll.png"
 				}
@@ -6766,6 +6811,11 @@
 					{
 						"x" : 1.0,
 						"y" : 1.0
+					},
+					"m_RotatePivot" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5
 					},
 					"m_TextureName" : "system\\ScrollBar.png"
 				}
