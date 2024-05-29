@@ -19,8 +19,8 @@ BoxCollider2D::BoxCollider2D(const Vector2& p_Size, bool p_isPassive, bool p_isF
 
 void BoxCollider2D::PreUpdate()
 {
-	Quaternion rot = m_Transform->GetWorldRotation();
-	Vector3 size = m_Transform->GetWorldScale();
+	Quaternion rot = m_RectTransform->GetScreenRotation();
+	Vector2 size = m_RectTransform->GetScreenScale();
 	m_HalfSize = m_Size;
 	m_HalfSize.x *= size.x * 0.5f;
 	m_HalfSize.y *= size.y * 0.5f;
@@ -56,11 +56,11 @@ void BoxCollider2D::Update()
 			if (var != Var::CollidedObjectsPair.end())
 			{
 				bool result = var->second;
-				if (bcollider != nullptr && bcollider->m_Transform != nullptr)
+				if (bcollider != nullptr && bcollider->m_RectTransform != nullptr)
 				{
 					OnTrigger(bcollider, result);
 				}
-				else if (scollider != nullptr && scollider->m_Transform != nullptr)
+				else if (scollider != nullptr && scollider->m_RectTransform != nullptr)
 				{
 					OnTrigger(scollider, result);
 				}
@@ -68,14 +68,14 @@ void BoxCollider2D::Update()
 				continue;
 			}
 
-			if (bcollider != nullptr && bcollider->m_Transform != nullptr)
+			if (bcollider != nullptr && bcollider->m_RectTransform != nullptr)
 			{
 				bool result = CollisionCheckBtoB(this, bcollider);
 				OnTrigger(bcollider, result);
 
 				Var::CollidedObjectsPair.insert(make_pair(make_pair(gameObject, obj), result));
 			}
-			else if (scollider != nullptr && scollider->m_Transform != nullptr)
+			else if (scollider != nullptr && scollider->m_RectTransform != nullptr)
 			{
 				bool result = CollisionCheckBtoS(this, scollider);
 				OnTrigger(scollider, result);

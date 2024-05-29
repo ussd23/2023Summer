@@ -44,11 +44,11 @@ void SphereCollider2D::Update()
 			if (var != Var::CollidedObjectsPair.end())
 			{
 				bool result = var->second;
-				if (bcollider != nullptr && bcollider->m_Transform != nullptr)
+				if (bcollider != nullptr && bcollider->m_RectTransform != nullptr)
 				{
 					OnTrigger(bcollider, result);
 				}
-				else if (scollider != nullptr && scollider->m_Transform != nullptr)
+				else if (scollider != nullptr && scollider->m_RectTransform != nullptr)
 				{
 					OnTrigger(scollider, result);
 				}
@@ -56,14 +56,14 @@ void SphereCollider2D::Update()
 				continue;
 			}
 
-			if (bcollider != nullptr && bcollider->m_Transform != nullptr)
+			if (bcollider != nullptr && bcollider->m_RectTransform != nullptr)
 			{
 				bool result = CollisionCheckBtoS(bcollider, this);
 				OnTrigger(bcollider, result);
 
 				Var::CollidedObjectsPair.insert(make_pair(make_pair(gameObject, obj), result));
 			}
-			else if (scollider != nullptr && scollider->m_Transform != nullptr)
+			else if (scollider != nullptr && scollider->m_RectTransform != nullptr)
 			{
 				bool result = CollisionCheckStoS(this, scollider);
 				OnTrigger(scollider, result);
