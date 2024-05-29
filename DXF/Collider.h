@@ -39,10 +39,6 @@ public:
 	bool						m_isPassive = false;
 	bool						m_isFixedChecking = false;
 	float						m_CheckTime = 0.1f;
-	Vector3						m_HalfSize;
-	Vector3						m_AxisX;
-	Vector3						m_AxisY;
-	Vector3						m_AxisZ;
 
 protected:
 	bool ColliderTimeCheck();

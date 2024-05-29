@@ -40,6 +40,8 @@ Vector3 SLerp(const Vector3* p_Origin, const Vector3* p_Destination, float p_Ler
 
 Quaternion EulerToQuaternion(Vector3 p_Euler);
 Vector3 QuaternionToEuler(Quaternion p_Quaternion);
+
+Vector2 VectorRotate(Quaternion p_Quaternion, Vector2 p_Vector);
 Vector3 VectorRotate(Quaternion p_Quaternion, Vector3 p_Vector);
 
 void CreateJsonFile(string p_Path, Json::Value p_JsonValue);

@@ -19,6 +19,10 @@ class BoxCollider : public Collider
 {
 public:
 	Vector3			m_Size;
+	Vector3			m_HalfSize;
+	Vector3			m_AxisX;
+	Vector3			m_AxisY;
+	Vector3			m_AxisZ;
 
 public:
 	BoxCollider(const Vector3& p_Size);

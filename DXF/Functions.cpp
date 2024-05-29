@@ -137,6 +137,17 @@ Vector3 Functions::QuaternionToEuler(Quaternion p_Quaternion)
     return vec;
 }
 
+Vector2 Functions::VectorRotate(Quaternion p_Quaternion, Vector2 p_Vector)
+{
+    Matrix rotationMatrix;
+    D3DXMatrixRotationQuaternion(&rotationMatrix, &p_Quaternion);
+
+    Vector4 newPosition;
+    D3DXVec2Transform(&newPosition, &p_Vector, &rotationMatrix);
+
+    return Vector2(newPosition.x, newPosition.y);
+}
+
 Vector3 Functions::VectorRotate(Quaternion p_Quaternion, Vector3 p_Vector)
 {
     Matrix rotationMatrix;

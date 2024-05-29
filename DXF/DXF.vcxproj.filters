@@ -150,6 +150,15 @@
     <ClCompile Include="Debug.cpp">
       <Filter>0. Core</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider2D.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider2D.cpp">
+      <Filter>4. Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MeshRenderer.h">
@@ -286,6 +295,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider2D.h">
+      <Filter>4. Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider2D.h">
+      <Filter>4. Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
