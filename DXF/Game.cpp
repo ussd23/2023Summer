@@ -34,6 +34,7 @@ void DXFGame::ComponentRegister()
 {
     ComponentRegist(Animator);
     ComponentRegist(BoxCollider);
+    ComponentRegist(BoxCollider2D);
     ComponentRegist(Button);
     ComponentRegist(Camera);
     ComponentRegist(CheckBox);
@@ -43,6 +44,7 @@ void DXFGame::ComponentRegister()
     ComponentRegist(RectTransform);
     ComponentRegist(SphereCollider);
     ComponentRegist(SpriteRenderer);
+    ComponentRegist(SphereCollider2D);
     ComponentRegist(TextRenderer);
     ComponentRegist(Transform);
     ComponentRegist(VerticeRenderer);
