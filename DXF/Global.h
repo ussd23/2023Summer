@@ -55,6 +55,7 @@ typedef class Var
 public:
 	static list<SPTR<GameObject>>		Objects;
 	static list<GameObject*>			ColliderObjects;
+	static list<GameObject*>			Collider2DObjects;
 	static map<pair<GameObject*, GameObject*>, bool> CollidedObjectsPair;
 	static HTREEITEM					DebugHandle;
 	static GameObject*					DebugSelected;

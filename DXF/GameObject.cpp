@@ -10,6 +10,8 @@
 #include "SpriteRenderer.h"
 #include "BoxCollider.h"
 #include "SphereCollider.h"
+#include "BoxCollider2D.h"
+#include "SphereCollider2D.h"
 
 #define AddObjectToScene(object, parent) { Var::Objects.push_back(object);\
         Transform* obj = GetComponentFromObject(object, Transform);\
@@ -42,24 +44,52 @@ bool GameObject::TransformCheck(const string& p_Key)
 
 bool GameObject::ColliderCheck(Component* p_Comp)
 {
-	BoxCollider* bcollider = dynamic_cast<BoxCollider*>(p_Comp);
-	SphereCollider* scollider = dynamic_cast<SphereCollider*>(p_Comp);
+	Transform* transform = GetComponentFromObject(this, Transform);
+	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
 
-	if (bcollider == nullptr && scollider == nullptr) return true;
-
-	map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider).name());
-	if (iter != m_ComponentsMap.end())
+	if (transform != nullptr)
 	{
-		return false;
+		BoxCollider* bcollider = dynamic_cast<BoxCollider*>(p_Comp);
+		SphereCollider* scollider = dynamic_cast<SphereCollider*>(p_Comp);
+
+		if (bcollider == nullptr && scollider == nullptr) return true;
+
+		map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider).name());
+		if (iter != m_ComponentsMap.end())
+		{
+			return false;
+		}
+
+		iter = m_ComponentsMap.find(typeid(SphereCollider).name());
+		if (iter != m_ComponentsMap.end())
+		{
+			return false;
+		}
+
+		Var::ColliderObjects.push_back(this);
 	}
 
-	iter = m_ComponentsMap.find(typeid(SphereCollider).name());
-	if (iter != m_ComponentsMap.end())
+	else if (recttransform != nullptr)
 	{
-		return false;
-	}
+		BoxCollider2D* bcollider = dynamic_cast<BoxCollider2D*>(p_Comp);
+		SphereCollider2D* scollider = dynamic_cast<SphereCollider2D*>(p_Comp);
 
-	Var::ColliderObjects.push_back(this);
+		if (bcollider == nullptr && scollider == nullptr) return true;
+
+		map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider2D).name());
+		if (iter != m_ComponentsMap.end())
+		{
+			return false;
+		}
+
+		iter = m_ComponentsMap.find(typeid(SphereCollider2D).name());
+		if (iter != m_ComponentsMap.end())
+		{
+			return false;
+		}
+
+		Var::Collider2DObjects.push_back(this);
+	}
 
 	return true;
 }
@@ -475,6 +505,18 @@ void GameObject::Erase(GameObject* p_GameObject)
 		if (p_GameObject == *iter2)
 		{
 			Var::ColliderObjects.erase(iter2);
+			return;
+		}
+		++iter2;
+	}
+
+	iter2 = Var::Collider2DObjects.begin();
+
+	while (iter2 != Var::Collider2DObjects.end())
+	{
+		if (p_GameObject == *iter2)
+		{
+			Var::Collider2DObjects.erase(iter2);
 			return;
 		}
 		++iter2;

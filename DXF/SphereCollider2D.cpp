@@ -23,9 +23,9 @@ void SphereCollider2D::Update()
 
 	if (ColliderTimeCheck())
 	{
-		list<GameObject*>::iterator iter = Var::ColliderObjects.begin();
+		list<GameObject*>::iterator iter = Var::Collider2DObjects.begin();
 
-		while (iter != Var::ColliderObjects.end())
+		while (iter != Var::Collider2DObjects.end())
 		{
 			if (*iter == gameObject)
 			{
