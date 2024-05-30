@@ -44,52 +44,34 @@ bool GameObject::TransformCheck(const string& p_Key)
 
 bool GameObject::ColliderCheck(Component* p_Comp)
 {
-	Transform* transform = GetComponentFromObject(this, Transform);
-	RectTransform* recttransform = GetComponentFromObject(this, RectTransform);
+	BoxCollider* bcollider = dynamic_cast<BoxCollider*>(p_Comp);
+	SphereCollider* scollider = dynamic_cast<SphereCollider*>(p_Comp);
+	BoxCollider2D* bcollider2d = dynamic_cast<BoxCollider2D*>(p_Comp);
+	SphereCollider2D* scollider2d = dynamic_cast<SphereCollider2D*>(p_Comp);
 
-	if (transform != nullptr)
-	{
-		BoxCollider* bcollider = dynamic_cast<BoxCollider*>(p_Comp);
-		SphereCollider* scollider = dynamic_cast<SphereCollider*>(p_Comp);
+	if (bcollider == nullptr && scollider == nullptr &&
+		bcollider2d == nullptr && scollider2d == nullptr) return true;
 
-		if (bcollider == nullptr && scollider == nullptr) return true;
+	Transform* transform = dynamic_cast<Transform*>(GetComponent("Transform"));
+	RectTransform* recttransform = dynamic_cast<RectTransform*>(GetComponent("RectTransform"));
 
-		map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider).name());
-		if (iter != m_ComponentsMap.end())
-		{
-			return false;
-		}
+	if ((transform != nullptr && (bcollider2d != nullptr || scollider2d != nullptr)) ||
+		(recttransform != nullptr && (bcollider != nullptr || scollider != nullptr))) return false;
 
-		iter = m_ComponentsMap.find(typeid(SphereCollider).name());
-		if (iter != m_ComponentsMap.end())
-		{
-			return false;
-		}
+	map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider).name());
+	if (iter != m_ComponentsMap.end()) return false;
 
-		Var::ColliderObjects.push_back(this);
-	}
+	iter = m_ComponentsMap.find(typeid(SphereCollider).name());
+	if (iter != m_ComponentsMap.end()) return false;
 
-	else if (recttransform != nullptr)
-	{
-		BoxCollider2D* bcollider = dynamic_cast<BoxCollider2D*>(p_Comp);
-		SphereCollider2D* scollider = dynamic_cast<SphereCollider2D*>(p_Comp);
+	iter = m_ComponentsMap.find(typeid(BoxCollider2D).name());
+	if (iter != m_ComponentsMap.end()) return false;
 
-		if (bcollider == nullptr && scollider == nullptr) return true;
+	iter = m_ComponentsMap.find(typeid(SphereCollider2D).name());
+	if (iter != m_ComponentsMap.end()) return false;
 
-		map<string, Component*>::iterator iter = m_ComponentsMap.find(typeid(BoxCollider2D).name());
-		if (iter != m_ComponentsMap.end())
-		{
-			return false;
-		}
-
-		iter = m_ComponentsMap.find(typeid(SphereCollider2D).name());
-		if (iter != m_ComponentsMap.end())
-		{
-			return false;
-		}
-
-		Var::Collider2DObjects.push_back(this);
-	}
+	if (transform != nullptr) Var::ColliderObjects.push_back(this);
+	else if (recttransform != nullptr) Var::Collider2DObjects.push_back(this);
 
 	return true;
 }
